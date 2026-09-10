@@ -20,7 +20,7 @@ class TenantSeeder extends Seeder
      */
     private const TENANTS = [
         [
-            'name' => 'Rapnex Demo Store',
+            'name' => 'Boiler Plate Demo Store',
             'admin_name' => 'Demo Store Tenant Admin',
             'admin_email' => 'admin@demo.test',
             'admin_phone' => '+10000000001',

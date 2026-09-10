@@ -1,4 +1,4 @@
-# RAPNEX RETAIL ERP
+# BOILER PLATE ERP
 ## API Status Report & Future Roadmap
 **Base URL:** `http://127.0.0.1:8000/api/v1`
 
@@ -401,4 +401,4 @@
 * Sales
 
 #### Overall Status
-The foundation, security, and directory/master setup modules of **Rapnex Retail ERP** have been successfully implemented and are fully operational. Core operational business flows including POS transactions, Accounting ledgers, Inventory, Purchase, and Sales pipelines are currently in the roadmap phase.
+The foundation, security, and directory/master setup modules of **Boiler Plate ERP** have been successfully implemented and are fully operational. Core operational business flows including POS transactions, Accounting ledgers, Inventory, Purchase, and Sales pipelines are currently in the roadmap phase.

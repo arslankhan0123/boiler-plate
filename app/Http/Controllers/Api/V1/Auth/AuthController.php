@@ -34,7 +34,7 @@ class AuthController extends Controller
             content: new OA\JsonContent(
                 required: ['email', 'password'],
                 properties: [
-                    new OA\Property(property: 'email', type: 'string', format: 'email', example: 'superadmin@rapnex.test'),
+                    new OA\Property(property: 'email', type: 'string', format: 'email', example: 'superadmin@boilerplate.test'),
                     new OA\Property(property: 'password', type: 'string', format: 'password', example: 'password'),
                 ],
             ),
@@ -57,7 +57,7 @@ class AuthController extends Controller
                             'user' => [
                                 'id' => 1,
                                 'name' => 'Super Administrator',
-                                'email' => 'superadmin@rapnex.test',
+                                'email' => 'superadmin@boilerplate.test',
                                 'phone' => '+10000000000',
                                 'email_verified_at' => '04-June-2026 15:01:33',
                             ],
@@ -122,7 +122,7 @@ class AuthController extends Controller
             content: new OA\JsonContent(
                 required: ['email', 'otp'],
                 properties: [
-                    new OA\Property(property: 'email', type: 'string', format: 'email', example: 'superadmin@rapnex.test'),
+                    new OA\Property(property: 'email', type: 'string', format: 'email', example: 'superadmin@boilerplate.test'),
                     new OA\Property(property: 'otp', type: 'string', example: '123456'),
                 ],
             ),
@@ -141,7 +141,7 @@ class AuthController extends Controller
                     'user' => [
                         'id' => 1,
                         'name' => 'Super Administrator',
-                        'email' => 'superadmin@rapnex.test',
+                        'email' => 'superadmin@boilerplate.test',
                         'phone' => '+10000000000',
                         'email_verified_at' => '04-June-2026 15:01:33',
                     ],
@@ -179,7 +179,7 @@ class AuthController extends Controller
             content: new OA\JsonContent(
                 required: ['email'],
                 properties: [
-                    new OA\Property(property: 'email', type: 'string', format: 'email', example: 'superadmin@rapnex.test'),
+                    new OA\Property(property: 'email', type: 'string', format: 'email', example: 'superadmin@boilerplate.test'),
                 ],
             ),
         ),
@@ -213,7 +213,7 @@ class AuthController extends Controller
             content: new OA\JsonContent(
                 required: ['email', 'otp', 'password', 'password_confirmation'],
                 properties: [
-                    new OA\Property(property: 'email', type: 'string', format: 'email', example: 'superadmin@rapnex.test'),
+                    new OA\Property(property: 'email', type: 'string', format: 'email', example: 'superadmin@boilerplate.test'),
                     new OA\Property(property: 'otp', type: 'string', example: '123456'),
                     new OA\Property(property: 'password', type: 'string', format: 'password', example: 'new-secret-password'),
                     new OA\Property(property: 'password_confirmation', type: 'string', format: 'password', example: 'new-secret-password'),
@@ -263,7 +263,7 @@ class AuthController extends Controller
                 'data' => [
                     'id' => 1,
                     'name' => 'Super Administrator',
-                    'email' => 'superadmin@rapnex.test',
+                    'email' => 'superadmin@boilerplate.test',
                     'phone' => '+10000000000',
                     'email_verified_at' => '04-June-2026 15:01:33',
                 ],

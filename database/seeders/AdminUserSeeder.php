@@ -19,7 +19,7 @@ class AdminUserSeeder extends Seeder
     public function run(): void
     {
         User::query()->updateOrCreate(
-            ['email' => 'superadmin@rapnex.test'],
+            ['email' => 'superadmin@boilerplate.test'],
             [
                 'name' => 'Super Administrator',
                 'phone' => '+10000000000',

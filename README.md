@@ -1,4 +1,4 @@
-# Rapnex Retail ERP
+# Boiler Plate ERP
 
 API-only, modular retail ERP built on **Laravel 12** / **PHP 8.4** / **PostgreSQL**, authenticated with **Laravel Passport** (OAuth2). The codebase is organized into self-contained modules via `nwidart/laravel-modules` (all sharing one database) and is designed to become multi-tenant.
 
@@ -40,13 +40,13 @@ php artisan key:generate
 Then edit `.env` with your PostgreSQL connection:
 
 ```dotenv
-APP_NAME=rapnex_retail_erp
+APP_NAME=boiler_plate_erp
 APP_URL=http://localhost:8000
 
 DB_CONNECTION=pgsql
 DB_HOST=127.0.0.1
 DB_PORT=5432
-DB_DATABASE=rapnex_retail_erp
+DB_DATABASE=boiler_plate_erp
 DB_USERNAME=your_db_user
 DB_PASSWORD=your_db_password
 
@@ -54,7 +54,7 @@ DB_PASSWORD=your_db_password
 DATETIME_FORMAT="d-F-Y H:i:s"
 ```
 
-Create the database (`rapnex_retail_erp`) in PostgreSQL before migrating.
+Create the database (`boiler_plate_erp`) in PostgreSQL before migrating.
 
 ## Database (multi-tenant: 1 central DB + 1 DB per tenant)
 
@@ -106,7 +106,7 @@ php artisan migrate:fresh --seed
 
 # 3. Recreate the Passport personal-access client (migrate:fresh emptied oauth_clients;
 #    without it, login fails — User::createToken has no client to issue against).
-php artisan passport:client --personal --name="Rapnex Personal Access Client"
+php artisan passport:client --personal --name="Boiler Plate Personal Access Client"
 ```
 
 > On a brand-new machine with no tenant databases yet, step 1 is a harmless no-op.
@@ -155,7 +155,7 @@ Passport's encryption keys are environment-specific (git-ignored at `storage/*.k
 php artisan passport:keys
 
 # 2. Create the personal access client used to issue API tokens (User::createToken)
-php artisan passport:client --personal --name="Rapnex Personal Access Client"
+php artisan passport:client --personal --name="Boiler Plate Personal Access Client"
 ```
 
 > Shortcut: `php artisan passport:install` performs the equivalent steps in one go.
@@ -171,8 +171,8 @@ php artisan db:seed
 
 Idempotently creates (all password `password`):
 
-- **Platform super-admin** (tenant-less, bypasses tenant scoping): `superadmin@rapnex.test`
-- A **demo tenant** ("Rapnex Demo") — provisions its own database automatically
+- **Platform super-admin** (tenant-less, bypasses tenant scoping): `superadmin@boilerplate.test`
+- A **demo tenant** ("Boiler Plate Demo") — provisions its own database automatically
 - A **tenant admin** for the demo tenant: `admin@demo.test`
 
 ## Run the app
@@ -193,7 +193,7 @@ php artisan key:generate
 # (edit .env DB credentials, then:)
 php artisan migrate
 php artisan passport:keys
-php artisan passport:client --personal --name="Rapnex Personal Access Client"
+php artisan passport:client --personal --name="Boiler Plate Personal Access Client"
 php artisan db:seed
 php artisan serve
 ```

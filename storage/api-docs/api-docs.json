@@ -6670,7 +6670,7 @@
                                     "email": {
                                         "type": "string",
                                         "format": "email",
-                                        "example": "superadmin@rapnex.test"
+                                        "example": "superadmin@boilerplate.test"
                                     },
                                     "password": {
                                         "type": "string",
@@ -6706,7 +6706,7 @@
                                                 "user": {
                                                     "id": 1,
                                                     "name": "Super Administrator",
-                                                    "email": "superadmin@rapnex.test",
+                                                    "email": "superadmin@boilerplate.test",
                                                     "phone": "+10000000000",
                                                     "email_verified_at": "04-June-2026 15:01:33"
                                                 },
@@ -6782,7 +6782,7 @@
                                     "email": {
                                         "type": "string",
                                         "format": "email",
-                                        "example": "superadmin@rapnex.test"
+                                        "example": "superadmin@boilerplate.test"
                                     },
                                     "otp": {
                                         "type": "string",
@@ -6814,7 +6814,7 @@
                                         "user": {
                                             "id": 1,
                                             "name": "Super Administrator",
-                                            "email": "superadmin@rapnex.test",
+                                            "email": "superadmin@boilerplate.test",
                                             "phone": "+10000000000",
                                             "email_verified_at": "04-June-2026 15:01:33"
                                         },
@@ -6854,7 +6854,7 @@
                                     "email": {
                                         "type": "string",
                                         "format": "email",
-                                        "example": "superadmin@rapnex.test"
+                                        "example": "superadmin@boilerplate.test"
                                     }
                                 },
                                 "type": "object"
@@ -6915,7 +6915,7 @@
                                     "email": {
                                         "type": "string",
                                         "format": "email",
-                                        "example": "superadmin@rapnex.test"
+                                        "example": "superadmin@boilerplate.test"
                                     },
                                     "otp": {
                                         "type": "string",
@@ -6994,7 +6994,7 @@
                                     "data": {
                                         "id": 1,
                                         "name": "Super Administrator",
-                                        "email": "superadmin@rapnex.test",
+                                        "email": "superadmin@boilerplate.test",
                                         "phone": "+10000000000",
                                         "email_verified_at": "04-June-2026 15:01:33"
                                     }
