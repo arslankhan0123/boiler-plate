@@ -1,0 +1,1 @@
+<?php declare(strict_types=1); namespace Modules\Pos\Models; use App\Models\Concerns\UsesTenantConnection; use Illuminate\Database\Eloquent\Model; class PosSaleItem extends Model {use UsesTenantConnection;protected $table='pos_sale_items';protected $fillable=['sale_id','product_id','name','sku','quantity','unit_price','tax_rate','tax_total','discount_total','line_total'];}
