@@ -1,14 +1,158 @@
 <?php
+
 declare(strict_types=1);
-use Illuminate\Database\Migrations\Migration; use Illuminate\Database\Schema\Blueprint; use Illuminate\Support\Facades\Schema;
-return new class extends Migration { public function up(): void {
-Schema::create('ecommerce_categories', function(Blueprint $t): void {$t->id();$t->foreignId('parent_id')->nullable()->constrained('ecommerce_categories')->nullOnDelete();$t->string('name');$t->string('slug')->unique();$t->text('description')->nullable();$t->string('image',2048)->nullable();$t->boolean('is_active')->default(true);$t->unsignedInteger('sort_order')->default(0);$t->unsignedBigInteger('created_by')->nullable();$t->timestamps();$t->softDeletes();});
-Schema::create('ecommerce_services', function(Blueprint $t): void {$t->id();$t->foreignId('category_id')->constrained('ecommerce_categories')->restrictOnDelete();$t->string('name');$t->string('slug')->unique();$t->string('sku')->nullable()->index();$t->text('description')->nullable();$t->unsignedInteger('duration_minutes')->nullable();$t->decimal('cost_price',15,2)->default(0);$t->decimal('sale_price',15,2);$t->decimal('tax_rate',5,2)->default(0);$t->boolean('is_active')->default(true);$t->unsignedBigInteger('created_by')->nullable();$t->timestamps();$t->softDeletes();});
-Schema::create('ecommerce_products', function(Blueprint $t): void {$t->id();$t->foreignId('category_id')->constrained('ecommerce_categories')->restrictOnDelete();$t->string('name');$t->string('slug')->unique();$t->string('sku')->nullable()->index();$t->string('barcode')->nullable()->index();$t->text('description')->nullable();$t->string('feature_image',2048)->nullable();$t->decimal('cost_price',15,2)->default(0);$t->decimal('sale_price',15,2);$t->decimal('compare_at_price',15,2)->nullable();$t->decimal('tax_rate',5,2)->default(0);$t->integer('stock_quantity')->default(0);$t->unsignedInteger('low_stock_threshold')->default(0);$t->boolean('track_inventory')->default(true);$t->boolean('is_active')->default(true);$t->boolean('is_featured')->default(false);$t->decimal('weight',10,3)->nullable();$t->json('dimensions')->nullable();$t->unsignedBigInteger('created_by')->nullable();$t->timestamps();$t->softDeletes();});
-Schema::create('ecommerce_product_images', function(Blueprint $t): void {$t->id();$t->foreignId('product_id')->constrained('ecommerce_products')->cascadeOnDelete();$t->string('path',2048);$t->string('alt_text')->nullable();$t->unsignedInteger('sort_order')->default(0);$t->timestamps();});
-Schema::create('ecommerce_orders', function(Blueprint $t): void {$t->id();$t->string('number')->unique();$t->string('customer_name');$t->string('customer_email')->nullable()->index();$t->string('customer_phone')->nullable();$t->json('billing_address')->nullable();$t->json('shipping_address')->nullable();$t->string('status')->default('pending')->index();$t->string('payment_status')->default('unpaid')->index();$t->decimal('subtotal',15,2);$t->decimal('discount_total',15,2)->default(0);$t->decimal('tax_total',15,2)->default(0);$t->decimal('shipping_total',15,2)->default(0);$t->decimal('grand_total',15,2);$t->text('notes')->nullable();$t->timestamp('placed_at')->nullable();$t->unsignedBigInteger('created_by')->nullable();$t->timestamps();});
-Schema::create('ecommerce_order_items', function(Blueprint $t): void {$t->id();$t->foreignId('order_id')->constrained('ecommerce_orders')->cascadeOnDelete();$t->string('item_type');$t->unsignedBigInteger('product_id')->nullable();$t->unsignedBigInteger('service_id')->nullable();$t->string('name');$t->string('sku')->nullable();$t->unsignedInteger('quantity');$t->decimal('unit_price',15,2);$t->decimal('cost_price',15,2)->default(0);$t->decimal('tax_rate',5,2)->default(0);$t->decimal('tax_total',15,2)->default(0);$t->decimal('discount_total',15,2)->default(0);$t->decimal('line_total',15,2);$t->json('meta')->nullable();$t->timestamps();});
-Schema::create('ecommerce_order_trackings', function(Blueprint $t): void {$t->id();$t->foreignId('order_id')->constrained('ecommerce_orders')->cascadeOnDelete();$t->string('status');$t->text('message')->nullable();$t->string('carrier')->nullable();$t->string('tracking_number')->nullable()->index();$t->string('location')->nullable();$t->timestamp('occurred_at');$t->unsignedBigInteger('created_by')->nullable();$t->timestamps();});
-Schema::create('ecommerce_invoices', function(Blueprint $t): void {$t->id();$t->foreignId('order_id')->unique()->constrained('ecommerce_orders')->cascadeOnDelete();$t->string('number')->unique();$t->string('status')->default('issued');$t->date('issued_at');$t->date('due_at')->nullable();$t->decimal('subtotal',15,2);$t->decimal('tax_total',15,2)->default(0);$t->decimal('discount_total',15,2)->default(0);$t->decimal('grand_total',15,2);$t->decimal('paid_total',15,2)->default(0);$t->text('notes')->nullable();$t->unsignedBigInteger('created_by')->nullable();$t->timestamps();});
-Schema::create('ecommerce_invoice_payments', function(Blueprint $t): void {$t->id();$t->foreignId('invoice_id')->constrained('ecommerce_invoices')->cascadeOnDelete();$t->decimal('amount',15,2);$t->string('method');$t->string('reference')->nullable();$t->timestamp('paid_at');$t->text('notes')->nullable();$t->unsignedBigInteger('created_by')->nullable();$t->timestamps();});
-} public function down(): void {foreach(['ecommerce_invoice_payments','ecommerce_invoices','ecommerce_order_trackings','ecommerce_order_items','ecommerce_orders','ecommerce_product_images','ecommerce_products','ecommerce_services','ecommerce_categories'] as $table){Schema::dropIfExists($table);}}};
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('ecommerce_categories', function (Blueprint $t): void {
+            $t->id();
+            $t->foreignId('parent_id')->nullable()->constrained('ecommerce_categories')->nullOnDelete();
+            $t->string('name');
+            $t->string('slug')->unique();
+            $t->text('description')->nullable();
+            $t->string('image', 2048)->nullable();
+            $t->boolean('is_active')->default(true);
+            $t->unsignedInteger('sort_order')->default(0);
+            $t->unsignedBigInteger('created_by')->nullable();
+            $t->timestamps();
+            $t->softDeletes();
+        });
+        Schema::create('ecommerce_services', function (Blueprint $t): void {
+            $t->id();
+            $t->foreignId('category_id')->constrained('ecommerce_categories')->restrictOnDelete();
+            $t->string('name');
+            $t->string('slug')->unique();
+            $t->string('sku')->nullable()->index();
+            $t->text('description')->nullable();
+            $t->unsignedInteger('duration_minutes')->nullable();
+            $t->decimal('cost_price', 15, 2)->default(0);
+            $t->decimal('sale_price', 15, 2);
+            $t->decimal('tax_rate', 5, 2)->default(0);
+            $t->boolean('is_active')->default(true);
+            $t->unsignedBigInteger('created_by')->nullable();
+            $t->timestamps();
+            $t->softDeletes();
+        });
+        Schema::create('ecommerce_products', function (Blueprint $t): void {
+            $t->id();
+            $t->foreignId('category_id')->constrained('ecommerce_categories')->restrictOnDelete();
+            $t->string('name');
+            $t->string('slug')->unique();
+            $t->string('sku')->nullable()->index();
+            $t->string('barcode')->nullable()->index();
+            $t->text('description')->nullable();
+            $t->string('feature_image', 2048)->nullable();
+            $t->decimal('cost_price', 15, 2)->default(0);
+            $t->decimal('sale_price', 15, 2);
+            $t->decimal('compare_at_price', 15, 2)->nullable();
+            $t->decimal('tax_rate', 5, 2)->default(0);
+            $t->integer('stock_quantity')->default(0);
+            $t->unsignedInteger('low_stock_threshold')->default(0);
+            $t->boolean('track_inventory')->default(true);
+            $t->boolean('is_active')->default(true);
+            $t->boolean('is_featured')->default(false);
+            $t->decimal('weight', 10, 3)->nullable();
+            $t->json('dimensions')->nullable();
+            $t->unsignedBigInteger('created_by')->nullable();
+            $t->timestamps();
+            $t->softDeletes();
+        });
+        Schema::create('ecommerce_product_images', function (Blueprint $t): void {
+            $t->id();
+            $t->foreignId('product_id')->constrained('ecommerce_products')->cascadeOnDelete();
+            $t->string('path', 2048);
+            $t->string('alt_text')->nullable();
+            $t->unsignedInteger('sort_order')->default(0);
+            $t->timestamps();
+        });
+        Schema::create('ecommerce_orders', function (Blueprint $t): void {
+            $t->id();
+            $t->string('number')->unique();
+            $t->string('customer_name');
+            $t->string('customer_email')->nullable()->index();
+            $t->string('customer_phone')->nullable();
+            $t->json('billing_address')->nullable();
+            $t->json('shipping_address')->nullable();
+            $t->string('status')->default('pending')->index();
+            $t->string('payment_status')->default('unpaid')->index();
+            $t->decimal('subtotal', 15, 2);
+            $t->decimal('discount_total', 15, 2)->default(0);
+            $t->decimal('tax_total', 15, 2)->default(0);
+            $t->decimal('shipping_total', 15, 2)->default(0);
+            $t->decimal('grand_total', 15, 2);
+            $t->text('notes')->nullable();
+            $t->timestamp('placed_at')->nullable();
+            $t->unsignedBigInteger('created_by')->nullable();
+            $t->timestamps();
+        });
+        Schema::create('ecommerce_order_items', function (Blueprint $t): void {
+            $t->id();
+            $t->foreignId('order_id')->constrained('ecommerce_orders')->cascadeOnDelete();
+            $t->string('item_type');
+            $t->unsignedBigInteger('product_id')->nullable();
+            $t->unsignedBigInteger('service_id')->nullable();
+            $t->string('name');
+            $t->string('sku')->nullable();
+            $t->unsignedInteger('quantity');
+            $t->decimal('unit_price', 15, 2);
+            $t->decimal('cost_price', 15, 2)->default(0);
+            $t->decimal('tax_rate', 5, 2)->default(0);
+            $t->decimal('tax_total', 15, 2)->default(0);
+            $t->decimal('discount_total', 15, 2)->default(0);
+            $t->decimal('line_total', 15, 2);
+            $t->json('meta')->nullable();
+            $t->timestamps();
+        });
+        Schema::create('ecommerce_order_trackings', function (Blueprint $t): void {
+            $t->id();
+            $t->foreignId('order_id')->constrained('ecommerce_orders')->cascadeOnDelete();
+            $t->string('status');
+            $t->text('message')->nullable();
+            $t->string('carrier')->nullable();
+            $t->string('tracking_number')->nullable()->index();
+            $t->string('location')->nullable();
+            $t->timestamp('occurred_at');
+            $t->unsignedBigInteger('created_by')->nullable();
+            $t->timestamps();
+        });
+        Schema::create('ecommerce_invoices', function (Blueprint $t): void {
+            $t->id();
+            $t->foreignId('order_id')->unique()->constrained('ecommerce_orders')->cascadeOnDelete();
+            $t->string('number')->unique();
+            $t->string('status')->default('issued');
+            $t->date('issued_at');
+            $t->date('due_at')->nullable();
+            $t->decimal('subtotal', 15, 2);
+            $t->decimal('tax_total', 15, 2)->default(0);
+            $t->decimal('discount_total', 15, 2)->default(0);
+            $t->decimal('grand_total', 15, 2);
+            $t->decimal('paid_total', 15, 2)->default(0);
+            $t->text('notes')->nullable();
+            $t->unsignedBigInteger('created_by')->nullable();
+            $t->timestamps();
+        });
+        Schema::create('ecommerce_invoice_payments', function (Blueprint $t): void {
+            $t->id();
+            $t->foreignId('invoice_id')->constrained('ecommerce_invoices')->cascadeOnDelete();
+            $t->decimal('amount', 15, 2);
+            $t->string('method');
+            $t->string('reference')->nullable();
+            $t->timestamp('paid_at');
+            $t->text('notes')->nullable();
+            $t->unsignedBigInteger('created_by')->nullable();
+            $t->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        foreach (['ecommerce_invoice_payments', 'ecommerce_invoices', 'ecommerce_order_trackings', 'ecommerce_order_items', 'ecommerce_orders', 'ecommerce_product_images', 'ecommerce_products', 'ecommerce_services', 'ecommerce_categories'] as $table) {
+            Schema::dropIfExists($table);
+        }
+    }
+};

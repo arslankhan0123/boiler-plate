@@ -14,7 +14,7 @@ use Modules\Inventory\Http\Controllers\InventoryController;
 Route::prefix('v1')->middleware(['auth:api', 'tenant.init', 'tenant.required'])->group(function (): void {
     Route::prefix('inventory')->name('inventory.')->group(function (): void {
         Route::get('/', [InventoryController::class, 'index'])->name('index');
-        Route::apiResource('warehouses', InventoryController::class)->parameters(['warehouses'=>'warehouse'])->except(['show']);
+        Route::apiResource('warehouses', InventoryController::class)->parameters(['warehouses' => 'warehouse'])->except(['show']);
         Route::post('movements', [InventoryController::class, 'movement']);
         Route::get('stocks', [InventoryController::class, 'stocks']);
     });

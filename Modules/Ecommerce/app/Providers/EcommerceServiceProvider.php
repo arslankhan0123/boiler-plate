@@ -9,6 +9,8 @@ use Nwidart\Modules\Support\ModuleServiceProvider;
 class EcommerceServiceProvider extends ModuleServiceProvider
 {
     protected string $name = 'Ecommerce';
+
     protected string $nameLower = 'ecommerce';
+
     protected array $providers = [RouteServiceProvider::class];
 }

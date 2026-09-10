@@ -1,1 +1,66 @@
-<?php declare(strict_types=1); namespace Modules\Pos\Http\Controllers; use App\Facades\ApiResponse;use App\Http\Controllers\Controller;use Illuminate\Http\JsonResponse;use Illuminate\Http\Request;use Illuminate\Support\Facades\Auth;use Modules\Pos\Models\{PosSale,PosShift,PosTerminal};class PosController extends Controller{public function index():JsonResponse{return ApiResponse::successResponse('POS dashboard.',['open_shifts'=>PosShift::where('status','open')->count(),'today_sales'=>PosSale::whereDate('created_at',today())->sum('grand_total')]);}public function terminals():JsonResponse{return ApiResponse::successResponse('Terminals retrieved.',PosTerminal::where('is_active',true)->get());}public function storeTerminal(Request$r):JsonResponse{$d=$r->validate(['warehouse_id'=>'required|exists:inventory_warehouses,id','name'=>'required|string','code'=>'required|string|unique:pos_terminals,code']);return ApiResponse::successResponse('Terminal created.',PosTerminal::create($d+['created_by'=>Auth::guard('api')->id()]));}public function openShift(Request$r):JsonResponse{$d=$r->validate(['terminal_id'=>'required|exists:pos_terminals,id','opening_cash'=>'nullable|numeric|min:0']);abort_if(PosShift::where('terminal_id',$d['terminal_id'])->where('status','open')->exists(),422,'Open shift exists.');return ApiResponse::successResponse('Shift opened.',PosShift::create($d+['opened_by'=>Auth::guard('api')->id(),'opening_cash'=>$d['opening_cash']??0,'opened_at'=>now(),'status'=>'open']));}public function closeShift(Request$r,PosShift$shift):JsonResponse{$d=$r->validate(['closing_cash'=>'required|numeric|min:0']);abort_unless($shift->status==='open',422,'Shift closed.');$shift->update($d+['closed_by'=>Auth::guard('api')->id(),'closed_at'=>now(),'status'=>'closed']);return ApiResponse::successResponse('Shift closed.',$shift);}public function sales(Request$r):JsonResponse{return ApiResponse::successResponse('Sales retrieved.',PosSale::with('payments')->latest()->paginate($r->integer('per_page',20)));}public function showSale(PosSale$sale):JsonResponse{return ApiResponse::successResponse('Sale retrieved.',$sale->load(['items','payments']));}public function checkout(Request$r):JsonResponse{return ApiResponse::errorResponse('POS checkout endpoint is ready for product scanning and payment processing.');}}
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\Pos\Http\Controllers;
+
+use App\Facades\ApiResponse;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Modules\Pos\Models\PosSale;
+use Modules\Pos\Models\PosShift;
+use Modules\Pos\Models\PosTerminal;
+
+class PosController extends Controller
+{
+    public function index(): JsonResponse
+    {
+        return ApiResponse::successResponse('POS dashboard.', ['open_shifts' => PosShift::where('status', 'open')->count(), 'today_sales' => PosSale::whereDate('created_at', today())->sum('grand_total')]);
+    }
+
+    public function terminals(): JsonResponse
+    {
+        return ApiResponse::successResponse('Terminals retrieved.', PosTerminal::where('is_active', true)->get());
+    }
+
+    public function storeTerminal(Request $r): JsonResponse
+    {
+        $d = $r->validate(['warehouse_id' => 'required|exists:inventory_warehouses,id', 'name' => 'required|string', 'code' => 'required|string|unique:pos_terminals,code']);
+
+        return ApiResponse::successResponse('Terminal created.', PosTerminal::create($d + ['created_by' => Auth::guard('api')->id()]));
+    }
+
+    public function openShift(Request $r): JsonResponse
+    {
+        $d = $r->validate(['terminal_id' => 'required|exists:pos_terminals,id', 'opening_cash' => 'nullable|numeric|min:0']);
+        abort_if(PosShift::where('terminal_id', $d['terminal_id'])->where('status', 'open')->exists(), 422, 'Open shift exists.');
+
+        return ApiResponse::successResponse('Shift opened.', PosShift::create($d + ['opened_by' => Auth::guard('api')->id(), 'opening_cash' => $d['opening_cash'] ?? 0, 'opened_at' => now(), 'status' => 'open']));
+    }
+
+    public function closeShift(Request $r, PosShift $shift): JsonResponse
+    {
+        $d = $r->validate(['closing_cash' => 'required|numeric|min:0']);
+        abort_unless($shift->status === 'open', 422, 'Shift closed.');
+        $shift->update($d + ['closed_by' => Auth::guard('api')->id(), 'closed_at' => now(), 'status' => 'closed']);
+
+        return ApiResponse::successResponse('Shift closed.', $shift);
+    }
+
+    public function sales(Request $r): JsonResponse
+    {
+        return ApiResponse::successResponse('Sales retrieved.', PosSale::with('payments')->latest()->paginate($r->integer('per_page', 20)));
+    }
+
+    public function showSale(PosSale $sale): JsonResponse
+    {
+        return ApiResponse::successResponse('Sale retrieved.', $sale->load(['items', 'payments']));
+    }
+
+    public function checkout(Request $r): JsonResponse
+    {
+        return ApiResponse::errorResponse('POS checkout endpoint is ready for product scanning and payment processing.');
+    }
+}

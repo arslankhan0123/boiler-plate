@@ -11,7 +11,7 @@ use Modules\Sale\Http\Controllers\SaleController;
 |--------------------------------------------------------------------------
 */
 
-Route::prefix('v1')->middleware(['auth:api','tenant.init','tenant.required'])->group(function (): void {
+Route::prefix('v1')->middleware(['auth:api', 'tenant.init', 'tenant.required'])->group(function (): void {
     Route::prefix('sale')->name('sale.')->group(function (): void {
         Route::get('/', [SaleController::class, 'index'])->name('index');
         Route::post('/', [SaleController::class, 'store'])->name('store');

@@ -1,1 +1,22 @@
-<?php declare(strict_types=1); namespace Modules\Pos\Models; use App\Models\Concerns\UsesTenantConnection; use Illuminate\Database\Eloquent\Model; class PosTerminal extends Model {use UsesTenantConnection;protected $table='pos_terminals';protected $fillable=['warehouse_id','name','code','is_active','created_by'];protected function casts():array{return['is_active'=>'boolean'];}}
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\Pos\Models;
+
+use App\Models\Concerns\UsesTenantConnection;
+use Illuminate\Database\Eloquent\Model;
+
+class PosTerminal extends Model
+{
+    use UsesTenantConnection;
+
+    protected $table = 'pos_terminals';
+
+    protected $fillable = ['warehouse_id', 'name', 'code', 'is_active', 'created_by'];
+
+    protected function casts(): array
+    {
+        return ['is_active' => 'boolean'];
+    }
+}

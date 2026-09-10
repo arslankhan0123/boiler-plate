@@ -1,1 +1,28 @@
-<?php declare(strict_types=1); namespace Modules\Sale\Models; use App\Models\Concerns\UsesTenantConnection;use Illuminate\Database\Eloquent\Model;use Illuminate\Database\Eloquent\Relations\HasMany;class SaleOrder extends Model{use UsesTenantConnection;protected $table='sale_orders';protected $fillable=['warehouse_id','number','customer_name','customer_phone','status','payment_status','subtotal','tax_total','discount_total','grand_total','notes','created_by'];protected function casts():array{return['subtotal'=>'decimal:2','tax_total'=>'decimal:2','discount_total'=>'decimal:2','grand_total'=>'decimal:2'];}public function items():HasMany{return $this->hasMany(SaleItem::class,'sale_order_id');}}
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\Sale\Models;
+
+use App\Models\Concerns\UsesTenantConnection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class SaleOrder extends Model
+{
+    use UsesTenantConnection;
+
+    protected $table = 'sale_orders';
+
+    protected $fillable = ['warehouse_id', 'number', 'customer_name', 'customer_phone', 'status', 'payment_status', 'subtotal', 'tax_total', 'discount_total', 'grand_total', 'notes', 'created_by'];
+
+    protected function casts(): array
+    {
+        return ['subtotal' => 'decimal:2', 'tax_total' => 'decimal:2', 'discount_total' => 'decimal:2', 'grand_total' => 'decimal:2'];
+    }
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(SaleItem::class, 'sale_order_id');
+    }
+}

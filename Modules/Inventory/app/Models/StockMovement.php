@@ -1,1 +1,22 @@
-<?php declare(strict_types=1); namespace Modules\Inventory\Models; use App\Models\Concerns\UsesTenantConnection; use Illuminate\Database\Eloquent\Model; class StockMovement extends Model {use UsesTenantConnection;protected $table='inventory_stock_movements';protected $fillable=['warehouse_id','product_id','type','quantity','reference_type','reference_id','notes','created_by'];protected function casts():array{return['quantity'=>'integer'];}}
+<?php
+
+declare(strict_types=1);
+
+namespace Modules\Inventory\Models;
+
+use App\Models\Concerns\UsesTenantConnection;
+use Illuminate\Database\Eloquent\Model;
+
+class StockMovement extends Model
+{
+    use UsesTenantConnection;
+
+    protected $table = 'inventory_stock_movements';
+
+    protected $fillable = ['warehouse_id', 'product_id', 'type', 'quantity', 'reference_type', 'reference_id', 'notes', 'created_by'];
+
+    protected function casts(): array
+    {
+        return ['quantity' => 'integer'];
+    }
+}
