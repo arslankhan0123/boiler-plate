@@ -1,0 +1,4 @@
+city_id,name,address_line_1,address_line_2,area_code,phone,email,description,latitude,longitude,is_active,is_default,sort_order
+1,Downtown,123 Main St,Suite 100,90001,+1-213-555-0100,downtown@example.com,Central business district,34.040000,-118.246000,1,1,1
+1,Westside,456 Ocean Ave,,90402,+1-310-555-0142,westside@example.com,Coastal residential area,34.019000,-118.491000,1,0,2
+1,Eastgate,789 Sunrise Blvd,,90033,+1-323-555-0188,eastgate@example.com,Industrial and warehouse zone,34.045000,-118.207000,1,0,3

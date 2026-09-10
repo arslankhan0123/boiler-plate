@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c ' *)",
+      "Bash(/c/Python314/python tmp_full_test.py)",
+      "Bash(/c/Python314/python -c ' *)",
+      "Bash(php tmp_cleanup_verify.php)",
+      "Bash(rm -f tmp_full_test.py tmp_cleanup_verify.php)",
+      "Bash(ls tmp_*)"
+    ]
+  }
+}

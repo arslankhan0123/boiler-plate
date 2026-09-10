@@ -1,0 +1,17 @@
+<?php
+
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Route;
+use $MODULE_NAMESPACE$\$STUDLY_NAME$\$CONTROLLER_NAMESPACE$\$STUDLY_NAME$Controller;
+
+/*
+|--------------------------------------------------------------------------
+| $STUDLY_NAME$ Module API Routes (mounted at /api/v1)
+|--------------------------------------------------------------------------
+*/
+
+Route::prefix('v1')->middleware('auth:api')->group(function (): void {
+    Route::apiResource('$PLURAL_LOWER_NAME$', $STUDLY_NAME$Controller::class)
+        ->names('$LOWER_NAME$');
+});

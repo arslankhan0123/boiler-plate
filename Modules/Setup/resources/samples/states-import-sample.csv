@@ -1,0 +1,6 @@
+external_id,name,code,latitude,longitude,is_active,is_default,sort_order
+1416,California,CA,36.778261,-119.417932,1,1,1
+1407,Texas,TX,31.968599,-99.901813,1,0,2
+866,Ontario,ON,51.253775,-85.323214,1,0,3
+3009,Bavaria,BY,48.790447,11.497889,1,0,4
+4008,Maharashtra,MH,19.751478,75.713890,1,0,5

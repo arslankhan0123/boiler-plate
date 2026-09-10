@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(php artisan tenants:migrate --force 2>&1 | Select-Object -Last 20; \"--- tenants:migrate exit: $LASTEXITCODE ---\")",
+      "PowerShell(php artisan permissions:sync 2>&1 | Select-Object -Last 8; \"--- permissions exit: $LASTEXITCODE ---\"; php artisan columns:sync 2>&1 | Select-Object -Last 8; \"--- columns exit: $LASTEXITCODE ---\"; php artisan roles:sync-defaults 2>&1 | Select-Object -Last 8; \"--- roles exit: $LASTEXITCODE ---\"; php artisan tinker --execute='echo \"lookups=\".Modules\\\\Setup\\\\Models\\\\Lookup::count\\(\\);' 2>&1 | Select-Object -Last 3)",
+      "PowerShell(php artisan tinker --execute='echo Modules\\\\Setup\\\\Models\\\\Lookup::where\\(\\\\\"type\\\\\",\\\\\"country\\\\\"\\)->count\\(\\);' 2>&1)",
+      "Bash(php artisan *)",
+      "Read(//c/Users/rahma/Documents/Projects/Rapid/bos/**)",
+      "Bash(xargs grep -l \"customers\\\\|customer_groups\")",
+      "Bash(find c:/Users/rahma/Documents/Projects/Rapid/bos/database/migrations -type f -name \"*supplier*doc*\")",
+      "Read(//c/Users/rahma/Documents/Projects/Rapid/bos/database/migrations/**)"
+    ]
+  }
+}

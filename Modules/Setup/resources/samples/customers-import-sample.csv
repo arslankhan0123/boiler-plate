@@ -1,0 +1,4 @@
+company_name,code,vat_number,email,phone,mobile,fax,whatsapp,website,short_name,vendor_code,group_name,currency_id,country_id,state_id,default_language,address,city,zip,location_url,opening_balance,is_active,is_default,sort_order
+Wayne Enterprises,CUST-0001,US123456789,ap@wayne.example,+1-212-555-0100,+1-212-555-0188,,,https://wayne.example,Wayne,V-9988,Key Accounts,,,,en,1007 Mountain Drive,Gotham,10001,,0,1,1,1
+Stark Industries,CUST-0002,US222333444,billing@stark.example,+1-212-555-0143,,,,https://stark.example,Stark,,Key Accounts,,,,en,200 Park Avenue,New York,10166,,2500.00,1,0,2
+Acme Retail,CUST-0003,,orders@acme.example,+1-415-555-0177,,,,https://acme.example,Acme,,Walk-in,,,,en,55 Market St,San Francisco,94103,,0,1,0,3

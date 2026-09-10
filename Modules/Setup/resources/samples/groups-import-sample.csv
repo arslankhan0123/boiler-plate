@@ -1,0 +1,4 @@
+name,code,description,color,parent_id,is_active,is_default,sort_order
+Electronics,GRP-ELE,Top-level electronics group,#1E88E5,,1,1,1
+Phones,GRP-PHN,Mobile phones,#43A047,,1,0,2
+Accessories,GRP-ACC,Add-on accessories,#FB8C00,,1,0,3

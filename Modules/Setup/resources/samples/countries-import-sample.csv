@@ -1,0 +1,6 @@
+name,iso2,iso3,numeric_code,phone_code,capital,region,currency_code,currency_symbol,locale,timezone,is_active,is_default,sort_order
+France,FR,FRA,250,+33,Paris,Europe,EUR,€,fr_FR,Europe/Paris,1,1,1
+Japan,JP,JPN,392,+81,Tokyo,Asia,JPY,¥,ja_JP,Asia/Tokyo,1,0,2
+Brazil,BR,BRA,076,+55,Brasilia,Americas,BRL,R$,pt_BR,America/Sao_Paulo,1,0,3
+Canada,CA,CAN,124,+1,Ottawa,Americas,CAD,$,en_CA,America/Toronto,1,0,4
+Australia,AU,AUS,036,+61,Canberra,Oceania,AUD,$,en_AU,Australia/Sydney,0,0,5

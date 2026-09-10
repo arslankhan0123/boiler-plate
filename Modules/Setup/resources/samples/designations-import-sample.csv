@@ -1,0 +1,4 @@
+name,code,description,department_id,is_active,is_default,sort_order
+Store Manager,DSG-SM,Runs a retail store,1,1,1
+Cashier,DSG-CSH,Operates the POS till,1,0,2
+Stock Clerk,DSG-STK,Receives and shelves stock,1,0,3

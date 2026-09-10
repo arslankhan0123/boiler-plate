@@ -1,0 +1,6 @@
+code,name,symbol,numeric_code,decimal_digits,is_active,is_default,sort_order
+USD,United States dollar,$,840,2,1,1,1
+EUR,Euro,€,978,2,1,0,2
+GBP,Pound sterling,£,826,2,1,0,3
+JPY,Japanese yen,¥,392,0,1,0,4
+AED,United Arab Emirates dirham,إ.د,784,2,1,0,5

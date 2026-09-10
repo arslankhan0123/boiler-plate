@@ -1,0 +1,4 @@
+company_name,vat_number,contact_person,email,phone,whatsapp,website,group_name,currency_id,country_id,state_id,default_language,street,city,zip,po_box,mailing_address,opening_balance,is_active,is_default,sort_order
+Globex Supplies Ltd,GB123456789,Jane Doe,sales@globex.example,+1-213-555-0100,,https://globex.example,Wholesale,,,,en,123 Trade Ave,Los Angeles,90001,PO-4567,Attn: Accounts,0,1,1,1
+Initech Trading,US987654321,John Smith,info@initech.example,+1-310-555-0142,,https://initech.example,Distributor,,,,en,456 Market St,San Francisco,94105,,,1500.50,1,0,2
+Umbrella Wholesale,DE555444333,Klaus Berg,kontakt@umbrella.example,+49-30-555-0199,,https://umbrella.example,Retail,,,,de,789 Handelsweg,Berlin,10115,,,0,1,0,3

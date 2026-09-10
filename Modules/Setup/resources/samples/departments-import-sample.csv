@@ -1,0 +1,5 @@
+name,code,description,is_active,is_default,sort_order
+Sales,SAL,Front-of-house sales team,1,1,1
+Purchasing,PUR,Procurement and supplier management,1,0,2
+Warehouse,WHS,Stock receiving and fulfilment,1,0,3
+Finance,FIN,Accounts and reporting,1,0,4

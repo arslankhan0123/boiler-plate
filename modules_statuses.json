@@ -1,0 +1,10 @@
+{
+    "Accounting": true,
+    "Admin": true,
+    "Inventory": true,
+    "Pos": true,
+    "Purchase": true,
+    "Sale": true,
+    "RolesAndPermissions": true,
+    "Setup": true
+}

@@ -1,0 +1,5 @@
+external_id,name,latitude,longitude,is_active,is_default,sort_order
+120784,Los Angeles,34.052230,-118.243680,1,1,1
+17121,Toronto,43.700110,-79.416300,1,0,2
+27540,Munich,48.137150,11.575490,1,0,3
+133024,Mumbai,19.075980,72.877660,1,0,4
