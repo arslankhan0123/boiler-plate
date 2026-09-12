@@ -14,7 +14,7 @@
         <!-- Page header -->
         <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
             <div>
-                <h1 class="h3 mb-1">Welcome back, Alex 👋</h1>
+                <h1 class="h3 mb-1">Welcome back, {{ explode(' ', auth()->user()->name ?? 'User')[0] }} 👋</h1>
                 <p class="text-body-secondary mb-0">Here's what's happening with your business today.</p>
             </div>
             <div class="d-flex gap-2">

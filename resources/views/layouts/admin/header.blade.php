@@ -169,12 +169,19 @@
             <i class="bi bi-calendar3"></i>
         </button>
 
+        @php
+            $user = auth()->user();
+            $name = $user ? $user->name : 'User';
+            $email = $user ? $user->email : 'user@example.com';
+            $nameParts = explode(' ', $name);
+            $initials = strtoupper(substr($nameParts[0], 0, 1) . (isset($nameParts[1]) ? substr($nameParts[1], 0, 1) : ''));
+        @endphp
         <div class="dropdown">
             <button class="btn orchid-profile-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false"
                 aria-label="User profile">
-                <span class="avatar avatar-sm bg-primary-subtle text-primary fw-semibold">AK</span>
+                <span class="avatar avatar-sm bg-primary-subtle text-primary fw-semibold">{{ $initials }}</span>
                 <span class="orchid-profile-btn__meta d-none d-lg-flex">
-                    <span class="orchid-profile-btn__name">Alex Kim</span>
+                    <span class="orchid-profile-btn__name">{{ $name }}</span>
                     <span class="orchid-profile-btn__role">Administrator</span>
                 </span>
                 <i class="bi bi-chevron-down d-none d-lg-inline"></i>
@@ -182,10 +189,10 @@
             <ul class="dropdown-menu dropdown-menu-end orchid-dropdown orchid-dropdown--profile">
                 <li class="orchid-dropdown__header">
                     <div class="d-flex align-items-center gap-2">
-                        <span class="avatar bg-primary-subtle text-primary fw-semibold">AK</span>
+                        <span class="avatar bg-primary-subtle text-primary fw-semibold">{{ $initials }}</span>
                         <div>
-                            <p class="mb-0 fw-semibold">Alex Kim</p>
-                            <small class="text-body-secondary">alex@orchid.io</small>
+                            <p class="mb-0 fw-semibold">{{ $name }}</p>
+                            <small class="text-body-secondary">{{ $email }}</small>
                         </div>
                     </div>
                 </li>
