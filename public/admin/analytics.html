@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Orchid - Premium Bootstrap 5.3 Admin Dashboard Template">
   <meta name="theme-color" content="#4f46e5">
-  <title>Orchid - Premium Admin Dashboard</title>
+  <title>Orchid — Analytics Dashboard</title>
 
   <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +14,8 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-  <link href="{{asset('admin/assets/css/orchid.css')}}" rel="stylesheet">
+  <link href="assets/css/orchid.css" rel="stylesheet">
+  <link href="assets/css/pages/analytics.css" rel="stylesheet">
 </head>
 <body class="orchid-body">
 
@@ -54,8 +55,8 @@
               <i class="bi bi-chevron-down orchid-nav__chevron"></i>
             </a>
             <ul class="collapse show orchid-nav__sub list-unstyled" id="navDashboard">
-              <li><a href="index.html" class="orchid-nav__sublink active" aria-current="page">Default</a></li>
-              <li><a href="analytics.html" class="orchid-nav__sublink">Analytics</a></li>
+              <li><a href="index.html" class="orchid-nav__sublink">Default</a></li>
+              <li><a href="analytics.html" class="orchid-nav__sublink active" aria-current="page">Analytics</a></li>
               <li><a href="crm.html" class="orchid-nav__sublink">CRM</a></li>
               <li><a href="sales.html" class="orchid-nav__sublink">Sales</a></li>
               <li><a href="finance.html" class="orchid-nav__sublink">Finance</a></li>
@@ -373,8 +374,8 @@
         <nav aria-label="breadcrumb" class="orchid-header__breadcrumb d-none d-md-block">
           <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item"><a href="#"><i class="bi bi-house-door"></i></a></li>
-            <li class="breadcrumb-item"><a href="#">Overview</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            <li class="breadcrumb-item"><a href="#">Dashboards</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Analytics</li>
           </ol>
         </nav>
       </div>
@@ -545,565 +546,589 @@
     </header>
 
     <!-- ================== MAIN ================== -->
-    <main class="orchid-main" id="orchid-main" tabindex="-1">
-      <div class="container-fluid px-3 px-lg-4 py-4">
-
-        <!-- Page header -->
-        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
-          <div>
-            <h1 class="h3 mb-1">Welcome back, Alex 👋</h1>
-            <p class="text-body-secondary mb-0">Here's what's happening with your business today.</p>
+    <main class="orchid-main analytics-page" id="orchid-main" tabindex="-1">
+      <!-- ================== HERO ================== -->
+      <div class="container-fluid p-3 p-lg-4">
+        <section class="analytics-hero" aria-labelledby="analyticsHeroTitle">
+          <div class="analytics-hero__decor" aria-hidden="true">
+            <span class="analytics-hero__grid"></span>
+            <span class="analytics-hero__orb analytics-hero__orb--a"></span>
+            <span class="analytics-hero__orb analytics-hero__orb--b"></span>
           </div>
-          <div class="d-flex gap-2">
-            <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-download me-1"></i>Export</button>
-            <button class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i>Create Report</button>
-          </div>
-        </div>
 
-        <!-- ================== ROW 1 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card orchid-stat-card h-100 overflow-hidden">
-              <div class="card-body pb-2">
-                <div class="d-flex justify-content-between align-items-start mb-3">
-                  <div>
-                    <p class="text-body-secondary mb-1 small">Total Contacts</p>
-                    <h3 class="mb-0 fw-bold">12,480</h3>
+          <div class="analytics-hero__head">
+            <div>
+              <span class="analytics-hero__eyebrow">
+                <span class="analytics-hero__live"><span class="analytics-hero__pulse" aria-hidden="true"></span>Live</span>
+                <span>Real-time · <strong>247</strong> visitors online</span>
+              </span>
+              <h1 class="analytics-hero__title" id="analyticsHeroTitle">Analytics Console</h1>
+              <p class="analytics-hero__sub">Traffic, conversion and audience — last 30 days.</p>
+            </div>
+            <div class="analytics-hero__actions">
+              <div class="analytics-range" role="group" aria-label="Date range">
+                <button type="button" class="analytics-range__btn" data-analytics-range="7d">7d</button>
+                <button type="button" class="analytics-range__btn is-active" data-analytics-range="30d" aria-pressed="true">30d</button>
+                <button type="button" class="analytics-range__btn" data-analytics-range="90d">90d</button>
+                <button type="button" class="analytics-range__btn" data-analytics-range="all">All</button>
+              </div>
+              <button type="button" class="analytics-btn-ghost"><i class="bi bi-share"></i>Share</button>
+              <button type="button" class="analytics-btn-primary"><i class="bi bi-download"></i>Export</button>
+            </div>
+          </div>
+
+          <div class="analytics-hero__kpis">
+            <div class="analytics-hero__kpi">
+              <div class="analytics-hero__kpi-head">
+                <span class="analytics-hero__kpi-label">Revenue</span>
+                <span class="analytics-hero__kpi-value">$284,320</span>
+                <span class="analytics-hero__kpi-delta analytics-hero__kpi-delta--up"><i class="bi bi-arrow-up-right"></i>18.4%</span>
+              </div>
+              <div class="analytics-hero__kpi-chart">
+                <canvas data-analytics-chart="kpiRevenue" aria-label="Revenue trend"></canvas>
+              </div>
+            </div>
+            <div class="analytics-hero__kpi">
+              <div class="analytics-hero__kpi-head">
+                <span class="analytics-hero__kpi-label">Users</span>
+                <span class="analytics-hero__kpi-value">48,921</span>
+                <span class="analytics-hero__kpi-delta analytics-hero__kpi-delta--up"><i class="bi bi-arrow-up-right"></i>12.7%</span>
+              </div>
+              <div class="analytics-hero__kpi-chart">
+                <canvas data-analytics-chart="kpiUsers" aria-label="Users trend"></canvas>
+              </div>
+            </div>
+            <div class="analytics-hero__kpi">
+              <div class="analytics-hero__kpi-head">
+                <span class="analytics-hero__kpi-label">Sessions</span>
+                <span class="analytics-hero__kpi-value">312,480</span>
+                <span class="analytics-hero__kpi-delta analytics-hero__kpi-delta--up"><i class="bi bi-arrow-up-right"></i>9.1%</span>
+              </div>
+              <div class="analytics-hero__kpi-chart">
+                <canvas data-analytics-chart="kpiSessions" aria-label="Sessions trend"></canvas>
+              </div>
+            </div>
+            <div class="analytics-hero__kpi">
+              <div class="analytics-hero__kpi-head">
+                <span class="analytics-hero__kpi-label">Conv. Rate</span>
+                <span class="analytics-hero__kpi-value">4.82%</span>
+                <span class="analytics-hero__kpi-delta analytics-hero__kpi-delta--down"><i class="bi bi-arrow-down-right"></i>0.6%</span>
+              </div>
+              <div class="analytics-hero__kpi-chart">
+                <canvas data-analytics-chart="kpiConversion" aria-label="Conversion trend"></canvas>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================== BENTO GRID ================== -->
+        <div class="analytics-bento">
+
+          <!-- Traffic Overview -->
+          <section class="analytics-tile analytics-span-8" aria-labelledby="analyticsTrafficTitle">
+            <div class="analytics-tile__head">
+              <div>
+                <h2 class="analytics-tile__title" id="analyticsTrafficTitle">Traffic Overview</h2>
+                <p class="analytics-tile__sub">Sessions vs Users — 30-day trend</p>
+              </div>
+              <div class="analytics-legend">
+                <span class="analytics-legend__item"><span class="analytics-dot analytics-dot--violet"></span>Sessions</span>
+                <span class="analytics-legend__item"><span class="analytics-dot analytics-dot--cyan"></span>Users</span>
+              </div>
+            </div>
+            <div class="analytics-tile__chart analytics-tile__chart--tall">
+              <canvas data-analytics-chart="traffic" aria-label="Traffic overview area chart"></canvas>
+            </div>
+          </section>
+
+          <!-- Traffic Sources -->
+          <section class="analytics-tile analytics-span-4" aria-labelledby="analyticsSourcesTitle">
+            <div class="analytics-tile__head">
+              <div>
+                <h2 class="analytics-tile__title" id="analyticsSourcesTitle">Traffic Sources</h2>
+                <p class="analytics-tile__sub">Breakdown by channel</p>
+              </div>
+              <span class="analytics-chip">Week</span>
+            </div>
+            <div class="analytics-sources">
+              <div class="analytics-sources__bar" role="img" aria-label="Direct 34%, Organic 24%, Social 18%, Referral 10%, Email 8%, Paid 6%">
+                <span class="analytics-sources__seg analytics-sources__seg--direct" data-analytics-flex="34"><span>34%</span></span>
+                <span class="analytics-sources__seg analytics-sources__seg--organic" data-analytics-flex="24"><span>24%</span></span>
+                <span class="analytics-sources__seg analytics-sources__seg--social" data-analytics-flex="18"><span>18%</span></span>
+                <span class="analytics-sources__seg analytics-sources__seg--referral" data-analytics-flex="10"><span>10%</span></span>
+                <span class="analytics-sources__seg analytics-sources__seg--email" data-analytics-flex="8"><span>8%</span></span>
+                <span class="analytics-sources__seg analytics-sources__seg--paid" data-analytics-flex="6"><span>6%</span></span>
+              </div>
+              <ul class="analytics-source-list list-unstyled">
+                <li>
+                  <span class="analytics-dot analytics-dot--violet"></span>
+                  <span class="analytics-source-list__name">Direct</span>
+                  <span class="analytics-source-list__count">106,243</span>
+                  <span class="analytics-source-list__pct">34%</span>
+                </li>
+                <li>
+                  <span class="analytics-dot analytics-dot--cyan"></span>
+                  <span class="analytics-source-list__name">Organic Search</span>
+                  <span class="analytics-source-list__count">74,995</span>
+                  <span class="analytics-source-list__pct">24%</span>
+                </li>
+                <li>
+                  <span class="analytics-dot analytics-dot--lime"></span>
+                  <span class="analytics-source-list__name">Social</span>
+                  <span class="analytics-source-list__count">56,246</span>
+                  <span class="analytics-source-list__pct">18%</span>
+                </li>
+                <li>
+                  <span class="analytics-dot analytics-dot--amber"></span>
+                  <span class="analytics-source-list__name">Referral</span>
+                  <span class="analytics-source-list__count">31,248</span>
+                  <span class="analytics-source-list__pct">10%</span>
+                </li>
+                <li>
+                  <span class="analytics-dot analytics-dot--coral"></span>
+                  <span class="analytics-source-list__name">Email</span>
+                  <span class="analytics-source-list__count">24,998</span>
+                  <span class="analytics-source-list__pct">8%</span>
+                </li>
+                <li>
+                  <span class="analytics-dot analytics-dot--indigo"></span>
+                  <span class="analytics-source-list__name">Paid Ads</span>
+                  <span class="analytics-source-list__count">18,750</span>
+                  <span class="analytics-source-list__pct">6%</span>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- Audience by Country -->
+          <section class="analytics-tile analytics-span-4" aria-labelledby="analyticsCountriesTitle">
+            <div class="analytics-tile__head">
+              <div>
+                <h2 class="analytics-tile__title" id="analyticsCountriesTitle">Audience by Country</h2>
+                <p class="analytics-tile__sub">Top 10 · this week</p>
+              </div>
+              <a href="#" class="analytics-tile__link">World map <i class="bi bi-arrow-up-right"></i></a>
+            </div>
+            <ul class="analytics-country-list list-unstyled">
+              <li class="analytics-country">
+                <span class="analytics-country__flag" aria-hidden="true">🇺🇸</span>
+                <div class="analytics-country__body">
+                  <div class="analytics-country__head">
+                    <span class="analytics-country__name">United States</span>
+                    <span class="analytics-country__value">14,802</span>
                   </div>
-                  <span class="orchid-stat-card__icon bg-primary-subtle text-primary"><i class="bi bi-people"></i></span>
+                  <div class="analytics-country__bar"><span class="analytics-country__fill analytics-country__fill--1" data-analytics-width="94"></span></div>
                 </div>
-                <span class="badge bg-success-subtle text-success"><i class="bi bi-arrow-up"></i> 12.4% vs last month</span>
-              </div>
-              <div class="orchid-stat-card__spark">
-                <canvas data-orchid-chart="sparkContacts"></canvas>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h6 class="mb-0">Lead Analytics</h6>
-                  <span class="badge bg-info-subtle text-info">Weekly</span>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--sm">
-                  <canvas data-orchid-chart="leadAnalytics"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h6 class="mb-0">Traffic Sources</h6>
-                  <button class="btn btn-sm btn-icon" type="button" aria-label="More"><i class="bi bi-three-dots"></i></button>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--sm">
-                  <canvas data-orchid-chart="trafficSources"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xl-3">
-            <div class="card orchid-card orchid-earnings-card h-100 text-white">
-              <div class="card-body position-relative pb-0">
-                <div class="d-flex justify-content-between align-items-start">
-                  <div>
-                    <p class="mb-1 opacity-75 small">Total Earnings</p>
-                    <h3 class="fw-bold mb-1">$84,120.50</h3>
-                    <span class="badge bg-white text-primary"><i class="bi bi-arrow-up"></i> 8.24%</span>
+              </li>
+              <li class="analytics-country">
+                <span class="analytics-country__flag" aria-hidden="true">🇬🇧</span>
+                <div class="analytics-country__body">
+                  <div class="analytics-country__head">
+                    <span class="analytics-country__name">United Kingdom</span>
+                    <span class="analytics-country__value">8,214</span>
                   </div>
-                  <span class="orchid-stat-card__icon bg-white bg-opacity-25 text-white"><i class="bi bi-currency-dollar"></i></span>
+                  <div class="analytics-country__bar"><span class="analytics-country__fill analytics-country__fill--2" data-analytics-width="66"></span></div>
                 </div>
+              </li>
+              <li class="analytics-country">
+                <span class="analytics-country__flag" aria-hidden="true">🇩🇪</span>
+                <div class="analytics-country__body">
+                  <div class="analytics-country__head">
+                    <span class="analytics-country__name">Germany</span>
+                    <span class="analytics-country__value">6,948</span>
+                  </div>
+                  <div class="analytics-country__bar"><span class="analytics-country__fill analytics-country__fill--3" data-analytics-width="55"></span></div>
+                </div>
+              </li>
+              <li class="analytics-country">
+                <span class="analytics-country__flag" aria-hidden="true">🇮🇳</span>
+                <div class="analytics-country__body">
+                  <div class="analytics-country__head">
+                    <span class="analytics-country__name">India</span>
+                    <span class="analytics-country__value">5,731</span>
+                  </div>
+                  <div class="analytics-country__bar"><span class="analytics-country__fill analytics-country__fill--4" data-analytics-width="48"></span></div>
+                </div>
+              </li>
+              <li class="analytics-country">
+                <span class="analytics-country__flag" aria-hidden="true">🇧🇷</span>
+                <div class="analytics-country__body">
+                  <div class="analytics-country__head">
+                    <span class="analytics-country__name">Brazil</span>
+                    <span class="analytics-country__value">4,182</span>
+                  </div>
+                  <div class="analytics-country__bar"><span class="analytics-country__fill analytics-country__fill--5" data-analytics-width="38"></span></div>
+                </div>
+              </li>
+              <li class="analytics-country">
+                <span class="analytics-country__flag" aria-hidden="true">🇯🇵</span>
+                <div class="analytics-country__body">
+                  <div class="analytics-country__head">
+                    <span class="analytics-country__name">Japan</span>
+                    <span class="analytics-country__value">3,610</span>
+                  </div>
+                  <div class="analytics-country__bar"><span class="analytics-country__fill analytics-country__fill--6" data-analytics-width="30"></span></div>
+                </div>
+              </li>
+              <li class="analytics-country">
+                <span class="analytics-country__flag" aria-hidden="true">🇦🇺</span>
+                <div class="analytics-country__body">
+                  <div class="analytics-country__head">
+                    <span class="analytics-country__name">Australia</span>
+                    <span class="analytics-country__value">2,894</span>
+                  </div>
+                  <div class="analytics-country__bar"><span class="analytics-country__fill analytics-country__fill--7" data-analytics-width="24"></span></div>
+                </div>
+              </li>
+              <li class="analytics-country">
+                <span class="analytics-country__flag" aria-hidden="true">🇨🇦</span>
+                <div class="analytics-country__body">
+                  <div class="analytics-country__head">
+                    <span class="analytics-country__name">Canada</span>
+                    <span class="analytics-country__value">2,406</span>
+                  </div>
+                  <div class="analytics-country__bar"><span class="analytics-country__fill analytics-country__fill--8" data-analytics-width="20"></span></div>
+                </div>
+              </li>
+              <li class="analytics-country">
+                <span class="analytics-country__flag" aria-hidden="true">🇫🇷</span>
+                <div class="analytics-country__body">
+                  <div class="analytics-country__head">
+                    <span class="analytics-country__name">France</span>
+                    <span class="analytics-country__value">2,102</span>
+                  </div>
+                  <div class="analytics-country__bar"><span class="analytics-country__fill analytics-country__fill--9" data-analytics-width="17"></span></div>
+                </div>
+              </li>
+              <li class="analytics-country">
+                <span class="analytics-country__flag" aria-hidden="true">🇰🇷</span>
+                <div class="analytics-country__body">
+                  <div class="analytics-country__head">
+                    <span class="analytics-country__name">South Korea</span>
+                    <span class="analytics-country__value">1,846</span>
+                  </div>
+                  <div class="analytics-country__bar"><span class="analytics-country__fill analytics-country__fill--10" data-analytics-width="15"></span></div>
+                </div>
+              </li>
+            </ul>
+          </section>
+
+          <!-- Top Landing Pages -->
+          <section class="analytics-tile analytics-span-5" aria-labelledby="analyticsPagesTitle">
+            <div class="analytics-tile__head">
+              <div>
+                <h2 class="analytics-tile__title" id="analyticsPagesTitle">Top Landing Pages</h2>
+                <p class="analytics-tile__sub">Views · bounce · avg. time</p>
               </div>
-              <div class="orchid-earnings-card__chart">
-                <canvas data-orchid-chart="earnings"></canvas>
+              <div class="analytics-search">
+                <i class="bi bi-search"></i>
+                <input type="search" class="form-control form-control-sm" placeholder="Filter pages…" aria-label="Filter pages" data-analytics-page-filter>
               </div>
             </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 2 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-lg-6 col-xxl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Tasks Overview</h6>
-                  <a href="#" class="small">View all</a>
+            <ul class="analytics-pages list-unstyled">
+              <li class="analytics-page-row" data-analytics-bar="100">
+                <span class="analytics-page-row__rank">01</span>
+                <div class="analytics-page-row__main">
+                  <span class="analytics-page-row__path">/pricing</span>
+                  <span class="analytics-page-row__title">Pricing &amp; plans</span>
                 </div>
-                <ul class="orchid-task-list list-unstyled mb-0">
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task1" checked>
-                      <label class="form-check-label text-decoration-line-through text-body-secondary" for="task1">Prepare launch checklist</label>
+                <span class="analytics-page-row__metric analytics-page-row__metric--views">42,180</span>
+                <span class="analytics-page-row__metric">32%</span>
+                <span class="analytics-page-row__metric">2:14</span>
+                <span class="analytics-page-row__trend analytics-page-row__trend--up"><i class="bi bi-arrow-up-right"></i>18%</span>
+              </li>
+              <li class="analytics-page-row" data-analytics-bar="82">
+                <span class="analytics-page-row__rank">02</span>
+                <div class="analytics-page-row__main">
+                  <span class="analytics-page-row__path">/</span>
+                  <span class="analytics-page-row__title">Homepage</span>
+                </div>
+                <span class="analytics-page-row__metric analytics-page-row__metric--views">34,620</span>
+                <span class="analytics-page-row__metric">41%</span>
+                <span class="analytics-page-row__metric">1:48</span>
+                <span class="analytics-page-row__trend analytics-page-row__trend--up"><i class="bi bi-arrow-up-right"></i>7%</span>
+              </li>
+              <li class="analytics-page-row" data-analytics-bar="68">
+                <span class="analytics-page-row__rank">03</span>
+                <div class="analytics-page-row__main">
+                  <span class="analytics-page-row__path">/blog/state-of-analytics-2026</span>
+                  <span class="analytics-page-row__title">The state of analytics — 2026</span>
+                </div>
+                <span class="analytics-page-row__metric analytics-page-row__metric--views">28,894</span>
+                <span class="analytics-page-row__metric">28%</span>
+                <span class="analytics-page-row__metric">3:52</span>
+                <span class="analytics-page-row__trend analytics-page-row__trend--up"><i class="bi bi-arrow-up-right"></i>42%</span>
+              </li>
+              <li class="analytics-page-row" data-analytics-bar="54">
+                <span class="analytics-page-row__rank">04</span>
+                <div class="analytics-page-row__main">
+                  <span class="analytics-page-row__path">/features/dashboards</span>
+                  <span class="analytics-page-row__title">Feature — Dashboards</span>
+                </div>
+                <span class="analytics-page-row__metric analytics-page-row__metric--views">22,910</span>
+                <span class="analytics-page-row__metric">35%</span>
+                <span class="analytics-page-row__metric">2:06</span>
+                <span class="analytics-page-row__trend analytics-page-row__trend--down"><i class="bi bi-arrow-down-right"></i>4%</span>
+              </li>
+              <li class="analytics-page-row" data-analytics-bar="46">
+                <span class="analytics-page-row__rank">05</span>
+                <div class="analytics-page-row__main">
+                  <span class="analytics-page-row__path">/docs/getting-started</span>
+                  <span class="analytics-page-row__title">Docs — Getting started</span>
+                </div>
+                <span class="analytics-page-row__metric analytics-page-row__metric--views">19,428</span>
+                <span class="analytics-page-row__metric">22%</span>
+                <span class="analytics-page-row__metric">5:14</span>
+                <span class="analytics-page-row__trend analytics-page-row__trend--up"><i class="bi bi-arrow-up-right"></i>11%</span>
+              </li>
+              <li class="analytics-page-row" data-analytics-bar="38">
+                <span class="analytics-page-row__rank">06</span>
+                <div class="analytics-page-row__main">
+                  <span class="analytics-page-row__path">/customers</span>
+                  <span class="analytics-page-row__title">Customer stories</span>
+                </div>
+                <span class="analytics-page-row__metric analytics-page-row__metric--views">16,102</span>
+                <span class="analytics-page-row__metric">39%</span>
+                <span class="analytics-page-row__metric">1:36</span>
+                <span class="analytics-page-row__trend analytics-page-row__trend--up"><i class="bi bi-arrow-up-right"></i>3%</span>
+              </li>
+              <li class="analytics-page-row" data-analytics-bar="30">
+                <span class="analytics-page-row__rank">07</span>
+                <div class="analytics-page-row__main">
+                  <span class="analytics-page-row__path">/changelog</span>
+                  <span class="analytics-page-row__title">Changelog</span>
+                </div>
+                <span class="analytics-page-row__metric analytics-page-row__metric--views">12,720</span>
+                <span class="analytics-page-row__metric">18%</span>
+                <span class="analytics-page-row__metric">4:22</span>
+                <span class="analytics-page-row__trend analytics-page-row__trend--up"><i class="bi bi-arrow-up-right"></i>26%</span>
+              </li>
+            </ul>
+          </section>
+
+          <!-- Devices ring -->
+          <section class="analytics-tile analytics-span-3 analytics-tile--devices" aria-labelledby="analyticsDevicesTitle">
+            <div class="analytics-tile__head">
+              <div>
+                <h2 class="analytics-tile__title" id="analyticsDevicesTitle">Devices</h2>
+                <p class="analytics-tile__sub">7-day mix by session</p>
+              </div>
+              <span class="analytics-chip">7d</span>
+            </div>
+
+            <div class="analytics-devices">
+              <div class="analytics-devices__chart">
+                <canvas data-analytics-chart="devices" aria-label="Device split"></canvas>
+                <span class="analytics-devices__center">
+                  <span class="analytics-devices__figure">312<small>.4k</small></span>
+                  <span class="analytics-devices__caption">Sessions</span>
+                </span>
+              </div>
+
+              <ul class="analytics-devices__list list-unstyled">
+                <li class="analytics-device">
+                  <span class="analytics-device__icon analytics-device__icon--violet" aria-hidden="true"><i class="bi bi-phone"></i></span>
+                  <div class="analytics-device__body">
+                    <div class="analytics-device__head">
+                      <span class="analytics-device__name">Mobile</span>
+                      <span class="analytics-device__pct">72%</span>
                     </div>
-                    <span class="badge bg-success-subtle text-success">Done</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task2">
-                      <label class="form-check-label" for="task2">Design system audit</label>
+                    <div class="analytics-device__meta">
+                      <span class="analytics-device__count">224,986</span>
+                      <span class="analytics-device__delta analytics-device__delta--up"><i class="bi bi-arrow-up-right"></i>12%</span>
                     </div>
-                    <span class="badge bg-warning-subtle text-warning">Today</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task3">
-                      <label class="form-check-label" for="task3">Review PR #482</label>
+                    <div class="analytics-device__bar"><span class="analytics-device__fill analytics-device__fill--violet" data-analytics-width="72"></span></div>
+                  </div>
+                </li>
+                <li class="analytics-device">
+                  <span class="analytics-device__icon analytics-device__icon--cyan" aria-hidden="true"><i class="bi bi-laptop"></i></span>
+                  <div class="analytics-device__body">
+                    <div class="analytics-device__head">
+                      <span class="analytics-device__name">Desktop</span>
+                      <span class="analytics-device__pct">22%</span>
                     </div>
-                    <span class="badge bg-primary-subtle text-primary">2h</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task4">
-                      <label class="form-check-label" for="task4">Sync with sales team</label>
+                    <div class="analytics-device__meta">
+                      <span class="analytics-device__count">68,746</span>
+                      <span class="analytics-device__delta analytics-device__delta--up"><i class="bi bi-arrow-up-right"></i>4%</span>
                     </div>
-                    <span class="badge bg-info-subtle text-info">Tomorrow</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task5">
-                      <label class="form-check-label" for="task5">Publish weekly newsletter</label>
+                    <div class="analytics-device__bar"><span class="analytics-device__fill analytics-device__fill--cyan" data-analytics-width="22"></span></div>
+                  </div>
+                </li>
+                <li class="analytics-device">
+                  <span class="analytics-device__icon analytics-device__icon--lime" aria-hidden="true"><i class="bi bi-tablet"></i></span>
+                  <div class="analytics-device__body">
+                    <div class="analytics-device__head">
+                      <span class="analytics-device__name">Tablet</span>
+                      <span class="analytics-device__pct">6%</span>
                     </div>
-                    <span class="badge bg-danger-subtle text-danger">Overdue</span>
-                  </li>
+                    <div class="analytics-device__meta">
+                      <span class="analytics-device__count">18,748</span>
+                      <span class="analytics-device__delta analytics-device__delta--down"><i class="bi bi-arrow-down-right"></i>2%</span>
+                    </div>
+                    <div class="analytics-device__bar"><span class="analytics-device__fill analytics-device__fill--lime" data-analytics-width="6"></span></div>
+                  </div>
+                </li>
+              </ul>
+
+              <div class="analytics-os">
+                <div class="analytics-os__head">
+                  <span class="analytics-os__label">Top OS</span>
+                  <a href="#" class="analytics-os__link">Details</a>
+                </div>
+                <ul class="analytics-os__list list-unstyled">
+                  <li><span class="analytics-os__badge analytics-os__badge--ios"><i class="bi bi-apple"></i></span>iOS<strong>48%</strong></li>
+                  <li><span class="analytics-os__badge analytics-os__badge--android"><i class="bi bi-android2"></i></span>Android<strong>34%</strong></li>
+                  <li><span class="analytics-os__badge analytics-os__badge--win"><i class="bi bi-windows"></i></span>Windows<strong>12%</strong></li>
+                  <li><span class="analytics-os__badge analytics-os__badge--mac"><i class="bi bi-tv"></i></span>macOS<strong>6%</strong></li>
                 </ul>
               </div>
             </div>
-          </div>
+          </section>
 
-          <div class="col-12 col-lg-6 col-xxl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Active Deals</h6>
-                  <span class="badge bg-primary-subtle text-primary">48 total</span>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--md">
-                  <canvas data-orchid-chart="activeDeals"></canvas>
-                </div>
-                <div class="d-flex justify-content-between mt-3 small">
-                  <div><span class="orchid-dot bg-primary"></span> Won <strong class="ms-1">28</strong></div>
-                  <div><span class="orchid-dot bg-warning"></span> Pending <strong class="ms-1">14</strong></div>
-                  <div><span class="orchid-dot bg-danger"></span> Lost <strong class="ms-1">6</strong></div>
-                </div>
+          <!-- Campaign Performance -->
+          <section class="analytics-tile analytics-span-7" aria-labelledby="analyticsCampaignsTitle">
+            <div class="analytics-tile__head">
+              <div>
+                <h2 class="analytics-tile__title" id="analyticsCampaignsTitle">Campaign Performance</h2>
+                <p class="analytics-tile__sub">Sorted by ROAS · this month</p>
               </div>
+              <button type="button" class="analytics-btn-ghost analytics-btn-ghost--light"><i class="bi bi-sliders2"></i>Filter</button>
             </div>
-          </div>
-
-          <div class="col-12 col-xxl-4">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Revenue Analytics</h6>
-                    <small class="text-body-secondary">Monthly performance</small>
+            <ul class="analytics-campaigns list-unstyled">
+              <li class="analytics-campaign">
+                <span class="analytics-campaign__icon analytics-campaign__icon--violet" aria-hidden="true"><i class="bi bi-megaphone"></i></span>
+                <div class="analytics-campaign__body">
+                  <div class="analytics-campaign__head">
+                    <span class="analytics-campaign__name">Summer Launch Q3</span>
+                    <span class="analytics-campaign__channel">Meta · Instagram</span>
                   </div>
-                  <div class="btn-group btn-group-sm" role="group" aria-label="Revenue range">
-                    <input type="radio" class="btn-check" name="revRange" id="revW" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="revW">W</label>
-                    <input type="radio" class="btn-check" name="revRange" id="revM" autocomplete="off" checked>
-                    <label class="btn btn-outline-secondary" for="revM">M</label>
-                    <input type="radio" class="btn-check" name="revRange" id="revY" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="revY">Y</label>
+                  <div class="analytics-campaign__stats">
+                    <span><small>Reach</small>842k</span>
+                    <span><small>Clicks</small>24,820</span>
+                    <span><small>Conv.</small>1,842</span>
+                    <span><small>Spend</small>$18,240</span>
+                    <span class="analytics-campaign__roas"><small>ROAS</small><strong>4.6x</strong></span>
                   </div>
                 </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--lg">
-                  <canvas data-orchid-chart="revenue"></canvas>
+                <span class="analytics-campaign__delta analytics-campaign__delta--up"><i class="bi bi-arrow-up-right"></i>+34%</span>
+              </li>
+              <li class="analytics-campaign">
+                <span class="analytics-campaign__icon analytics-campaign__icon--cyan" aria-hidden="true"><i class="bi bi-envelope"></i></span>
+                <div class="analytics-campaign__body">
+                  <div class="analytics-campaign__head">
+                    <span class="analytics-campaign__name">Retargeting: Cart Abandoners</span>
+                    <span class="analytics-campaign__channel">Email · Klaviyo</span>
+                  </div>
+                  <div class="analytics-campaign__stats">
+                    <span><small>Reach</small>318k</span>
+                    <span><small>Clicks</small>18,410</span>
+                    <span><small>Conv.</small>2,204</span>
+                    <span><small>Spend</small>$6,120</span>
+                    <span class="analytics-campaign__roas"><small>ROAS</small><strong>7.2x</strong></span>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
+                <span class="analytics-campaign__delta analytics-campaign__delta--up"><i class="bi bi-arrow-up-right"></i>+52%</span>
+              </li>
+              <li class="analytics-campaign">
+                <span class="analytics-campaign__icon analytics-campaign__icon--lime" aria-hidden="true"><i class="bi bi-search"></i></span>
+                <div class="analytics-campaign__body">
+                  <div class="analytics-campaign__head">
+                    <span class="analytics-campaign__name">Brand Search — Non-brand keywords</span>
+                    <span class="analytics-campaign__channel">Google Ads</span>
+                  </div>
+                  <div class="analytics-campaign__stats">
+                    <span><small>Reach</small>1.2M</span>
+                    <span><small>Clicks</small>32,940</span>
+                    <span><small>Conv.</small>1,412</span>
+                    <span><small>Spend</small>$22,180</span>
+                    <span class="analytics-campaign__roas"><small>ROAS</small><strong>3.1x</strong></span>
+                  </div>
+                </div>
+                <span class="analytics-campaign__delta analytics-campaign__delta--up"><i class="bi bi-arrow-up-right"></i>+12%</span>
+              </li>
+              <li class="analytics-campaign">
+                <span class="analytics-campaign__icon analytics-campaign__icon--amber" aria-hidden="true"><i class="bi bi-linkedin"></i></span>
+                <div class="analytics-campaign__body">
+                  <div class="analytics-campaign__head">
+                    <span class="analytics-campaign__name">B2B Whitepaper — SaaS ops</span>
+                    <span class="analytics-campaign__channel">LinkedIn Ads</span>
+                  </div>
+                  <div class="analytics-campaign__stats">
+                    <span><small>Reach</small>184k</span>
+                    <span><small>Clicks</small>4,220</span>
+                    <span><small>Conv.</small>412</span>
+                    <span><small>Spend</small>$8,940</span>
+                    <span class="analytics-campaign__roas"><small>ROAS</small><strong>2.4x</strong></span>
+                  </div>
+                </div>
+                <span class="analytics-campaign__delta analytics-campaign__delta--down"><i class="bi bi-arrow-down-right"></i>-8%</span>
+              </li>
+              <li class="analytics-campaign">
+                <span class="analytics-campaign__icon analytics-campaign__icon--coral" aria-hidden="true"><i class="bi bi-camera-reels"></i></span>
+                <div class="analytics-campaign__body">
+                  <div class="analytics-campaign__head">
+                    <span class="analytics-campaign__name">Product demo — Video</span>
+                    <span class="analytics-campaign__channel">YouTube · TikTok</span>
+                  </div>
+                  <div class="analytics-campaign__stats">
+                    <span><small>Reach</small>2.4M</span>
+                    <span><small>Clicks</small>48,620</span>
+                    <span><small>Conv.</small>1,204</span>
+                    <span><small>Spend</small>$14,320</span>
+                    <span class="analytics-campaign__roas"><small>ROAS</small><strong>2.9x</strong></span>
+                  </div>
+                </div>
+                <span class="analytics-campaign__delta analytics-campaign__delta--up"><i class="bi bi-arrow-up-right"></i>+21%</span>
+              </li>
+            </ul>
+          </section>
 
-          <div class="col-12 col-xxl-2">
-            <div class="card orchid-card h-100">
-              <div class="card-body d-flex flex-column">
-                <h6 class="mb-1">Retention Rate</h6>
-                <small class="text-body-secondary mb-2">Last 30 days</small>
-                <div class="orchid-chart-wrap orchid-chart-wrap--radial flex-grow-1">
-                  <canvas data-orchid-chart="retention"></canvas>
-                </div>
-                <div class="text-center mt-2">
-                  <span class="badge bg-success-subtle text-success"><i class="bi bi-arrow-up"></i> 2.4% vs last month</span>
-                </div>
+          <!-- Activity Timeline -->
+          <section class="analytics-tile analytics-span-5" aria-labelledby="analyticsTimelineTitle">
+            <div class="analytics-tile__head">
+              <div>
+                <h2 class="analytics-tile__title" id="analyticsTimelineTitle">Activity Timeline</h2>
+                <p class="analytics-tile__sub">Recent milestones &amp; events</p>
               </div>
+              <a href="#" class="analytics-tile__link">All events</a>
             </div>
-          </div>
+            <ol class="analytics-timeline list-unstyled">
+              <li class="analytics-timeline__item">
+                <span class="analytics-timeline__dot analytics-timeline__dot--violet" aria-hidden="true"><i class="bi bi-trophy"></i></span>
+                <span class="analytics-timeline__time">Just now</span>
+                <p class="analytics-timeline__msg"><strong>Traffic milestone</strong> — hit 50k daily sessions for the first time this quarter.</p>
+              </li>
+              <li class="analytics-timeline__item">
+                <span class="analytics-timeline__dot analytics-timeline__dot--cyan" aria-hidden="true"><i class="bi bi-rocket-takeoff"></i></span>
+                <span class="analytics-timeline__time">14 min ago</span>
+                <p class="analytics-timeline__msg"><strong>Summer Launch Q3</strong> campaign went live across Meta with a $18k budget.</p>
+              </li>
+              <li class="analytics-timeline__item">
+                <span class="analytics-timeline__dot analytics-timeline__dot--lime" aria-hidden="true"><i class="bi bi-graph-up-arrow"></i></span>
+                <span class="analytics-timeline__time">2 hours ago</span>
+                <p class="analytics-timeline__msg"><strong>Conv. rate spike</strong> on /pricing — up 18% after A/B test rollout.</p>
+              </li>
+              <li class="analytics-timeline__item">
+                <span class="analytics-timeline__dot analytics-timeline__dot--amber" aria-hidden="true"><i class="bi bi-flag"></i></span>
+                <span class="analytics-timeline__time">Yesterday</span>
+                <p class="analytics-timeline__msg"><strong>Weekly report</strong> — 12.7% user growth vs. previous period, driven by organic search.</p>
+              </li>
+              <li class="analytics-timeline__item">
+                <span class="analytics-timeline__dot analytics-timeline__dot--coral" aria-hidden="true"><i class="bi bi-bug"></i></span>
+                <span class="analytics-timeline__time">Wed 21 Jul</span>
+                <p class="analytics-timeline__msg"><strong>Anomaly detected</strong> — 4.2% drop in bounce rate; auto-flagged and cleared.</p>
+              </li>
+              <li class="analytics-timeline__item">
+                <span class="analytics-timeline__dot analytics-timeline__dot--violet" aria-hidden="true"><i class="bi bi-people"></i></span>
+                <span class="analytics-timeline__time">Tue 20 Jul</span>
+                <p class="analytics-timeline__msg"><strong>New audience segment</strong> — "Returning power users" now trackable in every report.</p>
+              </li>
+            </ol>
+          </section>
+
         </div>
-
-        <!-- ================== ROW 3 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-lg-5">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Upcoming Meetings</h6>
-                  <a href="#" class="small">Calendar</a>
-                </div>
-                <ul class="orchid-meeting-list list-unstyled mb-0">
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">14</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Product Roadmap Q2</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>10:00 – 11:00 AM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-primary text-white">AK</span>
-                      <span class="avatar avatar-xs bg-info text-white">JD</span>
-                      <span class="avatar avatar-xs bg-warning text-white">+3</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">14</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Client Onboarding – Nova</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>2:00 – 2:45 PM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-success text-white">SM</span>
-                      <span class="avatar avatar-xs bg-danger text-white">EL</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">15</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Design Review</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>9:30 – 10:30 AM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-primary text-white">AK</span>
-                      <span class="avatar avatar-xs bg-warning text-white">+2</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">16</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Investor Sync</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>4:00 – 5:00 PM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-info text-white">RG</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-lg-7">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <div>
-                    <h6 class="mb-0">Deals Overview</h6>
-                    <small class="text-body-secondary">Stacked by stage</small>
-                  </div>
-                  <div class="dropdown">
-                    <button class="btn btn-sm btn-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Deals menu">
-                      <i class="bi bi-three-dots"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                      <li><a class="dropdown-item" href="#">Refresh</a></li>
-                      <li><a class="dropdown-item" href="#">Export CSV</a></li>
-                      <li><a class="dropdown-item" href="#">Settings</a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--lg">
-                  <canvas data-orchid-chart="dealsOverview"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 4 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12">
-            <div class="card orchid-card">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Sales Pipeline</h6>
-                    <small class="text-body-secondary">Progress across stages · $284,500 total</small>
-                  </div>
-                  <button class="btn btn-sm btn-outline-primary"><i class="bi bi-plus-lg me-1"></i>Add Stage</button>
-                </div>
-
-                <div class="row g-3">
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Leads</span>
-                        <small class="text-body-secondary">$48k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Leads" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-primary" data-orchid-progress="85"></div>
-                      </div>
-                      <small class="text-body-secondary">142 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Qualified</span>
-                        <small class="text-body-secondary">$62k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Qualified" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-info" data-orchid-progress="70"></div>
-                      </div>
-                      <small class="text-body-secondary">98 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Proposal</span>
-                        <small class="text-body-secondary">$54k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Proposal" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-warning" data-orchid-progress="60"></div>
-                      </div>
-                      <small class="text-body-secondary">64 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Negotiation</span>
-                        <small class="text-body-secondary">$46k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Negotiation" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-purple" data-orchid-progress="45"></div>
-                      </div>
-                      <small class="text-body-secondary">32 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Won</span>
-                        <small class="text-body-secondary">$62k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Won" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-success" data-orchid-progress="92"></div>
-                      </div>
-                      <small class="text-body-secondary">48 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Lost</span>
-                        <small class="text-body-secondary">$12k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Lost" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-danger" data-orchid-progress="18"></div>
-                      </div>
-                      <small class="text-body-secondary">14 deals</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 5 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-xl-8">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Recent Customers</h6>
-                    <small class="text-body-secondary">Latest activity from your customer base</small>
-                  </div>
-                  <div class="d-flex gap-2">
-                    <div class="input-group input-group-sm orchid-inline-search">
-                      <span class="input-group-text bg-transparent border-end-0"><i class="bi bi-search"></i></span>
-                      <input type="search" class="form-control border-start-0" placeholder="Search customers…" aria-label="Search customers">
-                    </div>
-                    <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-funnel"></i></button>
-                  </div>
-                </div>
-                <div class="table-responsive">
-                  <table class="table orchid-table align-middle mb-0">
-                    <thead>
-                      <tr>
-                        <th scope="col">Customer</th>
-                        <th scope="col" class="d-none d-md-table-cell">Email</th>
-                        <th scope="col" class="d-none d-lg-table-cell">Location</th>
-                        <th scope="col">Spend</th>
-                        <th scope="col">Status</th>
-                        <th scope="col" class="text-end">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-primary-subtle text-primary fw-semibold">EW</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Emma Watson</p>
-                              <small class="text-body-secondary d-md-none">emma@nova.io</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">emma@nova.io</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">London, UK</td>
-                        <td class="fw-semibold">$4,820</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-info-subtle text-info fw-semibold">JD</span>
-                            <div>
-                              <p class="mb-0 fw-medium">James Doe</p>
-                              <small class="text-body-secondary d-md-none">james@acme.com</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">james@acme.com</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">New York, US</td>
-                        <td class="fw-semibold">$2,410</td>
-                        <td><span class="badge bg-warning-subtle text-warning">Pending</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-success-subtle text-success fw-semibold">SM</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Sarah Miller</p>
-                              <small class="text-body-secondary d-md-none">sarah@zen.co</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">sarah@zen.co</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Sydney, AU</td>
-                        <td class="fw-semibold">$7,920</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-warning-subtle text-warning fw-semibold">RG</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Ryan Green</p>
-                              <small class="text-body-secondary d-md-none">ryan@peak.io</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">ryan@peak.io</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Toronto, CA</td>
-                        <td class="fw-semibold">$1,150</td>
-                        <td><span class="badge bg-danger-subtle text-danger">Inactive</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-danger-subtle text-danger fw-semibold">AL</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Ava Lee</p>
-                              <small class="text-body-secondary d-md-none">ava@bold.co</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">ava@bold.co</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Berlin, DE</td>
-                        <td class="fw-semibold">$3,640</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xl-4">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Task Updates</h6>
-                  <a href="#" class="small">View all</a>
-                </div>
-                <ul class="orchid-timeline list-unstyled mb-0">
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-primary"></span>
-                    <div>
-                      <p class="mb-0"><strong>Alex Kim</strong> completed <a href="#">Design System Audit</a></p>
-                      <small class="text-body-secondary">2 mins ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-success"></span>
-                    <div>
-                      <p class="mb-0"><strong>Sarah Miller</strong> added a comment on <a href="#">Q2 Roadmap</a></p>
-                      <small class="text-body-secondary">18 mins ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-warning"></span>
-                    <div>
-                      <p class="mb-0"><strong>James Doe</strong> moved <a href="#">API Redesign</a> to In Progress</p>
-                      <small class="text-body-secondary">1 hour ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-info"></span>
-                    <div>
-                      <p class="mb-0"><strong>Ava Lee</strong> shared the file <a href="#">Brand.pdf</a></p>
-                      <small class="text-body-secondary">3 hours ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-danger"></span>
-                    <div>
-                      <p class="mb-0"><strong>Ryan Green</strong> reported an issue on <a href="#">Checkout</a></p>
-                      <small class="text-body-secondary">Yesterday</small>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
+
 
       <!-- ================== FOOTER ================== -->
       <footer class="orchid-footer" role="contentinfo">
@@ -1127,5 +1152,6 @@
   <script src="assets/js/sidebar.js" defer></script>
   <script src="assets/js/charts.js" defer></script>
   <script src="assets/js/orchid.js" defer></script>
+  <script src="assets/js/pages/analytics.js" defer></script>
 </body>
 </html>

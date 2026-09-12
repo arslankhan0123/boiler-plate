@@ -1,0 +1,35 @@
+.orchid-meeting-list {
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: .875rem;
+    padding: .75rem 0;
+    border-bottom: 1px dashed var(--orchid-border);
+
+    &:last-child { border-bottom: 0; }
+
+    p { font-size: .875rem; }
+    small { font-size: .75rem; }
+  }
+
+  &__date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(79,70,229,.08), rgba(34,211,238,.08));
+    color: var(--orchid-primary);
+    flex-shrink: 0;
+  }
+
+  &__day { font-size: 1.05rem; font-weight: 700; line-height: 1; }
+  &__month {
+    font-size: .625rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    margin-top: 2px;
+  }
+}

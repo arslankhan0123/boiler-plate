@@ -1,0 +1,86 @@
+/* =====================================================
+   Orchid — Editable table (page-specific styles)
+   ===================================================== */
+
+.tables-edit__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  align-items: center;
+  margin-bottom: .75rem;
+}
+
+.tables-edit table {
+  margin-bottom: 0;
+}
+
+.tables-edit tbody td[data-field] {
+  cursor: text;
+  outline: none;
+  transition: background .15s;
+  vertical-align: middle;
+}
+
+.tables-edit tbody td[data-field]:hover {
+  background: rgba(79, 70, 229, .04);
+}
+
+.tables-edit tbody td[data-field]:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--orchid-primary, #4f46e5);
+  background: rgba(79, 70, 229, .06);
+}
+
+.tables-edit tbody td.is-editing {
+  padding: 2px !important;
+  background: rgba(79, 70, 229, .06);
+}
+
+.tables-edit tbody td.is-editing input,
+.tables-edit tbody td.is-editing select {
+  width: 100%;
+}
+
+.tables-edit tbody td.is-error {
+  color: #b91c1c;
+  box-shadow: inset 0 0 0 2px #ef4444;
+}
+
+.tables-edit tbody tr.is-dirty {
+  background: rgba(245, 158, 11, .06);
+}
+
+.tables-edit tbody tr.is-dirty:hover {
+  background: rgba(245, 158, 11, .10);
+}
+
+.tables-edit tbody tr:not(.is-dirty) .tables-edit__pill {
+  visibility: hidden;
+}
+
+.tables-edit__drag {
+  width: 24px;
+  cursor: grab;
+  color: rgba(0, 0, 0, .35);
+  user-select: none;
+}
+
+.tables-edit__drag:active {
+  cursor: grabbing;
+}
+
+.tables-edit tbody tr.is-dragging {
+  opacity: .4;
+}
+
+.tables-edit__status {
+  width: 92px;
+  text-align: center;
+}
+
+[data-bs-theme="dark"] .tables-edit tbody tr.is-dirty {
+  background: rgba(245, 158, 11, .10);
+}
+
+[data-bs-theme="dark"] .tables-edit tbody td[data-field]:hover {
+  background: rgba(139, 92, 246, .10);
+}

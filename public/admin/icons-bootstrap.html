@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Orchid - Premium Bootstrap 5.3 Admin Dashboard Template">
+  <meta name="description" content="Orchid - Bootstrap Icons browser">
   <meta name="theme-color" content="#4f46e5">
-  <title>Orchid - Premium Admin Dashboard</title>
+  <title>Orchid — Bootstrap Icons</title>
 
   <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +14,8 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-  <link href="{{asset('admin/assets/css/orchid.css')}}" rel="stylesheet">
+  <link href="assets/css/orchid.css" rel="stylesheet">
+  <link href="assets/css/pages/icons-maps.css" rel="stylesheet">
 </head>
 <body class="orchid-body">
 
@@ -23,7 +24,7 @@
   <!-- ================== SIDEBAR ================== -->
   <aside class="orchid-sidebar" id="orchidSidebar" aria-label="Primary navigation">
     <div class="orchid-sidebar__brand">
-      <a href="#" class="orchid-brand" aria-label="Orchid dashboard home">
+      <a href="index.html" class="orchid-brand" aria-label="Orchid dashboard home">
         <span class="orchid-brand__logo" aria-hidden="true">
           <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orchid logo">
             <defs>
@@ -48,13 +49,13 @@
         <span class="orchid-nav-section__label">Main</span>
         <ul class="orchid-nav">
           <li>
-            <a href="#navDashboard" class="orchid-nav__link orchid-nav__link--has-sub trail-active" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="navDashboard">
+            <a href="#navDashboard" class="orchid-nav__link orchid-nav__link--has-sub collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="navDashboard">
               <i class="bi bi-speedometer2"></i><span>Dashboard</span>
               <span class="badge bg-primary-subtle text-primary ms-auto">8</span>
               <i class="bi bi-chevron-down orchid-nav__chevron"></i>
             </a>
-            <ul class="collapse show orchid-nav__sub list-unstyled" id="navDashboard">
-              <li><a href="index.html" class="orchid-nav__sublink active" aria-current="page">Default</a></li>
+            <ul class="collapse orchid-nav__sub list-unstyled" id="navDashboard">
+              <li><a href="index.html" class="orchid-nav__sublink">Default</a></li>
               <li><a href="analytics.html" class="orchid-nav__sublink">Analytics</a></li>
               <li><a href="crm.html" class="orchid-nav__sublink">CRM</a></li>
               <li><a href="sales.html" class="orchid-nav__sublink">Sales</a></li>
@@ -211,7 +212,7 @@
         <span class="orchid-nav-section__label">E-Commerce</span>
         <ul class="orchid-nav">
           <li><a href="shop-products.html" class="orchid-nav__link"><i class="bi bi-tag"></i><span>Products</span></a></li>
-          <li><a href="orders.html" class="orchid-nav__link"><i class="bi bi-bag"></i><span>Orders</span></a></li>
+          <li><a href="shop-orders.html" class="orchid-nav__link"><i class="bi bi-bag"></i><span>Orders</span></a></li>
           <li><a href="shop-customers.html" class="orchid-nav__link"><i class="bi bi-person-check"></i><span>Customers</span></a></li>
           <li><a href="shop-coupons.html" class="orchid-nav__link"><i class="bi bi-ticket-perforated"></i><span>Coupons</span></a></li>
           <li><a href="shop-reviews.html" class="orchid-nav__link"><i class="bi bi-star"></i><span>Reviews</span></a></li>
@@ -304,7 +305,7 @@
       <div class="orchid-nav-section">
         <span class="orchid-nav-section__label">Icons</span>
         <ul class="orchid-nav">
-          <li><a href="icons-bootstrap.html" class="orchid-nav__link"><i class="bi bi-bootstrap"></i><span>Bootstrap Icons</span></a></li>
+          <li><a href="icons-bootstrap.html" class="orchid-nav__link active" aria-current="page"><i class="bi bi-bootstrap"></i><span>Bootstrap Icons</span></a></li>
           <li><a href="icons-fontawesome.html" class="orchid-nav__link"><i class="bi bi-star-fill"></i><span>Font Awesome</span></a></li>
           <li><a href="icons-lucide.html" class="orchid-nav__link"><i class="bi bi-emoji-smile"></i><span>Lucide</span></a></li>
           <li><a href="icons-remix.html" class="orchid-nav__link"><i class="bi bi-square"></i><span>Remix Icons</span></a></li>
@@ -372,9 +373,9 @@
         </button>
         <nav aria-label="breadcrumb" class="orchid-header__breadcrumb d-none d-md-block">
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#"><i class="bi bi-house-door"></i></a></li>
-            <li class="breadcrumb-item"><a href="#">Overview</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i></a></li>
+            <li class="breadcrumb-item"><a href="#">Icons</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Bootstrap Icons</li>
           </ol>
         </nav>
       </div>
@@ -546,557 +547,75 @@
 
     <!-- ================== MAIN ================== -->
     <main class="orchid-main" id="orchid-main" tabindex="-1">
-      <div class="container-fluid px-3 px-lg-4 py-4">
+      <div class="container-fluid px-3 px-lg-4 py-4" data-icons-root>
 
-        <!-- Page header -->
-        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
-          <div>
-            <h1 class="h3 mb-1">Welcome back, Alex 👋</h1>
-            <p class="text-body-secondary mb-0">Here's what's happening with your business today.</p>
+        <!-- Hero -->
+        <section class="icons-hero">
+          <h1 class="icons-hero__title"><i class="bi bi-bootstrap me-2"></i>Bootstrap Icons</h1>
+          <p class="icons-hero__lead">Browse 100+ curated Bootstrap Icons — the official SVG icon library from the Bootstrap team. Search live, filter by category, resize, and copy the snippet in one click.</p>
+          <div class="icons-hero__meta">
+            <span class="icons-hero__chip"><i class="bi bi-collection"></i> 100+ icons</span>
+            <span class="icons-hero__chip"><i class="bi bi-code-slash"></i> v1.11.3</span>
+            <span class="icons-hero__chip"><i class="bi bi-brush"></i> SVG · CSS classes</span>
+            <span class="icons-hero__chip"><i class="bi bi-check-circle"></i> MIT License</span>
           </div>
-          <div class="d-flex gap-2">
-            <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-download me-1"></i>Export</button>
-            <button class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i>Create Report</button>
+        </section>
+
+        <!-- Toolbar -->
+        <div class="icons-toolbar">
+          <div class="icons-toolbar__search">
+            <i class="bi bi-search icons-toolbar__search-icon"></i>
+            <input type="search" class="form-control" placeholder="Search icons by name…" data-icons-search aria-label="Search icons">
           </div>
+          <div class="icons-toolbar__size">
+            <i class="bi bi-dash text-body-secondary"></i>
+            <input type="range" class="form-range" min="14" max="56" value="26" data-icons-size aria-label="Icon size">
+            <i class="bi bi-plus text-body-secondary"></i>
+          </div>
+          <div class="icons-toolbar__view" role="group" aria-label="View toggle">
+            <button type="button" data-icons-view="grid" class="is-active" aria-label="Grid view"><i class="bi bi-grid-3x3-gap"></i></button>
+            <button type="button" data-icons-view="list" aria-label="List view"><i class="bi bi-list-ul"></i></button>
+          </div>
+          <span class="icons-toolbar__count" data-icons-count>0 icons</span>
         </div>
 
-        <!-- ================== ROW 1 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card orchid-stat-card h-100 overflow-hidden">
-              <div class="card-body pb-2">
-                <div class="d-flex justify-content-between align-items-start mb-3">
-                  <div>
-                    <p class="text-body-secondary mb-1 small">Total Contacts</p>
-                    <h3 class="mb-0 fw-bold">12,480</h3>
-                  </div>
-                  <span class="orchid-stat-card__icon bg-primary-subtle text-primary"><i class="bi bi-people"></i></span>
-                </div>
-                <span class="badge bg-success-subtle text-success"><i class="bi bi-arrow-up"></i> 12.4% vs last month</span>
-              </div>
-              <div class="orchid-stat-card__spark">
-                <canvas data-orchid-chart="sparkContacts"></canvas>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h6 class="mb-0">Lead Analytics</h6>
-                  <span class="badge bg-info-subtle text-info">Weekly</span>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--sm">
-                  <canvas data-orchid-chart="leadAnalytics"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h6 class="mb-0">Traffic Sources</h6>
-                  <button class="btn btn-sm btn-icon" type="button" aria-label="More"><i class="bi bi-three-dots"></i></button>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--sm">
-                  <canvas data-orchid-chart="trafficSources"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xl-3">
-            <div class="card orchid-card orchid-earnings-card h-100 text-white">
-              <div class="card-body position-relative pb-0">
-                <div class="d-flex justify-content-between align-items-start">
-                  <div>
-                    <p class="mb-1 opacity-75 small">Total Earnings</p>
-                    <h3 class="fw-bold mb-1">$84,120.50</h3>
-                    <span class="badge bg-white text-primary"><i class="bi bi-arrow-up"></i> 8.24%</span>
-                  </div>
-                  <span class="orchid-stat-card__icon bg-white bg-opacity-25 text-white"><i class="bi bi-currency-dollar"></i></span>
-                </div>
-              </div>
-              <div class="orchid-earnings-card__chart">
-                <canvas data-orchid-chart="earnings"></canvas>
-              </div>
-            </div>
-          </div>
+        <!-- Category chips -->
+        <div class="icons-chips" data-icons-chips>
+          <button type="button" class="icons-chip is-active" data-icons-chip="all">All</button>
+          <button type="button" class="icons-chip" data-icons-chip="actions">Actions</button>
+          <button type="button" class="icons-chip" data-icons-chip="alerts">Alerts</button>
+          <button type="button" class="icons-chip" data-icons-chip="media">Media</button>
+          <button type="button" class="icons-chip" data-icons-chip="communication">Communication</button>
+          <button type="button" class="icons-chip" data-icons-chip="file">File</button>
+          <button type="button" class="icons-chip" data-icons-chip="weather">Weather</button>
+          <button type="button" class="icons-chip" data-icons-chip="devices">Devices</button>
+          <button type="button" class="icons-chip" data-icons-chip="currency">Currency</button>
+          <button type="button" class="icons-chip" data-icons-chip="charts">Charts</button>
         </div>
 
-        <!-- ================== ROW 2 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-lg-6 col-xxl-3">
+        <!-- Icons grid -->
+        <div class="icons-grid" data-icons-grid aria-live="polite"></div>
+
+        <!-- Bottom notes -->
+        <div class="row g-3 mt-3">
+          <div class="col-md-6">
             <div class="card orchid-card h-100">
               <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Tasks Overview</h6>
-                  <a href="#" class="small">View all</a>
-                </div>
-                <ul class="orchid-task-list list-unstyled mb-0">
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task1" checked>
-                      <label class="form-check-label text-decoration-line-through text-body-secondary" for="task1">Prepare launch checklist</label>
-                    </div>
-                    <span class="badge bg-success-subtle text-success">Done</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task2">
-                      <label class="form-check-label" for="task2">Design system audit</label>
-                    </div>
-                    <span class="badge bg-warning-subtle text-warning">Today</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task3">
-                      <label class="form-check-label" for="task3">Review PR #482</label>
-                    </div>
-                    <span class="badge bg-primary-subtle text-primary">2h</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task4">
-                      <label class="form-check-label" for="task4">Sync with sales team</label>
-                    </div>
-                    <span class="badge bg-info-subtle text-info">Tomorrow</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task5">
-                      <label class="form-check-label" for="task5">Publish weekly newsletter</label>
-                    </div>
-                    <span class="badge bg-danger-subtle text-danger">Overdue</span>
-                  </li>
-                </ul>
+                <h6 class="mb-2"><i class="bi bi-lightbulb text-warning me-2"></i>Usage</h6>
+                <p class="text-body-secondary mb-2 small">Use any icon by adding the CSS class <code>bi bi-[name]</code> to an <code>&lt;i&gt;</code> tag. Size and color are controlled via standard CSS (font-size, color).</p>
+                <pre class="icons-code"><code>&lt;i class="bi bi-heart-fill"&gt;&lt;/i&gt;</code></pre>
               </div>
             </div>
           </div>
-
-          <div class="col-12 col-lg-6 col-xxl-3">
+          <div class="col-md-6">
             <div class="card orchid-card h-100">
               <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Active Deals</h6>
-                  <span class="badge bg-primary-subtle text-primary">48 total</span>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--md">
-                  <canvas data-orchid-chart="activeDeals"></canvas>
-                </div>
-                <div class="d-flex justify-content-between mt-3 small">
-                  <div><span class="orchid-dot bg-primary"></span> Won <strong class="ms-1">28</strong></div>
-                  <div><span class="orchid-dot bg-warning"></span> Pending <strong class="ms-1">14</strong></div>
-                  <div><span class="orchid-dot bg-danger"></span> Lost <strong class="ms-1">6</strong></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xxl-4">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Revenue Analytics</h6>
-                    <small class="text-body-secondary">Monthly performance</small>
-                  </div>
-                  <div class="btn-group btn-group-sm" role="group" aria-label="Revenue range">
-                    <input type="radio" class="btn-check" name="revRange" id="revW" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="revW">W</label>
-                    <input type="radio" class="btn-check" name="revRange" id="revM" autocomplete="off" checked>
-                    <label class="btn btn-outline-secondary" for="revM">M</label>
-                    <input type="radio" class="btn-check" name="revRange" id="revY" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="revY">Y</label>
-                  </div>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--lg">
-                  <canvas data-orchid-chart="revenue"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xxl-2">
-            <div class="card orchid-card h-100">
-              <div class="card-body d-flex flex-column">
-                <h6 class="mb-1">Retention Rate</h6>
-                <small class="text-body-secondary mb-2">Last 30 days</small>
-                <div class="orchid-chart-wrap orchid-chart-wrap--radial flex-grow-1">
-                  <canvas data-orchid-chart="retention"></canvas>
-                </div>
-                <div class="text-center mt-2">
-                  <span class="badge bg-success-subtle text-success"><i class="bi bi-arrow-up"></i> 2.4% vs last month</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 3 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-lg-5">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Upcoming Meetings</h6>
-                  <a href="#" class="small">Calendar</a>
-                </div>
-                <ul class="orchid-meeting-list list-unstyled mb-0">
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">14</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Product Roadmap Q2</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>10:00 – 11:00 AM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-primary text-white">AK</span>
-                      <span class="avatar avatar-xs bg-info text-white">JD</span>
-                      <span class="avatar avatar-xs bg-warning text-white">+3</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">14</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Client Onboarding – Nova</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>2:00 – 2:45 PM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-success text-white">SM</span>
-                      <span class="avatar avatar-xs bg-danger text-white">EL</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">15</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Design Review</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>9:30 – 10:30 AM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-primary text-white">AK</span>
-                      <span class="avatar avatar-xs bg-warning text-white">+2</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">16</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Investor Sync</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>4:00 – 5:00 PM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-info text-white">RG</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-lg-7">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <div>
-                    <h6 class="mb-0">Deals Overview</h6>
-                    <small class="text-body-secondary">Stacked by stage</small>
-                  </div>
-                  <div class="dropdown">
-                    <button class="btn btn-sm btn-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Deals menu">
-                      <i class="bi bi-three-dots"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                      <li><a class="dropdown-item" href="#">Refresh</a></li>
-                      <li><a class="dropdown-item" href="#">Export CSV</a></li>
-                      <li><a class="dropdown-item" href="#">Settings</a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--lg">
-                  <canvas data-orchid-chart="dealsOverview"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 4 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12">
-            <div class="card orchid-card">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Sales Pipeline</h6>
-                    <small class="text-body-secondary">Progress across stages · $284,500 total</small>
-                  </div>
-                  <button class="btn btn-sm btn-outline-primary"><i class="bi bi-plus-lg me-1"></i>Add Stage</button>
-                </div>
-
-                <div class="row g-3">
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Leads</span>
-                        <small class="text-body-secondary">$48k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Leads" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-primary" data-orchid-progress="85"></div>
-                      </div>
-                      <small class="text-body-secondary">142 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Qualified</span>
-                        <small class="text-body-secondary">$62k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Qualified" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-info" data-orchid-progress="70"></div>
-                      </div>
-                      <small class="text-body-secondary">98 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Proposal</span>
-                        <small class="text-body-secondary">$54k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Proposal" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-warning" data-orchid-progress="60"></div>
-                      </div>
-                      <small class="text-body-secondary">64 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Negotiation</span>
-                        <small class="text-body-secondary">$46k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Negotiation" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-purple" data-orchid-progress="45"></div>
-                      </div>
-                      <small class="text-body-secondary">32 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Won</span>
-                        <small class="text-body-secondary">$62k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Won" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-success" data-orchid-progress="92"></div>
-                      </div>
-                      <small class="text-body-secondary">48 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Lost</span>
-                        <small class="text-body-secondary">$12k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Lost" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-danger" data-orchid-progress="18"></div>
-                      </div>
-                      <small class="text-body-secondary">14 deals</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 5 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-xl-8">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Recent Customers</h6>
-                    <small class="text-body-secondary">Latest activity from your customer base</small>
-                  </div>
-                  <div class="d-flex gap-2">
-                    <div class="input-group input-group-sm orchid-inline-search">
-                      <span class="input-group-text bg-transparent border-end-0"><i class="bi bi-search"></i></span>
-                      <input type="search" class="form-control border-start-0" placeholder="Search customers…" aria-label="Search customers">
-                    </div>
-                    <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-funnel"></i></button>
-                  </div>
-                </div>
-                <div class="table-responsive">
-                  <table class="table orchid-table align-middle mb-0">
-                    <thead>
-                      <tr>
-                        <th scope="col">Customer</th>
-                        <th scope="col" class="d-none d-md-table-cell">Email</th>
-                        <th scope="col" class="d-none d-lg-table-cell">Location</th>
-                        <th scope="col">Spend</th>
-                        <th scope="col">Status</th>
-                        <th scope="col" class="text-end">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-primary-subtle text-primary fw-semibold">EW</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Emma Watson</p>
-                              <small class="text-body-secondary d-md-none">emma@nova.io</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">emma@nova.io</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">London, UK</td>
-                        <td class="fw-semibold">$4,820</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-info-subtle text-info fw-semibold">JD</span>
-                            <div>
-                              <p class="mb-0 fw-medium">James Doe</p>
-                              <small class="text-body-secondary d-md-none">james@acme.com</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">james@acme.com</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">New York, US</td>
-                        <td class="fw-semibold">$2,410</td>
-                        <td><span class="badge bg-warning-subtle text-warning">Pending</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-success-subtle text-success fw-semibold">SM</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Sarah Miller</p>
-                              <small class="text-body-secondary d-md-none">sarah@zen.co</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">sarah@zen.co</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Sydney, AU</td>
-                        <td class="fw-semibold">$7,920</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-warning-subtle text-warning fw-semibold">RG</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Ryan Green</p>
-                              <small class="text-body-secondary d-md-none">ryan@peak.io</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">ryan@peak.io</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Toronto, CA</td>
-                        <td class="fw-semibold">$1,150</td>
-                        <td><span class="badge bg-danger-subtle text-danger">Inactive</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-danger-subtle text-danger fw-semibold">AL</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Ava Lee</p>
-                              <small class="text-body-secondary d-md-none">ava@bold.co</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">ava@bold.co</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Berlin, DE</td>
-                        <td class="fw-semibold">$3,640</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xl-4">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Task Updates</h6>
-                  <a href="#" class="small">View all</a>
-                </div>
-                <ul class="orchid-timeline list-unstyled mb-0">
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-primary"></span>
-                    <div>
-                      <p class="mb-0"><strong>Alex Kim</strong> completed <a href="#">Design System Audit</a></p>
-                      <small class="text-body-secondary">2 mins ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-success"></span>
-                    <div>
-                      <p class="mb-0"><strong>Sarah Miller</strong> added a comment on <a href="#">Q2 Roadmap</a></p>
-                      <small class="text-body-secondary">18 mins ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-warning"></span>
-                    <div>
-                      <p class="mb-0"><strong>James Doe</strong> moved <a href="#">API Redesign</a> to In Progress</p>
-                      <small class="text-body-secondary">1 hour ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-info"></span>
-                    <div>
-                      <p class="mb-0"><strong>Ava Lee</strong> shared the file <a href="#">Brand.pdf</a></p>
-                      <small class="text-body-secondary">3 hours ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-danger"></span>
-                    <div>
-                      <p class="mb-0"><strong>Ryan Green</strong> reported an issue on <a href="#">Checkout</a></p>
-                      <small class="text-body-secondary">Yesterday</small>
-                    </div>
-                  </li>
+                <h6 class="mb-2"><i class="bi bi-info-circle text-info me-2"></i>Resources</h6>
+                <ul class="mb-0 small">
+                  <li><a href="https://icons.getbootstrap.com/" rel="noopener">Official Bootstrap Icons docs</a></li>
+                  <li><a href="https://github.com/twbs/icons" rel="noopener">GitHub repository</a></li>
+                  <li>License: MIT — free for commercial and personal use</li>
+                  <li>Version bundled: <strong>1.11.3</strong> (loaded from jsDelivr)</li>
                 </ul>
               </div>
             </div>
@@ -1121,11 +640,175 @@
     </main>
   </div>
 
+  <!-- Icon detail modal -->
+  <div class="modal fade" id="iconDetailModal" tabindex="-1" aria-labelledby="iconDetailModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <h5 class="modal-title mb-0" id="iconDetailModalTitle" data-icon-detail-title>icon-name</h5>
+            <small class="text-body-secondary" data-icon-detail-lib>Bootstrap Icons</small>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="icons-preview" data-icon-detail-preview></div>
+          <h6 class="mt-3 mb-2"><i class="bi bi-code-slash me-1"></i>Snippet</h6>
+          <div class="icons-code">
+            <code data-icon-detail-code></code>
+            <button type="button" class="icons-code__copy" data-icon-copy><i class="bi bi-clipboard me-1"></i>Copy</button>
+          </div>
+          <h6 class="mt-3 mb-2"><i class="bi bi-aspect-ratio me-1"></i>Sizes</h6>
+          <div class="icons-sizes" data-icon-detail-sizes></div>
+          <h6 class="mt-3 mb-2"><i class="bi bi-palette me-1"></i>Color variants</h6>
+          <div class="icons-variants" data-icon-detail-colors></div>
+          <h6 class="mt-3 mb-2"><i class="bi bi-shuffle me-1"></i>Equivalents in other libraries</h6>
+          <div class="icons-equiv" data-icon-detail-equiv></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="assets/js/theme.js" defer></script>
   <script src="assets/js/sidebar.js" defer></script>
   <script src="assets/js/charts.js" defer></script>
   <script src="assets/js/orchid.js" defer></script>
+  <script src="assets/js/pages/icons-maps.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var icons = [
+        { name: 'house', categories: ['actions'] },
+        { name: 'house-fill', categories: ['actions'] },
+        { name: 'person', categories: ['actions'] },
+        { name: 'person-fill', categories: ['actions'] },
+        { name: 'people', categories: ['actions'] },
+        { name: 'gear', categories: ['actions'] },
+        { name: 'gear-fill', categories: ['actions'] },
+        { name: 'search', categories: ['actions'] },
+        { name: 'plus-lg', categories: ['actions'] },
+        { name: 'dash-lg', categories: ['actions'] },
+        { name: 'pencil', categories: ['actions'] },
+        { name: 'pencil-square', categories: ['actions'] },
+        { name: 'trash', categories: ['actions'] },
+        { name: 'trash-fill', categories: ['actions'] },
+        { name: 'download', categories: ['actions'] },
+        { name: 'upload', categories: ['actions'] },
+        { name: 'share', categories: ['actions'] },
+        { name: 'share-fill', categories: ['actions'] },
+        { name: 'link-45deg', categories: ['actions'] },
+        { name: 'clipboard', categories: ['actions'] },
+        { name: 'clipboard-check', categories: ['actions'] },
+        { name: 'check-lg', categories: ['actions'] },
+        { name: 'x-lg', categories: ['actions'] },
+        { name: 'arrow-right', categories: ['actions'] },
+        { name: 'arrow-left', categories: ['actions'] },
+        { name: 'arrow-up', categories: ['actions'] },
+        { name: 'arrow-down', categories: ['actions'] },
+        { name: 'exclamation-triangle', categories: ['alerts'] },
+        { name: 'exclamation-triangle-fill', categories: ['alerts'] },
+        { name: 'exclamation-circle', categories: ['alerts'] },
+        { name: 'info-circle', categories: ['alerts'] },
+        { name: 'info-circle-fill', categories: ['alerts'] },
+        { name: 'check-circle', categories: ['alerts'] },
+        { name: 'check-circle-fill', categories: ['alerts'] },
+        { name: 'x-circle', categories: ['alerts'] },
+        { name: 'x-circle-fill', categories: ['alerts'] },
+        { name: 'shield-check', categories: ['alerts'] },
+        { name: 'shield-lock', categories: ['alerts'] },
+        { name: 'bell', categories: ['alerts'] },
+        { name: 'bell-fill', categories: ['alerts'] },
+        { name: 'bug', categories: ['alerts'] },
+        { name: 'play-circle', categories: ['media'] },
+        { name: 'play-fill', categories: ['media'] },
+        { name: 'pause-fill', categories: ['media'] },
+        { name: 'stop-fill', categories: ['media'] },
+        { name: 'skip-forward-fill', categories: ['media'] },
+        { name: 'skip-backward-fill', categories: ['media'] },
+        { name: 'volume-up', categories: ['media'] },
+        { name: 'volume-mute', categories: ['media'] },
+        { name: 'music-note-beamed', categories: ['media'] },
+        { name: 'camera', categories: ['media'] },
+        { name: 'camera-video', categories: ['media'] },
+        { name: 'image', categories: ['media'] },
+        { name: 'images', categories: ['media'] },
+        { name: 'film', categories: ['media'] },
+        { name: 'mic', categories: ['media'] },
+        { name: 'headphones', categories: ['media'] },
+        { name: 'chat', categories: ['communication'] },
+        { name: 'chat-dots', categories: ['communication'] },
+        { name: 'chat-left-text', categories: ['communication'] },
+        { name: 'envelope', categories: ['communication'] },
+        { name: 'envelope-fill', categories: ['communication'] },
+        { name: 'envelope-open', categories: ['communication'] },
+        { name: 'telephone', categories: ['communication'] },
+        { name: 'telephone-fill', categories: ['communication'] },
+        { name: 'reply', categories: ['communication'] },
+        { name: 'send', categories: ['communication'] },
+        { name: 'megaphone', categories: ['communication'] },
+        { name: 'file-earmark', categories: ['file'] },
+        { name: 'file-earmark-fill', categories: ['file'] },
+        { name: 'file-earmark-text', categories: ['file'] },
+        { name: 'file-earmark-pdf', categories: ['file'] },
+        { name: 'file-earmark-image', categories: ['file'] },
+        { name: 'file-earmark-code', categories: ['file'] },
+        { name: 'file-earmark-zip', categories: ['file'] },
+        { name: 'folder', categories: ['file'] },
+        { name: 'folder-fill', categories: ['file'] },
+        { name: 'folder2-open', categories: ['file'] },
+        { name: 'cloud-upload', categories: ['file'] },
+        { name: 'cloud-download', categories: ['file'] },
+        { name: 'sun', categories: ['weather'] },
+        { name: 'sun-fill', categories: ['weather'] },
+        { name: 'moon', categories: ['weather'] },
+        { name: 'moon-stars', categories: ['weather'] },
+        { name: 'cloud', categories: ['weather'] },
+        { name: 'cloud-rain', categories: ['weather'] },
+        { name: 'cloud-snow', categories: ['weather'] },
+        { name: 'cloud-lightning', categories: ['weather'] },
+        { name: 'wind', categories: ['weather'] },
+        { name: 'droplet', categories: ['weather'] },
+        { name: 'thermometer', categories: ['weather'] },
+        { name: 'laptop', categories: ['devices'] },
+        { name: 'phone', categories: ['devices'] },
+        { name: 'tablet', categories: ['devices'] },
+        { name: 'display', categories: ['devices'] },
+        { name: 'tv', categories: ['devices'] },
+        { name: 'keyboard', categories: ['devices'] },
+        { name: 'mouse', categories: ['devices'] },
+        { name: 'printer', categories: ['devices'] },
+        { name: 'router', categories: ['devices'] },
+        { name: 'currency-dollar', categories: ['currency'] },
+        { name: 'currency-euro', categories: ['currency'] },
+        { name: 'currency-pound', categories: ['currency'] },
+        { name: 'currency-yen', categories: ['currency'] },
+        { name: 'currency-bitcoin', categories: ['currency'] },
+        { name: 'cash', categories: ['currency'] },
+        { name: 'cash-coin', categories: ['currency'] },
+        { name: 'credit-card', categories: ['currency'] },
+        { name: 'wallet2', categories: ['currency'] },
+        { name: 'piggy-bank', categories: ['currency'] },
+        { name: 'bar-chart', categories: ['charts'] },
+        { name: 'bar-chart-line', categories: ['charts'] },
+        { name: 'graph-up', categories: ['charts'] },
+        { name: 'graph-down', categories: ['charts'] },
+        { name: 'pie-chart', categories: ['charts'] },
+        { name: 'pie-chart-fill', categories: ['charts'] },
+        { name: 'activity', categories: ['charts'] }
+      ];
+      var equivalents = {
+        'house': { bi: 'house', fa: 'house', lu: 'home', ri: 'home-4' },
+        'heart-fill': { bi: 'heart-fill', fa: 'heart', lu: 'heart', ri: 'heart' },
+        'star-fill': { bi: 'star-fill', fa: 'star', lu: 'star', ri: 'star' },
+        'gear': { bi: 'gear', fa: 'gear', lu: 'settings', ri: 'settings-3' },
+        'search': { bi: 'search', fa: 'magnifying-glass', lu: 'search', ri: 'search' }
+      };
+      window.initIconLibrary({ library: 'bootstrap', icons: icons, equivalents: equivalents });
+    });
+  </script>
 </body>
 </html>

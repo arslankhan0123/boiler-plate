@@ -1,0 +1,24 @@
+.orchid-pipeline {
+  padding: .75rem;
+  border: 1px solid var(--orchid-border);
+  border-radius: 10px;
+  background-color: var(--orchid-surface);
+  transition: box-shadow 200ms ease;
+
+  &:hover { box-shadow: $orchid-shadow-sm; }
+
+  &__bar {
+    height: 6px;
+    border-radius: 999px;
+    margin-bottom: .375rem;
+    background-color: var(--orchid-hover);
+
+    .progress-bar {
+      border-radius: 999px;
+      width: 0;
+      transition: width 900ms cubic-bezier(.4,0,.2,1);
+    }
+  }
+}
+
+.bg-purple { background-color: $orchid-purple !important; }

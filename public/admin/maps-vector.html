@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Orchid - Premium Bootstrap 5.3 Admin Dashboard Template">
+  <meta name="description" content="Orchid - Vector Maps with SVG regions">
   <meta name="theme-color" content="#4f46e5">
-  <title>Orchid - Premium Admin Dashboard</title>
+  <title>Orchid — Vector Maps</title>
 
   <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +14,8 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-  <link href="{{asset('admin/assets/css/orchid.css')}}" rel="stylesheet">
+  <link href="assets/css/orchid.css" rel="stylesheet">
+  <link href="assets/css/pages/icons-maps.css" rel="stylesheet">
 </head>
 <body class="orchid-body">
 
@@ -23,7 +24,7 @@
   <!-- ================== SIDEBAR ================== -->
   <aside class="orchid-sidebar" id="orchidSidebar" aria-label="Primary navigation">
     <div class="orchid-sidebar__brand">
-      <a href="#" class="orchid-brand" aria-label="Orchid dashboard home">
+      <a href="index.html" class="orchid-brand" aria-label="Orchid dashboard home">
         <span class="orchid-brand__logo" aria-hidden="true">
           <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orchid logo">
             <defs>
@@ -48,13 +49,13 @@
         <span class="orchid-nav-section__label">Main</span>
         <ul class="orchid-nav">
           <li>
-            <a href="#navDashboard" class="orchid-nav__link orchid-nav__link--has-sub trail-active" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="navDashboard">
+            <a href="#navDashboard" class="orchid-nav__link orchid-nav__link--has-sub collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="navDashboard">
               <i class="bi bi-speedometer2"></i><span>Dashboard</span>
               <span class="badge bg-primary-subtle text-primary ms-auto">8</span>
               <i class="bi bi-chevron-down orchid-nav__chevron"></i>
             </a>
-            <ul class="collapse show orchid-nav__sub list-unstyled" id="navDashboard">
-              <li><a href="index.html" class="orchid-nav__sublink active" aria-current="page">Default</a></li>
+            <ul class="collapse orchid-nav__sub list-unstyled" id="navDashboard">
+              <li><a href="index.html" class="orchid-nav__sublink">Default</a></li>
               <li><a href="analytics.html" class="orchid-nav__sublink">Analytics</a></li>
               <li><a href="crm.html" class="orchid-nav__sublink">CRM</a></li>
               <li><a href="sales.html" class="orchid-nav__sublink">Sales</a></li>
@@ -211,7 +212,7 @@
         <span class="orchid-nav-section__label">E-Commerce</span>
         <ul class="orchid-nav">
           <li><a href="shop-products.html" class="orchid-nav__link"><i class="bi bi-tag"></i><span>Products</span></a></li>
-          <li><a href="orders.html" class="orchid-nav__link"><i class="bi bi-bag"></i><span>Orders</span></a></li>
+          <li><a href="shop-orders.html" class="orchid-nav__link"><i class="bi bi-bag"></i><span>Orders</span></a></li>
           <li><a href="shop-customers.html" class="orchid-nav__link"><i class="bi bi-person-check"></i><span>Customers</span></a></li>
           <li><a href="shop-coupons.html" class="orchid-nav__link"><i class="bi bi-ticket-perforated"></i><span>Coupons</span></a></li>
           <li><a href="shop-reviews.html" class="orchid-nav__link"><i class="bi bi-star"></i><span>Reviews</span></a></li>
@@ -315,7 +316,7 @@
         <span class="orchid-nav-section__label">Maps</span>
         <ul class="orchid-nav">
           <li><a href="maps-google.html" class="orchid-nav__link"><i class="bi bi-map"></i><span>Google Maps</span></a></li>
-          <li><a href="maps-vector.html" class="orchid-nav__link"><i class="bi bi-geo-alt"></i><span>Vector Maps</span></a></li>
+          <li><a href="maps-vector.html" class="orchid-nav__link active" aria-current="page"><i class="bi bi-geo-alt"></i><span>Vector Maps</span></a></li>
         </ul>
       </div>
 
@@ -372,9 +373,9 @@
         </button>
         <nav aria-label="breadcrumb" class="orchid-header__breadcrumb d-none d-md-block">
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#"><i class="bi bi-house-door"></i></a></li>
-            <li class="breadcrumb-item"><a href="#">Overview</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i></a></li>
+            <li class="breadcrumb-item"><a href="#">Maps</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Vector Maps</li>
           </ol>
         </nav>
       </div>
@@ -548,377 +549,103 @@
     <main class="orchid-main" id="orchid-main" tabindex="-1">
       <div class="container-fluid px-3 px-lg-4 py-4">
 
-        <!-- Page header -->
-        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
-          <div>
-            <h1 class="h3 mb-1">Welcome back, Alex 👋</h1>
-            <p class="text-body-secondary mb-0">Here's what's happening with your business today.</p>
-          </div>
-          <div class="d-flex gap-2">
-            <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-download me-1"></i>Export</button>
-            <button class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i>Create Report</button>
-          </div>
-        </div>
+        <!-- Hero -->
+        <section class="maps-hero">
+          <h1 class="maps-hero__title"><i class="bi bi-geo-alt me-2"></i>Vector Maps</h1>
+          <p class="maps-hero__lead">Interactive inline-SVG world map with hoverable continents, choropleth heatmaps, pin markers and a region-comparison chart — all zero-dependency and theme-aware.</p>
+        </section>
 
-        <!-- ================== ROW 1 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card orchid-stat-card h-100 overflow-hidden">
-              <div class="card-body pb-2">
-                <div class="d-flex justify-content-between align-items-start mb-3">
-                  <div>
-                    <p class="text-body-secondary mb-1 small">Total Contacts</p>
-                    <h3 class="mb-0 fw-bold">12,480</h3>
-                  </div>
-                  <span class="orchid-stat-card__icon bg-primary-subtle text-primary"><i class="bi bi-people"></i></span>
-                </div>
-                <span class="badge bg-success-subtle text-success"><i class="bi bi-arrow-up"></i> 12.4% vs last month</span>
-              </div>
-              <div class="orchid-stat-card__spark">
-                <canvas data-orchid-chart="sparkContacts"></canvas>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h6 class="mb-0">Lead Analytics</h6>
-                  <span class="badge bg-info-subtle text-info">Weekly</span>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--sm">
-                  <canvas data-orchid-chart="leadAnalytics"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h6 class="mb-0">Traffic Sources</h6>
-                  <button class="btn btn-sm btn-icon" type="button" aria-label="More"><i class="bi bi-three-dots"></i></button>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--sm">
-                  <canvas data-orchid-chart="trafficSources"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xl-3">
-            <div class="card orchid-card orchid-earnings-card h-100 text-white">
-              <div class="card-body position-relative pb-0">
-                <div class="d-flex justify-content-between align-items-start">
-                  <div>
-                    <p class="mb-1 opacity-75 small">Total Earnings</p>
-                    <h3 class="fw-bold mb-1">$84,120.50</h3>
-                    <span class="badge bg-white text-primary"><i class="bi bi-arrow-up"></i> 8.24%</span>
-                  </div>
-                  <span class="orchid-stat-card__icon bg-white bg-opacity-25 text-white"><i class="bi bi-currency-dollar"></i></span>
-                </div>
-              </div>
-              <div class="orchid-earnings-card__chart">
-                <canvas data-orchid-chart="earnings"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 2 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-lg-6 col-xxl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Tasks Overview</h6>
-                  <a href="#" class="small">View all</a>
-                </div>
-                <ul class="orchid-task-list list-unstyled mb-0">
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task1" checked>
-                      <label class="form-check-label text-decoration-line-through text-body-secondary" for="task1">Prepare launch checklist</label>
-                    </div>
-                    <span class="badge bg-success-subtle text-success">Done</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task2">
-                      <label class="form-check-label" for="task2">Design system audit</label>
-                    </div>
-                    <span class="badge bg-warning-subtle text-warning">Today</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task3">
-                      <label class="form-check-label" for="task3">Review PR #482</label>
-                    </div>
-                    <span class="badge bg-primary-subtle text-primary">2h</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task4">
-                      <label class="form-check-label" for="task4">Sync with sales team</label>
-                    </div>
-                    <span class="badge bg-info-subtle text-info">Tomorrow</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task5">
-                      <label class="form-check-label" for="task5">Publish weekly newsletter</label>
-                    </div>
-                    <span class="badge bg-danger-subtle text-danger">Overdue</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-lg-6 col-xxl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Active Deals</h6>
-                  <span class="badge bg-primary-subtle text-primary">48 total</span>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--md">
-                  <canvas data-orchid-chart="activeDeals"></canvas>
-                </div>
-                <div class="d-flex justify-content-between mt-3 small">
-                  <div><span class="orchid-dot bg-primary"></span> Won <strong class="ms-1">28</strong></div>
-                  <div><span class="orchid-dot bg-warning"></span> Pending <strong class="ms-1">14</strong></div>
-                  <div><span class="orchid-dot bg-danger"></span> Lost <strong class="ms-1">6</strong></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xxl-4">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Revenue Analytics</h6>
-                    <small class="text-body-secondary">Monthly performance</small>
-                  </div>
-                  <div class="btn-group btn-group-sm" role="group" aria-label="Revenue range">
-                    <input type="radio" class="btn-check" name="revRange" id="revW" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="revW">W</label>
-                    <input type="radio" class="btn-check" name="revRange" id="revM" autocomplete="off" checked>
-                    <label class="btn btn-outline-secondary" for="revM">M</label>
-                    <input type="radio" class="btn-check" name="revRange" id="revY" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="revY">Y</label>
-                  </div>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--lg">
-                  <canvas data-orchid-chart="revenue"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xxl-2">
-            <div class="card orchid-card h-100">
-              <div class="card-body d-flex flex-column">
-                <h6 class="mb-1">Retention Rate</h6>
-                <small class="text-body-secondary mb-2">Last 30 days</small>
-                <div class="orchid-chart-wrap orchid-chart-wrap--radial flex-grow-1">
-                  <canvas data-orchid-chart="retention"></canvas>
-                </div>
-                <div class="text-center mt-2">
-                  <span class="badge bg-success-subtle text-success"><i class="bi bi-arrow-up"></i> 2.4% vs last month</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 3 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-lg-5">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Upcoming Meetings</h6>
-                  <a href="#" class="small">Calendar</a>
-                </div>
-                <ul class="orchid-meeting-list list-unstyled mb-0">
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">14</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Product Roadmap Q2</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>10:00 – 11:00 AM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-primary text-white">AK</span>
-                      <span class="avatar avatar-xs bg-info text-white">JD</span>
-                      <span class="avatar avatar-xs bg-warning text-white">+3</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">14</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Client Onboarding – Nova</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>2:00 – 2:45 PM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-success text-white">SM</span>
-                      <span class="avatar avatar-xs bg-danger text-white">EL</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">15</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Design Review</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>9:30 – 10:30 AM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-primary text-white">AK</span>
-                      <span class="avatar avatar-xs bg-warning text-white">+2</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">16</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Investor Sync</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>4:00 – 5:00 PM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-info text-white">RG</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-lg-7">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <div>
-                    <h6 class="mb-0">Deals Overview</h6>
-                    <small class="text-body-secondary">Stacked by stage</small>
-                  </div>
-                  <div class="dropdown">
-                    <button class="btn btn-sm btn-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Deals menu">
-                      <i class="bi bi-three-dots"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                      <li><a class="dropdown-item" href="#">Refresh</a></li>
-                      <li><a class="dropdown-item" href="#">Export CSV</a></li>
-                      <li><a class="dropdown-item" href="#">Settings</a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--lg">
-                  <canvas data-orchid-chart="dealsOverview"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 4 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
+        <!-- World map + choropleth -->
+        <div class="row g-3 g-xl-4 mb-4">
           <div class="col-12">
             <div class="card orchid-card">
               <div class="card-body">
                 <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
                   <div>
-                    <h6 class="mb-0">Sales Pipeline</h6>
-                    <small class="text-body-secondary">Progress across stages · $284,500 total</small>
+                    <h6 class="mb-0">World choropleth — users by region</h6>
+                    <small class="text-body-secondary">Hover a continent for details · click to open the region modal</small>
                   </div>
-                  <button class="btn btn-sm btn-outline-primary"><i class="bi bi-plus-lg me-1"></i>Add Stage</button>
+                  <div class="btn-group btn-group-sm" role="group" aria-label="Metric">
+                    <input type="radio" class="btn-check" name="metric" id="mUsers" checked>
+                    <label class="btn btn-outline-secondary" for="mUsers">Users</label>
+                    <input type="radio" class="btn-check" name="metric" id="mRevenue">
+                    <label class="btn btn-outline-secondary" for="mRevenue">Revenue</label>
+                    <input type="radio" class="btn-check" name="metric" id="mSessions">
+                    <label class="btn btn-outline-secondary" for="mSessions">Sessions</label>
+                  </div>
                 </div>
 
-                <div class="row g-3">
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Leads</span>
-                        <small class="text-body-secondary">$48k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Leads" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-primary" data-orchid-progress="85"></div>
-                      </div>
-                      <small class="text-body-secondary">142 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Qualified</span>
-                        <small class="text-body-secondary">$62k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Qualified" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-info" data-orchid-progress="70"></div>
-                      </div>
-                      <small class="text-body-secondary">98 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Proposal</span>
-                        <small class="text-body-secondary">$54k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Proposal" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-warning" data-orchid-progress="60"></div>
-                      </div>
-                      <small class="text-body-secondary">64 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Negotiation</span>
-                        <small class="text-body-secondary">$46k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Negotiation" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-purple" data-orchid-progress="45"></div>
-                      </div>
-                      <small class="text-body-secondary">32 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Won</span>
-                        <small class="text-body-secondary">$62k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Won" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-success" data-orchid-progress="92"></div>
-                      </div>
-                      <small class="text-body-secondary">48 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Lost</span>
-                        <small class="text-body-secondary">$12k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Lost" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-danger" data-orchid-progress="18"></div>
-                      </div>
-                      <small class="text-body-secondary">14 deals</small>
-                    </div>
+                <div class="maps-vector" data-maps-vector>
+                  <svg class="maps-vector__svg" viewBox="0 0 900 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Simplified world map">
+                    <!-- Ocean background -->
+                    <rect x="0" y="0" width="900" height="460" fill="transparent"/>
+
+                    <!-- North America -->
+                    <path class="i-4" d="M60,60 L260,55 L280,110 L250,180 L230,240 L170,270 L110,240 L70,180 L50,120 Z"
+                          data-region="north-america" data-region-name="North America" data-region-value="420K users"
+                          data-region-pop="596M" data-region-gdp="$28.4T" data-region-city="New York"/>
+
+                    <!-- South America -->
+                    <path class="i-2" d="M210,270 L280,265 L305,320 L285,380 L245,430 L215,410 L200,340 Z"
+                          data-region="south-america" data-region-name="South America" data-region-value="180K users"
+                          data-region-pop="434M" data-region-gdp="$4.1T" data-region-city="São Paulo"/>
+
+                    <!-- Europe -->
+                    <path class="i-4" d="M420,80 L520,70 L560,110 L555,155 L500,180 L440,175 L400,140 Z"
+                          data-region="europe" data-region-name="Europe" data-region-value="380K users"
+                          data-region-pop="748M" data-region-gdp="$24.8T" data-region-city="London"/>
+
+                    <!-- Africa -->
+                    <path class="i-2" d="M430,190 L560,190 L580,260 L560,340 L500,400 L450,380 L420,300 Z"
+                          data-region="africa" data-region-name="Africa" data-region-value="220K users"
+                          data-region-pop="1.4B" data-region-gdp="$3.1T" data-region-city="Lagos"/>
+
+                    <!-- Asia -->
+                    <path class="i-5" d="M580,70 L820,75 L850,150 L830,230 L760,260 L680,240 L620,200 L580,140 Z"
+                          data-region="asia" data-region-name="Asia" data-region-value="640K users"
+                          data-region-pop="4.7B" data-region-gdp="$41.2T" data-region-city="Tokyo"/>
+
+                    <!-- Oceania -->
+                    <path class="i-1" d="M760,320 L850,315 L870,360 L830,395 L770,380 Z"
+                          data-region="oceania" data-region-name="Oceania" data-region-value="90K users"
+                          data-region-pop="45M" data-region-gdp="$1.9T" data-region-city="Sydney"/>
+
+                    <!-- Antarctica -->
+                    <path class="i-1" d="M60,430 L860,430 L830,455 L100,455 Z"
+                          data-region="antarctica" data-region-name="Antarctica" data-region-value="1K users"
+                          data-region-pop="4K" data-region-gdp="—" data-region-city="McMurdo Station"/>
+
+                    <!-- Pin markers on major hubs -->
+                    <g class="maps-marker" data-marker-label="San Francisco HQ · 24K users">
+                      <circle cx="150" cy="140" r="8" fill="#ef4444"/>
+                      <circle cx="150" cy="140" r="14" fill="#ef4444" opacity=".25"/>
+                    </g>
+                    <g class="maps-marker" data-marker-label="London office · 18K users">
+                      <circle cx="470" cy="110" r="8" fill="#f59e0b"/>
+                      <circle cx="470" cy="110" r="14" fill="#f59e0b" opacity=".25"/>
+                    </g>
+                    <g class="maps-marker" data-marker-label="Tokyo hub · 32K users">
+                      <circle cx="790" cy="140" r="8" fill="#10b981"/>
+                      <circle cx="790" cy="140" r="14" fill="#10b981" opacity=".25"/>
+                    </g>
+                    <g class="maps-marker" data-marker-label="Singapore hub · 21K users">
+                      <circle cx="720" cy="240" r="8" fill="#22d3ee"/>
+                      <circle cx="720" cy="240" r="14" fill="#22d3ee" opacity=".25"/>
+                    </g>
+                    <g class="maps-marker" data-marker-label="Sydney office · 12K users">
+                      <circle cx="820" cy="360" r="8" fill="#6366f1"/>
+                      <circle cx="820" cy="360" r="14" fill="#6366f1" opacity=".25"/>
+                    </g>
+                    <g class="maps-marker" data-marker-label="São Paulo · 15K users">
+                      <circle cx="270" cy="360" r="8" fill="#a855f7"/>
+                      <circle cx="270" cy="360" r="14" fill="#a855f7" opacity=".25"/>
+                    </g>
+                  </svg>
+
+                  <div class="maps-legend">
+                    <span class="maps-legend__label">Low</span>
+                    <div class="maps-legend__bar" aria-hidden="true"></div>
+                    <span class="maps-legend__label">High</span>
                   </div>
                 </div>
               </div>
@@ -926,177 +653,68 @@
           </div>
         </div>
 
-        <!-- ================== ROW 5 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-xl-8">
+        <!-- Country tiles fallback + comparison chart -->
+        <div class="row g-3 g-xl-4 mb-4">
+          <div class="col-12 col-xl-6">
             <div class="card orchid-card h-100">
               <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Recent Customers</h6>
-                    <small class="text-body-secondary">Latest activity from your customer base</small>
-                  </div>
-                  <div class="d-flex gap-2">
-                    <div class="input-group input-group-sm orchid-inline-search">
-                      <span class="input-group-text bg-transparent border-end-0"><i class="bi bi-search"></i></span>
-                      <input type="search" class="form-control border-start-0" placeholder="Search customers…" aria-label="Search customers">
-                    </div>
-                    <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-funnel"></i></button>
-                  </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h6 class="mb-0">Top countries</h6>
+                  <span class="badge bg-primary-subtle text-primary">12 markets</span>
                 </div>
-                <div class="table-responsive">
-                  <table class="table orchid-table align-middle mb-0">
-                    <thead>
-                      <tr>
-                        <th scope="col">Customer</th>
-                        <th scope="col" class="d-none d-md-table-cell">Email</th>
-                        <th scope="col" class="d-none d-lg-table-cell">Location</th>
-                        <th scope="col">Spend</th>
-                        <th scope="col">Status</th>
-                        <th scope="col" class="text-end">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-primary-subtle text-primary fw-semibold">EW</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Emma Watson</p>
-                              <small class="text-body-secondary d-md-none">emma@nova.io</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">emma@nova.io</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">London, UK</td>
-                        <td class="fw-semibold">$4,820</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-info-subtle text-info fw-semibold">JD</span>
-                            <div>
-                              <p class="mb-0 fw-medium">James Doe</p>
-                              <small class="text-body-secondary d-md-none">james@acme.com</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">james@acme.com</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">New York, US</td>
-                        <td class="fw-semibold">$2,410</td>
-                        <td><span class="badge bg-warning-subtle text-warning">Pending</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-success-subtle text-success fw-semibold">SM</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Sarah Miller</p>
-                              <small class="text-body-secondary d-md-none">sarah@zen.co</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">sarah@zen.co</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Sydney, AU</td>
-                        <td class="fw-semibold">$7,920</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-warning-subtle text-warning fw-semibold">RG</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Ryan Green</p>
-                              <small class="text-body-secondary d-md-none">ryan@peak.io</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">ryan@peak.io</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Toronto, CA</td>
-                        <td class="fw-semibold">$1,150</td>
-                        <td><span class="badge bg-danger-subtle text-danger">Inactive</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-danger-subtle text-danger fw-semibold">AL</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Ava Lee</p>
-                              <small class="text-body-secondary d-md-none">ava@bold.co</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">ava@bold.co</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Berlin, DE</td>
-                        <td class="fw-semibold">$3,640</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div class="row row-cols-3 row-cols-md-4 g-2">
+                  <div class="col"><div class="maps-state-tile"><span aria-hidden="true">🇺🇸</span> USA<small>142K</small></div></div>
+                  <div class="col"><div class="maps-state-tile"><span aria-hidden="true">🇯🇵</span> Japan<small>98K</small></div></div>
+                  <div class="col"><div class="maps-state-tile"><span aria-hidden="true">🇬🇧</span> UK<small>84K</small></div></div>
+                  <div class="col"><div class="maps-state-tile"><span aria-hidden="true">🇩🇪</span> Germany<small>76K</small></div></div>
+                  <div class="col"><div class="maps-state-tile"><span aria-hidden="true">🇫🇷</span> France<small>62K</small></div></div>
+                  <div class="col"><div class="maps-state-tile"><span aria-hidden="true">🇨🇦</span> Canada<small>54K</small></div></div>
+                  <div class="col"><div class="maps-state-tile"><span aria-hidden="true">🇦🇺</span> Australia<small>48K</small></div></div>
+                  <div class="col"><div class="maps-state-tile"><span aria-hidden="true">🇧🇷</span> Brazil<small>44K</small></div></div>
+                  <div class="col"><div class="maps-state-tile"><span aria-hidden="true">🇮🇳</span> India<small>112K</small></div></div>
+                  <div class="col"><div class="maps-state-tile"><span aria-hidden="true">🇨🇳</span> China<small>168K</small></div></div>
+                  <div class="col"><div class="maps-state-tile"><span aria-hidden="true">🇸🇬</span> Singapore<small>36K</small></div></div>
+                  <div class="col"><div class="maps-state-tile"><span aria-hidden="true">🇰🇷</span> S. Korea<small>52K</small></div></div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="col-12 col-xl-4">
+          <div class="col-12 col-xl-6">
             <div class="card orchid-card h-100">
               <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Task Updates</h6>
-                  <a href="#" class="small">View all</a>
+                  <div>
+                    <h6 class="mb-0">Region comparison</h6>
+                    <small class="text-body-secondary">Users vs Revenue by continent</small>
+                  </div>
                 </div>
-                <ul class="orchid-timeline list-unstyled mb-0">
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-primary"></span>
-                    <div>
-                      <p class="mb-0"><strong>Alex Kim</strong> completed <a href="#">Design System Audit</a></p>
-                      <small class="text-body-secondary">2 mins ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-success"></span>
-                    <div>
-                      <p class="mb-0"><strong>Sarah Miller</strong> added a comment on <a href="#">Q2 Roadmap</a></p>
-                      <small class="text-body-secondary">18 mins ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-warning"></span>
-                    <div>
-                      <p class="mb-0"><strong>James Doe</strong> moved <a href="#">API Redesign</a> to In Progress</p>
-                      <small class="text-body-secondary">1 hour ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-info"></span>
-                    <div>
-                      <p class="mb-0"><strong>Ava Lee</strong> shared the file <a href="#">Brand.pdf</a></p>
-                      <small class="text-body-secondary">3 hours ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-danger"></span>
-                    <div>
-                      <p class="mb-0"><strong>Ryan Green</strong> reported an issue on <a href="#">Checkout</a></p>
-                      <small class="text-body-secondary">Yesterday</small>
-                    </div>
-                  </li>
+                <div class="orchid-chart-wrap orchid-chart-wrap--lg">
+                  <canvas id="mapsCompareChart" aria-label="Region comparison bar chart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom notes -->
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="card orchid-card h-100">
+              <div class="card-body">
+                <h6 class="mb-2"><i class="bi bi-lightbulb text-warning me-2"></i>Approach</h6>
+                <p class="text-body-secondary mb-0 small">Pure inline SVG with <code>data-region</code> attributes drives hover tooltips, click-to-modal and choropleth intensity classes. Zero external map libraries — perfect for lightweight dashboards.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card orchid-card h-100">
+              <div class="card-body">
+                <h6 class="mb-2"><i class="bi bi-info-circle text-info me-2"></i>Production upgrade</h6>
+                <ul class="mb-0 small">
+                  <li><a href="https://jvectormap.com/" rel="noopener">jsVectorMap</a> — precise country paths</li>
+                  <li><a href="https://d3js.org/" rel="noopener">D3.js + TopoJSON</a> — data-driven geographies</li>
+                  <li><a href="https://leafletjs.com/" rel="noopener">Leaflet + choropleth plugin</a></li>
                 </ul>
               </div>
             </div>
@@ -1121,11 +739,53 @@
     </main>
   </div>
 
+  <!-- Region detail modal -->
+  <div class="modal fade" id="regionDetailModal" tabindex="-1" aria-labelledby="regionDetailModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="regionDetailModalTitle" data-region-title>Region</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-2 text-center">
+            <div class="col-4">
+              <div class="p-3 rounded bg-primary-subtle text-primary">
+                <i class="bi bi-people fs-4"></i>
+                <p class="mb-0 fw-bold" data-region-pop>—</p>
+                <small>Population</small>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="p-3 rounded bg-success-subtle text-success">
+                <i class="bi bi-currency-dollar fs-4"></i>
+                <p class="mb-0 fw-bold" data-region-gdp>—</p>
+                <small>GDP</small>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="p-3 rounded bg-info-subtle text-info">
+                <i class="bi bi-building fs-4"></i>
+                <p class="mb-0 fw-bold" data-region-city>—</p>
+                <small>Top City</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary"><i class="bi bi-graph-up me-1"></i>View report</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="assets/js/theme.js" defer></script>
   <script src="assets/js/sidebar.js" defer></script>
   <script src="assets/js/charts.js" defer></script>
   <script src="assets/js/orchid.js" defer></script>
+  <script src="assets/js/pages/icons-maps.js" defer></script>
 </body>
 </html>

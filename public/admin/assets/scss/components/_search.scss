@@ -1,0 +1,55 @@
+.orchid-search {
+  position: relative;
+  align-items: center;
+  width: 100%;
+  max-width: 320px;
+
+  &__icon {
+    position: absolute;
+    left: .75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--orchid-text-muted);
+    font-size: .9rem;
+    pointer-events: none;
+  }
+
+  &__kbd {
+    position: absolute;
+    right: .5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--orchid-hover);
+    color: var(--orchid-text-muted);
+    padding: .1rem .35rem;
+    border-radius: 6px;
+    font-size: .7rem;
+    font-weight: 600;
+  }
+
+  .form-control {
+    padding-left: 2.25rem;
+    padding-right: 3rem;
+    background-color: var(--orchid-hover);
+    border-color: transparent;
+    border-radius: 10px;
+    font-size: .875rem;
+
+    &:focus {
+      background-color: var(--orchid-surface);
+      border-color: var(--orchid-primary);
+      box-shadow: 0 0 0 3px rgba(79,70,229,.15);
+    }
+  }
+}
+
+.orchid-inline-search {
+  max-width: 220px;
+
+  .input-group-text {
+    color: var(--orchid-text-muted);
+    background: transparent;
+    border-color: var(--orchid-border);
+  }
+  .form-control { border-color: var(--orchid-border); }
+}

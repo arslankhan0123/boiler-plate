@@ -1,0 +1,63 @@
+// Fixed collapsible sidebar
+.orchid-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: $orchid-sidebar-w;
+  z-index: $z-sidebar;
+  background-color: var(--orchid-surface);
+  border-right: 1px solid var(--orchid-border);
+  display: flex;
+  flex-direction: column;
+  transition: transform $orchid-transition, width $orchid-transition;
+
+  @media (max-width: 991.98px) {
+    transform: translateX(-100%);
+    box-shadow: $orchid-shadow-lg;
+
+    &.is-open {
+      transform: translateX(0);
+    }
+  }
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.125rem 1.25rem;
+    border-bottom: 1px solid var(--orchid-border);
+    min-height: $orchid-header-h;
+  }
+
+  &__close {
+    background: transparent;
+    border: 0;
+    color: var(--orchid-text-muted);
+
+    &:hover { color: var(--orchid-text); }
+  }
+
+  &__nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.25rem 1rem 1.5rem;
+    @include orchid-scrollbar;
+  }
+}
+
+// Collapsed (desktop)
+body.orchid-sidebar-collapsed .orchid-sidebar {
+  @media (min-width: 992px) {
+    width: $orchid-sidebar-w-collapsed;
+
+    .orchid-brand__text,
+    .orchid-nav-section__label,
+    .orchid-nav__link span,
+    .orchid-nav__link .badge,
+    .orchid-upgrade-card { display: none; }
+
+    .orchid-nav__link { justify-content: center; padding-left: .5rem; padding-right: .5rem; }
+    .orchid-nav__link i { margin-right: 0; }
+  }
+}

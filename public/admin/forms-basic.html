@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Orchid - Premium Bootstrap 5.3 Admin Dashboard Template">
+  <meta name="description" content="Orchid — Basic form inputs, selects, checkboxes, radios and range sliders.">
   <meta name="theme-color" content="#4f46e5">
-  <title>Orchid - Premium Admin Dashboard</title>
+  <title>Orchid — Forms: Basic</title>
 
   <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +14,8 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-  <link href="{{asset('admin/assets/css/orchid.css')}}" rel="stylesheet">
+  <link href="assets/css/orchid.css" rel="stylesheet">
+  <link href="assets/css/pages/forms-showcase.css" rel="stylesheet">
 </head>
 <body class="orchid-body">
 
@@ -23,7 +24,7 @@
   <!-- ================== SIDEBAR ================== -->
   <aside class="orchid-sidebar" id="orchidSidebar" aria-label="Primary navigation">
     <div class="orchid-sidebar__brand">
-      <a href="#" class="orchid-brand" aria-label="Orchid dashboard home">
+      <a href="index.html" class="orchid-brand" aria-label="Orchid dashboard home">
         <span class="orchid-brand__logo" aria-hidden="true">
           <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orchid logo">
             <defs>
@@ -48,13 +49,13 @@
         <span class="orchid-nav-section__label">Main</span>
         <ul class="orchid-nav">
           <li>
-            <a href="#navDashboard" class="orchid-nav__link orchid-nav__link--has-sub trail-active" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="navDashboard">
+            <a href="#navDashboard" class="orchid-nav__link orchid-nav__link--has-sub collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="navDashboard">
               <i class="bi bi-speedometer2"></i><span>Dashboard</span>
               <span class="badge bg-primary-subtle text-primary ms-auto">8</span>
               <i class="bi bi-chevron-down orchid-nav__chevron"></i>
             </a>
-            <ul class="collapse show orchid-nav__sub list-unstyled" id="navDashboard">
-              <li><a href="index.html" class="orchid-nav__sublink active" aria-current="page">Default</a></li>
+            <ul class="collapse orchid-nav__sub list-unstyled" id="navDashboard">
+              <li><a href="index.html" class="orchid-nav__sublink">Default</a></li>
               <li><a href="analytics.html" class="orchid-nav__sublink">Analytics</a></li>
               <li><a href="crm.html" class="orchid-nav__sublink">CRM</a></li>
               <li><a href="sales.html" class="orchid-nav__sublink">Sales</a></li>
@@ -263,7 +264,7 @@
       <div class="orchid-nav-section">
         <span class="orchid-nav-section__label">Forms</span>
         <ul class="orchid-nav">
-          <li><a href="forms-basic.html" class="orchid-nav__link"><i class="bi bi-input-cursor"></i><span>Basic Forms</span></a></li>
+          <li><a href="forms-basic.html" class="orchid-nav__link active" aria-current="page"><i class="bi bi-input-cursor"></i><span>Basic Forms</span></a></li>
           <li><a href="forms-validation.html" class="orchid-nav__link"><i class="bi bi-check-circle"></i><span>Validation</span></a></li>
           <li><a href="forms-wizard.html" class="orchid-nav__link"><i class="bi bi-magic"></i><span>Wizard</span></a></li>
           <li><a href="forms-file-upload.html" class="orchid-nav__link"><i class="bi bi-cloud-upload"></i><span>File Upload</span></a></li>
@@ -372,9 +373,9 @@
         </button>
         <nav aria-label="breadcrumb" class="orchid-header__breadcrumb d-none d-md-block">
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#"><i class="bi bi-house-door"></i></a></li>
-            <li class="breadcrumb-item"><a href="#">Overview</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i></a></li>
+            <li class="breadcrumb-item">Forms</li>
+            <li class="breadcrumb-item active" aria-current="page">Basic</li>
           </ol>
         </nav>
       </div>
@@ -548,559 +549,467 @@
     <main class="orchid-main" id="orchid-main" tabindex="-1">
       <div class="container-fluid px-3 px-lg-4 py-4">
 
-        <!-- Page header -->
-        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+        <!-- Hero -->
+        <section class="forms-hero" aria-labelledby="forms-hero-title">
+          <span class="forms-hero__eyebrow"><i class="bi bi-input-cursor"></i>Forms · Basic</span>
+          <h1 class="forms-hero__title" id="forms-hero-title">Basic form controls</h1>
+          <p class="forms-hero__lead">Every input, select, checkbox, radio, range and input-group variant used across Orchid. Ready-to-copy Bootstrap markup with production-quality microcopy and accessibility built in.</p>
+          <div class="forms-hero__meta">
+            <span class="forms-hero__chip"><i class="bi bi-layers"></i>8 groups</span>
+            <span class="forms-hero__chip"><i class="bi bi-bootstrap"></i>Bootstrap 5.3</span>
+            <span class="forms-hero__chip"><i class="bi bi-universal-access"></i>WCAG AA</span>
+            <span class="forms-hero__chip"><i class="bi bi-moon-stars"></i>Dark-mode ready</span>
+          </div>
+        </section>
+
+        <div class="tables-layout">
           <div>
-            <h1 class="h3 mb-1">Welcome back, Alex 👋</h1>
-            <p class="text-body-secondary mb-0">Here's what's happening with your business today.</p>
-          </div>
-          <div class="d-flex gap-2">
-            <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-download me-1"></i>Export</button>
-            <button class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i>Create Report</button>
-          </div>
-        </div>
 
-        <!-- ================== ROW 1 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card orchid-stat-card h-100 overflow-hidden">
-              <div class="card-body pb-2">
-                <div class="d-flex justify-content-between align-items-start mb-3">
-                  <div>
-                    <p class="text-body-secondary mb-1 small">Total Contacts</p>
-                    <h3 class="mb-0 fw-bold">12,480</h3>
-                  </div>
-                  <span class="orchid-stat-card__icon bg-primary-subtle text-primary"><i class="bi bi-people"></i></span>
+            <!-- 1. Text inputs -->
+            <section class="forms-section" id="text-inputs" aria-labelledby="sec-text-title">
+              <div class="forms-section__head">
+                <div>
+                  <h2 class="forms-section__title" id="sec-text-title"><i class="bi bi-input-cursor-text"></i>Text inputs</h2>
+                  <p class="forms-section__sub">Default, floating label, icon prefix, disabled, readonly and three sizes.</p>
                 </div>
-                <span class="badge bg-success-subtle text-success"><i class="bi bi-arrow-up"></i> 12.4% vs last month</span>
-              </div>
-              <div class="orchid-stat-card__spark">
-                <canvas data-orchid-chart="sparkContacts"></canvas>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h6 class="mb-0">Lead Analytics</h6>
-                  <span class="badge bg-info-subtle text-info">Weekly</span>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--sm">
-                  <canvas data-orchid-chart="leadAnalytics"></canvas>
+                <div class="forms-section__actions">
+                  <button class="btn btn-sm btn-outline-secondary" type="button" data-forms-code-toggle="code-text" aria-expanded="false" aria-controls="code-text"><i class="bi bi-code-slash"></i> Show code</button>
                 </div>
               </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h6 class="mb-0">Traffic Sources</h6>
-                  <button class="btn btn-sm btn-icon" type="button" aria-label="More"><i class="bi bi-three-dots"></i></button>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--sm">
-                  <canvas data-orchid-chart="trafficSources"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xl-3">
-            <div class="card orchid-card orchid-earnings-card h-100 text-white">
-              <div class="card-body position-relative pb-0">
-                <div class="d-flex justify-content-between align-items-start">
-                  <div>
-                    <p class="mb-1 opacity-75 small">Total Earnings</p>
-                    <h3 class="fw-bold mb-1">$84,120.50</h3>
-                    <span class="badge bg-white text-primary"><i class="bi bi-arrow-up"></i> 8.24%</span>
-                  </div>
-                  <span class="orchid-stat-card__icon bg-white bg-opacity-25 text-white"><i class="bi bi-currency-dollar"></i></span>
-                </div>
-              </div>
-              <div class="orchid-earnings-card__chart">
-                <canvas data-orchid-chart="earnings"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 2 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-lg-6 col-xxl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Tasks Overview</h6>
-                  <a href="#" class="small">View all</a>
-                </div>
-                <ul class="orchid-task-list list-unstyled mb-0">
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task1" checked>
-                      <label class="form-check-label text-decoration-line-through text-body-secondary" for="task1">Prepare launch checklist</label>
-                    </div>
-                    <span class="badge bg-success-subtle text-success">Done</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task2">
-                      <label class="form-check-label" for="task2">Design system audit</label>
-                    </div>
-                    <span class="badge bg-warning-subtle text-warning">Today</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task3">
-                      <label class="form-check-label" for="task3">Review PR #482</label>
-                    </div>
-                    <span class="badge bg-primary-subtle text-primary">2h</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task4">
-                      <label class="form-check-label" for="task4">Sync with sales team</label>
-                    </div>
-                    <span class="badge bg-info-subtle text-info">Tomorrow</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task5">
-                      <label class="form-check-label" for="task5">Publish weekly newsletter</label>
-                    </div>
-                    <span class="badge bg-danger-subtle text-danger">Overdue</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-lg-6 col-xxl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Active Deals</h6>
-                  <span class="badge bg-primary-subtle text-primary">48 total</span>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--md">
-                  <canvas data-orchid-chart="activeDeals"></canvas>
-                </div>
-                <div class="d-flex justify-content-between mt-3 small">
-                  <div><span class="orchid-dot bg-primary"></span> Won <strong class="ms-1">28</strong></div>
-                  <div><span class="orchid-dot bg-warning"></span> Pending <strong class="ms-1">14</strong></div>
-                  <div><span class="orchid-dot bg-danger"></span> Lost <strong class="ms-1">6</strong></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xxl-4">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Revenue Analytics</h6>
-                    <small class="text-body-secondary">Monthly performance</small>
-                  </div>
-                  <div class="btn-group btn-group-sm" role="group" aria-label="Revenue range">
-                    <input type="radio" class="btn-check" name="revRange" id="revW" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="revW">W</label>
-                    <input type="radio" class="btn-check" name="revRange" id="revM" autocomplete="off" checked>
-                    <label class="btn btn-outline-secondary" for="revM">M</label>
-                    <input type="radio" class="btn-check" name="revRange" id="revY" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="revY">Y</label>
-                  </div>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--lg">
-                  <canvas data-orchid-chart="revenue"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xxl-2">
-            <div class="card orchid-card h-100">
-              <div class="card-body d-flex flex-column">
-                <h6 class="mb-1">Retention Rate</h6>
-                <small class="text-body-secondary mb-2">Last 30 days</small>
-                <div class="orchid-chart-wrap orchid-chart-wrap--radial flex-grow-1">
-                  <canvas data-orchid-chart="retention"></canvas>
-                </div>
-                <div class="text-center mt-2">
-                  <span class="badge bg-success-subtle text-success"><i class="bi bi-arrow-up"></i> 2.4% vs last month</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 3 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-lg-5">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Upcoming Meetings</h6>
-                  <a href="#" class="small">Calendar</a>
-                </div>
-                <ul class="orchid-meeting-list list-unstyled mb-0">
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">14</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Product Roadmap Q2</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>10:00 – 11:00 AM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-primary text-white">AK</span>
-                      <span class="avatar avatar-xs bg-info text-white">JD</span>
-                      <span class="avatar avatar-xs bg-warning text-white">+3</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">14</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Client Onboarding – Nova</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>2:00 – 2:45 PM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-success text-white">SM</span>
-                      <span class="avatar avatar-xs bg-danger text-white">EL</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">15</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Design Review</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>9:30 – 10:30 AM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-primary text-white">AK</span>
-                      <span class="avatar avatar-xs bg-warning text-white">+2</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">16</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Investor Sync</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>4:00 – 5:00 PM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-info text-white">RG</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-lg-7">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <div>
-                    <h6 class="mb-0">Deals Overview</h6>
-                    <small class="text-body-secondary">Stacked by stage</small>
-                  </div>
-                  <div class="dropdown">
-                    <button class="btn btn-sm btn-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Deals menu">
-                      <i class="bi bi-three-dots"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                      <li><a class="dropdown-item" href="#">Refresh</a></li>
-                      <li><a class="dropdown-item" href="#">Export CSV</a></li>
-                      <li><a class="dropdown-item" href="#">Settings</a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--lg">
-                  <canvas data-orchid-chart="dealsOverview"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 4 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12">
-            <div class="card orchid-card">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Sales Pipeline</h6>
-                    <small class="text-body-secondary">Progress across stages · $284,500 total</small>
-                  </div>
-                  <button class="btn btn-sm btn-outline-primary"><i class="bi bi-plus-lg me-1"></i>Add Stage</button>
-                </div>
-
+              <div class="forms-section__body">
                 <div class="row g-3">
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Leads</span>
-                        <small class="text-body-secondary">$48k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Leads" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-primary" data-orchid-progress="85"></div>
-                      </div>
-                      <small class="text-body-secondary">142 deals</small>
+                  <div class="col-md-6">
+                    <label for="ti-default" class="form-label">Default</label>
+                    <input type="text" class="form-control" id="ti-default" placeholder="Jane Doe">
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-floating">
+                      <input type="email" class="form-control" id="ti-float" placeholder="name@example.com">
+                      <label for="ti-float">Floating label</label>
                     </div>
                   </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Qualified</span>
-                        <small class="text-body-secondary">$62k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Qualified" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-info" data-orchid-progress="70"></div>
-                      </div>
-                      <small class="text-body-secondary">98 deals</small>
+                  <div class="col-md-6">
+                    <label for="ti-icon" class="form-label">With icon</label>
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                      <input type="email" class="form-control" id="ti-icon" placeholder="you@company.com">
                     </div>
                   </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Proposal</span>
-                        <small class="text-body-secondary">$54k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Proposal" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-warning" data-orchid-progress="60"></div>
-                      </div>
-                      <small class="text-body-secondary">64 deals</small>
-                    </div>
+                  <div class="col-md-6">
+                    <label for="ti-dis" class="form-label">Disabled</label>
+                    <input type="text" class="form-control" id="ti-dis" value="Locked value" disabled>
                   </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Negotiation</span>
-                        <small class="text-body-secondary">$46k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Negotiation" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-purple" data-orchid-progress="45"></div>
-                      </div>
-                      <small class="text-body-secondary">32 deals</small>
-                    </div>
+                  <div class="col-md-6">
+                    <label for="ti-ro" class="form-label">Read-only</label>
+                    <input type="text" class="form-control" id="ti-ro" value="ORD-4820" readonly>
                   </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Won</span>
-                        <small class="text-body-secondary">$62k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Won" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-success" data-orchid-progress="92"></div>
-                      </div>
-                      <small class="text-body-secondary">48 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Lost</span>
-                        <small class="text-body-secondary">$12k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Lost" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-danger" data-orchid-progress="18"></div>
-                      </div>
-                      <small class="text-body-secondary">14 deals</small>
-                    </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Sizes</label>
+                    <input type="text" class="form-control form-control-sm mb-2" placeholder="Small">
+                    <input type="text" class="form-control mb-2" placeholder="Default">
+                    <input type="text" class="form-control form-control-lg" placeholder="Large">
                   </div>
                 </div>
+                <div class="forms-code" id="code-text">
+                  <div class="forms-code__bar"><span>HTML</span><button class="btn btn-sm btn-outline-secondary" type="button" data-forms-copy="#code-text pre"><i class="bi bi-clipboard"></i> Copy</button></div>
+<pre>&lt;input type="text" class="form-control" placeholder="Jane Doe"&gt;
+&lt;div class="form-floating"&gt;&lt;input class="form-control" placeholder=" "&gt;&lt;label&gt;Floating label&lt;/label&gt;&lt;/div&gt;
+&lt;div class="input-group"&gt;&lt;span class="input-group-text"&gt;&lt;i class="bi bi-envelope"&gt;&lt;/i&gt;&lt;/span&gt;&lt;input class="form-control"&gt;&lt;/div&gt;
+&lt;input class="form-control" disabled&gt;
+&lt;input class="form-control" readonly&gt;
+&lt;input class="form-control form-control-sm"&gt; &lt;input class="form-control"&gt; &lt;input class="form-control form-control-lg"&gt;</pre>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
+            </section>
 
-        <!-- ================== ROW 5 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-xl-8">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Recent Customers</h6>
-                    <small class="text-body-secondary">Latest activity from your customer base</small>
+            <!-- 2. Textarea -->
+            <section class="forms-section" id="textarea" aria-labelledby="sec-ta-title">
+              <div class="forms-section__head">
+                <div>
+                  <h2 class="forms-section__title" id="sec-ta-title"><i class="bi bi-textarea"></i>Textareas</h2>
+                  <p class="forms-section__sub">Fixed 4-row and auto-growing variants for comments, notes and long-form input.</p>
+                </div>
+                <div class="forms-section__actions">
+                  <button class="btn btn-sm btn-outline-secondary" type="button" data-forms-code-toggle="code-ta" aria-expanded="false" aria-controls="code-ta"><i class="bi bi-code-slash"></i> Show code</button>
+                </div>
+              </div>
+              <div class="forms-section__body">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="ta-fixed" class="form-label">Fixed height</label>
+                    <textarea id="ta-fixed" class="form-control" rows="4" placeholder="Say something…"></textarea>
                   </div>
-                  <div class="d-flex gap-2">
-                    <div class="input-group input-group-sm orchid-inline-search">
-                      <span class="input-group-text bg-transparent border-end-0"><i class="bi bi-search"></i></span>
-                      <input type="search" class="form-control border-start-0" placeholder="Search customers…" aria-label="Search customers">
-                    </div>
-                    <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-funnel"></i></button>
+                  <div class="col-md-6">
+                    <label for="ta-auto" class="form-label">Auto-grow</label>
+                    <textarea id="ta-auto" class="form-control" rows="1" data-forms-autogrow placeholder="Types as you go — height follows content"></textarea>
                   </div>
                 </div>
-                <div class="table-responsive">
-                  <table class="table orchid-table align-middle mb-0">
-                    <thead>
-                      <tr>
-                        <th scope="col">Customer</th>
-                        <th scope="col" class="d-none d-md-table-cell">Email</th>
-                        <th scope="col" class="d-none d-lg-table-cell">Location</th>
-                        <th scope="col">Spend</th>
-                        <th scope="col">Status</th>
-                        <th scope="col" class="text-end">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-primary-subtle text-primary fw-semibold">EW</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Emma Watson</p>
-                              <small class="text-body-secondary d-md-none">emma@nova.io</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">emma@nova.io</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">London, UK</td>
-                        <td class="fw-semibold">$4,820</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-info-subtle text-info fw-semibold">JD</span>
-                            <div>
-                              <p class="mb-0 fw-medium">James Doe</p>
-                              <small class="text-body-secondary d-md-none">james@acme.com</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">james@acme.com</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">New York, US</td>
-                        <td class="fw-semibold">$2,410</td>
-                        <td><span class="badge bg-warning-subtle text-warning">Pending</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-success-subtle text-success fw-semibold">SM</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Sarah Miller</p>
-                              <small class="text-body-secondary d-md-none">sarah@zen.co</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">sarah@zen.co</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Sydney, AU</td>
-                        <td class="fw-semibold">$7,920</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-warning-subtle text-warning fw-semibold">RG</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Ryan Green</p>
-                              <small class="text-body-secondary d-md-none">ryan@peak.io</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">ryan@peak.io</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Toronto, CA</td>
-                        <td class="fw-semibold">$1,150</td>
-                        <td><span class="badge bg-danger-subtle text-danger">Inactive</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-danger-subtle text-danger fw-semibold">AL</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Ava Lee</p>
-                              <small class="text-body-secondary d-md-none">ava@bold.co</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">ava@bold.co</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Berlin, DE</td>
-                        <td class="fw-semibold">$3,640</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div class="forms-code" id="code-ta">
+                  <div class="forms-code__bar"><span>HTML</span><button class="btn btn-sm btn-outline-secondary" type="button" data-forms-copy="#code-ta pre"><i class="bi bi-clipboard"></i> Copy</button></div>
+<pre>&lt;textarea class="form-control" rows="4"&gt;&lt;/textarea&gt;
+&lt;textarea class="form-control" rows="1" data-forms-autogrow&gt;&lt;/textarea&gt;</pre>
+                </div>
+              </div>
+            </section>
+
+            <!-- 3. Selects -->
+            <section class="forms-section" id="selects" aria-labelledby="sec-sel-title">
+              <div class="forms-section__head">
+                <div>
+                  <h2 class="forms-section__title" id="sec-sel-title"><i class="bi bi-menu-button-wide"></i>Selects</h2>
+                  <p class="forms-section__sub">Native, floating-label, multi-select and searchable custom select — all keyboard-accessible.</p>
+                </div>
+                <div class="forms-section__actions">
+                  <button class="btn btn-sm btn-outline-secondary" type="button" data-forms-code-toggle="code-sel" aria-expanded="false" aria-controls="code-sel"><i class="bi bi-code-slash"></i> Show code</button>
+                </div>
+              </div>
+              <div class="forms-section__body">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="sel-basic" class="form-label">Basic</label>
+                    <select class="form-select" id="sel-basic">
+                      <option>Enterprise</option>
+                      <option>Growth</option>
+                      <option>Starter</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-floating">
+                      <select class="form-select" id="sel-float">
+                        <option>United States</option>
+                        <option>United Kingdom</option>
+                        <option>Germany</option>
+                      </select>
+                      <label for="sel-float">Country</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="sel-multi" class="form-label">Multi-select</label>
+                    <select class="form-select" id="sel-multi" multiple size="4">
+                      <option selected>Design</option>
+                      <option>Engineering</option>
+                      <option selected>Marketing</option>
+                      <option>Sales</option>
+                      <option>Support</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="ss-toggle">Searchable</label>
+                    <div class="forms-select-search">
+                      <button type="button" class="forms-select-search__toggle" id="ss-toggle" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="forms-select-search__label">Choose product…</span>
+                        <i class="bi bi-chevron-down"></i>
+                      </button>
+                      <div class="forms-select-search__panel" role="listbox" aria-label="Products">
+                        <input type="search" class="forms-select-search__search" placeholder="Search products">
+                        <ul class="forms-select-search__list list-unstyled mb-0">
+                          <li class="forms-select-search__opt" data-value="hp">Wireless Headphones</li>
+                          <li class="forms-select-search__opt" data-value="kb">Mechanical Keyboard</li>
+                          <li class="forms-select-search__opt" data-value="mn">4K Monitor 27"</li>
+                          <li class="forms-select-search__opt" data-value="hb">USB-C Hub 8-in-1</li>
+                          <li class="forms-select-search__opt" data-value="dm">Standing Desk Mat</li>
+                        </ul>
+                      </div>
+                      <input type="hidden" name="product">
+                    </div>
+                  </div>
+                </div>
+                <div class="forms-code" id="code-sel">
+                  <div class="forms-code__bar"><span>HTML</span><button class="btn btn-sm btn-outline-secondary" type="button" data-forms-copy="#code-sel pre"><i class="bi bi-clipboard"></i> Copy</button></div>
+<pre>&lt;select class="form-select"&gt;&lt;option&gt;A&lt;/option&gt;&lt;/select&gt;
+&lt;div class="form-floating"&gt;&lt;select class="form-select"&gt;&lt;/select&gt;&lt;label&gt;Country&lt;/label&gt;&lt;/div&gt;
+&lt;select class="form-select" multiple size="4"&gt;&lt;/select&gt;
+&lt;div class="forms-select-search"&gt;
+  &lt;button class="forms-select-search__toggle"&gt;…&lt;/button&gt;
+  &lt;div class="forms-select-search__panel"&gt;
+    &lt;input class="forms-select-search__search"&gt;
+    &lt;ul class="forms-select-search__list"&gt;&lt;li class="forms-select-search__opt"&gt;…&lt;/li&gt;&lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+                </div>
+              </div>
+            </section>
+
+            <!-- 4. Checkboxes -->
+            <section class="forms-section" id="checkboxes" aria-labelledby="sec-cb-title">
+              <div class="forms-section__head">
+                <div>
+                  <h2 class="forms-section__title" id="sec-cb-title"><i class="bi bi-check2-square"></i>Checkboxes</h2>
+                  <p class="forms-section__sub">Default, switch, indeterminate, colored, stacked and inline layouts.</p>
+                </div>
+                <div class="forms-section__actions">
+                  <button class="btn btn-sm btn-outline-secondary" type="button" data-forms-code-toggle="code-cb" aria-expanded="false" aria-controls="code-cb"><i class="bi bi-code-slash"></i> Show code</button>
+                </div>
+              </div>
+              <div class="forms-section__body">
+                <div class="row g-3">
+                  <div class="col-md-4">
+                    <p class="forms-demo__label">Default</p>
+                    <div class="form-check"><input type="checkbox" class="form-check-input" id="cb-1" checked><label class="form-check-label" for="cb-1">Enable notifications</label></div>
+                    <div class="form-check"><input type="checkbox" class="form-check-input" id="cb-2"><label class="form-check-label" for="cb-2">Subscribe to newsletter</label></div>
+                  </div>
+                  <div class="col-md-4">
+                    <p class="forms-demo__label">Switch</p>
+                    <div class="form-check form-switch"><input type="checkbox" class="form-check-input" id="sw-1" checked><label class="form-check-label" for="sw-1">Dark mode</label></div>
+                    <div class="form-check form-switch"><input type="checkbox" class="form-check-input" id="sw-2"><label class="form-check-label" for="sw-2">Two-factor auth</label></div>
+                  </div>
+                  <div class="col-md-4">
+                    <p class="forms-demo__label">Indeterminate</p>
+                    <div class="form-check"><input type="checkbox" class="form-check-input" id="cb-i" data-forms-indeterminate><label class="form-check-label" for="cb-i">Select all rows</label></div>
+                  </div>
+                  <div class="col-md-6">
+                    <p class="forms-demo__label">Colored</p>
+                    <div class="form-check"><input type="checkbox" class="form-check-input" id="cb-p" checked><label class="form-check-label" for="cb-p">Primary</label></div>
+                    <div class="form-check"><input type="checkbox" class="form-check-input" id="cb-s" checked><label class="form-check-label text-success" for="cb-s">Success</label></div>
+                    <div class="form-check"><input type="checkbox" class="form-check-input" id="cb-d" checked><label class="form-check-label text-danger" for="cb-d">Danger</label></div>
+                  </div>
+                  <div class="col-md-6">
+                    <p class="forms-demo__label">Inline</p>
+                    <div class="form-check form-check-inline"><input type="checkbox" class="form-check-input" id="cbi-1"><label class="form-check-label" for="cbi-1">HTML</label></div>
+                    <div class="form-check form-check-inline"><input type="checkbox" class="form-check-input" id="cbi-2"><label class="form-check-label" for="cbi-2">CSS</label></div>
+                    <div class="form-check form-check-inline"><input type="checkbox" class="form-check-input" id="cbi-3"><label class="form-check-label" for="cbi-3">JavaScript</label></div>
+                  </div>
+                </div>
+                <div class="forms-code" id="code-cb">
+                  <div class="forms-code__bar"><span>HTML</span><button class="btn btn-sm btn-outline-secondary" type="button" data-forms-copy="#code-cb pre"><i class="bi bi-clipboard"></i> Copy</button></div>
+<pre>&lt;div class="form-check"&gt;&lt;input type="checkbox" class="form-check-input" id="a"&gt;&lt;label for="a"&gt;Text&lt;/label&gt;&lt;/div&gt;
+&lt;div class="form-check form-switch"&gt;&lt;input type="checkbox" class="form-check-input"&gt;&lt;/div&gt;
+&lt;input class="form-check-input" data-forms-indeterminate&gt;
+&lt;div class="form-check form-check-inline"&gt;…&lt;/div&gt;</pre>
+                </div>
+              </div>
+            </section>
+
+            <!-- 5. Radios -->
+            <section class="forms-section" id="radios" aria-labelledby="sec-rd-title">
+              <div class="forms-section__head">
+                <div>
+                  <h2 class="forms-section__title" id="sec-rd-title"><i class="bi bi-record-circle"></i>Radios</h2>
+                  <p class="forms-section__sub">Default, stacked, inline and card-style pickers for plans, layouts and choices.</p>
+                </div>
+                <div class="forms-section__actions">
+                  <button class="btn btn-sm btn-outline-secondary" type="button" data-forms-code-toggle="code-rd" aria-expanded="false" aria-controls="code-rd"><i class="bi bi-code-slash"></i> Show code</button>
+                </div>
+              </div>
+              <div class="forms-section__body">
+                <div class="row g-3">
+                  <div class="col-md-4">
+                    <p class="forms-demo__label">Stacked</p>
+                    <div class="form-check"><input class="form-check-input" type="radio" name="plan" id="rd-1" checked><label class="form-check-label" for="rd-1">Starter</label></div>
+                    <div class="form-check"><input class="form-check-input" type="radio" name="plan" id="rd-2"><label class="form-check-label" for="rd-2">Growth</label></div>
+                    <div class="form-check"><input class="form-check-input" type="radio" name="plan" id="rd-3"><label class="form-check-label" for="rd-3">Enterprise</label></div>
+                  </div>
+                  <div class="col-md-8">
+                    <p class="forms-demo__label">Inline</p>
+                    <div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="pay" id="pay-1" checked><label class="form-check-label" for="pay-1">Card</label></div>
+                    <div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="pay" id="pay-2"><label class="form-check-label" for="pay-2">Bank</label></div>
+                    <div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="pay" id="pay-3"><label class="form-check-label" for="pay-3">PayPal</label></div>
+                  </div>
+                  <div class="col-12">
+                    <p class="forms-demo__label">Card-style radios</p>
+                    <div class="row g-2">
+                      <div class="col-md-4">
+                        <label class="forms-card-radio">
+                          <input type="radio" name="tier" checked>
+                          <span class="forms-card-radio__box">
+                            <i class="bi bi-lightning"></i>
+                            <p class="forms-card-radio__title">Starter</p>
+                            <p class="forms-card-radio__desc">$29 / mo · 1–5 users</p>
+                          </span>
+                        </label>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="forms-card-radio">
+                          <input type="radio" name="tier">
+                          <span class="forms-card-radio__box">
+                            <i class="bi bi-rocket-takeoff"></i>
+                            <p class="forms-card-radio__title">Growth</p>
+                            <p class="forms-card-radio__desc">$99 / mo · up to 25</p>
+                          </span>
+                        </label>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="forms-card-radio">
+                          <input type="radio" name="tier">
+                          <span class="forms-card-radio__box">
+                            <i class="bi bi-building"></i>
+                            <p class="forms-card-radio__title">Enterprise</p>
+                            <p class="forms-card-radio__desc">Custom · unlimited</p>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="forms-code" id="code-rd">
+                  <div class="forms-code__bar"><span>HTML</span><button class="btn btn-sm btn-outline-secondary" type="button" data-forms-copy="#code-rd pre"><i class="bi bi-clipboard"></i> Copy</button></div>
+<pre>&lt;div class="form-check"&gt;&lt;input type="radio" name="p"&gt;&lt;/div&gt;
+&lt;label class="forms-card-radio"&gt;&lt;input type="radio" name="tier"&gt;&lt;span class="forms-card-radio__box"&gt;…&lt;/span&gt;&lt;/label&gt;</pre>
+                </div>
+              </div>
+            </section>
+
+            <!-- 6. Range -->
+            <section class="forms-section" id="range" aria-labelledby="sec-rg-title">
+              <div class="forms-section__head">
+                <div>
+                  <h2 class="forms-section__title" id="sec-rg-title"><i class="bi bi-sliders"></i>Range sliders</h2>
+                  <p class="forms-section__sub">Single-thumb and dual-thumb price-range slider with live value output.</p>
+                </div>
+                <div class="forms-section__actions">
+                  <button class="btn btn-sm btn-outline-secondary" type="button" data-forms-code-toggle="code-rg" aria-expanded="false" aria-controls="code-rg"><i class="bi bi-code-slash"></i> Show code</button>
+                </div>
+              </div>
+              <div class="forms-section__body">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label" for="rg-single">Volume · <output id="rg-out">55</output></label>
+                    <input type="range" class="form-range" id="rg-single" min="0" max="100" value="55" data-forms-range-out="#rg-out">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Price range · <output data-range-out>$120 – $480</output></label>
+                    <div class="forms-range-dual" data-forms-dual-range>
+                      <div class="forms-range-dual__track"><div class="forms-range-dual__fill"></div></div>
+                      <input type="range" min="0" max="1000" value="120" data-range="min" aria-label="Minimum">
+                      <input type="range" min="0" max="1000" value="480" data-range="max" aria-label="Maximum">
+                    </div>
+                  </div>
+                </div>
+                <div class="forms-code" id="code-rg">
+                  <div class="forms-code__bar"><span>HTML</span><button class="btn btn-sm btn-outline-secondary" type="button" data-forms-copy="#code-rg pre"><i class="bi bi-clipboard"></i> Copy</button></div>
+<pre>&lt;input type="range" class="form-range" data-forms-range-out="#out"&gt;&lt;output id="out"&gt;&lt;/output&gt;
+&lt;div class="forms-range-dual" data-forms-dual-range&gt;
+  &lt;div class="forms-range-dual__track"&gt;&lt;div class="forms-range-dual__fill"&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;input type="range" data-range="min"&gt;&lt;input type="range" data-range="max"&gt;
+&lt;/div&gt;</pre>
+                </div>
+              </div>
+            </section>
+
+            <!-- 7. Input group -->
+            <section class="forms-section" id="input-group" aria-labelledby="sec-ig-title">
+              <div class="forms-section__head">
+                <div>
+                  <h2 class="forms-section__title" id="sec-ig-title"><i class="bi bi-input-cursor"></i>Input groups</h2>
+                  <p class="forms-section__sub">Prefix and suffix add-ons — icons, currency, units and interactive buttons.</p>
+                </div>
+                <div class="forms-section__actions">
+                  <button class="btn btn-sm btn-outline-secondary" type="button" data-forms-code-toggle="code-ig" aria-expanded="false" aria-controls="code-ig"><i class="bi bi-code-slash"></i> Show code</button>
+                </div>
+              </div>
+              <div class="forms-section__body">
+                <div class="row g-3">
+                  <div class="col-md-4">
+                    <label class="form-label" for="ig-1">Currency</label>
+                    <div class="input-group"><span class="input-group-text">$</span><input class="form-control" id="ig-1" value="4820.00"><span class="input-group-text">USD</span></div>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label" for="ig-2">URL</label>
+                    <div class="input-group"><span class="input-group-text">https://</span><input class="form-control" id="ig-2" value="orchid.io"></div>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label" for="ig-3">Search</label>
+                    <div class="input-group"><span class="input-group-text"><i class="bi bi-search"></i></span><input class="form-control" id="ig-3" placeholder="Search anything…"><button class="btn btn-primary" type="button">Go</button></div>
+                  </div>
+                </div>
+                <div class="forms-code" id="code-ig">
+                  <div class="forms-code__bar"><span>HTML</span><button class="btn btn-sm btn-outline-secondary" type="button" data-forms-copy="#code-ig pre"><i class="bi bi-clipboard"></i> Copy</button></div>
+<pre>&lt;div class="input-group"&gt;&lt;span class="input-group-text"&gt;$&lt;/span&gt;&lt;input class="form-control"&gt;&lt;span class="input-group-text"&gt;USD&lt;/span&gt;&lt;/div&gt;
+&lt;div class="input-group"&gt;&lt;input class="form-control"&gt;&lt;button class="btn btn-primary"&gt;Go&lt;/button&gt;&lt;/div&gt;</pre>
+                </div>
+              </div>
+            </section>
+
+            <!-- 8. Sample form -->
+            <section class="forms-section" id="sample" aria-labelledby="sec-sample-title">
+              <div class="forms-section__head">
+                <div>
+                  <h2 class="forms-section__title" id="sec-sample-title"><i class="bi bi-briefcase"></i>Create Deal</h2>
+                  <p class="forms-section__sub">Complete example combining every control on this page into a realistic CRM form.</p>
+                </div>
+              </div>
+              <div class="forms-section__body">
+                <form class="row g-3">
+                  <div class="col-md-6">
+                    <label for="dl-name" class="form-label">Deal name</label>
+                    <input type="text" class="form-control" id="dl-name" placeholder="Acme Renewal Q3">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="dl-owner" class="form-label">Owner</label>
+                    <select class="form-select" id="dl-owner">
+                      <option>Alex Kim</option>
+                      <option>Sarah Miller</option>
+                      <option>James Doe</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="dl-value" class="form-label">Value</label>
+                    <div class="input-group"><span class="input-group-text">$</span><input class="form-control" id="dl-value" value="24800"></div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="dl-stage" class="form-label">Stage</label>
+                    <select class="form-select" id="dl-stage">
+                      <option>Lead</option><option>Qualified</option><option>Proposal</option><option>Won</option><option>Lost</option>
+                    </select>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="dl-close" class="form-label">Close date</label>
+                    <input type="date" class="form-control" id="dl-close">
+                  </div>
+                  <div class="col-12">
+                    <label for="dl-notes" class="form-label">Notes</label>
+                    <textarea class="form-control" id="dl-notes" rows="1" data-forms-autogrow placeholder="Context, next steps, blockers…"></textarea>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-check form-switch"><input type="checkbox" class="form-check-input" id="dl-notify" checked><label class="form-check-label" for="dl-notify">Notify team on save</label></div>
+                  </div>
+                  <div class="col-12 d-flex gap-2">
+                    <button type="button" class="btn btn-primary">Create deal</button>
+                    <button type="reset" class="btn btn-outline-secondary">Reset</button>
+                  </div>
+                </form>
+              </div>
+            </section>
+
+            <!-- Notes -->
+            <div class="forms-notes">
+              <div class="forms-notes__grid">
+                <div class="forms-notes__block">
+                  <h6><i class="bi bi-lightbulb"></i>Usage guidelines</h6>
+                  <ul>
+                    <li>Always pair every input with a visible <code>&lt;label&gt;</code> — never rely on placeholder alone.</li>
+                    <li>Group related switches in a form-check block; avoid mixing switches and standard checkboxes in a row.</li>
+                    <li>Prefer floating labels in compact spaces; use standard labels in dense forms.</li>
+                    <li>For selects with 8+ options, switch to the searchable variant.</li>
+                  </ul>
+                </div>
+                <div class="forms-notes__block">
+                  <h6><i class="bi bi-universal-access"></i>Accessibility notes</h6>
+                  <ul>
+                    <li>Every input has an <code>id</code> and a matching <code>&lt;label for&gt;</code>.</li>
+                    <li>Icons in input groups are decorative — the label carries the meaning.</li>
+                    <li>Custom controls expose <code>role</code>, <code>aria-expanded</code> and keyboard nav.</li>
+                    <li>Focus outlines stay visible — never <code>outline: none</code> without a replacement.</li>
+                  </ul>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="col-12 col-xl-4">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Task Updates</h6>
-                  <a href="#" class="small">View all</a>
-                </div>
-                <ul class="orchid-timeline list-unstyled mb-0">
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-primary"></span>
-                    <div>
-                      <p class="mb-0"><strong>Alex Kim</strong> completed <a href="#">Design System Audit</a></p>
-                      <small class="text-body-secondary">2 mins ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-success"></span>
-                    <div>
-                      <p class="mb-0"><strong>Sarah Miller</strong> added a comment on <a href="#">Q2 Roadmap</a></p>
-                      <small class="text-body-secondary">18 mins ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-warning"></span>
-                    <div>
-                      <p class="mb-0"><strong>James Doe</strong> moved <a href="#">API Redesign</a> to In Progress</p>
-                      <small class="text-body-secondary">1 hour ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-info"></span>
-                    <div>
-                      <p class="mb-0"><strong>Ava Lee</strong> shared the file <a href="#">Brand.pdf</a></p>
-                      <small class="text-body-secondary">3 hours ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-danger"></span>
-                    <div>
-                      <p class="mb-0"><strong>Ryan Green</strong> reported an issue on <a href="#">Checkout</a></p>
-                      <small class="text-body-secondary">Yesterday</small>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+          <!-- Right rail TOC -->
+          <aside class="forms-toc" data-tables-toc aria-label="On this page">
+            <p class="forms-toc__title">On this page</p>
+            <ul class="forms-toc__list">
+              <li><a href="#text-inputs"><i class="bi bi-input-cursor-text"></i>Text inputs</a></li>
+              <li><a href="#textarea"><i class="bi bi-textarea"></i>Textareas</a></li>
+              <li><a href="#selects"><i class="bi bi-menu-button-wide"></i>Selects</a></li>
+              <li><a href="#checkboxes"><i class="bi bi-check2-square"></i>Checkboxes</a></li>
+              <li><a href="#radios"><i class="bi bi-record-circle"></i>Radios</a></li>
+              <li><a href="#range"><i class="bi bi-sliders"></i>Range</a></li>
+              <li><a href="#input-group"><i class="bi bi-input-cursor"></i>Input groups</a></li>
+              <li><a href="#sample"><i class="bi bi-briefcase"></i>Create Deal</a></li>
+            </ul>
+          </aside>
         </div>
 
       </div>
@@ -1122,10 +1031,9 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="assets/js/theme.js" defer></script>
   <script src="assets/js/sidebar.js" defer></script>
-  <script src="assets/js/charts.js" defer></script>
   <script src="assets/js/orchid.js" defer></script>
+  <script src="assets/js/pages/forms-showcase.js" defer></script>
 </body>
 </html>

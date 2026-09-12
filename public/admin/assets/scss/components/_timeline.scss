@@ -1,0 +1,34 @@
+.orchid-timeline {
+  position: relative;
+  padding-left: 1.5rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: var(--orchid-border);
+  }
+
+  &__item {
+    position: relative;
+    padding: .5rem 0 .75rem;
+    font-size: .8125rem;
+
+    p a { color: var(--orchid-primary); text-decoration: none; font-weight: 500; }
+    p a:hover { text-decoration: underline; }
+  }
+
+  &__dot {
+    position: absolute;
+    left: -1.5rem;
+    top: .7rem;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 3px solid var(--orchid-surface);
+    box-shadow: 0 0 0 1px var(--orchid-border);
+  }
+}

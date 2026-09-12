@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Orchid - Premium Bootstrap 5.3 Admin Dashboard Template">
   <meta name="theme-color" content="#4f46e5">
-  <title>Orchid - Premium Admin Dashboard</title>
+  <title>Orchid — CRM Dashboard</title>
 
   <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +14,8 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-  <link href="{{asset('admin/assets/css/orchid.css')}}" rel="stylesheet">
+  <link href="assets/css/orchid.css" rel="stylesheet">
+  <link href="assets/css/pages/crm.css" rel="stylesheet">
 </head>
 <body class="orchid-body">
 
@@ -54,9 +55,9 @@
               <i class="bi bi-chevron-down orchid-nav__chevron"></i>
             </a>
             <ul class="collapse show orchid-nav__sub list-unstyled" id="navDashboard">
-              <li><a href="index.html" class="orchid-nav__sublink active" aria-current="page">Default</a></li>
+              <li><a href="index.html" class="orchid-nav__sublink">Default</a></li>
               <li><a href="analytics.html" class="orchid-nav__sublink">Analytics</a></li>
-              <li><a href="crm.html" class="orchid-nav__sublink">CRM</a></li>
+              <li><a href="crm.html" class="orchid-nav__sublink active" aria-current="page">CRM</a></li>
               <li><a href="sales.html" class="orchid-nav__sublink">Sales</a></li>
               <li><a href="finance.html" class="orchid-nav__sublink">Finance</a></li>
               <li><a href="projects.html" class="orchid-nav__sublink">Projects</a></li>
@@ -372,9 +373,8 @@
         </button>
         <nav aria-label="breadcrumb" class="orchid-header__breadcrumb d-none d-md-block">
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#"><i class="bi bi-house-door"></i></a></li>
-            <li class="breadcrumb-item"><a href="#">Overview</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            <li class="breadcrumb-item"><a href="#">Dashboards</a></li>
+            <li class="breadcrumb-item active" aria-current="page">CRM</li>
           </ol>
         </nav>
       </div>
@@ -549,506 +549,440 @@
       <div class="container-fluid px-3 px-lg-4 py-4">
 
         <!-- Page header -->
-        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
-          <div>
-            <h1 class="h3 mb-1">Welcome back, Alex 👋</h1>
-            <p class="text-body-secondary mb-0">Here's what's happening with your business today.</p>
+        <div class="crm-hero mb-4">
+          <div class="crm-hero__content">
+            <span class="crm-hero__eyebrow"><i class="bi bi-lightning-charge-fill"></i> Sales pulse · Q3 2026</span>
+            <h1 class="h3 mb-1">CRM Dashboard</h1>
+            <p class="text-body-secondary mb-0">Track your funnel, follow-ups, and top performers in real time.</p>
           </div>
-          <div class="d-flex gap-2">
-            <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-download me-1"></i>Export</button>
-            <button class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i>Create Report</button>
+          <div class="crm-hero__actions">
+            <div class="btn-group btn-group-sm crm-range" role="group" aria-label="Date range">
+              <input type="radio" class="btn-check" name="crmRange" id="crmRangeD" autocomplete="off">
+              <label class="btn btn-outline-secondary" for="crmRangeD">Day</label>
+              <input type="radio" class="btn-check" name="crmRange" id="crmRangeW" autocomplete="off" checked>
+              <label class="btn btn-outline-secondary" for="crmRangeW">Week</label>
+              <input type="radio" class="btn-check" name="crmRange" id="crmRangeM" autocomplete="off">
+              <label class="btn btn-outline-secondary" for="crmRangeM">Month</label>
+              <input type="radio" class="btn-check" name="crmRange" id="crmRangeQ" autocomplete="off">
+              <label class="btn btn-outline-secondary" for="crmRangeQ">Qtr</label>
+            </div>
+            <button class="btn btn-sm crm-btn-cta"><i class="bi bi-plus-lg me-1"></i>Add Lead</button>
           </div>
         </div>
 
-        <!-- ================== ROW 1 ================== -->
+        <!-- ================== KPI ROW ================== -->
         <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
           <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card orchid-stat-card h-100 overflow-hidden">
-              <div class="card-body pb-2">
-                <div class="d-flex justify-content-between align-items-start mb-3">
-                  <div>
-                    <p class="text-body-secondary mb-1 small">Total Contacts</p>
-                    <h3 class="mb-0 fw-bold">12,480</h3>
-                  </div>
-                  <span class="orchid-stat-card__icon bg-primary-subtle text-primary"><i class="bi bi-people"></i></span>
-                </div>
-                <span class="badge bg-success-subtle text-success"><i class="bi bi-arrow-up"></i> 12.4% vs last month</span>
-              </div>
-              <div class="orchid-stat-card__spark">
-                <canvas data-orchid-chart="sparkContacts"></canvas>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h6 class="mb-0">Lead Analytics</h6>
-                  <span class="badge bg-info-subtle text-info">Weekly</span>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--sm">
-                  <canvas data-orchid-chart="leadAnalytics"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h6 class="mb-0">Traffic Sources</h6>
-                  <button class="btn btn-sm btn-icon" type="button" aria-label="More"><i class="bi bi-three-dots"></i></button>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--sm">
-                  <canvas data-orchid-chart="trafficSources"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xl-3">
-            <div class="card orchid-card orchid-earnings-card h-100 text-white">
-              <div class="card-body position-relative pb-0">
+            <div class="crm-kpi crm-kpi--indigo h-100">
+              <span class="crm-kpi__strip"></span>
+              <div class="crm-kpi__body">
                 <div class="d-flex justify-content-between align-items-start">
                   <div>
-                    <p class="mb-1 opacity-75 small">Total Earnings</p>
-                    <h3 class="fw-bold mb-1">$84,120.50</h3>
-                    <span class="badge bg-white text-primary"><i class="bi bi-arrow-up"></i> 8.24%</span>
+                    <p class="crm-kpi__label">Leads</p>
+                    <p class="crm-kpi__value">2,847</p>
+                    <span class="crm-kpi__delta crm-kpi__delta--up"><i class="bi bi-arrow-up-right"></i> 12.6%</span>
                   </div>
-                  <span class="orchid-stat-card__icon bg-white bg-opacity-25 text-white"><i class="bi bi-currency-dollar"></i></span>
+                  <span class="crm-kpi__icon"><i class="bi bi-person-plus"></i></span>
                 </div>
-              </div>
-              <div class="orchid-earnings-card__chart">
-                <canvas data-orchid-chart="earnings"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 2 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-lg-6 col-xxl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Tasks Overview</h6>
-                  <a href="#" class="small">View all</a>
-                </div>
-                <ul class="orchid-task-list list-unstyled mb-0">
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task1" checked>
-                      <label class="form-check-label text-decoration-line-through text-body-secondary" for="task1">Prepare launch checklist</label>
-                    </div>
-                    <span class="badge bg-success-subtle text-success">Done</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task2">
-                      <label class="form-check-label" for="task2">Design system audit</label>
-                    </div>
-                    <span class="badge bg-warning-subtle text-warning">Today</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task3">
-                      <label class="form-check-label" for="task3">Review PR #482</label>
-                    </div>
-                    <span class="badge bg-primary-subtle text-primary">2h</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task4">
-                      <label class="form-check-label" for="task4">Sync with sales team</label>
-                    </div>
-                    <span class="badge bg-info-subtle text-info">Tomorrow</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task5">
-                      <label class="form-check-label" for="task5">Publish weekly newsletter</label>
-                    </div>
-                    <span class="badge bg-danger-subtle text-danger">Overdue</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-lg-6 col-xxl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Active Deals</h6>
-                  <span class="badge bg-primary-subtle text-primary">48 total</span>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--md">
-                  <canvas data-orchid-chart="activeDeals"></canvas>
-                </div>
-                <div class="d-flex justify-content-between mt-3 small">
-                  <div><span class="orchid-dot bg-primary"></span> Won <strong class="ms-1">28</strong></div>
-                  <div><span class="orchid-dot bg-warning"></span> Pending <strong class="ms-1">14</strong></div>
-                  <div><span class="orchid-dot bg-danger"></span> Lost <strong class="ms-1">6</strong></div>
+                <div class="crm-kpi__spark">
+                  <canvas data-crm-chart="sparkLeads"></canvas>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="col-12 col-xxl-4">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+          <div class="col-12 col-sm-6 col-xl-3">
+            <div class="crm-kpi crm-kpi--violet h-100">
+              <span class="crm-kpi__strip"></span>
+              <div class="crm-kpi__body">
+                <div class="d-flex justify-content-between align-items-start">
                   <div>
-                    <h6 class="mb-0">Revenue Analytics</h6>
-                    <small class="text-body-secondary">Monthly performance</small>
+                    <p class="crm-kpi__label">Opportunities</p>
+                    <p class="crm-kpi__value">348</p>
+                    <span class="crm-kpi__delta crm-kpi__delta--up"><i class="bi bi-arrow-up-right"></i> 8.1%</span>
                   </div>
-                  <div class="btn-group btn-group-sm" role="group" aria-label="Revenue range">
-                    <input type="radio" class="btn-check" name="revRange" id="revW" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="revW">W</label>
-                    <input type="radio" class="btn-check" name="revRange" id="revM" autocomplete="off" checked>
-                    <label class="btn btn-outline-secondary" for="revM">M</label>
-                    <input type="radio" class="btn-check" name="revRange" id="revY" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="revY">Y</label>
-                  </div>
+                  <span class="crm-kpi__icon"><i class="bi bi-bullseye"></i></span>
                 </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--lg">
-                  <canvas data-orchid-chart="revenue"></canvas>
+                <div class="crm-kpi__spark">
+                  <canvas data-crm-chart="sparkOpps"></canvas>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="col-12 col-xxl-2">
-            <div class="card orchid-card h-100">
-              <div class="card-body d-flex flex-column">
-                <h6 class="mb-1">Retention Rate</h6>
-                <small class="text-body-secondary mb-2">Last 30 days</small>
-                <div class="orchid-chart-wrap orchid-chart-wrap--radial flex-grow-1">
-                  <canvas data-orchid-chart="retention"></canvas>
-                </div>
-                <div class="text-center mt-2">
-                  <span class="badge bg-success-subtle text-success"><i class="bi bi-arrow-up"></i> 2.4% vs last month</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 3 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-lg-5">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Upcoming Meetings</h6>
-                  <a href="#" class="small">Calendar</a>
-                </div>
-                <ul class="orchid-meeting-list list-unstyled mb-0">
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">14</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Product Roadmap Q2</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>10:00 – 11:00 AM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-primary text-white">AK</span>
-                      <span class="avatar avatar-xs bg-info text-white">JD</span>
-                      <span class="avatar avatar-xs bg-warning text-white">+3</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">14</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Client Onboarding – Nova</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>2:00 – 2:45 PM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-success text-white">SM</span>
-                      <span class="avatar avatar-xs bg-danger text-white">EL</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">15</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Design Review</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>9:30 – 10:30 AM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-primary text-white">AK</span>
-                      <span class="avatar avatar-xs bg-warning text-white">+2</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">16</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Investor Sync</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>4:00 – 5:00 PM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-info text-white">RG</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-lg-7">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
+          <div class="col-12 col-sm-6 col-xl-3">
+            <div class="crm-kpi crm-kpi--amber h-100">
+              <span class="crm-kpi__strip"></span>
+              <div class="crm-kpi__body">
+                <div class="d-flex justify-content-between align-items-start">
                   <div>
-                    <h6 class="mb-0">Deals Overview</h6>
-                    <small class="text-body-secondary">Stacked by stage</small>
+                    <p class="crm-kpi__label">Deal Value</p>
+                    <p class="crm-kpi__value">$1.28M</p>
+                    <span class="crm-kpi__delta crm-kpi__delta--up"><i class="bi bi-arrow-up-right"></i> 22.4%</span>
                   </div>
-                  <div class="dropdown">
-                    <button class="btn btn-sm btn-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Deals menu">
-                      <i class="bi bi-three-dots"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                      <li><a class="dropdown-item" href="#">Refresh</a></li>
-                      <li><a class="dropdown-item" href="#">Export CSV</a></li>
-                      <li><a class="dropdown-item" href="#">Settings</a></li>
-                    </ul>
-                  </div>
+                  <span class="crm-kpi__icon"><i class="bi bi-currency-dollar"></i></span>
                 </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--lg">
-                  <canvas data-orchid-chart="dealsOverview"></canvas>
+                <div class="crm-kpi__spark">
+                  <canvas data-crm-chart="sparkValue"></canvas>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- ================== ROW 4 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12">
-            <div class="card orchid-card">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+          <div class="col-12 col-sm-6 col-xl-3">
+            <div class="crm-kpi crm-kpi--emerald h-100">
+              <span class="crm-kpi__strip"></span>
+              <div class="crm-kpi__body">
+                <div class="d-flex justify-content-between align-items-start">
                   <div>
-                    <h6 class="mb-0">Sales Pipeline</h6>
-                    <small class="text-body-secondary">Progress across stages · $284,500 total</small>
+                    <p class="crm-kpi__label">Win Rate</p>
+                    <p class="crm-kpi__value">34.2%</p>
+                    <span class="crm-kpi__delta crm-kpi__delta--down"><i class="bi bi-arrow-down-right"></i> 1.8%</span>
                   </div>
-                  <button class="btn btn-sm btn-outline-primary"><i class="bi bi-plus-lg me-1"></i>Add Stage</button>
+                  <span class="crm-kpi__icon"><i class="bi bi-trophy"></i></span>
                 </div>
-
-                <div class="row g-3">
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Leads</span>
-                        <small class="text-body-secondary">$48k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Leads" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-primary" data-orchid-progress="85"></div>
-                      </div>
-                      <small class="text-body-secondary">142 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Qualified</span>
-                        <small class="text-body-secondary">$62k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Qualified" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-info" data-orchid-progress="70"></div>
-                      </div>
-                      <small class="text-body-secondary">98 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Proposal</span>
-                        <small class="text-body-secondary">$54k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Proposal" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-warning" data-orchid-progress="60"></div>
-                      </div>
-                      <small class="text-body-secondary">64 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Negotiation</span>
-                        <small class="text-body-secondary">$46k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Negotiation" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-purple" data-orchid-progress="45"></div>
-                      </div>
-                      <small class="text-body-secondary">32 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Won</span>
-                        <small class="text-body-secondary">$62k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Won" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-success" data-orchid-progress="92"></div>
-                      </div>
-                      <small class="text-body-secondary">48 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Lost</span>
-                        <small class="text-body-secondary">$12k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Lost" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-danger" data-orchid-progress="18"></div>
-                      </div>
-                      <small class="text-body-secondary">14 deals</small>
-                    </div>
-                  </div>
+                <div class="crm-kpi__spark">
+                  <canvas data-crm-chart="sparkWin"></canvas>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- ================== ROW 5 ================== -->
+        <!-- ================== FUNNEL + LEADERBOARD ROW ================== -->
         <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
           <div class="col-12 col-xl-8">
             <div class="card orchid-card h-100">
               <div class="card-body">
                 <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
                   <div>
-                    <h6 class="mb-0">Recent Customers</h6>
-                    <small class="text-body-secondary">Latest activity from your customer base</small>
+                    <h6 class="mb-0">Sales Funnel</h6>
+                    <small class="text-body-secondary">Conversion from lead to close · this quarter</small>
                   </div>
                   <div class="d-flex gap-2">
-                    <div class="input-group input-group-sm orchid-inline-search">
-                      <span class="input-group-text bg-transparent border-end-0"><i class="bi bi-search"></i></span>
-                      <input type="search" class="form-control border-start-0" placeholder="Search customers…" aria-label="Search customers">
-                    </div>
-                    <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-funnel"></i></button>
+                    <span class="badge crm-badge-soft-amber"><i class="bi bi-fire me-1"></i>34.2% overall</span>
+                    <button class="btn btn-sm btn-icon" type="button" aria-label="Funnel menu"><i class="bi bi-three-dots"></i></button>
                   </div>
                 </div>
-                <div class="table-responsive">
-                  <table class="table orchid-table align-middle mb-0">
-                    <thead>
-                      <tr>
-                        <th scope="col">Customer</th>
-                        <th scope="col" class="d-none d-md-table-cell">Email</th>
-                        <th scope="col" class="d-none d-lg-table-cell">Location</th>
-                        <th scope="col">Spend</th>
-                        <th scope="col">Status</th>
-                        <th scope="col" class="text-end">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-primary-subtle text-primary fw-semibold">EW</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Emma Watson</p>
-                              <small class="text-body-secondary d-md-none">emma@nova.io</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">emma@nova.io</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">London, UK</td>
-                        <td class="fw-semibold">$4,820</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-info-subtle text-info fw-semibold">JD</span>
-                            <div>
-                              <p class="mb-0 fw-medium">James Doe</p>
-                              <small class="text-body-secondary d-md-none">james@acme.com</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">james@acme.com</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">New York, US</td>
-                        <td class="fw-semibold">$2,410</td>
-                        <td><span class="badge bg-warning-subtle text-warning">Pending</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-success-subtle text-success fw-semibold">SM</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Sarah Miller</p>
-                              <small class="text-body-secondary d-md-none">sarah@zen.co</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">sarah@zen.co</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Sydney, AU</td>
-                        <td class="fw-semibold">$7,920</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-warning-subtle text-warning fw-semibold">RG</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Ryan Green</p>
-                              <small class="text-body-secondary d-md-none">ryan@peak.io</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">ryan@peak.io</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Toronto, CA</td>
-                        <td class="fw-semibold">$1,150</td>
-                        <td><span class="badge bg-danger-subtle text-danger">Inactive</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-danger-subtle text-danger fw-semibold">AL</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Ava Lee</p>
-                              <small class="text-body-secondary d-md-none">ava@bold.co</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">ava@bold.co</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Berlin, DE</td>
-                        <td class="fw-semibold">$3,640</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+
+                <ul class="crm-funnel list-unstyled mb-0">
+                  <li class="crm-funnel__row crm-funnel__row--s1">
+                    <div class="crm-funnel__bar">
+                      <span class="crm-funnel__stage">Prospects</span>
+                      <span class="crm-funnel__count">4,820</span>
+                    </div>
+                    <div class="crm-funnel__meta">
+                      <span class="crm-funnel__value">$3.6M</span>
+                      <span class="crm-funnel__pct">100%</span>
+                    </div>
+                  </li>
+                  <li class="crm-funnel__row crm-funnel__row--s2">
+                    <div class="crm-funnel__bar">
+                      <span class="crm-funnel__stage">Qualified</span>
+                      <span class="crm-funnel__count">2,847</span>
+                    </div>
+                    <div class="crm-funnel__meta">
+                      <span class="crm-funnel__value">$2.4M</span>
+                      <span class="crm-funnel__pct">59%</span>
+                    </div>
+                  </li>
+                  <li class="crm-funnel__row crm-funnel__row--s3">
+                    <div class="crm-funnel__bar">
+                      <span class="crm-funnel__stage">Proposal</span>
+                      <span class="crm-funnel__count">1,624</span>
+                    </div>
+                    <div class="crm-funnel__meta">
+                      <span class="crm-funnel__value">$1.8M</span>
+                      <span class="crm-funnel__pct">34%</span>
+                    </div>
+                  </li>
+                  <li class="crm-funnel__row crm-funnel__row--s4">
+                    <div class="crm-funnel__bar">
+                      <span class="crm-funnel__stage">Negotiation</span>
+                      <span class="crm-funnel__count">892</span>
+                    </div>
+                    <div class="crm-funnel__meta">
+                      <span class="crm-funnel__value">$1.4M</span>
+                      <span class="crm-funnel__pct">19%</span>
+                    </div>
+                  </li>
+                  <li class="crm-funnel__row crm-funnel__row--s5">
+                    <div class="crm-funnel__bar">
+                      <span class="crm-funnel__stage">Closed Won</span>
+                      <span class="crm-funnel__count">348</span>
+                    </div>
+                    <div class="crm-funnel__meta">
+                      <span class="crm-funnel__value">$1.28M</span>
+                      <span class="crm-funnel__pct">7%</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-xl-4">
+            <div class="card orchid-card h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <div>
+                    <h6 class="mb-0">Sales Leaderboard</h6>
+                    <small class="text-body-secondary">Top reps this month</small>
+                  </div>
+                  <a href="#" class="small crm-link">View all</a>
+                </div>
+
+                <ol class="crm-leaderboard list-unstyled mb-0">
+                  <li class="crm-leaderboard__item crm-leaderboard__item--top">
+                    <span class="crm-rank crm-rank--1">1</span>
+                    <span class="avatar avatar-sm crm-avatar crm-avatar--amber">PM</span>
+                    <div class="crm-leaderboard__body">
+                      <p class="crm-leaderboard__name">Priya Menon</p>
+                      <p class="crm-leaderboard__meta">28 deals closed</p>
+                    </div>
+                    <div class="crm-leaderboard__value">
+                      <strong>$342K</strong>
+                      <span class="crm-leaderboard__trend crm-leaderboard__trend--up"><i class="bi bi-arrow-up"></i>18%</span>
+                    </div>
+                  </li>
+                  <li class="crm-leaderboard__item">
+                    <span class="crm-rank crm-rank--2">2</span>
+                    <span class="avatar avatar-sm crm-avatar crm-avatar--indigo">MC</span>
+                    <div class="crm-leaderboard__body">
+                      <p class="crm-leaderboard__name">Marcus Chen</p>
+                      <p class="crm-leaderboard__meta">24 deals closed</p>
+                    </div>
+                    <div class="crm-leaderboard__value">
+                      <strong>$298K</strong>
+                      <span class="crm-leaderboard__trend crm-leaderboard__trend--up"><i class="bi bi-arrow-up"></i>12%</span>
+                    </div>
+                  </li>
+                  <li class="crm-leaderboard__item">
+                    <span class="crm-rank crm-rank--3">3</span>
+                    <span class="avatar avatar-sm crm-avatar crm-avatar--violet">SG</span>
+                    <div class="crm-leaderboard__body">
+                      <p class="crm-leaderboard__name">Sofia García</p>
+                      <p class="crm-leaderboard__meta">21 deals closed</p>
+                    </div>
+                    <div class="crm-leaderboard__value">
+                      <strong>$264K</strong>
+                      <span class="crm-leaderboard__trend crm-leaderboard__trend--up"><i class="bi bi-arrow-up"></i>9%</span>
+                    </div>
+                  </li>
+                  <li class="crm-leaderboard__item">
+                    <span class="crm-rank">4</span>
+                    <span class="avatar avatar-sm crm-avatar crm-avatar--emerald">DK</span>
+                    <div class="crm-leaderboard__body">
+                      <p class="crm-leaderboard__name">Daniel Kowalski</p>
+                      <p class="crm-leaderboard__meta">18 deals closed</p>
+                    </div>
+                    <div class="crm-leaderboard__value">
+                      <strong>$218K</strong>
+                      <span class="crm-leaderboard__trend crm-leaderboard__trend--down"><i class="bi bi-arrow-down"></i>3%</span>
+                    </div>
+                  </li>
+                  <li class="crm-leaderboard__item">
+                    <span class="crm-rank">5</span>
+                    <span class="avatar avatar-sm crm-avatar crm-avatar--rose">AN</span>
+                    <div class="crm-leaderboard__body">
+                      <p class="crm-leaderboard__name">Aisha Nwosu</p>
+                      <p class="crm-leaderboard__meta">15 deals closed</p>
+                    </div>
+                    <div class="crm-leaderboard__value">
+                      <strong>$187K</strong>
+                      <span class="crm-leaderboard__trend crm-leaderboard__trend--up"><i class="bi bi-arrow-up"></i>5%</span>
+                    </div>
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================== PIPELINE KANBAN ================== -->
+        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
+          <div class="col-12">
+            <div class="card orchid-card">
+              <div class="card-body">
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                  <div>
+                    <h6 class="mb-0">Deal Pipeline</h6>
+                    <small class="text-body-secondary">$4.28M total across 5 stages</small>
+                  </div>
+                  <div class="d-flex gap-2 align-items-center">
+                    <div class="crm-legend">
+                      <span class="crm-legend__item"><span class="crm-dot crm-dot--hot"></span>Hot</span>
+                      <span class="crm-legend__item"><span class="crm-dot crm-dot--warm"></span>Warm</span>
+                      <span class="crm-legend__item"><span class="crm-dot crm-dot--cold"></span>Cold</span>
+                    </div>
+                    <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-clockwise me-1"></i>Sync</button>
+                  </div>
+                </div>
+
+                <div class="crm-kanban">
+                  <div class="crm-kanban__col">
+                    <div class="crm-kanban__head">
+                      <div>
+                        <span class="crm-kanban__stage crm-kanban__stage--indigo">Prospects</span>
+                        <p class="crm-kanban__count">142 · $820K</p>
+                      </div>
+                      <button class="btn btn-sm btn-icon" type="button" aria-label="Add"><i class="bi bi-plus-lg"></i></button>
+                    </div>
+                    <ul class="crm-kanban__list list-unstyled mb-0">
+                      <li class="crm-kanban__card">
+                        <p class="crm-kanban__card-title">Northwind Analytics</p>
+                        <p class="crm-kanban__card-meta">Enterprise plan · $48K</p>
+                        <div class="crm-kanban__card-foot">
+                          <span class="avatar avatar-xs crm-avatar crm-avatar--amber">PM</span>
+                          <span class="crm-dot crm-dot--warm"></span>
+                        </div>
+                      </li>
+                      <li class="crm-kanban__card">
+                        <p class="crm-kanban__card-title">Vertex Robotics</p>
+                        <p class="crm-kanban__card-meta">Team plan · $22K</p>
+                        <div class="crm-kanban__card-foot">
+                          <span class="avatar avatar-xs crm-avatar crm-avatar--indigo">MC</span>
+                          <span class="crm-dot crm-dot--cold"></span>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="crm-kanban__col">
+                    <div class="crm-kanban__head">
+                      <div>
+                        <span class="crm-kanban__stage crm-kanban__stage--violet">Qualified</span>
+                        <p class="crm-kanban__count">98 · $1.02M</p>
+                      </div>
+                      <button class="btn btn-sm btn-icon" type="button" aria-label="Add"><i class="bi bi-plus-lg"></i></button>
+                    </div>
+                    <ul class="crm-kanban__list list-unstyled mb-0">
+                      <li class="crm-kanban__card">
+                        <p class="crm-kanban__card-title">Meridian Health</p>
+                        <p class="crm-kanban__card-meta">Growth plan · $84K</p>
+                        <div class="crm-kanban__card-foot">
+                          <span class="avatar avatar-xs crm-avatar crm-avatar--violet">SG</span>
+                          <span class="crm-dot crm-dot--hot"></span>
+                        </div>
+                      </li>
+                      <li class="crm-kanban__card">
+                        <p class="crm-kanban__card-title">Kepler Aerospace</p>
+                        <p class="crm-kanban__card-meta">Enterprise · $126K</p>
+                        <div class="crm-kanban__card-foot">
+                          <span class="avatar avatar-xs crm-avatar crm-avatar--emerald">DK</span>
+                          <span class="crm-dot crm-dot--warm"></span>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="crm-kanban__col">
+                    <div class="crm-kanban__head">
+                      <div>
+                        <span class="crm-kanban__stage crm-kanban__stage--amber">Proposal</span>
+                        <p class="crm-kanban__count">64 · $980K</p>
+                      </div>
+                      <button class="btn btn-sm btn-icon" type="button" aria-label="Add"><i class="bi bi-plus-lg"></i></button>
+                    </div>
+                    <ul class="crm-kanban__list list-unstyled mb-0">
+                      <li class="crm-kanban__card">
+                        <p class="crm-kanban__card-title">Cascadia Foods</p>
+                        <p class="crm-kanban__card-meta">Team plan · $36K</p>
+                        <div class="crm-kanban__card-foot">
+                          <span class="avatar avatar-xs crm-avatar crm-avatar--amber">PM</span>
+                          <span class="crm-dot crm-dot--hot"></span>
+                        </div>
+                      </li>
+                      <li class="crm-kanban__card">
+                        <p class="crm-kanban__card-title">Halcyon Media</p>
+                        <p class="crm-kanban__card-meta">Growth · $58K</p>
+                        <div class="crm-kanban__card-foot">
+                          <span class="avatar avatar-xs crm-avatar crm-avatar--rose">AN</span>
+                          <span class="crm-dot crm-dot--warm"></span>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="crm-kanban__col">
+                    <div class="crm-kanban__head">
+                      <div>
+                        <span class="crm-kanban__stage crm-kanban__stage--orange">Negotiation</span>
+                        <p class="crm-kanban__count">32 · $740K</p>
+                      </div>
+                      <button class="btn btn-sm btn-icon" type="button" aria-label="Add"><i class="bi bi-plus-lg"></i></button>
+                    </div>
+                    <ul class="crm-kanban__list list-unstyled mb-0">
+                      <li class="crm-kanban__card">
+                        <p class="crm-kanban__card-title">Solstice Retail</p>
+                        <p class="crm-kanban__card-meta">Enterprise · $164K</p>
+                        <div class="crm-kanban__card-foot">
+                          <span class="avatar avatar-xs crm-avatar crm-avatar--indigo">MC</span>
+                          <span class="crm-dot crm-dot--hot"></span>
+                        </div>
+                      </li>
+                      <li class="crm-kanban__card">
+                        <p class="crm-kanban__card-title">Aurora Fintech</p>
+                        <p class="crm-kanban__card-meta">Growth · $72K</p>
+                        <div class="crm-kanban__card-foot">
+                          <span class="avatar avatar-xs crm-avatar crm-avatar--violet">SG</span>
+                          <span class="crm-dot crm-dot--hot"></span>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="crm-kanban__col">
+                    <div class="crm-kanban__head">
+                      <div>
+                        <span class="crm-kanban__stage crm-kanban__stage--emerald">Won</span>
+                        <p class="crm-kanban__count">48 · $718K</p>
+                      </div>
+                      <button class="btn btn-sm btn-icon" type="button" aria-label="Add"><i class="bi bi-plus-lg"></i></button>
+                    </div>
+                    <ul class="crm-kanban__list list-unstyled mb-0">
+                      <li class="crm-kanban__card crm-kanban__card--won">
+                        <p class="crm-kanban__card-title">Tessera Labs</p>
+                        <p class="crm-kanban__card-meta">Enterprise · $92K</p>
+                        <div class="crm-kanban__card-foot">
+                          <span class="avatar avatar-xs crm-avatar crm-avatar--emerald">DK</span>
+                          <i class="bi bi-check-circle-fill text-success"></i>
+                        </div>
+                      </li>
+                      <li class="crm-kanban__card crm-kanban__card--won">
+                        <p class="crm-kanban__card-title">Onyx Logistics</p>
+                        <p class="crm-kanban__card-meta">Growth · $54K</p>
+                        <div class="crm-kanban__card-foot">
+                          <span class="avatar avatar-xs crm-avatar crm-avatar--amber">PM</span>
+                          <i class="bi bi-check-circle-fill text-success"></i>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================== LEAD CONVERSION + LEAD SOURCES ================== -->
+        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
+          <div class="col-12 col-xl-8">
+            <div class="card orchid-card h-100">
+              <div class="card-body">
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                  <div>
+                    <h6 class="mb-0">Lead Conversion</h6>
+                    <small class="text-body-secondary">New → Qualified → Won across 12 weeks</small>
+                  </div>
+                  <div class="crm-legend">
+                    <span class="crm-legend__item"><span class="crm-dot crm-dot--indigo"></span>New</span>
+                    <span class="crm-legend__item"><span class="crm-dot crm-dot--violet"></span>Qualified</span>
+                    <span class="crm-legend__item"><span class="crm-dot crm-dot--amber"></span>Won</span>
+                  </div>
+                </div>
+                <div class="crm-chart-wrap crm-chart-wrap--lg">
+                  <canvas data-crm-chart="conversion"></canvas>
                 </div>
               </div>
             </div>
@@ -1058,46 +992,270 @@
             <div class="card orchid-card h-100">
               <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Task Updates</h6>
-                  <a href="#" class="small">View all</a>
+                  <div>
+                    <h6 class="mb-0">Lead Sources</h6>
+                    <small class="text-body-secondary">Channels this month</small>
+                  </div>
+                  <button class="btn btn-sm btn-icon" type="button" aria-label="More"><i class="bi bi-three-dots"></i></button>
                 </div>
-                <ul class="orchid-timeline list-unstyled mb-0">
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-primary"></span>
-                    <div>
-                      <p class="mb-0"><strong>Alex Kim</strong> completed <a href="#">Design System Audit</a></p>
-                      <small class="text-body-secondary">2 mins ago</small>
+                <div class="crm-chart-wrap crm-chart-wrap--donut">
+                  <canvas data-crm-chart="sources"></canvas>
+                </div>
+                <ul class="crm-source-list list-unstyled mb-0 mt-3">
+                  <li><span class="crm-dot crm-dot--indigo"></span>Referral<strong>42%</strong></li>
+                  <li><span class="crm-dot crm-dot--violet"></span>Organic<strong>28%</strong></li>
+                  <li><span class="crm-dot crm-dot--amber"></span>Paid<strong>18%</strong></li>
+                  <li><span class="crm-dot crm-dot--emerald"></span>Social<strong>12%</strong></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================== FOLLOW-UPS + REVENUE BY REP ================== -->
+        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
+          <div class="col-12 col-xl-5">
+            <div class="card orchid-card h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <div>
+                    <h6 class="mb-0">Today's Follow-ups</h6>
+                    <small class="text-body-secondary">6 scheduled · 2 overdue</small>
+                  </div>
+                  <a href="#" class="small crm-link">Schedule new</a>
+                </div>
+                <ul class="crm-followups list-unstyled mb-0">
+                  <li class="crm-followup crm-followup--overdue">
+                    <div class="crm-followup__time">
+                      <span class="crm-followup__hour">09:00</span>
+                      <span class="crm-followup__meridian">AM</span>
                     </div>
+                    <span class="avatar avatar-sm crm-avatar crm-avatar--amber">PM</span>
+                    <div class="crm-followup__body">
+                      <p class="crm-followup__name">Priya Menon <span class="text-body-secondary fw-normal">→ Northwind</span></p>
+                      <p class="crm-followup__note"><i class="bi bi-telephone-fill crm-method crm-method--call"></i> Discovery call — pricing follow-up</p>
+                    </div>
+                    <span class="badge crm-badge-soft-danger">Overdue</span>
                   </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-success"></span>
-                    <div>
-                      <p class="mb-0"><strong>Sarah Miller</strong> added a comment on <a href="#">Q2 Roadmap</a></p>
-                      <small class="text-body-secondary">18 mins ago</small>
+                  <li class="crm-followup">
+                    <div class="crm-followup__time">
+                      <span class="crm-followup__hour">10:30</span>
+                      <span class="crm-followup__meridian">AM</span>
                     </div>
+                    <span class="avatar avatar-sm crm-avatar crm-avatar--indigo">MC</span>
+                    <div class="crm-followup__body">
+                      <p class="crm-followup__name">Marcus Chen <span class="text-body-secondary fw-normal">→ Meridian Health</span></p>
+                      <p class="crm-followup__note"><i class="bi bi-envelope-fill crm-method crm-method--email"></i> Send updated proposal deck</p>
+                    </div>
+                    <span class="badge crm-badge-soft-amber">Due soon</span>
                   </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-warning"></span>
-                    <div>
-                      <p class="mb-0"><strong>James Doe</strong> moved <a href="#">API Redesign</a> to In Progress</p>
-                      <small class="text-body-secondary">1 hour ago</small>
+                  <li class="crm-followup">
+                    <div class="crm-followup__time">
+                      <span class="crm-followup__hour">01:15</span>
+                      <span class="crm-followup__meridian">PM</span>
                     </div>
+                    <span class="avatar avatar-sm crm-avatar crm-avatar--violet">SG</span>
+                    <div class="crm-followup__body">
+                      <p class="crm-followup__name">Sofia García <span class="text-body-secondary fw-normal">→ Aurora Fintech</span></p>
+                      <p class="crm-followup__note"><i class="bi bi-camera-video-fill crm-method crm-method--meet"></i> Product demo with CTO</p>
+                    </div>
+                    <span class="badge crm-badge-soft-info">Scheduled</span>
                   </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-info"></span>
-                    <div>
-                      <p class="mb-0"><strong>Ava Lee</strong> shared the file <a href="#">Brand.pdf</a></p>
-                      <small class="text-body-secondary">3 hours ago</small>
+                  <li class="crm-followup">
+                    <div class="crm-followup__time">
+                      <span class="crm-followup__hour">03:00</span>
+                      <span class="crm-followup__meridian">PM</span>
                     </div>
+                    <span class="avatar avatar-sm crm-avatar crm-avatar--emerald">DK</span>
+                    <div class="crm-followup__body">
+                      <p class="crm-followup__name">Daniel Kowalski <span class="text-body-secondary fw-normal">→ Kepler Aerospace</span></p>
+                      <p class="crm-followup__note"><i class="bi bi-telephone-fill crm-method crm-method--call"></i> Contract negotiation call</p>
+                    </div>
+                    <span class="badge crm-badge-soft-info">Scheduled</span>
                   </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-danger"></span>
-                    <div>
-                      <p class="mb-0"><strong>Ryan Green</strong> reported an issue on <a href="#">Checkout</a></p>
-                      <small class="text-body-secondary">Yesterday</small>
+                  <li class="crm-followup">
+                    <div class="crm-followup__time">
+                      <span class="crm-followup__hour">04:45</span>
+                      <span class="crm-followup__meridian">PM</span>
                     </div>
+                    <span class="avatar avatar-sm crm-avatar crm-avatar--rose">AN</span>
+                    <div class="crm-followup__body">
+                      <p class="crm-followup__name">Aisha Nwosu <span class="text-body-secondary fw-normal">→ Halcyon Media</span></p>
+                      <p class="crm-followup__note"><i class="bi bi-envelope-fill crm-method crm-method--email"></i> Send contract for signature</p>
+                    </div>
+                    <span class="badge crm-badge-soft-info">Scheduled</span>
                   </li>
                 </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-xl-7">
+            <div class="card orchid-card h-100">
+              <div class="card-body">
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                  <div>
+                    <h6 class="mb-0">Revenue by Rep</h6>
+                    <small class="text-body-secondary">Closed-won revenue · last 30 days</small>
+                  </div>
+                  <span class="badge crm-badge-soft-emerald"><i class="bi bi-arrow-up"></i> +18% vs prior</span>
+                </div>
+                <div class="crm-chart-wrap crm-chart-wrap--lg">
+                  <canvas data-crm-chart="revByRep"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================== RECENT CUSTOMERS ================== -->
+        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
+          <div class="col-12">
+            <div class="card orchid-card">
+              <div class="card-body">
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                  <div>
+                    <h6 class="mb-0">Recent Customers</h6>
+                    <small class="text-body-secondary">Newly onboarded in the past 14 days</small>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <div class="input-group input-group-sm orchid-inline-search">
+                      <span class="input-group-text bg-transparent border-end-0"><i class="bi bi-search"></i></span>
+                      <input type="search" class="form-control border-start-0" placeholder="Search customers…" aria-label="Search customers">
+                    </div>
+                    <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-funnel"></i></button>
+                  </div>
+                </div>
+
+                <div class="crm-customers">
+                  <article class="crm-customer">
+                    <div class="crm-customer__head">
+                      <span class="avatar crm-avatar crm-avatar--amber">NA</span>
+                      <span class="crm-tag crm-tag--enterprise">Enterprise</span>
+                    </div>
+                    <p class="crm-customer__name">Northwind Analytics</p>
+                    <p class="crm-customer__company"><i class="bi bi-geo-alt"></i> Seattle, US</p>
+                    <div class="crm-customer__foot">
+                      <div>
+                        <span class="crm-customer__label">LTV</span>
+                        <strong class="crm-customer__ltv">$248K</strong>
+                      </div>
+                      <button class="btn btn-sm crm-btn-ghost" type="button" aria-label="Open"><i class="bi bi-arrow-up-right"></i></button>
+                    </div>
+                  </article>
+
+                  <article class="crm-customer">
+                    <div class="crm-customer__head">
+                      <span class="avatar crm-avatar crm-avatar--indigo">VR</span>
+                      <span class="crm-tag crm-tag--growth">Growth</span>
+                    </div>
+                    <p class="crm-customer__name">Vertex Robotics</p>
+                    <p class="crm-customer__company"><i class="bi bi-geo-alt"></i> Munich, DE</p>
+                    <div class="crm-customer__foot">
+                      <div>
+                        <span class="crm-customer__label">LTV</span>
+                        <strong class="crm-customer__ltv">$126K</strong>
+                      </div>
+                      <button class="btn btn-sm crm-btn-ghost" type="button" aria-label="Open"><i class="bi bi-arrow-up-right"></i></button>
+                    </div>
+                  </article>
+
+                  <article class="crm-customer">
+                    <div class="crm-customer__head">
+                      <span class="avatar crm-avatar crm-avatar--violet">MH</span>
+                      <span class="crm-tag crm-tag--enterprise">Enterprise</span>
+                    </div>
+                    <p class="crm-customer__name">Meridian Health</p>
+                    <p class="crm-customer__company"><i class="bi bi-geo-alt"></i> Boston, US</p>
+                    <div class="crm-customer__foot">
+                      <div>
+                        <span class="crm-customer__label">LTV</span>
+                        <strong class="crm-customer__ltv">$318K</strong>
+                      </div>
+                      <button class="btn btn-sm crm-btn-ghost" type="button" aria-label="Open"><i class="bi bi-arrow-up-right"></i></button>
+                    </div>
+                  </article>
+
+                  <article class="crm-customer">
+                    <div class="crm-customer__head">
+                      <span class="avatar crm-avatar crm-avatar--emerald">KA</span>
+                      <span class="crm-tag crm-tag--team">Team</span>
+                    </div>
+                    <p class="crm-customer__name">Kepler Aerospace</p>
+                    <p class="crm-customer__company"><i class="bi bi-geo-alt"></i> Austin, US</p>
+                    <div class="crm-customer__foot">
+                      <div>
+                        <span class="crm-customer__label">LTV</span>
+                        <strong class="crm-customer__ltv">$94K</strong>
+                      </div>
+                      <button class="btn btn-sm crm-btn-ghost" type="button" aria-label="Open"><i class="bi bi-arrow-up-right"></i></button>
+                    </div>
+                  </article>
+
+                  <article class="crm-customer">
+                    <div class="crm-customer__head">
+                      <span class="avatar crm-avatar crm-avatar--rose">CF</span>
+                      <span class="crm-tag crm-tag--growth">Growth</span>
+                    </div>
+                    <p class="crm-customer__name">Cascadia Foods</p>
+                    <p class="crm-customer__company"><i class="bi bi-geo-alt"></i> Portland, US</p>
+                    <div class="crm-customer__foot">
+                      <div>
+                        <span class="crm-customer__label">LTV</span>
+                        <strong class="crm-customer__ltv">$72K</strong>
+                      </div>
+                      <button class="btn btn-sm crm-btn-ghost" type="button" aria-label="Open"><i class="bi bi-arrow-up-right"></i></button>
+                    </div>
+                  </article>
+
+                  <article class="crm-customer">
+                    <div class="crm-customer__head">
+                      <span class="avatar crm-avatar crm-avatar--amber">HM</span>
+                      <span class="crm-tag crm-tag--team">Team</span>
+                    </div>
+                    <p class="crm-customer__name">Halcyon Media</p>
+                    <p class="crm-customer__company"><i class="bi bi-geo-alt"></i> London, UK</p>
+                    <div class="crm-customer__foot">
+                      <div>
+                        <span class="crm-customer__label">LTV</span>
+                        <strong class="crm-customer__ltv">$58K</strong>
+                      </div>
+                      <button class="btn btn-sm crm-btn-ghost" type="button" aria-label="Open"><i class="bi bi-arrow-up-right"></i></button>
+                    </div>
+                  </article>
+
+                  <article class="crm-customer">
+                    <div class="crm-customer__head">
+                      <span class="avatar crm-avatar crm-avatar--indigo">SR</span>
+                      <span class="crm-tag crm-tag--enterprise">Enterprise</span>
+                    </div>
+                    <p class="crm-customer__name">Solstice Retail</p>
+                    <p class="crm-customer__company"><i class="bi bi-geo-alt"></i> Toronto, CA</p>
+                    <div class="crm-customer__foot">
+                      <div>
+                        <span class="crm-customer__label">LTV</span>
+                        <strong class="crm-customer__ltv">$412K</strong>
+                      </div>
+                      <button class="btn btn-sm crm-btn-ghost" type="button" aria-label="Open"><i class="bi bi-arrow-up-right"></i></button>
+                    </div>
+                  </article>
+
+                  <article class="crm-customer">
+                    <div class="crm-customer__head">
+                      <span class="avatar crm-avatar crm-avatar--violet">AF</span>
+                      <span class="crm-tag crm-tag--growth">Growth</span>
+                    </div>
+                    <p class="crm-customer__name">Aurora Fintech</p>
+                    <p class="crm-customer__company"><i class="bi bi-geo-alt"></i> Singapore</p>
+                    <div class="crm-customer__foot">
+                      <div>
+                        <span class="crm-customer__label">LTV</span>
+                        <strong class="crm-customer__ltv">$164K</strong>
+                      </div>
+                      <button class="btn btn-sm crm-btn-ghost" type="button" aria-label="Open"><i class="bi bi-arrow-up-right"></i></button>
+                    </div>
+                  </article>
+                </div>
               </div>
             </div>
           </div>
@@ -1127,5 +1285,6 @@
   <script src="assets/js/sidebar.js" defer></script>
   <script src="assets/js/charts.js" defer></script>
   <script src="assets/js/orchid.js" defer></script>
+  <script src="assets/js/pages/crm.js" defer></script>
 </body>
 </html>

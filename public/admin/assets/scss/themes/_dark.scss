@@ -1,0 +1,32 @@
+// Dark theme CSS custom properties
+[data-bs-theme="dark"] {
+  --orchid-bg:         #{$orchid-bg-dark};
+  --orchid-surface:    #{$orchid-surface-dark};
+  --orchid-border:     #{$orchid-border-dark};
+  --orchid-text:       #{$orchid-text-dark};
+  --orchid-text-muted: #{$orchid-text-muted-dark};
+  --orchid-hover:      #1e2338;
+  --orchid-primary:    #818cf8;
+  --orchid-accent:     #{$orchid-accent};
+
+  color-scheme: dark;
+}
+
+[data-bs-theme="dark"] {
+  .orchid-earnings-card { background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); }
+  .orchid-upgrade-card  { background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); }
+
+  .form-control {
+    background-color: var(--orchid-hover);
+    color: var(--orchid-text);
+    border-color: var(--orchid-border);
+
+    &::placeholder { color: var(--orchid-text-muted); }
+  }
+
+  .orchid-search .form-control { background-color: var(--orchid-hover); }
+
+  .breadcrumb-item + .breadcrumb-item::before { color: var(--orchid-text-muted); }
+
+  .table { color: var(--orchid-text); }
+}

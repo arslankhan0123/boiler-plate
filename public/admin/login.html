@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Sign in to Orchid - the modern control center for your business.">
+  <meta name="theme-color" content="#4f46e5">
+  <title>Sign in - Orchid</title>
+
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="assets/css/orchid.css" rel="stylesheet">
+  <link href="assets/css/pages/auth.css" rel="stylesheet">
+</head>
+<body class="orchid-body auth-body">
+
+  <button class="auth-theme-toggle" type="button" data-orchid-theme-toggle aria-label="Toggle theme">
+    <i class="bi bi-moon-stars-fill"></i>
+    <i class="bi bi-sun-fill"></i>
+  </button>
+
+  <div class="auth-shell">
+
+    <!-- ================== LEFT HERO ================== -->
+    <aside class="auth-hero" aria-hidden="true">
+      <a href="index.html" class="auth-hero__brand">
+        <span class="auth-hero__brand-mark">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orchid logo">
+            <defs>
+              <linearGradient id="orchidGradHeroLogin" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="100%" stop-color="#a5f3fc"/>
+              </linearGradient>
+            </defs>
+            <circle cx="16" cy="16" r="6" fill="url(#orchidGradHeroLogin)"/>
+            <ellipse cx="16" cy="16" rx="14" ry="6" fill="none" stroke="url(#orchidGradHeroLogin)" stroke-width="2" transform="rotate(-30 16 16)"/>
+          </svg>
+        </span>
+        <span>Orchid</span>
+      </a>
+
+      <div class="auth-hero__body">
+        <span class="auth-hero__eyebrow"><i class="bi bi-stars"></i> The modern control center</span>
+        <h1 class="auth-hero__title">Welcome back to Orchid.</h1>
+        <p class="auth-hero__lead">Sign in to access real-time dashboards, unified analytics, and everything your team needs to move faster.</p>
+
+        <ul class="auth-hero__features">
+          <li><i class="bi bi-lightning-charge-fill"></i><span>Blazing-fast dashboards across 40+ integrations</span></li>
+          <li><i class="bi bi-shield-lock-fill"></i><span>SOC 2 Type II certified, end-to-end encrypted</span></li>
+          <li><i class="bi bi-people-fill"></i><span>Collaborate with your team in real time</span></li>
+        </ul>
+      </div>
+
+      <div class="auth-hero__testimonial">
+        <p>&ldquo;Orchid transformed how we run our ops &mdash; dashboards that actually inform decisions.&rdquo;</p>
+        <div class="auth-hero__testimonial-footer">
+          <span class="auth-hero__testimonial-avatar">PM</span>
+          <div class="auth-hero__testimonial-meta">
+            <div class="auth-hero__testimonial-name">Priya Menon</div>
+            <div class="auth-hero__testimonial-role">COO, Vertex Robotics</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ================== RIGHT FORM ================== -->
+    <section class="auth-panel">
+      <div class="auth-panel__top">
+        <span></span>
+        <a href="index.html" class="auth-panel__brand-sm" aria-label="Orchid home">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orchid logo">
+            <defs>
+              <linearGradient id="orchidGradSmLogin" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#6366f1"/>
+                <stop offset="100%" stop-color="#22d3ee"/>
+              </linearGradient>
+            </defs>
+            <circle cx="16" cy="16" r="6" fill="url(#orchidGradSmLogin)"/>
+            <ellipse cx="16" cy="16" rx="14" ry="6" fill="none" stroke="url(#orchidGradSmLogin)" stroke-width="2" transform="rotate(-30 16 16)"/>
+          </svg>
+          <span>Orchid</span>
+        </a>
+      </div>
+
+      <div class="auth-panel__body">
+        <div class="auth-form">
+          <div class="auth-form__eyebrow">Sign in</div>
+          <h2 class="auth-form__title">Welcome back</h2>
+          <p class="auth-form__subtitle">Enter your credentials to access your workspace.</p>
+
+          <form data-auth-form data-auth-success="Signed in successfully." data-auth-redirect="index.html" novalidate>
+
+            <div class="auth-field">
+              <label for="loginEmail" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="loginEmail" name="email" placeholder="you@company.com" autocomplete="email" required data-auth-validate="email">
+              <div class="invalid-feedback">Enter a valid email address.</div>
+            </div>
+
+            <div class="auth-field">
+              <label for="loginPassword" class="form-label">Password</label>
+              <input type="password" class="form-control" id="loginPassword" name="password" placeholder="Enter your password" autocomplete="current-password" required data-auth-validate="password" data-auth-password>
+              <button type="button" class="auth-field__toggle" data-auth-password-toggle="loginPassword" aria-label="Show password">
+                <i class="bi bi-eye"></i>
+              </button>
+              <div class="invalid-feedback">Password must be at least 8 characters.</div>
+            </div>
+
+            <div class="auth-form__row">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="loginRemember" checked>
+                <label class="form-check-label" for="loginRemember">Remember me for 30 days</label>
+              </div>
+              <a href="forgot-password.html">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="auth-btn-primary" data-auth-submit data-loading-text="Signing in...">
+              <span>Sign in</span>
+              <i class="bi bi-arrow-right"></i>
+            </button>
+
+            <div class="auth-divider">Or continue with</div>
+
+            <div class="auth-social">
+              <button type="button" class="auth-social__btn auth-social__btn--google" data-auth-social="Google" aria-label="Sign in with Google">
+                <i class="bi bi-google"></i><span class="d-none d-sm-inline">Google</span>
+              </button>
+              <button type="button" class="auth-social__btn auth-social__btn--github" data-auth-social="GitHub" aria-label="Sign in with GitHub">
+                <i class="bi bi-github"></i><span class="d-none d-sm-inline">GitHub</span>
+              </button>
+              <button type="button" class="auth-social__btn auth-social__btn--apple" data-auth-social="Apple" aria-label="Sign in with Apple">
+                <i class="bi bi-apple"></i><span class="d-none d-sm-inline">Apple</span>
+              </button>
+            </div>
+          </form>
+
+          <p class="text-center mt-4 mb-0 text-body-secondary">
+            Don't have an account? <a href="register.html" class="fw-semibold text-decoration-none">Create one</a>
+          </p>
+        </div>
+      </div>
+
+      <footer class="auth-panel__footer">
+        &copy; 2026 Orchid Inc. &middot; <a href="#" class="text-decoration-none">Privacy</a> &middot; <a href="#" class="text-decoration-none">Terms</a>
+      </footer>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="assets/js/theme.js" defer></script>
+  <script src="assets/js/pages/auth.js" defer></script>
+</body>
+</html>

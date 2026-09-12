@@ -1,0 +1,8 @@
+.orchid-footer {
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--orchid-border);
+  background-color: var(--orchid-surface);
+
+  a { text-decoration: none; }
+  a:hover { color: var(--orchid-primary); }
+}

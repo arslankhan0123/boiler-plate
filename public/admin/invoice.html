@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Orchid - Premium Bootstrap 5.3 Admin Dashboard Template">
   <meta name="theme-color" content="#4f46e5">
-  <title>Orchid - Premium Admin Dashboard</title>
+  <title>Orchid — Invoice</title>
 
   <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +14,8 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-  <link href="{{asset('admin/assets/css/orchid.css')}}" rel="stylesheet">
+  <link href="assets/css/orchid.css" rel="stylesheet">
+  <link href="assets/css/pages/invoice.css" rel="stylesheet">
 </head>
 <body class="orchid-body">
 
@@ -48,13 +49,13 @@
         <span class="orchid-nav-section__label">Main</span>
         <ul class="orchid-nav">
           <li>
-            <a href="#navDashboard" class="orchid-nav__link orchid-nav__link--has-sub trail-active" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="navDashboard">
+            <a href="#navDashboard" class="orchid-nav__link orchid-nav__link--has-sub collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="navDashboard">
               <i class="bi bi-speedometer2"></i><span>Dashboard</span>
               <span class="badge bg-primary-subtle text-primary ms-auto">8</span>
               <i class="bi bi-chevron-down orchid-nav__chevron"></i>
             </a>
-            <ul class="collapse show orchid-nav__sub list-unstyled" id="navDashboard">
-              <li><a href="index.html" class="orchid-nav__sublink active" aria-current="page">Default</a></li>
+            <ul class="collapse orchid-nav__sub list-unstyled" id="navDashboard">
+              <li><a href="index.html" class="orchid-nav__sublink">Default</a></li>
               <li><a href="analytics.html" class="orchid-nav__sublink">Analytics</a></li>
               <li><a href="crm.html" class="orchid-nav__sublink">CRM</a></li>
               <li><a href="sales.html" class="orchid-nav__sublink">Sales</a></li>
@@ -340,7 +341,7 @@
           <li><a href="faq.html" class="orchid-nav__link"><i class="bi bi-question-square"></i><span>FAQ</span></a></li>
           <li><a href="help-center.html" class="orchid-nav__link"><i class="bi bi-headset"></i><span>Help Center</span></a></li>
           <li><a href="timeline.html" class="orchid-nav__link"><i class="bi bi-clock"></i><span>Timeline</span></a></li>
-          <li><a href="invoice.html" class="orchid-nav__link"><i class="bi bi-receipt"></i><span>Invoice</span></a></li>
+          <li><a href="invoice.html" class="orchid-nav__link active" aria-current="page"><i class="bi bi-receipt"></i><span>Invoice</span></a></li>
           <li><a href="coming-soon.html" class="orchid-nav__link"><i class="bi bi-hourglass-split"></i><span>Coming Soon</span></a></li>
           <li><a href="maintenance.html" class="orchid-nav__link"><i class="bi bi-cone-striped"></i><span>Maintenance</span></a></li>
           <li><a href="error-404.html" class="orchid-nav__link"><i class="bi bi-bug"></i><span>Error Pages</span></a></li>
@@ -372,9 +373,9 @@
         </button>
         <nav aria-label="breadcrumb" class="orchid-header__breadcrumb d-none d-md-block">
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#"><i class="bi bi-house-door"></i></a></li>
-            <li class="breadcrumb-item"><a href="#">Overview</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i></a></li>
+            <li class="breadcrumb-item"><a href="#">Extra Pages</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Invoice</li>
           </ol>
         </nav>
       </div>
@@ -546,561 +547,305 @@
 
     <!-- ================== MAIN ================== -->
     <main class="orchid-main" id="orchid-main" tabindex="-1">
-      <div class="container-fluid px-3 px-lg-4 py-4">
+      <div class="container-fluid px-3 px-lg-4 py-4" data-invoice-root>
 
         <!-- Page header -->
-        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+        <div class="invoice-page-header">
           <div>
-            <h1 class="h3 mb-1">Welcome back, Alex 👋</h1>
-            <p class="text-body-secondary mb-0">Here's what's happening with your business today.</p>
+            <h1>Invoice</h1>
+            <p>
+              <span class="invoice-ref-chip"><i class="bi bi-hash"></i>ORB-2026-0284</span>
+              <span class="ms-2">Billed to <strong>Vertex Robotics</strong></span>
+            </p>
           </div>
           <div class="d-flex gap-2">
-            <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-download me-1"></i>Export</button>
-            <button class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i>Create Report</button>
+            <a href="#" class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Back to invoices</a>
+            <button type="button" class="btn btn-sm btn-primary" data-invoice-action="download"><i class="bi bi-download me-1"></i>Download</button>
           </div>
         </div>
 
-        <!-- ================== ROW 1 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card orchid-stat-card h-100 overflow-hidden">
-              <div class="card-body pb-2">
-                <div class="d-flex justify-content-between align-items-start mb-3">
-                  <div>
-                    <p class="text-body-secondary mb-1 small">Total Contacts</p>
-                    <h3 class="mb-0 fw-bold">12,480</h3>
-                  </div>
-                  <span class="orchid-stat-card__icon bg-primary-subtle text-primary"><i class="bi bi-people"></i></span>
-                </div>
-                <span class="badge bg-success-subtle text-success"><i class="bi bi-arrow-up"></i> 12.4% vs last month</span>
-              </div>
-              <div class="orchid-stat-card__spark">
-                <canvas data-orchid-chart="sparkContacts"></canvas>
-              </div>
-            </div>
-          </div>
+        <!-- Grid: paper + side panel -->
+        <div class="invoice-grid">
 
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h6 class="mb-0">Lead Analytics</h6>
-                  <span class="badge bg-info-subtle text-info">Weekly</span>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--sm">
-                  <canvas data-orchid-chart="leadAnalytics"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
+          <!-- LEFT: paper -->
+          <div>
+            <article class="invoice-paper" aria-label="Invoice document">
+              <div class="invoice-print-header" data-invoice-num="ORB-2026-0284" aria-hidden="true"></div>
+              <div class="invoice-void-mark" aria-hidden="true"><span>VOID</span></div>
 
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h6 class="mb-0">Traffic Sources</h6>
-                  <button class="btn btn-sm btn-icon" type="button" aria-label="More"><i class="bi bi-three-dots"></i></button>
+              <!-- Header row -->
+              <header class="invoice-doc-header">
+                <div>
+                  <div class="invoice-brand">
+                    <span class="invoice-brand__mark" aria-hidden="true">
+                      <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="16" cy="16" r="6" fill="#ffffff"/>
+                        <ellipse cx="16" cy="16" rx="14" ry="6" fill="none" stroke="#ffffff" stroke-width="2" transform="rotate(-30 16 16)"/>
+                      </svg>
+                    </span>
+                    <span class="invoice-brand__name">Orchid Systems Inc.</span>
+                  </div>
+                  <address class="invoice-sender">
+                    <strong>Orchid Systems Inc.</strong>
+                    500 Market Street<br>
+                    San Francisco, CA 94103, US<br>
+                    billing@orchid.io · +1 (415) 555-0192<br>
+                    VAT: US-8842-114
+                  </address>
                 </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--sm">
-                  <canvas data-orchid-chart="trafficSources"></canvas>
+                <div class="invoice-meta">
+                  <p class="invoice-meta__title">INVOICE</p>
+                  <p class="invoice-meta__num">#ORB-2026-0284</p>
+                  <div class="invoice-meta__row"><span>Issued</span><span>Jul 08, 2026</span></div>
+                  <div class="invoice-meta__row"><span>Due</span><span>Aug 04, 2026</span></div>
+                  <div class="invoice-meta__row"><span>Currency</span><span>USD ($)</span></div>
+                  <span class="invoice-status-badge invoice-status-badge--sent" data-invoice-doc-badge>
+                    <i class="bi bi-send-fill"></i>Sent
+                  </span>
                 </div>
-              </div>
-            </div>
-          </div>
+              </header>
 
-          <div class="col-12 col-xl-3">
-            <div class="card orchid-card orchid-earnings-card h-100 text-white">
-              <div class="card-body position-relative pb-0">
-                <div class="d-flex justify-content-between align-items-start">
-                  <div>
-                    <p class="mb-1 opacity-75 small">Total Earnings</p>
-                    <h3 class="fw-bold mb-1">$84,120.50</h3>
-                    <span class="badge bg-white text-primary"><i class="bi bi-arrow-up"></i> 8.24%</span>
-                  </div>
-                  <span class="orchid-stat-card__icon bg-white bg-opacity-25 text-white"><i class="bi bi-currency-dollar"></i></span>
+              <!-- From / To -->
+              <section class="invoice-parties">
+                <div>
+                  <p class="invoice-party__label">From</p>
+                  <p class="invoice-party__name">Orchid Systems Inc.</p>
+                  <p class="invoice-party__contact">Alex Kim, CFO · alex@orchid.io</p>
+                  <p class="invoice-party__addr">
+                    500 Market Street<br>
+                    San Francisco, CA 94103<br>
+                    United States
+                  </p>
                 </div>
-              </div>
-              <div class="orchid-earnings-card__chart">
-                <canvas data-orchid-chart="earnings"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
+                <div>
+                  <p class="invoice-party__label">Billed to</p>
+                  <p class="invoice-party__name">Vertex Robotics</p>
+                  <p class="invoice-party__contact">Attn: Priya Menon, AP Manager · ap@vertexrobotics.com</p>
+                  <p class="invoice-party__addr">
+                    42 Innovation Avenue<br>
+                    Boston, MA 02108<br>
+                    United States
+                  </p>
+                </div>
+              </section>
 
-        <!-- ================== ROW 2 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-lg-6 col-xxl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Tasks Overview</h6>
-                  <a href="#" class="small">View all</a>
-                </div>
-                <ul class="orchid-task-list list-unstyled mb-0">
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task1" checked>
-                      <label class="form-check-label text-decoration-line-through text-body-secondary" for="task1">Prepare launch checklist</label>
-                    </div>
-                    <span class="badge bg-success-subtle text-success">Done</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task2">
-                      <label class="form-check-label" for="task2">Design system audit</label>
-                    </div>
-                    <span class="badge bg-warning-subtle text-warning">Today</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task3">
-                      <label class="form-check-label" for="task3">Review PR #482</label>
-                    </div>
-                    <span class="badge bg-primary-subtle text-primary">2h</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task4">
-                      <label class="form-check-label" for="task4">Sync with sales team</label>
-                    </div>
-                    <span class="badge bg-info-subtle text-info">Tomorrow</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task5">
-                      <label class="form-check-label" for="task5">Publish weekly newsletter</label>
-                    </div>
-                    <span class="badge bg-danger-subtle text-danger">Overdue</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-lg-6 col-xxl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Active Deals</h6>
-                  <span class="badge bg-primary-subtle text-primary">48 total</span>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--md">
-                  <canvas data-orchid-chart="activeDeals"></canvas>
-                </div>
-                <div class="d-flex justify-content-between mt-3 small">
-                  <div><span class="orchid-dot bg-primary"></span> Won <strong class="ms-1">28</strong></div>
-                  <div><span class="orchid-dot bg-warning"></span> Pending <strong class="ms-1">14</strong></div>
-                  <div><span class="orchid-dot bg-danger"></span> Lost <strong class="ms-1">6</strong></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xxl-4">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Revenue Analytics</h6>
-                    <small class="text-body-secondary">Monthly performance</small>
-                  </div>
-                  <div class="btn-group btn-group-sm" role="group" aria-label="Revenue range">
-                    <input type="radio" class="btn-check" name="revRange" id="revW" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="revW">W</label>
-                    <input type="radio" class="btn-check" name="revRange" id="revM" autocomplete="off" checked>
-                    <label class="btn btn-outline-secondary" for="revM">M</label>
-                    <input type="radio" class="btn-check" name="revRange" id="revY" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="revY">Y</label>
-                  </div>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--lg">
-                  <canvas data-orchid-chart="revenue"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xxl-2">
-            <div class="card orchid-card h-100">
-              <div class="card-body d-flex flex-column">
-                <h6 class="mb-1">Retention Rate</h6>
-                <small class="text-body-secondary mb-2">Last 30 days</small>
-                <div class="orchid-chart-wrap orchid-chart-wrap--radial flex-grow-1">
-                  <canvas data-orchid-chart="retention"></canvas>
-                </div>
-                <div class="text-center mt-2">
-                  <span class="badge bg-success-subtle text-success"><i class="bi bi-arrow-up"></i> 2.4% vs last month</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 3 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-lg-5">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Upcoming Meetings</h6>
-                  <a href="#" class="small">Calendar</a>
-                </div>
-                <ul class="orchid-meeting-list list-unstyled mb-0">
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">14</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Product Roadmap Q2</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>10:00 – 11:00 AM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-primary text-white">AK</span>
-                      <span class="avatar avatar-xs bg-info text-white">JD</span>
-                      <span class="avatar avatar-xs bg-warning text-white">+3</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">14</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Client Onboarding – Nova</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>2:00 – 2:45 PM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-success text-white">SM</span>
-                      <span class="avatar avatar-xs bg-danger text-white">EL</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">15</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Design Review</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>9:30 – 10:30 AM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-primary text-white">AK</span>
-                      <span class="avatar avatar-xs bg-warning text-white">+2</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">16</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Investor Sync</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>4:00 – 5:00 PM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-info text-white">RG</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-lg-7">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <div>
-                    <h6 class="mb-0">Deals Overview</h6>
-                    <small class="text-body-secondary">Stacked by stage</small>
-                  </div>
-                  <div class="dropdown">
-                    <button class="btn btn-sm btn-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Deals menu">
-                      <i class="bi bi-three-dots"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                      <li><a class="dropdown-item" href="#">Refresh</a></li>
-                      <li><a class="dropdown-item" href="#">Export CSV</a></li>
-                      <li><a class="dropdown-item" href="#">Settings</a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--lg">
-                  <canvas data-orchid-chart="dealsOverview"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 4 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12">
-            <div class="card orchid-card">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Sales Pipeline</h6>
-                    <small class="text-body-secondary">Progress across stages · $284,500 total</small>
-                  </div>
-                  <button class="btn btn-sm btn-outline-primary"><i class="bi bi-plus-lg me-1"></i>Add Stage</button>
-                </div>
-
-                <div class="row g-3">
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Leads</span>
-                        <small class="text-body-secondary">$48k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Leads" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-primary" data-orchid-progress="85"></div>
-                      </div>
-                      <small class="text-body-secondary">142 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Qualified</span>
-                        <small class="text-body-secondary">$62k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Qualified" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-info" data-orchid-progress="70"></div>
-                      </div>
-                      <small class="text-body-secondary">98 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Proposal</span>
-                        <small class="text-body-secondary">$54k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Proposal" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-warning" data-orchid-progress="60"></div>
-                      </div>
-                      <small class="text-body-secondary">64 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Negotiation</span>
-                        <small class="text-body-secondary">$46k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Negotiation" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-purple" data-orchid-progress="45"></div>
-                      </div>
-                      <small class="text-body-secondary">32 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Won</span>
-                        <small class="text-body-secondary">$62k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Won" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-success" data-orchid-progress="92"></div>
-                      </div>
-                      <small class="text-body-secondary">48 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Lost</span>
-                        <small class="text-body-secondary">$12k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Lost" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-danger" data-orchid-progress="18"></div>
-                      </div>
-                      <small class="text-body-secondary">14 deals</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 5 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-xl-8">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Recent Customers</h6>
-                    <small class="text-body-secondary">Latest activity from your customer base</small>
-                  </div>
-                  <div class="d-flex gap-2">
-                    <div class="input-group input-group-sm orchid-inline-search">
-                      <span class="input-group-text bg-transparent border-end-0"><i class="bi bi-search"></i></span>
-                      <input type="search" class="form-control border-start-0" placeholder="Search customers…" aria-label="Search customers">
-                    </div>
-                    <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-funnel"></i></button>
-                  </div>
-                </div>
+              <!-- Line items -->
+              <section class="invoice-items-wrap">
                 <div class="table-responsive">
-                  <table class="table orchid-table align-middle mb-0">
+                  <table class="invoice-items">
                     <thead>
                       <tr>
-                        <th scope="col">Customer</th>
-                        <th scope="col" class="d-none d-md-table-cell">Email</th>
-                        <th scope="col" class="d-none d-lg-table-cell">Location</th>
-                        <th scope="col">Spend</th>
-                        <th scope="col">Status</th>
-                        <th scope="col" class="text-end">Action</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Description</th>
+                        <th scope="col" class="invoice-items__num">Qty</th>
+                        <th scope="col" class="invoice-items__num">Unit Price</th>
+                        <th scope="col" class="invoice-items__num">Tax</th>
+                        <th scope="col" class="invoice-items__num">Total</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-primary-subtle text-primary fw-semibold">EW</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Emma Watson</p>
-                              <small class="text-body-secondary d-md-none">emma@nova.io</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">emma@nova.io</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">London, UK</td>
-                        <td class="fw-semibold">$4,820</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
+                        <td class="invoice-items__item">Design Retainer</td>
+                        <td class="invoice-items__desc">Monthly UX design retainer — July</td>
+                        <td class="invoice-items__num">1</td>
+                        <td class="invoice-items__num">$3,500.00</td>
+                        <td class="invoice-items__num">10%</td>
+                        <td class="invoice-items__num">$3,500.00</td>
                       </tr>
                       <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-info-subtle text-info fw-semibold">JD</span>
-                            <div>
-                              <p class="mb-0 fw-medium">James Doe</p>
-                              <small class="text-body-secondary d-md-none">james@acme.com</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">james@acme.com</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">New York, US</td>
-                        <td class="fw-semibold">$2,410</td>
-                        <td><span class="badge bg-warning-subtle text-warning">Pending</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
+                        <td class="invoice-items__item">API Integration</td>
+                        <td class="invoice-items__desc">Senior engineering hours — sprint 14</td>
+                        <td class="invoice-items__num">28</td>
+                        <td class="invoice-items__num">$165.00</td>
+                        <td class="invoice-items__num">10%</td>
+                        <td class="invoice-items__num">$4,620.00</td>
                       </tr>
                       <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-success-subtle text-success fw-semibold">SM</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Sarah Miller</p>
-                              <small class="text-body-secondary d-md-none">sarah@zen.co</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">sarah@zen.co</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Sydney, AU</td>
-                        <td class="fw-semibold">$7,920</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
+                        <td class="invoice-items__item">Cloud Infrastructure</td>
+                        <td class="invoice-items__desc">Managed hosting &amp; CDN — Q3 2026</td>
+                        <td class="invoice-items__num">1</td>
+                        <td class="invoice-items__num">$2,400.00</td>
+                        <td class="invoice-items__num">10%</td>
+                        <td class="invoice-items__num">$2,400.00</td>
                       </tr>
                       <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-warning-subtle text-warning fw-semibold">RG</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Ryan Green</p>
-                              <small class="text-body-secondary d-md-none">ryan@peak.io</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">ryan@peak.io</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Toronto, CA</td>
-                        <td class="fw-semibold">$1,150</td>
-                        <td><span class="badge bg-danger-subtle text-danger">Inactive</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
+                        <td class="invoice-items__item">Priority Support</td>
+                        <td class="invoice-items__desc">24×7 SLA response — quarterly</td>
+                        <td class="invoice-items__num">3</td>
+                        <td class="invoice-items__num">$650.00</td>
+                        <td class="invoice-items__num">10%</td>
+                        <td class="invoice-items__num">$1,950.00</td>
                       </tr>
                       <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-danger-subtle text-danger fw-semibold">AL</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Ava Lee</p>
-                              <small class="text-body-secondary d-md-none">ava@bold.co</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">ava@bold.co</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Berlin, DE</td>
-                        <td class="fw-semibold">$3,640</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
+                        <td class="invoice-items__item">Onboarding Workshop</td>
+                        <td class="invoice-items__desc">2-day virtual training for 8 seats</td>
+                        <td class="invoice-items__num">2</td>
+                        <td class="invoice-items__num">$690.00</td>
+                        <td class="invoice-items__num">10%</td>
+                        <td class="invoice-items__num">$1,380.00</td>
+                      </tr>
+                      <tr>
+                        <td class="invoice-items__item">One-time Setup</td>
+                        <td class="invoice-items__desc">Account provisioning &amp; SSO wiring</td>
+                        <td class="invoice-items__num">1</td>
+                        <td class="invoice-items__num">$1,000.00</td>
+                        <td class="invoice-items__num">10%</td>
+                        <td class="invoice-items__num">$1,000.00</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
-              </div>
-            </div>
+              </section>
+
+              <!-- Totals -->
+              <section class="invoice-totals">
+                <div class="invoice-notes-inline">
+                  <strong>Thank you for your business.</strong>
+                  Partial payment of $2,500.00 received on Jul 15, 2026 (ACH). Please remit the balance by the due date to avoid a 1.5% monthly late fee.
+                </div>
+                <ul class="invoice-totals-list">
+                  <li><span>Subtotal</span><span>$14,850.00</span></li>
+                  <li class="invoice-total--discount"><span>Discount</span><span>-$800.00</span></li>
+                  <li><span>Tax (10%)</span><span>$1,485.00</span></li>
+                  <li class="invoice-total--grand"><span>Total</span><span>$15,535.00</span></li>
+                  <li><span>Amount paid</span><span>-$2,500.00</span></li>
+                  <li class="invoice-total--balance"><span>Balance due</span><span data-invoice-balance>$13,035.00</span></li>
+                </ul>
+              </section>
+
+              <!-- Payment info + terms -->
+              <section class="invoice-payinfo">
+                <div>
+                  <h4 class="invoice-payinfo__title">Payment details</h4>
+                  <dl>
+                    <dt>Bank</dt><dd>First Republic Bank</dd>
+                    <dt>Account name</dt><dd>Orchid Systems Inc.</dd>
+                    <dt>Account #</dt><dd>4021 8873 6291</dd>
+                    <dt>Routing (ACH)</dt><dd>121000248</dd>
+                    <dt>SWIFT/BIC</dt><dd>FRBKUS6S</dd>
+                    <dt>Reference</dt><dd>ORB-2026-0284</dd>
+                  </dl>
+                </div>
+                <div class="invoice-terms">
+                  <h4 class="invoice-payinfo__title">Notes &amp; terms</h4>
+                  <p>Payment is due within 27 days of the invoice date. Please include the invoice reference on all payments to ensure prompt allocation.</p>
+                  <p>Late payments accrue interest at 1.5% per month. All services remain the property of Orchid Systems Inc. until paid in full.</p>
+                  <p>For billing questions, contact <strong>billing@orchid.io</strong>.</p>
+                </div>
+              </section>
+
+              <!-- Signature -->
+              <section class="invoice-signature">
+                <div class="invoice-signature__block">
+                  <div class="invoice-signature__line">Alex Kim</div>
+                  <div class="invoice-signature__meta">Signed by <strong>Alex Kim</strong>, CFO · Jul 08, 2026</div>
+                </div>
+              </section>
+            </article>
           </div>
 
-          <div class="col-12 col-xl-4">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Task Updates</h6>
-                  <a href="#" class="small">View all</a>
-                </div>
-                <ul class="orchid-timeline list-unstyled mb-0">
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-primary"></span>
-                    <div>
-                      <p class="mb-0"><strong>Alex Kim</strong> completed <a href="#">Design System Audit</a></p>
-                      <small class="text-body-secondary">2 mins ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-success"></span>
-                    <div>
-                      <p class="mb-0"><strong>Sarah Miller</strong> added a comment on <a href="#">Q2 Roadmap</a></p>
-                      <small class="text-body-secondary">18 mins ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-warning"></span>
-                    <div>
-                      <p class="mb-0"><strong>James Doe</strong> moved <a href="#">API Redesign</a> to In Progress</p>
-                      <small class="text-body-secondary">1 hour ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-info"></span>
-                    <div>
-                      <p class="mb-0"><strong>Ava Lee</strong> shared the file <a href="#">Brand.pdf</a></p>
-                      <small class="text-body-secondary">3 hours ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-danger"></span>
-                    <div>
-                      <p class="mb-0"><strong>Ryan Green</strong> reported an issue on <a href="#">Checkout</a></p>
-                      <small class="text-body-secondary">Yesterday</small>
-                    </div>
-                  </li>
-                </ul>
+          <!-- RIGHT: sticky action panel -->
+          <aside class="invoice-side" aria-label="Invoice actions">
+
+            <!-- Status card -->
+            <div class="invoice-panel invoice-status-card" data-invoice-status="sent">
+              <span class="invoice-status-badge invoice-status-badge--sent" data-invoice-side-badge>
+                <i class="bi bi-send-fill"></i>Sent
+              </span>
+              <div class="invoice-status-card__amount" data-invoice-side-amount>$13,035.00</div>
+              <p class="invoice-status-card__label" data-invoice-side-amount-label>Balance due</p>
+              <span class="invoice-status-card__countdown" data-invoice-countdown data-invoice-due="2026-08-04">
+                <i class="bi bi-clock"></i>Due soon
+              </span>
+            </div>
+
+            <!-- Quick actions -->
+            <div class="invoice-panel">
+              <h6 class="invoice-panel__title"><i class="bi bi-lightning-charge"></i>Quick actions</h6>
+              <div class="invoice-actions">
+                <button type="button" class="btn btn-primary" data-invoice-action="download"><i class="bi bi-download"></i>Download PDF</button>
+                <button type="button" class="btn btn-outline-secondary" data-invoice-action="print"><i class="bi bi-printer"></i>Print</button>
+                <button type="button" class="btn btn-outline-secondary" data-invoice-action="email"><i class="bi bi-envelope-paper"></i>Send by email</button>
+                <button type="button" class="btn btn-outline-secondary" data-invoice-action="duplicate"><i class="bi bi-files"></i>Duplicate invoice</button>
+                <button type="button" class="btn btn-outline-secondary" data-invoice-action="recurring"><i class="bi bi-arrow-repeat"></i>Convert to recurring</button>
+                <button type="button" class="btn btn-outline-secondary" data-invoice-action="paid"><i class="bi bi-check-circle"></i>Mark as paid</button>
+                <button type="button" class="btn btn-outline-danger" data-invoice-action="void"><i class="bi bi-slash-circle"></i>Void invoice</button>
               </div>
             </div>
-          </div>
+
+            <!-- Payment log -->
+            <div class="invoice-panel">
+              <h6 class="invoice-panel__title"><i class="bi bi-list-check"></i>Payment log</h6>
+              <ul class="invoice-log" data-invoice-log>
+                <li class="is-paid">
+                  <span>Partial payment received ($2,500)</span>
+                  <span class="invoice-log__meta">2026-07-15</span>
+                </li>
+                <li class="is-view">
+                  <span>Client viewed the invoice</span>
+                  <span class="invoice-log__meta">2026-07-09</span>
+                </li>
+                <li>
+                  <span>Sent to client (ap@vertexrobotics.com)</span>
+                  <span class="invoice-log__meta">2026-07-08</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Attach files -->
+            <div class="invoice-panel">
+              <h6 class="invoice-panel__title"><i class="bi bi-paperclip"></i>Attach files</h6>
+              <div class="invoice-drop" data-invoice-drop role="button" tabindex="0" aria-label="Attach files by drag or click">
+                <i class="bi bi-cloud-upload"></i>
+                <p class="invoice-drop__text">Drop files here or <strong>browse</strong></p>
+                <span class="invoice-drop__hint">PDF · XLSX · DOCX · up to 20 MB</span>
+              </div>
+              <input type="file" class="visually-hidden" data-invoice-file-input multiple>
+              <ul class="invoice-files" data-invoice-files>
+                <li>
+                  <i class="bi bi-file-earmark-pdf"></i>
+                  <span class="invoice-files__name">contract.pdf</span>
+                  <span class="invoice-files__size">248 KB</span>
+                  <button type="button" class="invoice-files__remove" aria-label="Remove contract.pdf"><i class="bi bi-x-lg"></i></button>
+                </li>
+                <li>
+                  <i class="bi bi-file-earmark-spreadsheet"></i>
+                  <span class="invoice-files__name">timesheet.xlsx</span>
+                  <span class="invoice-files__size">86 KB</span>
+                  <button type="button" class="invoice-files__remove" aria-label="Remove timesheet.xlsx"><i class="bi bi-x-lg"></i></button>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Related invoices -->
+            <div class="invoice-panel">
+              <h6 class="invoice-panel__title"><i class="bi bi-collection"></i>Related invoices</h6>
+              <ul class="invoice-related">
+                <li>
+                  <a href="#">
+                    <span class="invoice-related__num">ORB-2026-0201</span>
+                    <span class="invoice-related__amount">$9,420.00</span>
+                    <span class="invoice-related__pill invoice-related__pill--paid">Paid</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span class="invoice-related__num">ORB-2026-0158</span>
+                    <span class="invoice-related__amount">$12,180.00</span>
+                    <span class="invoice-related__pill invoice-related__pill--paid">Paid</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span class="invoice-related__num">ORB-2026-0112</span>
+                    <span class="invoice-related__amount">$4,050.00</span>
+                    <span class="invoice-related__pill invoice-related__pill--overdue">Overdue</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+          </aside>
         </div>
 
       </div>
@@ -1121,11 +866,134 @@
     </main>
   </div>
 
+  <!-- ================== MODALS ================== -->
+  <!-- Email modal -->
+  <div class="modal fade invoice-modal" id="invoiceEmailModal" tabindex="-1" aria-labelledby="invoiceEmailLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form id="invoiceEmailForm" novalidate>
+          <div class="modal-header">
+            <h5 class="modal-title" id="invoiceEmailLabel"><i class="bi bi-envelope-paper me-2"></i>Send invoice by email</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="invEmailTo" class="form-label">To</label>
+              <input type="email" class="form-control" id="invEmailTo" value="ap@vertexrobotics.com" required>
+              <div class="invalid-feedback">Please enter a valid email.</div>
+            </div>
+            <div class="mb-3">
+              <label for="invEmailCc" class="form-label">CC</label>
+              <input type="text" class="form-control" id="invEmailCc" value="alex@orchid.io">
+            </div>
+            <div class="mb-3">
+              <label for="invEmailSubject" class="form-label">Subject</label>
+              <input type="text" class="form-control" id="invEmailSubject" value="Invoice ORB-2026-0284 from Orchid Systems Inc." required>
+            </div>
+            <div class="mb-1">
+              <label for="invEmailMsg" class="form-label">Message</label>
+              <textarea class="form-control" id="invEmailMsg" rows="5" required>Hi Priya,
+
+Please find attached invoice ORB-2026-0284 for July services. The remaining balance of $13,035.00 is due by August 4, 2026.
+
+Thanks,
+Alex Kim
+Orchid Systems Inc.</textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary"><i class="bi bi-send me-1"></i>Send invoice</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recurring modal -->
+  <div class="modal fade invoice-modal" id="invoiceRecurringModal" tabindex="-1" aria-labelledby="invoiceRecurringLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form id="invoiceRecurringForm" novalidate>
+          <div class="modal-header">
+            <h5 class="modal-title" id="invoiceRecurringLabel"><i class="bi bi-arrow-repeat me-2"></i>Convert to recurring</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p class="text-body-secondary small mb-3">This invoice will be regenerated automatically on the selected schedule and sent to <strong>ap@vertexrobotics.com</strong>.</p>
+            <div class="mb-3">
+              <label for="invRecFreq" class="form-label">Frequency</label>
+              <select id="invRecFreq" class="form-select" required>
+                <option value="monthly">Monthly</option>
+                <option value="quarterly">Quarterly</option>
+                <option value="yearly">Yearly</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="invRecStart" class="form-label">Start on</label>
+              <input type="date" id="invRecStart" class="form-control" value="2026-08-08" required>
+            </div>
+            <div class="mb-1">
+              <label for="invRecEnd" class="form-label">End date</label>
+              <input type="date" id="invRecEnd" class="form-control" value="2027-08-08">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary"><i class="bi bi-check2 me-1"></i>Save schedule</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mark as paid modal -->
+  <div class="modal fade invoice-modal" id="invoicePaidModal" tabindex="-1" aria-labelledby="invoicePaidLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="invoicePaidLabel"><i class="bi bi-check-circle text-success me-2"></i>Mark as paid</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="mb-2">Confirm that the outstanding balance of <strong>$13,035.00</strong> has been received.</p>
+          <p class="text-body-secondary small mb-0"><i class="bi bi-shield-lock me-1"></i>This will lock the invoice — it can no longer be edited or voided.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-success" data-invoice-confirm="paid"><i class="bi bi-check2 me-1"></i>Confirm payment</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Void modal -->
+  <div class="modal fade invoice-modal" id="invoiceVoidModal" tabindex="-1" aria-labelledby="invoiceVoidLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="invoiceVoidLabel"><i class="bi bi-slash-circle text-danger me-2"></i>Void invoice</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="mb-2">Voiding this invoice will mark it as non-collectable and add a "VOID" watermark to the document. This action cannot be undone.</p>
+          <label for="invVoidInput" class="form-label small">Type <strong>VOID</strong> to confirm</label>
+          <input type="text" class="form-control" id="invVoidInput" autocomplete="off" placeholder="VOID">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" data-invoice-confirm="void" disabled><i class="bi bi-slash-circle me-1"></i>Void invoice</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="assets/js/theme.js" defer></script>
   <script src="assets/js/sidebar.js" defer></script>
   <script src="assets/js/charts.js" defer></script>
   <script src="assets/js/orchid.js" defer></script>
+  <script src="assets/js/pages/invoice.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Orchid - Page not found">
+  <meta name="theme-color" content="#4f46e5">
+  <title>Orchid - 404 Not Found</title>
+
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="assets/css/orchid.css" rel="stylesheet">
+  <link href="assets/css/pages/status.css" rel="stylesheet">
+</head>
+<body class="orchid-body status-body">
+
+  <div class="status-ambient" aria-hidden="true">
+    <span class="status-ambient__blob status-ambient__blob--a"></span>
+    <span class="status-ambient__blob status-ambient__blob--c"></span>
+  </div>
+
+  <div class="status-shell">
+    <header class="status-topbar">
+      <a href="index.html" class="status-brand" aria-label="Orchid home">
+        <span class="status-brand__logo" aria-hidden="true">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orchid logo">
+            <defs>
+              <linearGradient id="statusBrand404" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#6366f1"/>
+                <stop offset="100%" stop-color="#22d3ee"/>
+              </linearGradient>
+            </defs>
+            <circle cx="16" cy="16" r="6" fill="url(#statusBrand404)"/>
+            <ellipse cx="16" cy="16" rx="14" ry="6" fill="none" stroke="url(#statusBrand404)" stroke-width="2" transform="rotate(-30 16 16)"/>
+          </svg>
+        </span>
+        <span class="status-brand__text">Orchid</span>
+      </a>
+      <div class="status-topbar__actions">
+        <button type="button" class="status-theme-toggle" data-orchid-theme-toggle aria-label="Toggle theme">
+          <i class="bi bi-moon-stars-fill"></i>
+          <i class="bi bi-sun-fill"></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="status-404">
+      <div class="status-404__illustration" aria-hidden="true">
+        <span class="status-404__ring"></span>
+        <svg class="status-404__digits" viewBox="0 0 520 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Number 404">
+          <defs>
+            <linearGradient id="digit404" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#6366f1"/>
+              <stop offset="55%" stop-color="#a855f7"/>
+              <stop offset="100%" stop-color="#22d3ee"/>
+            </linearGradient>
+            <linearGradient id="digit404b" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0%" stop-color="#22d3ee"/>
+              <stop offset="100%" stop-color="#a855f7"/>
+            </linearGradient>
+          </defs>
+          <text x="15" y="205" font-family="Inter, sans-serif" font-weight="800" font-size="230" fill="url(#digit404)" letter-spacing="-8">4</text>
+          <g transform="translate(180 30)">
+            <circle cx="90" cy="100" r="80" fill="none" stroke="url(#digit404b)" stroke-width="26"/>
+            <circle cx="90" cy="100" r="80" fill="none" stroke="url(#digit404)" stroke-width="4" stroke-dasharray="6 12" opacity=".6"/>
+            <circle cx="170" cy="60" r="9" fill="#22d3ee"/>
+            <circle cx="14" cy="150" r="6" fill="#a855f7"/>
+          </g>
+          <text x="355" y="205" font-family="Inter, sans-serif" font-weight="800" font-size="230" fill="url(#digit404)" letter-spacing="-8">4</text>
+        </svg>
+      </div>
+
+      <div class="status-404__content">
+        <span class="status-eyebrow"><i class="bi bi-compass"></i> Error 404</span>
+        <h1 class="status-title">Lost in orchid</h1>
+        <p class="status-lead">
+          The page you're looking for has drifted off course. It may have been moved,
+          renamed, or never existed in this galaxy. Let's get you back on track.
+        </p>
+
+        <div class="status-cta-row">
+          <a href="index.html" class="btn status-btn-primary">
+            <i class="bi bi-house-door-fill me-1"></i> Go home
+          </a>
+          <button type="button" class="btn status-btn-ghost" data-bs-toggle="modal" data-bs-target="#reportIssueModal">
+            <i class="bi bi-flag me-1"></i> Report issue
+          </button>
+        </div>
+
+        <div class="status-suggested">
+          <div class="status-suggested__title">Suggested pages</div>
+          <ul class="status-suggested__list">
+            <li><a href="analytics.html"><i class="bi bi-bar-chart"></i> Analytics</a></li>
+            <li><a href="crm.html"><i class="bi bi-people"></i> CRM</a></li>
+            <li><a href="projects.html"><i class="bi bi-kanban"></i> Projects</a></li>
+            <li><a href="ecommerce.html"><i class="bi bi-bag"></i> E-Commerce</a></li>
+          </ul>
+        </div>
+      </div>
+    </main>
+
+    <footer class="status-footer">
+      &copy; 2026 Orchid. All systems monitored.
+    </footer>
+  </div>
+
+  <!-- Report Issue Modal -->
+  <div class="modal fade status-modal" id="reportIssueModal" tabindex="-1" aria-labelledby="reportIssueLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form class="needs-validation" novalidate data-status-report-form>
+          <div class="modal-header">
+            <h5 class="modal-title" id="reportIssueLabel"><i class="bi bi-flag me-2"></i>Report a broken link</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p class="text-body-secondary small mb-3">
+              Let us know what you were looking for and we'll investigate right away.
+            </p>
+            <div class="mb-3">
+              <label for="reportSubject" class="form-label">Subject</label>
+              <input type="text" class="form-control" id="reportSubject" required placeholder="Broken link on dashboard">
+              <div class="invalid-feedback">Please enter a short subject.</div>
+            </div>
+            <div class="mb-3">
+              <label for="reportCategory" class="form-label">Category</label>
+              <select class="form-select" id="reportCategory" required>
+                <option value="">Choose one…</option>
+                <option>Broken link</option>
+                <option>Missing content</option>
+                <option>Wrong redirect</option>
+                <option>Other</option>
+              </select>
+              <div class="invalid-feedback">Please pick a category.</div>
+            </div>
+            <div class="mb-2">
+              <label for="reportMessage" class="form-label">Description</label>
+              <textarea class="form-control" id="reportMessage" rows="4" required placeholder="What were you trying to reach?"></textarea>
+              <div class="invalid-feedback">A short description helps us investigate.</div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn status-btn-ghost" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn status-btn-primary"><i class="bi bi-send me-1"></i> Send report</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/theme.js" defer></script>
+  <script src="assets/js/pages/status.js" defer></script>
+</body>
+</html>

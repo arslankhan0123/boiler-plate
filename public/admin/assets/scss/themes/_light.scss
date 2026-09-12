@@ -1,0 +1,12 @@
+// Light theme CSS custom properties
+:root,
+[data-bs-theme="light"] {
+  --orchid-bg:         #{$orchid-bg};
+  --orchid-surface:    #{$orchid-surface};
+  --orchid-border:     #{$orchid-border};
+  --orchid-text:       #{$orchid-text};
+  --orchid-text-muted: #{$orchid-text-muted};
+  --orchid-hover:      #f2f3f8;
+  --orchid-primary:    #{$orchid-primary};
+  --orchid-accent:     #{$orchid-accent};
+}

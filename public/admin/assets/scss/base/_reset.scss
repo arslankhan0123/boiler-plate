@@ -1,0 +1,21 @@
+// Base resets & normalization tweaks
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body.orchid-body {
+  margin: 0;
+  font-family: $orchid-font;
+  color: var(--orchid-text);
+  background-color: var(--orchid-bg);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, svg { max-width: 100%; display: block; }
+
+a { color: inherit; }
+button { font-family: inherit; }
+
+:focus-visible { @include orchid-focus-ring; }

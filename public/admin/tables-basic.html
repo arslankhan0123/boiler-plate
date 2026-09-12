@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Orchid - Premium Bootstrap 5.3 Admin Dashboard Template">
+  <meta name="description" content="Orchid — Basic Bootstrap table variants for the Orchid admin template.">
   <meta name="theme-color" content="#4f46e5">
-  <title>Orchid - Premium Admin Dashboard</title>
+  <title>Orchid — Tables: Basic</title>
 
   <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +14,8 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-  <link href="{{asset('admin/assets/css/orchid.css')}}" rel="stylesheet">
+  <link href="assets/css/orchid.css" rel="stylesheet">
+  <link href="assets/css/pages/tables-showcase.css" rel="stylesheet">
 </head>
 <body class="orchid-body">
 
@@ -23,7 +24,7 @@
   <!-- ================== SIDEBAR ================== -->
   <aside class="orchid-sidebar" id="orchidSidebar" aria-label="Primary navigation">
     <div class="orchid-sidebar__brand">
-      <a href="#" class="orchid-brand" aria-label="Orchid dashboard home">
+      <a href="index.html" class="orchid-brand" aria-label="Orchid dashboard home">
         <span class="orchid-brand__logo" aria-hidden="true">
           <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orchid logo">
             <defs>
@@ -48,13 +49,13 @@
         <span class="orchid-nav-section__label">Main</span>
         <ul class="orchid-nav">
           <li>
-            <a href="#navDashboard" class="orchid-nav__link orchid-nav__link--has-sub trail-active" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="navDashboard">
+            <a href="#navDashboard" class="orchid-nav__link orchid-nav__link--has-sub collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="navDashboard">
               <i class="bi bi-speedometer2"></i><span>Dashboard</span>
               <span class="badge bg-primary-subtle text-primary ms-auto">8</span>
               <i class="bi bi-chevron-down orchid-nav__chevron"></i>
             </a>
-            <ul class="collapse show orchid-nav__sub list-unstyled" id="navDashboard">
-              <li><a href="index.html" class="orchid-nav__sublink active" aria-current="page">Default</a></li>
+            <ul class="collapse orchid-nav__sub list-unstyled" id="navDashboard">
+              <li><a href="index.html" class="orchid-nav__sublink">Default</a></li>
               <li><a href="analytics.html" class="orchid-nav__sublink">Analytics</a></li>
               <li><a href="crm.html" class="orchid-nav__sublink">CRM</a></li>
               <li><a href="sales.html" class="orchid-nav__sublink">Sales</a></li>
@@ -277,7 +278,7 @@
       <div class="orchid-nav-section">
         <span class="orchid-nav-section__label">Tables</span>
         <ul class="orchid-nav">
-          <li><a href="tables-basic.html" class="orchid-nav__link"><i class="bi bi-table"></i><span>Basic Table</span></a></li>
+          <li><a href="tables-basic.html" class="orchid-nav__link active" aria-current="page"><i class="bi bi-table"></i><span>Basic Table</span></a></li>
           <li><a href="tables-data.html" class="orchid-nav__link"><i class="bi bi-grid"></i><span>Data Table</span></a></li>
           <li><a href="tables-responsive.html" class="orchid-nav__link"><i class="bi bi-phone"></i><span>Responsive Table</span></a></li>
           <li><a href="tables-editable.html" class="orchid-nav__link"><i class="bi bi-pencil-square"></i><span>Editable Table</span></a></li>
@@ -372,9 +373,9 @@
         </button>
         <nav aria-label="breadcrumb" class="orchid-header__breadcrumb d-none d-md-block">
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#"><i class="bi bi-house-door"></i></a></li>
-            <li class="breadcrumb-item"><a href="#">Overview</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i></a></li>
+            <li class="breadcrumb-item">Tables</li>
+            <li class="breadcrumb-item active" aria-current="page">Basic</li>
           </ol>
         </nav>
       </div>
@@ -548,559 +549,446 @@
     <main class="orchid-main" id="orchid-main" tabindex="-1">
       <div class="container-fluid px-3 px-lg-4 py-4">
 
-        <!-- Page header -->
-        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+        <!-- Hero -->
+        <section class="tables-hero" aria-labelledby="tables-hero-title">
+          <span class="tables-hero__eyebrow"><i class="bi bi-table"></i>Tables · Basic</span>
+          <h1 class="tables-hero__title" id="tables-hero-title">Basic table variants</h1>
+          <p class="tables-hero__lead">Every Bootstrap 5.3 table style — striped, hoverable, bordered, borderless, compact, dark, colored rows, captioned and nested — rendered with realistic sample data so you can copy exactly what you need.</p>
+          <div class="tables-hero__meta">
+            <span><i class="bi bi-layers"></i>10 variants</span>
+            <span><i class="bi bi-check2-circle"></i>Zero JS required</span>
+            <span><i class="bi bi-bootstrap"></i>Bootstrap 5.3</span>
+            <span><i class="bi bi-moon-stars"></i>Dark-mode ready</span>
+          </div>
+        </section>
+
+        <div class="tables-layout">
           <div>
-            <h1 class="h3 mb-1">Welcome back, Alex 👋</h1>
-            <p class="text-body-secondary mb-0">Here's what's happening with your business today.</p>
-          </div>
-          <div class="d-flex gap-2">
-            <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-download me-1"></i>Export</button>
-            <button class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i>Create Report</button>
-          </div>
-        </div>
-
-        <!-- ================== ROW 1 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card orchid-stat-card h-100 overflow-hidden">
-              <div class="card-body pb-2">
-                <div class="d-flex justify-content-between align-items-start mb-3">
-                  <div>
-                    <p class="text-body-secondary mb-1 small">Total Contacts</p>
-                    <h3 class="mb-0 fw-bold">12,480</h3>
-                  </div>
-                  <span class="orchid-stat-card__icon bg-primary-subtle text-primary"><i class="bi bi-people"></i></span>
+            <!-- 1. Default -->
+            <section class="tables-section" id="default" aria-labelledby="sec-default-title">
+              <div class="tables-section__head">
+                <div>
+                  <h2 class="tables-section__title" id="sec-default-title">Default table</h2>
+                  <p class="tables-section__desc">The baseline <code>.table</code> class — light borders on rows, tight padding, works out of the box in light and dark mode.</p>
                 </div>
-                <span class="badge bg-success-subtle text-success"><i class="bi bi-arrow-up"></i> 12.4% vs last month</span>
-              </div>
-              <div class="orchid-stat-card__spark">
-                <canvas data-orchid-chart="sparkContacts"></canvas>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h6 class="mb-0">Lead Analytics</h6>
-                  <span class="badge bg-info-subtle text-info">Weekly</span>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--sm">
-                  <canvas data-orchid-chart="leadAnalytics"></canvas>
+                <div class="tables-section__actions">
+                  <button class="btn btn-sm btn-outline-secondary" type="button" data-tables-code-toggle="#code-default" aria-expanded="false" aria-controls="code-default"><i class="bi bi-code-slash me-1"></i><span data-label>View code</span></button>
                 </div>
               </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h6 class="mb-0">Traffic Sources</h6>
-                  <button class="btn btn-sm btn-icon" type="button" aria-label="More"><i class="bi bi-three-dots"></i></button>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--sm">
-                  <canvas data-orchid-chart="trafficSources"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xl-3">
-            <div class="card orchid-card orchid-earnings-card h-100 text-white">
-              <div class="card-body position-relative pb-0">
-                <div class="d-flex justify-content-between align-items-start">
-                  <div>
-                    <p class="mb-1 opacity-75 small">Total Earnings</p>
-                    <h3 class="fw-bold mb-1">$84,120.50</h3>
-                    <span class="badge bg-white text-primary"><i class="bi bi-arrow-up"></i> 8.24%</span>
-                  </div>
-                  <span class="orchid-stat-card__icon bg-white bg-opacity-25 text-white"><i class="bi bi-currency-dollar"></i></span>
-                </div>
-              </div>
-              <div class="orchid-earnings-card__chart">
-                <canvas data-orchid-chart="earnings"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 2 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-lg-6 col-xxl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Tasks Overview</h6>
-                  <a href="#" class="small">View all</a>
-                </div>
-                <ul class="orchid-task-list list-unstyled mb-0">
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task1" checked>
-                      <label class="form-check-label text-decoration-line-through text-body-secondary" for="task1">Prepare launch checklist</label>
-                    </div>
-                    <span class="badge bg-success-subtle text-success">Done</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task2">
-                      <label class="form-check-label" for="task2">Design system audit</label>
-                    </div>
-                    <span class="badge bg-warning-subtle text-warning">Today</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task3">
-                      <label class="form-check-label" for="task3">Review PR #482</label>
-                    </div>
-                    <span class="badge bg-primary-subtle text-primary">2h</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task4">
-                      <label class="form-check-label" for="task4">Sync with sales team</label>
-                    </div>
-                    <span class="badge bg-info-subtle text-info">Tomorrow</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task5">
-                      <label class="form-check-label" for="task5">Publish weekly newsletter</label>
-                    </div>
-                    <span class="badge bg-danger-subtle text-danger">Overdue</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-lg-6 col-xxl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Active Deals</h6>
-                  <span class="badge bg-primary-subtle text-primary">48 total</span>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--md">
-                  <canvas data-orchid-chart="activeDeals"></canvas>
-                </div>
-                <div class="d-flex justify-content-between mt-3 small">
-                  <div><span class="orchid-dot bg-primary"></span> Won <strong class="ms-1">28</strong></div>
-                  <div><span class="orchid-dot bg-warning"></span> Pending <strong class="ms-1">14</strong></div>
-                  <div><span class="orchid-dot bg-danger"></span> Lost <strong class="ms-1">6</strong></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xxl-4">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Revenue Analytics</h6>
-                    <small class="text-body-secondary">Monthly performance</small>
-                  </div>
-                  <div class="btn-group btn-group-sm" role="group" aria-label="Revenue range">
-                    <input type="radio" class="btn-check" name="revRange" id="revW" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="revW">W</label>
-                    <input type="radio" class="btn-check" name="revRange" id="revM" autocomplete="off" checked>
-                    <label class="btn btn-outline-secondary" for="revM">M</label>
-                    <input type="radio" class="btn-check" name="revRange" id="revY" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="revY">Y</label>
-                  </div>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--lg">
-                  <canvas data-orchid-chart="revenue"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xxl-2">
-            <div class="card orchid-card h-100">
-              <div class="card-body d-flex flex-column">
-                <h6 class="mb-1">Retention Rate</h6>
-                <small class="text-body-secondary mb-2">Last 30 days</small>
-                <div class="orchid-chart-wrap orchid-chart-wrap--radial flex-grow-1">
-                  <canvas data-orchid-chart="retention"></canvas>
-                </div>
-                <div class="text-center mt-2">
-                  <span class="badge bg-success-subtle text-success"><i class="bi bi-arrow-up"></i> 2.4% vs last month</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 3 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-lg-5">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Upcoming Meetings</h6>
-                  <a href="#" class="small">Calendar</a>
-                </div>
-                <ul class="orchid-meeting-list list-unstyled mb-0">
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">14</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Product Roadmap Q2</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>10:00 – 11:00 AM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-primary text-white">AK</span>
-                      <span class="avatar avatar-xs bg-info text-white">JD</span>
-                      <span class="avatar avatar-xs bg-warning text-white">+3</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">14</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Client Onboarding – Nova</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>2:00 – 2:45 PM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-success text-white">SM</span>
-                      <span class="avatar avatar-xs bg-danger text-white">EL</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">15</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Design Review</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>9:30 – 10:30 AM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-primary text-white">AK</span>
-                      <span class="avatar avatar-xs bg-warning text-white">+2</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">16</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Investor Sync</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>4:00 – 5:00 PM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-info text-white">RG</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-lg-7">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <div>
-                    <h6 class="mb-0">Deals Overview</h6>
-                    <small class="text-body-secondary">Stacked by stage</small>
-                  </div>
-                  <div class="dropdown">
-                    <button class="btn btn-sm btn-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Deals menu">
-                      <i class="bi bi-three-dots"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                      <li><a class="dropdown-item" href="#">Refresh</a></li>
-                      <li><a class="dropdown-item" href="#">Export CSV</a></li>
-                      <li><a class="dropdown-item" href="#">Settings</a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--lg">
-                  <canvas data-orchid-chart="dealsOverview"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 4 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12">
-            <div class="card orchid-card">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Sales Pipeline</h6>
-                    <small class="text-body-secondary">Progress across stages · $284,500 total</small>
-                  </div>
-                  <button class="btn btn-sm btn-outline-primary"><i class="bi bi-plus-lg me-1"></i>Add Stage</button>
-                </div>
-
-                <div class="row g-3">
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Leads</span>
-                        <small class="text-body-secondary">$48k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Leads" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-primary" data-orchid-progress="85"></div>
-                      </div>
-                      <small class="text-body-secondary">142 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Qualified</span>
-                        <small class="text-body-secondary">$62k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Qualified" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-info" data-orchid-progress="70"></div>
-                      </div>
-                      <small class="text-body-secondary">98 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Proposal</span>
-                        <small class="text-body-secondary">$54k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Proposal" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-warning" data-orchid-progress="60"></div>
-                      </div>
-                      <small class="text-body-secondary">64 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Negotiation</span>
-                        <small class="text-body-secondary">$46k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Negotiation" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-purple" data-orchid-progress="45"></div>
-                      </div>
-                      <small class="text-body-secondary">32 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Won</span>
-                        <small class="text-body-secondary">$62k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Won" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-success" data-orchid-progress="92"></div>
-                      </div>
-                      <small class="text-body-secondary">48 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Lost</span>
-                        <small class="text-body-secondary">$12k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Lost" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-danger" data-orchid-progress="18"></div>
-                      </div>
-                      <small class="text-body-secondary">14 deals</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 5 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-xl-8">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Recent Customers</h6>
-                    <small class="text-body-secondary">Latest activity from your customer base</small>
-                  </div>
-                  <div class="d-flex gap-2">
-                    <div class="input-group input-group-sm orchid-inline-search">
-                      <span class="input-group-text bg-transparent border-end-0"><i class="bi bi-search"></i></span>
-                      <input type="search" class="form-control border-start-0" placeholder="Search customers…" aria-label="Search customers">
-                    </div>
-                    <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-funnel"></i></button>
-                  </div>
-                </div>
+              <div class="tables-section__body">
                 <div class="table-responsive">
-                  <table class="table orchid-table align-middle mb-0">
+                  <table class="table align-middle mb-0">
                     <thead>
-                      <tr>
-                        <th scope="col">Customer</th>
-                        <th scope="col" class="d-none d-md-table-cell">Email</th>
-                        <th scope="col" class="d-none d-lg-table-cell">Location</th>
-                        <th scope="col">Spend</th>
-                        <th scope="col">Status</th>
-                        <th scope="col" class="text-end">Action</th>
-                      </tr>
+                      <tr><th scope="col">#</th><th scope="col">Customer</th><th scope="col">Email</th><th scope="col">Plan</th><th scope="col" class="text-end">Spend</th></tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-primary-subtle text-primary fw-semibold">EW</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Emma Watson</p>
-                              <small class="text-body-secondary d-md-none">emma@nova.io</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">emma@nova.io</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">London, UK</td>
-                        <td class="fw-semibold">$4,820</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-info-subtle text-info fw-semibold">JD</span>
-                            <div>
-                              <p class="mb-0 fw-medium">James Doe</p>
-                              <small class="text-body-secondary d-md-none">james@acme.com</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">james@acme.com</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">New York, US</td>
-                        <td class="fw-semibold">$2,410</td>
-                        <td><span class="badge bg-warning-subtle text-warning">Pending</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-success-subtle text-success fw-semibold">SM</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Sarah Miller</p>
-                              <small class="text-body-secondary d-md-none">sarah@zen.co</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">sarah@zen.co</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Sydney, AU</td>
-                        <td class="fw-semibold">$7,920</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-warning-subtle text-warning fw-semibold">RG</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Ryan Green</p>
-                              <small class="text-body-secondary d-md-none">ryan@peak.io</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">ryan@peak.io</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Toronto, CA</td>
-                        <td class="fw-semibold">$1,150</td>
-                        <td><span class="badge bg-danger-subtle text-danger">Inactive</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-danger-subtle text-danger fw-semibold">AL</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Ava Lee</p>
-                              <small class="text-body-secondary d-md-none">ava@bold.co</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">ava@bold.co</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Berlin, DE</td>
-                        <td class="fw-semibold">$3,640</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
+                      <tr><th scope="row">1</th><td>Emma Watson</td><td>emma@nova.io</td><td>Enterprise</td><td class="text-end">$4,820.00</td></tr>
+                      <tr><th scope="row">2</th><td>James Doe</td><td>james@acme.com</td><td>Growth</td><td class="text-end">$2,410.00</td></tr>
+                      <tr><th scope="row">3</th><td>Sarah Miller</td><td>sarah@zen.co</td><td>Enterprise</td><td class="text-end">$7,920.00</td></tr>
+                      <tr><th scope="row">4</th><td>Ryan Green</td><td>ryan@peak.io</td><td>Starter</td><td class="text-end">$1,150.00</td></tr>
                     </tbody>
                   </table>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xl-4">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Task Updates</h6>
-                  <a href="#" class="small">View all</a>
+                <div class="tables-code" id="code-default">
+                  <div class="tables-code__bar"><span>HTML</span><button class="btn btn-sm btn-outline-secondary" type="button" data-tables-copy="#code-default pre"><i class="bi bi-clipboard me-1"></i>Copy</button></div>
+<pre>&lt;table class="table align-middle"&gt;
+  &lt;thead&gt;&lt;tr&gt;&lt;th&gt;#&lt;/th&gt;&lt;th&gt;Customer&lt;/th&gt;&lt;th&gt;Email&lt;/th&gt;&lt;th&gt;Plan&lt;/th&gt;&lt;th class="text-end"&gt;Spend&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;th scope="row"&gt;1&lt;/th&gt;&lt;td&gt;Emma Watson&lt;/td&gt;&lt;td&gt;emma@nova.io&lt;/td&gt;&lt;td&gt;Enterprise&lt;/td&gt;&lt;td class="text-end"&gt;$4,820.00&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</pre>
                 </div>
-                <ul class="orchid-timeline list-unstyled mb-0">
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-primary"></span>
-                    <div>
-                      <p class="mb-0"><strong>Alex Kim</strong> completed <a href="#">Design System Audit</a></p>
-                      <small class="text-body-secondary">2 mins ago</small>
+              </div>
+            </section>
+
+            <!-- 2. Striped -->
+            <section class="tables-section" id="striped" aria-labelledby="sec-striped-title">
+              <div class="tables-section__head">
+                <div>
+                  <h2 class="tables-section__title" id="sec-striped-title">Striped rows</h2>
+                  <p class="tables-section__desc">Alternating row shading via <code>.table-striped</code> — best for wide, dense data grids where the eye needs a horizontal guide.</p>
+                </div>
+                <div class="tables-section__actions">
+                  <button class="btn btn-sm btn-outline-secondary" type="button" data-tables-code-toggle="#code-striped" aria-expanded="false" aria-controls="code-striped"><i class="bi bi-code-slash me-1"></i><span data-label>View code</span></button>
+                </div>
+              </div>
+              <div class="tables-section__body">
+                <div class="table-responsive">
+                  <table class="table table-striped align-middle mb-0">
+                    <thead>
+                      <tr><th scope="col">Product</th><th scope="col">SKU</th><th scope="col">Category</th><th scope="col">Stock</th><th scope="col" class="text-end">Price</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Wireless Headphones</td><td>SKU-1042</td><td>Audio</td><td>84</td><td class="text-end">$129.00</td></tr>
+                      <tr><td>Mechanical Keyboard</td><td>SKU-2210</td><td>Peripherals</td><td>32</td><td class="text-end">$189.00</td></tr>
+                      <tr><td>4K Monitor 27"</td><td>SKU-3390</td><td>Displays</td><td>17</td><td class="text-end">$429.00</td></tr>
+                      <tr><td>USB-C Hub 8-in-1</td><td>SKU-4055</td><td>Accessories</td><td>120</td><td class="text-end">$59.00</td></tr>
+                      <tr><td>Standing Desk Mat</td><td>SKU-5028</td><td>Ergonomics</td><td>63</td><td class="text-end">$49.00</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tables-code" id="code-striped">
+                  <div class="tables-code__bar"><span>HTML</span><button class="btn btn-sm btn-outline-secondary" type="button" data-tables-copy="#code-striped pre"><i class="bi bi-clipboard me-1"></i>Copy</button></div>
+<pre>&lt;table class="table table-striped align-middle"&gt;
+  ...
+&lt;/table&gt;</pre>
+                </div>
+              </div>
+            </section>
+
+            <!-- 3. Hover -->
+            <section class="tables-section" id="hover" aria-labelledby="sec-hover-title">
+              <div class="tables-section__head">
+                <div>
+                  <h2 class="tables-section__title" id="sec-hover-title">Hoverable rows</h2>
+                  <p class="tables-section__desc">Add <code>.table-hover</code> to highlight the row under the pointer. Great for lists where every row is clickable.</p>
+                </div>
+                <div class="tables-section__actions">
+                  <button class="btn btn-sm btn-outline-secondary" type="button" data-tables-code-toggle="#code-hover" aria-expanded="false" aria-controls="code-hover"><i class="bi bi-code-slash me-1"></i><span data-label>View code</span></button>
+                </div>
+              </div>
+              <div class="tables-section__body">
+                <div class="table-responsive">
+                  <table class="table table-hover align-middle mb-0">
+                    <thead>
+                      <tr><th scope="col">Order</th><th scope="col">Customer</th><th scope="col">Date</th><th scope="col">Status</th><th scope="col" class="text-end">Total</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>#ORB-1042</td><td>Emma Watson</td><td>Jul 21, 2026</td><td><span class="badge bg-success-subtle text-success">Shipped</span></td><td class="text-end">$328.00</td></tr>
+                      <tr><td>#ORB-1043</td><td>James Doe</td><td>Jul 21, 2026</td><td><span class="badge bg-warning-subtle text-warning">Processing</span></td><td class="text-end">$146.50</td></tr>
+                      <tr><td>#ORB-1044</td><td>Ava Lee</td><td>Jul 20, 2026</td><td><span class="badge bg-info-subtle text-info">Pending</span></td><td class="text-end">$62.00</td></tr>
+                      <tr><td>#ORB-1045</td><td>Ryan Green</td><td>Jul 19, 2026</td><td><span class="badge bg-danger-subtle text-danger">Refunded</span></td><td class="text-end">$189.00</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tables-code" id="code-hover">
+                  <div class="tables-code__bar"><span>HTML</span><button class="btn btn-sm btn-outline-secondary" type="button" data-tables-copy="#code-hover pre"><i class="bi bi-clipboard me-1"></i>Copy</button></div>
+<pre>&lt;table class="table table-hover align-middle"&gt; ... &lt;/table&gt;</pre>
+                </div>
+              </div>
+            </section>
+
+            <!-- 4. Bordered / Borderless -->
+            <section class="tables-section" id="bordered" aria-labelledby="sec-bordered-title">
+              <div class="tables-section__head">
+                <div>
+                  <h2 class="tables-section__title" id="sec-bordered-title">Bordered &amp; borderless</h2>
+                  <p class="tables-section__desc">Full grid via <code>.table-bordered</code> for tabular data (reports, price lists) — or strip every line with <code>.table-borderless</code> for a minimal read.</p>
+                </div>
+                <div class="tables-section__actions">
+                  <button class="btn btn-sm btn-outline-secondary" type="button" data-tables-code-toggle="#code-bordered" aria-expanded="false" aria-controls="code-bordered"><i class="bi bi-code-slash me-1"></i><span data-label>View code</span></button>
+                </div>
+              </div>
+              <div class="tables-section__body">
+                <div class="row g-3">
+                  <div class="col-12 col-lg-6">
+                    <div class="text-body-secondary small mb-1 fw-semibold">Bordered</div>
+                    <div class="table-responsive">
+                      <table class="table table-bordered align-middle mb-0">
+                        <thead><tr><th>Plan</th><th>Users</th><th class="text-end">Price</th></tr></thead>
+                        <tbody>
+                          <tr><td>Starter</td><td>1–5</td><td class="text-end">$29/mo</td></tr>
+                          <tr><td>Growth</td><td>6–25</td><td class="text-end">$99/mo</td></tr>
+                          <tr><td>Enterprise</td><td>Unlimited</td><td class="text-end">Custom</td></tr>
+                        </tbody>
+                      </table>
                     </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-success"></span>
-                    <div>
-                      <p class="mb-0"><strong>Sarah Miller</strong> added a comment on <a href="#">Q2 Roadmap</a></p>
-                      <small class="text-body-secondary">18 mins ago</small>
+                  </div>
+                  <div class="col-12 col-lg-6">
+                    <div class="text-body-secondary small mb-1 fw-semibold">Borderless</div>
+                    <div class="table-responsive">
+                      <table class="table table-borderless align-middle mb-0">
+                        <thead><tr><th>Plan</th><th>Users</th><th class="text-end">Price</th></tr></thead>
+                        <tbody>
+                          <tr><td>Starter</td><td>1–5</td><td class="text-end">$29/mo</td></tr>
+                          <tr><td>Growth</td><td>6–25</td><td class="text-end">$99/mo</td></tr>
+                          <tr><td>Enterprise</td><td>Unlimited</td><td class="text-end">Custom</td></tr>
+                        </tbody>
+                      </table>
                     </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-warning"></span>
-                    <div>
-                      <p class="mb-0"><strong>James Doe</strong> moved <a href="#">API Redesign</a> to In Progress</p>
-                      <small class="text-body-secondary">1 hour ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-info"></span>
-                    <div>
-                      <p class="mb-0"><strong>Ava Lee</strong> shared the file <a href="#">Brand.pdf</a></p>
-                      <small class="text-body-secondary">3 hours ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-danger"></span>
-                    <div>
-                      <p class="mb-0"><strong>Ryan Green</strong> reported an issue on <a href="#">Checkout</a></p>
-                      <small class="text-body-secondary">Yesterday</small>
-                    </div>
-                  </li>
+                  </div>
+                </div>
+                <div class="tables-code" id="code-bordered">
+                  <div class="tables-code__bar"><span>HTML</span><button class="btn btn-sm btn-outline-secondary" type="button" data-tables-copy="#code-bordered pre"><i class="bi bi-clipboard me-1"></i>Copy</button></div>
+<pre>&lt;table class="table table-bordered"&gt; ... &lt;/table&gt;
+&lt;table class="table table-borderless"&gt; ... &lt;/table&gt;</pre>
+                </div>
+              </div>
+            </section>
+
+            <!-- 5. Compact -->
+            <section class="tables-section" id="compact" aria-labelledby="sec-compact-title">
+              <div class="tables-section__head">
+                <div>
+                  <h2 class="tables-section__title" id="sec-compact-title">Compact (<code>.table-sm</code>)</h2>
+                  <p class="tables-section__desc">Reduced cell padding for dense data — logs, audit trails, transaction history.</p>
+                </div>
+                <div class="tables-section__actions">
+                  <button class="btn btn-sm btn-outline-secondary" type="button" data-tables-code-toggle="#code-compact" aria-expanded="false" aria-controls="code-compact"><i class="bi bi-code-slash me-1"></i><span data-label>View code</span></button>
+                </div>
+              </div>
+              <div class="tables-section__body">
+                <div class="table-responsive">
+                  <table class="table table-sm table-hover align-middle mb-0">
+                    <thead><tr><th>Time</th><th>User</th><th>Action</th><th>IP</th><th>Result</th></tr></thead>
+                    <tbody>
+                      <tr><td>10:42:18</td><td>alex@orchid.io</td><td>Login</td><td>192.168.1.24</td><td><span class="text-success">200 OK</span></td></tr>
+                      <tr><td>10:42:52</td><td>alex@orchid.io</td><td>Fetch users</td><td>192.168.1.24</td><td><span class="text-success">200 OK</span></td></tr>
+                      <tr><td>10:43:07</td><td>sarah@zen.co</td><td>Update role</td><td>10.0.0.14</td><td><span class="text-warning">202 Accepted</span></td></tr>
+                      <tr><td>10:44:33</td><td>ryan@peak.io</td><td>Delete record</td><td>10.0.0.19</td><td><span class="text-danger">403 Forbidden</span></td></tr>
+                      <tr><td>10:45:11</td><td>system</td><td>Backup</td><td>—</td><td><span class="text-success">200 OK</span></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tables-code" id="code-compact">
+                  <div class="tables-code__bar"><span>HTML</span><button class="btn btn-sm btn-outline-secondary" type="button" data-tables-copy="#code-compact pre"><i class="bi bi-clipboard me-1"></i>Copy</button></div>
+<pre>&lt;table class="table table-sm table-hover"&gt; ... &lt;/table&gt;</pre>
+                </div>
+              </div>
+            </section>
+
+            <!-- 6. Dark -->
+            <section class="tables-section" id="dark" aria-labelledby="sec-dark-title">
+              <div class="tables-section__head">
+                <div>
+                  <h2 class="tables-section__title" id="sec-dark-title">Dark table</h2>
+                  <p class="tables-section__desc">Force a dark palette on a single table regardless of page theme by adding <code>data-bs-theme="dark"</code> to the wrapper.</p>
+                </div>
+                <div class="tables-section__actions">
+                  <button class="btn btn-sm btn-outline-secondary" type="button" data-tables-code-toggle="#code-dark" aria-expanded="false" aria-controls="code-dark"><i class="bi bi-code-slash me-1"></i><span data-label>View code</span></button>
+                </div>
+              </div>
+              <div class="tables-section__body">
+                <div class="table-responsive rounded" data-bs-theme="dark">
+                  <table class="table table-striped table-hover align-middle mb-0">
+                    <thead><tr><th>Server</th><th>Region</th><th>Uptime</th><th>Load</th><th>Status</th></tr></thead>
+                    <tbody>
+                      <tr><td>web-01</td><td>us-east-1</td><td>98.9%</td><td>34%</td><td><span class="badge bg-success">Healthy</span></td></tr>
+                      <tr><td>web-02</td><td>us-east-1</td><td>99.4%</td><td>52%</td><td><span class="badge bg-success">Healthy</span></td></tr>
+                      <tr><td>db-01</td><td>eu-west-1</td><td>96.1%</td><td>78%</td><td><span class="badge bg-warning text-dark">Warning</span></td></tr>
+                      <tr><td>cache-01</td><td>ap-south-1</td><td>85.7%</td><td>91%</td><td><span class="badge bg-danger">Critical</span></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tables-code" id="code-dark">
+                  <div class="tables-code__bar"><span>HTML</span><button class="btn btn-sm btn-outline-secondary" type="button" data-tables-copy="#code-dark pre"><i class="bi bi-clipboard me-1"></i>Copy</button></div>
+<pre>&lt;div class="table-responsive" data-bs-theme="dark"&gt;
+  &lt;table class="table table-striped table-hover"&gt; ... &lt;/table&gt;
+&lt;/div&gt;</pre>
+                </div>
+              </div>
+            </section>
+
+            <!-- 7. Colored rows -->
+            <section class="tables-section" id="colored" aria-labelledby="sec-colored-title">
+              <div class="tables-section__head">
+                <div>
+                  <h2 class="tables-section__title" id="sec-colored-title">Colored rows &amp; cells</h2>
+                  <p class="tables-section__desc">Use Bootstrap's contextual row classes to highlight state — <code>.table-primary</code>, <code>.table-success</code>, <code>.table-warning</code>, <code>.table-danger</code>, <code>.table-info</code>.</p>
+                </div>
+                <div class="tables-section__actions">
+                  <button class="btn btn-sm btn-outline-secondary" type="button" data-tables-code-toggle="#code-colored" aria-expanded="false" aria-controls="code-colored"><i class="bi bi-code-slash me-1"></i><span data-label>View code</span></button>
+                </div>
+              </div>
+              <div class="tables-section__body">
+                <div class="table-responsive">
+                  <table class="table align-middle mb-0">
+                    <thead><tr><th>Invoice</th><th>Client</th><th>Due</th><th>Status</th><th class="text-end">Amount</th></tr></thead>
+                    <tbody>
+                      <tr class="table-success"><td>#INV-2044</td><td>Nova Corp</td><td>Jul 12</td><td>Paid</td><td class="text-end">$4,820.00</td></tr>
+                      <tr class="table-primary"><td>#INV-2045</td><td>Acme Inc.</td><td>Jul 18</td><td>Sent</td><td class="text-end">$2,410.00</td></tr>
+                      <tr class="table-warning"><td>#INV-2046</td><td>Zen &amp; Co</td><td>Jul 22</td><td>Due soon</td><td class="text-end">$7,920.00</td></tr>
+                      <tr class="table-danger"><td>#INV-2047</td><td>Peak Ltd</td><td>Jul 05</td><td>Overdue</td><td class="text-end">$1,150.00</td></tr>
+                      <tr class="table-info"><td>#INV-2048</td><td>Bold LLC</td><td>Aug 04</td><td>Draft</td><td class="text-end">$3,640.00</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tables-code" id="code-colored">
+                  <div class="tables-code__bar"><span>HTML</span><button class="btn btn-sm btn-outline-secondary" type="button" data-tables-copy="#code-colored pre"><i class="bi bi-clipboard me-1"></i>Copy</button></div>
+<pre>&lt;tr class="table-success"&gt; ... &lt;/tr&gt;
+&lt;tr class="table-danger"&gt; ... &lt;/tr&gt;</pre>
+                </div>
+              </div>
+            </section>
+
+            <!-- 8. Caption -->
+            <section class="tables-section" id="caption" aria-labelledby="sec-caption-title">
+              <div class="tables-section__head">
+                <div>
+                  <h2 class="tables-section__title" id="sec-caption-title">Captioned table</h2>
+                  <p class="tables-section__desc">Native <code>&lt;caption&gt;</code> element gives screen readers a title. Use <code>.caption-top</code> to display it above the table.</p>
+                </div>
+                <div class="tables-section__actions">
+                  <button class="btn btn-sm btn-outline-secondary" type="button" data-tables-code-toggle="#code-caption" aria-expanded="false" aria-controls="code-caption"><i class="bi bi-code-slash me-1"></i><span data-label>View code</span></button>
+                </div>
+              </div>
+              <div class="tables-section__body">
+                <div class="table-responsive">
+                  <table class="table caption-top align-middle mb-0">
+                    <caption>Top selling products — July 2026</caption>
+                    <thead><tr><th>#</th><th>Product</th><th>Units</th><th class="text-end">Revenue</th></tr></thead>
+                    <tbody>
+                      <tr><th scope="row">1</th><td>Wireless Headphones</td><td>842</td><td class="text-end">$108,618.00</td></tr>
+                      <tr><th scope="row">2</th><td>Mechanical Keyboard</td><td>512</td><td class="text-end">$96,768.00</td></tr>
+                      <tr><th scope="row">3</th><td>4K Monitor 27"</td><td>218</td><td class="text-end">$93,522.00</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tables-code" id="code-caption">
+                  <div class="tables-code__bar"><span>HTML</span><button class="btn btn-sm btn-outline-secondary" type="button" data-tables-copy="#code-caption pre"><i class="bi bi-clipboard me-1"></i>Copy</button></div>
+<pre>&lt;table class="table caption-top"&gt;
+  &lt;caption&gt;Top selling products — July 2026&lt;/caption&gt;
+  ...
+&lt;/table&gt;</pre>
+                </div>
+              </div>
+            </section>
+
+            <!-- 9. Head + Foot -->
+            <section class="tables-section" id="foot" aria-labelledby="sec-foot-title">
+              <div class="tables-section__head">
+                <div>
+                  <h2 class="tables-section__title" id="sec-foot-title">Table with head &amp; foot</h2>
+                  <p class="tables-section__desc">Add a <code>&lt;tfoot&gt;</code> for totals and summaries. Bootstrap 5.3 no longer restyles it, so weight it yourself with utility classes.</p>
+                </div>
+                <div class="tables-section__actions">
+                  <button class="btn btn-sm btn-outline-secondary" type="button" data-tables-code-toggle="#code-foot" aria-expanded="false" aria-controls="code-foot"><i class="bi bi-code-slash me-1"></i><span data-label>View code</span></button>
+                </div>
+              </div>
+              <div class="tables-section__body">
+                <div class="table-responsive">
+                  <table class="table table-hover align-middle mb-0">
+                    <thead><tr><th>Item</th><th>Qty</th><th class="text-end">Unit</th><th class="text-end">Line total</th></tr></thead>
+                    <tbody>
+                      <tr><td>Design retainer</td><td>1</td><td class="text-end">$3,200.00</td><td class="text-end">$3,200.00</td></tr>
+                      <tr><td>Landing page copy</td><td>4</td><td class="text-end">$450.00</td><td class="text-end">$1,800.00</td></tr>
+                      <tr><td>Content review</td><td>2</td><td class="text-end">$220.00</td><td class="text-end">$440.00</td></tr>
+                    </tbody>
+                    <tfoot class="fw-semibold border-top">
+                      <tr><td colspan="3" class="text-end">Subtotal</td><td class="text-end">$5,440.00</td></tr>
+                      <tr><td colspan="3" class="text-end">Tax (10%)</td><td class="text-end">$544.00</td></tr>
+                      <tr class="table-active"><td colspan="3" class="text-end">Total</td><td class="text-end">$5,984.00</td></tr>
+                    </tfoot>
+                  </table>
+                </div>
+                <div class="tables-code" id="code-foot">
+                  <div class="tables-code__bar"><span>HTML</span><button class="btn btn-sm btn-outline-secondary" type="button" data-tables-copy="#code-foot pre"><i class="bi bi-clipboard me-1"></i>Copy</button></div>
+<pre>&lt;table class="table"&gt;
+  &lt;thead&gt; ... &lt;/thead&gt;
+  &lt;tbody&gt; ... &lt;/tbody&gt;
+  &lt;tfoot class="fw-semibold border-top"&gt; ... &lt;/tfoot&gt;
+&lt;/table&gt;</pre>
+                </div>
+              </div>
+            </section>
+
+            <!-- 10. Nested -->
+            <section class="tables-section" id="nested" aria-labelledby="sec-nested-title">
+              <div class="tables-section__head">
+                <div>
+                  <h2 class="tables-section__title" id="sec-nested-title">Nested / expandable rows</h2>
+                  <p class="tables-section__desc">Click a chevron to reveal a sub-table inside the row — perfect for order lines, employee reports, or drilling into a category.</p>
+                </div>
+                <div class="tables-section__actions">
+                  <button class="btn btn-sm btn-outline-secondary" type="button" data-tables-code-toggle="#code-nested" aria-expanded="false" aria-controls="code-nested"><i class="bi bi-code-slash me-1"></i><span data-label>View code</span></button>
+                </div>
+              </div>
+              <div class="tables-section__body">
+                <div class="table-responsive">
+                  <table class="table align-middle mb-0">
+                    <thead><tr><th class="orchid-w-36"></th><th>Order</th><th>Customer</th><th>Items</th><th class="text-end">Total</th></tr></thead>
+                    <tbody>
+                      <tr>
+                        <td><button class="btn btn-sm btn-icon" type="button" data-bs-toggle="collapse" data-bs-target="#nest-1" aria-expanded="false" aria-controls="nest-1" aria-label="Expand"><i class="bi bi-chevron-right"></i></button></td>
+                        <td>#ORB-1042</td><td>Emma Watson</td><td>3</td><td class="text-end">$328.00</td>
+                      </tr>
+                      <tr class="collapse" id="nest-1"><td colspan="5" class="p-0">
+                        <table class="table table-sm mb-0">
+                          <thead class="text-body-secondary small"><tr><th>Item</th><th>Qty</th><th class="text-end">Price</th></tr></thead>
+                          <tbody>
+                            <tr><td>Wireless Headphones</td><td>1</td><td class="text-end">$129.00</td></tr>
+                            <tr><td>USB-C Hub 8-in-1</td><td>2</td><td class="text-end">$59.00</td></tr>
+                            <tr><td>Cable organizer</td><td>1</td><td class="text-end">$81.00</td></tr>
+                          </tbody>
+                        </table>
+                      </td></tr>
+                      <tr>
+                        <td><button class="btn btn-sm btn-icon" type="button" data-bs-toggle="collapse" data-bs-target="#nest-2" aria-expanded="false" aria-controls="nest-2" aria-label="Expand"><i class="bi bi-chevron-right"></i></button></td>
+                        <td>#ORB-1043</td><td>James Doe</td><td>2</td><td class="text-end">$146.50</td>
+                      </tr>
+                      <tr class="collapse" id="nest-2"><td colspan="5" class="p-0">
+                        <table class="table table-sm mb-0">
+                          <thead class="text-body-secondary small"><tr><th>Item</th><th>Qty</th><th class="text-end">Price</th></tr></thead>
+                          <tbody>
+                            <tr><td>Standing Desk Mat</td><td>1</td><td class="text-end">$49.00</td></tr>
+                            <tr><td>Mechanical Keyboard</td><td>1</td><td class="text-end">$97.50</td></tr>
+                          </tbody>
+                        </table>
+                      </td></tr>
+                      <tr>
+                        <td><button class="btn btn-sm btn-icon" type="button" data-bs-toggle="collapse" data-bs-target="#nest-3" aria-expanded="false" aria-controls="nest-3" aria-label="Expand"><i class="bi bi-chevron-right"></i></button></td>
+                        <td>#ORB-1044</td><td>Ava Lee</td><td>1</td><td class="text-end">$62.00</td>
+                      </tr>
+                      <tr class="collapse" id="nest-3"><td colspan="5" class="p-0">
+                        <table class="table table-sm mb-0">
+                          <thead class="text-body-secondary small"><tr><th>Item</th><th>Qty</th><th class="text-end">Price</th></tr></thead>
+                          <tbody>
+                            <tr><td>Notebook — 100pg</td><td>2</td><td class="text-end">$31.00</td></tr>
+                          </tbody>
+                        </table>
+                      </td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tables-code" id="code-nested">
+                  <div class="tables-code__bar"><span>HTML</span><button class="btn btn-sm btn-outline-secondary" type="button" data-tables-copy="#code-nested pre"><i class="bi bi-clipboard me-1"></i>Copy</button></div>
+<pre>&lt;tr&gt;&lt;td&gt;&lt;button data-bs-toggle="collapse" data-bs-target="#nest-1"&gt;&lt;i class="bi bi-chevron-right"&gt;&lt;/i&gt;&lt;/button&gt;&lt;/td&gt;...&lt;/tr&gt;
+&lt;tr class="collapse" id="nest-1"&gt;&lt;td colspan="5"&gt;&lt;table&gt; sub-rows &lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;</pre>
+                </div>
+              </div>
+            </section>
+
+            <!-- Notes -->
+            <div class="tables-notes">
+              <div class="tables-note-card">
+                <h6><i class="bi bi-lightbulb"></i>Usage guidelines</h6>
+                <ul>
+                  <li><strong>Striped</strong> for scannable data lists.</li>
+                  <li><strong>Bordered</strong> for reports and price sheets where every cell matters.</li>
+                  <li><strong>Compact</strong> for logs and audit trails — never for public-facing content.</li>
+                  <li><strong>Colored rows</strong> only when the color carries meaning; pair with icons/badges too.</li>
+                  <li>Always wrap tables in <code>.table-responsive</code> to prevent overflow on small screens.</li>
+                </ul>
+              </div>
+              <div class="tables-note-card">
+                <h6><i class="bi bi-universal-access"></i>Accessibility notes</h6>
+                <ul>
+                  <li>Use <code>scope="col"</code> and <code>scope="row"</code> so screen readers can associate headers with cells.</li>
+                  <li>Add a <code>&lt;caption&gt;</code> for tables that stand alone — it acts as a heading.</li>
+                  <li>Do not convey information with color alone; back it with text or an icon.</li>
+                  <li>Ensure contrast ratios stay above 4.5:1 when using contextual row colors.</li>
+                  <li>Expandable rows need an <code>aria-expanded</code> toggle plus an <code>aria-controls</code> target.</li>
                 </ul>
               </div>
             </div>
           </div>
+
+          <!-- Right rail TOC -->
+          <aside class="tables-toc" data-tables-toc aria-label="On this page">
+            <p class="tables-toc__title">On this page</p>
+            <ul class="tables-toc__list">
+              <li><a class="tables-toc__link" href="#default"><i class="bi bi-grid-1x2"></i>Default</a></li>
+              <li><a class="tables-toc__link" href="#striped"><i class="bi bi-list-ul"></i>Striped</a></li>
+              <li><a class="tables-toc__link" href="#hover"><i class="bi bi-cursor"></i>Hoverable</a></li>
+              <li><a class="tables-toc__link" href="#bordered"><i class="bi bi-border-all"></i>Bordered</a></li>
+              <li><a class="tables-toc__link" href="#compact"><i class="bi bi-distribute-vertical"></i>Compact</a></li>
+              <li><a class="tables-toc__link" href="#dark"><i class="bi bi-moon-stars"></i>Dark</a></li>
+              <li><a class="tables-toc__link" href="#colored"><i class="bi bi-palette"></i>Colored rows</a></li>
+              <li><a class="tables-toc__link" href="#caption"><i class="bi bi-text-paragraph"></i>Caption</a></li>
+              <li><a class="tables-toc__link" href="#foot"><i class="bi bi-layout-split"></i>Head &amp; foot</a></li>
+              <li><a class="tables-toc__link" href="#nested"><i class="bi bi-diagram-3"></i>Nested</a></li>
+            </ul>
+          </aside>
         </div>
 
       </div>
@@ -1122,10 +1010,9 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="assets/js/theme.js" defer></script>
   <script src="assets/js/sidebar.js" defer></script>
-  <script src="assets/js/charts.js" defer></script>
   <script src="assets/js/orchid.js" defer></script>
+  <script src="assets/js/pages/tables-showcase.js" defer></script>
 </body>
 </html>

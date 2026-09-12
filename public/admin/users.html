@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Orchid - Premium Bootstrap 5.3 Admin Dashboard Template">
   <meta name="theme-color" content="#4f46e5">
-  <title>Orchid - Premium Admin Dashboard</title>
+  <title>Orchid — Users</title>
 
   <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +14,8 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-  <link href="{{asset('admin/assets/css/orchid.css')}}" rel="stylesheet">
+  <link href="assets/css/orchid.css" rel="stylesheet">
+  <link href="assets/css/pages/users.css" rel="stylesheet">
 </head>
 <body class="orchid-body">
 
@@ -48,13 +49,13 @@
         <span class="orchid-nav-section__label">Main</span>
         <ul class="orchid-nav">
           <li>
-            <a href="#navDashboard" class="orchid-nav__link orchid-nav__link--has-sub trail-active" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="navDashboard">
+            <a href="#navDashboard" class="orchid-nav__link orchid-nav__link--has-sub collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="navDashboard">
               <i class="bi bi-speedometer2"></i><span>Dashboard</span>
               <span class="badge bg-primary-subtle text-primary ms-auto">8</span>
               <i class="bi bi-chevron-down orchid-nav__chevron"></i>
             </a>
-            <ul class="collapse show orchid-nav__sub list-unstyled" id="navDashboard">
-              <li><a href="index.html" class="orchid-nav__sublink active" aria-current="page">Default</a></li>
+            <ul class="collapse orchid-nav__sub list-unstyled" id="navDashboard">
+              <li><a href="index.html" class="orchid-nav__sublink">Default</a></li>
               <li><a href="analytics.html" class="orchid-nav__sublink">Analytics</a></li>
               <li><a href="crm.html" class="orchid-nav__sublink">CRM</a></li>
               <li><a href="sales.html" class="orchid-nav__sublink">Sales</a></li>
@@ -187,7 +188,7 @@
       <div class="orchid-nav-section">
         <span class="orchid-nav-section__label">User Management</span>
         <ul class="orchid-nav">
-          <li><a href="users.html" class="orchid-nav__link"><i class="bi bi-person"></i><span>Users</span></a></li>
+          <li><a href="users.html" class="orchid-nav__link active" aria-current="page"><i class="bi bi-person"></i><span>Users</span></a></li>
           <li><a href="roles.html" class="orchid-nav__link"><i class="bi bi-shield-lock"></i><span>Roles</span></a></li>
           <li><a href="permissions.html" class="orchid-nav__link"><i class="bi bi-key"></i><span>Permissions</span></a></li>
           <li><a href="user-activity.html" class="orchid-nav__link"><i class="bi bi-activity"></i><span>User Activity</span></a></li>
@@ -372,9 +373,9 @@
         </button>
         <nav aria-label="breadcrumb" class="orchid-header__breadcrumb d-none d-md-block">
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#"><i class="bi bi-house-door"></i></a></li>
-            <li class="breadcrumb-item"><a href="#">Overview</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i></a></li>
+            <li class="breadcrumb-item"><a href="#">User Management</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Users</li>
           </ol>
         </nav>
       </div>
@@ -549,557 +550,186 @@
       <div class="container-fluid px-3 px-lg-4 py-4">
 
         <!-- Page header -->
-        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+        <div class="d-flex flex-wrap align-items-start justify-content-between gap-3 mb-4">
           <div>
-            <h1 class="h3 mb-1">Welcome back, Alex 👋</h1>
-            <p class="text-body-secondary mb-0">Here's what's happening with your business today.</p>
+            <h1 class="users-page-title">Users</h1>
+            <p class="users-page-sub">Manage user accounts, roles, and permissions</p>
           </div>
-          <div class="d-flex gap-2">
-            <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-download me-1"></i>Export</button>
-            <button class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i>Create Report</button>
+          <div class="d-flex flex-wrap gap-2">
+            <button class="btn btn-outline-secondary btn-sm" type="button" data-users-import>
+              <i class="bi bi-upload me-1"></i>Import
+            </button>
+            <input type="file" class="visually-hidden" accept=".csv" data-users-import-input aria-hidden="true" tabindex="-1">
+            <div class="dropdown">
+              <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-download me-1"></i>Export
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#" data-users-export="CSV"><i class="bi bi-filetype-csv me-2"></i>CSV</a></li>
+                <li><a class="dropdown-item" href="#" data-users-export="Excel"><i class="bi bi-file-earmark-spreadsheet me-2"></i>Excel</a></li>
+                <li><a class="dropdown-item" href="#" data-users-export="JSON"><i class="bi bi-filetype-json me-2"></i>JSON</a></li>
+                <li><a class="dropdown-item" href="#" data-users-export="PDF"><i class="bi bi-filetype-pdf me-2"></i>PDF</a></li>
+              </ul>
+            </div>
+            <button class="btn btn-primary btn-sm" type="button" data-users-add>
+              <i class="bi bi-plus-lg me-1"></i>Add User
+            </button>
           </div>
         </div>
 
-        <!-- ================== ROW 1 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card orchid-stat-card h-100 overflow-hidden">
-              <div class="card-body pb-2">
-                <div class="d-flex justify-content-between align-items-start mb-3">
-                  <div>
-                    <p class="text-body-secondary mb-1 small">Total Contacts</p>
-                    <h3 class="mb-0 fw-bold">12,480</h3>
-                  </div>
-                  <span class="orchid-stat-card__icon bg-primary-subtle text-primary"><i class="bi bi-people"></i></span>
-                </div>
-                <span class="badge bg-success-subtle text-success"><i class="bi bi-arrow-up"></i> 12.4% vs last month</span>
-              </div>
-              <div class="orchid-stat-card__spark">
-                <canvas data-orchid-chart="sparkContacts"></canvas>
+        <!-- Stats strip -->
+        <div class="row g-3 mb-3">
+          <div class="col-6 col-xl-3">
+            <div class="users-stat users-stat--indigo">
+              <span class="users-stat__icon"><i class="bi bi-people-fill"></i></span>
+              <div>
+                <p class="users-stat__label">Total Users</p>
+                <p class="users-stat__value" data-users-stat="total">0</p>
+                <span class="users-stat__delta"><i class="bi bi-arrow-up-short"></i>4 this week</span>
               </div>
             </div>
           </div>
-
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h6 class="mb-0">Lead Analytics</h6>
-                  <span class="badge bg-info-subtle text-info">Weekly</span>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--sm">
-                  <canvas data-orchid-chart="leadAnalytics"></canvas>
-                </div>
+          <div class="col-6 col-xl-3">
+            <div class="users-stat users-stat--green">
+              <span class="users-stat__icon"><i class="bi bi-check-circle-fill"></i></span>
+              <div>
+                <p class="users-stat__label">Active</p>
+                <p class="users-stat__value" data-users-stat="active">0</p>
+                <span class="users-stat__delta"><i class="bi bi-dot"></i>Online right now</span>
               </div>
             </div>
           </div>
-
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h6 class="mb-0">Traffic Sources</h6>
-                  <button class="btn btn-sm btn-icon" type="button" aria-label="More"><i class="bi bi-three-dots"></i></button>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--sm">
-                  <canvas data-orchid-chart="trafficSources"></canvas>
-                </div>
+          <div class="col-6 col-xl-3">
+            <div class="users-stat users-stat--amber">
+              <span class="users-stat__icon"><i class="bi bi-hourglass-split"></i></span>
+              <div>
+                <p class="users-stat__label">Pending</p>
+                <p class="users-stat__value" data-users-stat="pending">0</p>
+                <span class="users-stat__delta"><i class="bi bi-envelope"></i>Awaiting verification</span>
               </div>
             </div>
           </div>
-
-          <div class="col-12 col-xl-3">
-            <div class="card orchid-card orchid-earnings-card h-100 text-white">
-              <div class="card-body position-relative pb-0">
-                <div class="d-flex justify-content-between align-items-start">
-                  <div>
-                    <p class="mb-1 opacity-75 small">Total Earnings</p>
-                    <h3 class="fw-bold mb-1">$84,120.50</h3>
-                    <span class="badge bg-white text-primary"><i class="bi bi-arrow-up"></i> 8.24%</span>
-                  </div>
-                  <span class="orchid-stat-card__icon bg-white bg-opacity-25 text-white"><i class="bi bi-currency-dollar"></i></span>
-                </div>
-              </div>
-              <div class="orchid-earnings-card__chart">
-                <canvas data-orchid-chart="earnings"></canvas>
+          <div class="col-6 col-xl-3">
+            <div class="users-stat users-stat--red">
+              <span class="users-stat__icon"><i class="bi bi-slash-circle-fill"></i></span>
+              <div>
+                <p class="users-stat__label">Suspended</p>
+                <p class="users-stat__value" data-users-stat="suspended">0</p>
+                <span class="users-stat__delta"><i class="bi bi-shield-exclamation"></i>Review required</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- ================== ROW 2 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-lg-6 col-xxl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Tasks Overview</h6>
-                  <a href="#" class="small">View all</a>
-                </div>
-                <ul class="orchid-task-list list-unstyled mb-0">
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task1" checked>
-                      <label class="form-check-label text-decoration-line-through text-body-secondary" for="task1">Prepare launch checklist</label>
-                    </div>
-                    <span class="badge bg-success-subtle text-success">Done</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task2">
-                      <label class="form-check-label" for="task2">Design system audit</label>
-                    </div>
-                    <span class="badge bg-warning-subtle text-warning">Today</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task3">
-                      <label class="form-check-label" for="task3">Review PR #482</label>
-                    </div>
-                    <span class="badge bg-primary-subtle text-primary">2h</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task4">
-                      <label class="form-check-label" for="task4">Sync with sales team</label>
-                    </div>
-                    <span class="badge bg-info-subtle text-info">Tomorrow</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task5">
-                      <label class="form-check-label" for="task5">Publish weekly newsletter</label>
-                    </div>
-                    <span class="badge bg-danger-subtle text-danger">Overdue</span>
-                  </li>
+        <!-- Toolbar -->
+        <div class="users-toolbar" role="search">
+          <div class="users-toolbar__search">
+            <i class="bi bi-search"></i>
+            <input type="search" class="form-control" placeholder="Search by name or email…" aria-label="Search users" data-users-search>
+          </div>
+          <select class="form-select form-select-sm" aria-label="Filter by role" data-users-filter="role">
+            <option value="all">All roles</option>
+            <option value="admin">Admin</option>
+            <option value="editor">Editor</option>
+            <option value="viewer">Viewer</option>
+            <option value="guest">Guest</option>
+          </select>
+          <select class="form-select form-select-sm" aria-label="Filter by status" data-users-filter="status">
+            <option value="all">All statuses</option>
+            <option value="active">Active</option>
+            <option value="pending">Pending</option>
+            <option value="suspended">Suspended</option>
+          </select>
+          <select class="form-select form-select-sm" aria-label="Filter by join date" data-users-filter="date">
+            <option value="all">All time</option>
+            <option value="today">Today</option>
+            <option value="7d">Last 7 days</option>
+            <option value="30d">Last 30 days</option>
+          </select>
+          <button type="button" class="users-toolbar__reset ms-auto" data-users-reset>
+            <i class="bi bi-arrow-counterclockwise me-1"></i>Reset filters
+          </button>
+        </div>
+
+        <!-- Table card -->
+        <div class="users-card">
+
+          <!-- Bulk action bar -->
+          <div class="users-bulkbar" data-users-bulk>
+            <span class="users-bulkbar__count"><span data-users-bulk-count>0</span> selected</span>
+            <div class="users-bulkbar__actions">
+              <div class="dropdown">
+                <button class="btn btn-outline-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-shield me-1"></i>Change role
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#" data-users-bulk-action="role:admin"><span class="users-role users-role--admin me-2">Admin</span>Set as Admin</a></li>
+                  <li><a class="dropdown-item" href="#" data-users-bulk-action="role:editor"><span class="users-role users-role--editor me-2">Editor</span>Set as Editor</a></li>
+                  <li><a class="dropdown-item" href="#" data-users-bulk-action="role:viewer"><span class="users-role users-role--viewer me-2">Viewer</span>Set as Viewer</a></li>
+                  <li><a class="dropdown-item" href="#" data-users-bulk-action="role:guest"><span class="users-role users-role--guest me-2">Guest</span>Set as Guest</a></li>
                 </ul>
               </div>
+              <button class="btn btn-outline-secondary" type="button" data-users-bulk-action="archive"><i class="bi bi-archive me-1"></i>Archive</button>
+              <button class="btn btn-outline-secondary" type="button" data-users-bulk-action="export"><i class="bi bi-download me-1"></i>Export selected</button>
+              <button class="btn btn-outline-danger"    type="button" data-users-bulk-action="delete"><i class="bi bi-trash me-1"></i>Delete</button>
+              <button class="btn btn-link text-decoration-none" type="button" data-users-bulk-action="clear">Clear selection</button>
             </div>
           </div>
 
-          <div class="col-12 col-lg-6 col-xxl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Active Deals</h6>
-                  <span class="badge bg-primary-subtle text-primary">48 total</span>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--md">
-                  <canvas data-orchid-chart="activeDeals"></canvas>
-                </div>
-                <div class="d-flex justify-content-between mt-3 small">
-                  <div><span class="orchid-dot bg-primary"></span> Won <strong class="ms-1">28</strong></div>
-                  <div><span class="orchid-dot bg-warning"></span> Pending <strong class="ms-1">14</strong></div>
-                  <div><span class="orchid-dot bg-danger"></span> Lost <strong class="ms-1">6</strong></div>
-                </div>
-              </div>
+          <!-- Table -->
+          <div class="users-table-wrap">
+            <table class="users-table align-middle mb-0" aria-label="Users list">
+              <thead>
+                <tr>
+                  <th class="users-th-check">
+                    <div class="form-check m-0">
+                      <input class="form-check-input" type="checkbox" aria-label="Select all users on this page" data-users-selectall>
+                    </div>
+                  </th>
+                  <th class="users-th-sort" data-users-sort="name">User <span class="users-sort-icon"><i class="bi bi-arrow-down-up"></i></span></th>
+                  <th class="users-th-sort" data-users-sort="role">Role <span class="users-sort-icon"><i class="bi bi-arrow-down-up"></i></span></th>
+                  <th class="users-th-sort" data-users-sort="status">Status <span class="users-sort-icon"><i class="bi bi-arrow-down-up"></i></span></th>
+                  <th class="users-th-sort" data-users-sort="lastActive">Last Active <span class="users-sort-icon"><i class="bi bi-arrow-down-up"></i></span></th>
+                  <th class="users-th-sort" data-users-sort="joined">Joined <span class="users-sort-icon"><i class="bi bi-arrow-down-up"></i></span></th>
+                  <th class="users-th-actions">Actions</th>
+                </tr>
+              </thead>
+              <tbody data-users-skeleton>
+                <tr><td class="users-td-check"><span class="users-skel-avatar"></span></td><td><span class="users-skel-bar users-skel-bar--md"></span><br><span class="users-skel-bar users-skel-bar--sm mt-2"></span></td><td><span class="users-skel-bar users-skel-bar--sm"></span></td><td><span class="users-skel-bar users-skel-bar--sm"></span></td><td><span class="users-skel-bar users-skel-bar--sm"></span></td><td><span class="users-skel-bar users-skel-bar--md"></span></td><td><span class="users-skel-bar users-skel-bar--sm"></span></td></tr>
+                <tr><td class="users-td-check"><span class="users-skel-avatar"></span></td><td><span class="users-skel-bar users-skel-bar--lg"></span><br><span class="users-skel-bar users-skel-bar--md mt-2"></span></td><td><span class="users-skel-bar users-skel-bar--sm"></span></td><td><span class="users-skel-bar users-skel-bar--sm"></span></td><td><span class="users-skel-bar users-skel-bar--sm"></span></td><td><span class="users-skel-bar users-skel-bar--md"></span></td><td><span class="users-skel-bar users-skel-bar--sm"></span></td></tr>
+                <tr><td class="users-td-check"><span class="users-skel-avatar"></span></td><td><span class="users-skel-bar users-skel-bar--md"></span><br><span class="users-skel-bar users-skel-bar--sm mt-2"></span></td><td><span class="users-skel-bar users-skel-bar--sm"></span></td><td><span class="users-skel-bar users-skel-bar--sm"></span></td><td><span class="users-skel-bar users-skel-bar--sm"></span></td><td><span class="users-skel-bar users-skel-bar--md"></span></td><td><span class="users-skel-bar users-skel-bar--sm"></span></td></tr>
+                <tr><td class="users-td-check"><span class="users-skel-avatar"></span></td><td><span class="users-skel-bar users-skel-bar--lg"></span><br><span class="users-skel-bar users-skel-bar--md mt-2"></span></td><td><span class="users-skel-bar users-skel-bar--sm"></span></td><td><span class="users-skel-bar users-skel-bar--sm"></span></td><td><span class="users-skel-bar users-skel-bar--sm"></span></td><td><span class="users-skel-bar users-skel-bar--md"></span></td><td><span class="users-skel-bar users-skel-bar--sm"></span></td></tr>
+                <tr><td class="users-td-check"><span class="users-skel-avatar"></span></td><td><span class="users-skel-bar users-skel-bar--md"></span><br><span class="users-skel-bar users-skel-bar--sm mt-2"></span></td><td><span class="users-skel-bar users-skel-bar--sm"></span></td><td><span class="users-skel-bar users-skel-bar--sm"></span></td><td><span class="users-skel-bar users-skel-bar--sm"></span></td><td><span class="users-skel-bar users-skel-bar--md"></span></td><td><span class="users-skel-bar users-skel-bar--sm"></span></td></tr>
+              </tbody>
+              <tbody data-users-tbody>
+                <!-- rows injected by JS -->
+              </tbody>
+            </table>
+
+            <!-- Empty state -->
+            <div class="users-empty" data-users-empty>
+              <div class="users-empty__illus"><i class="bi bi-people"></i></div>
+              <h6>No users match your filters</h6>
+              <p>Try adjusting your search or clearing filters to see all users.</p>
+              <button class="btn btn-outline-primary btn-sm" type="button" data-users-reset><i class="bi bi-arrow-counterclockwise me-1"></i>Clear filters</button>
             </div>
           </div>
 
-          <div class="col-12 col-xxl-4">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Revenue Analytics</h6>
-                    <small class="text-body-secondary">Monthly performance</small>
-                  </div>
-                  <div class="btn-group btn-group-sm" role="group" aria-label="Revenue range">
-                    <input type="radio" class="btn-check" name="revRange" id="revW" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="revW">W</label>
-                    <input type="radio" class="btn-check" name="revRange" id="revM" autocomplete="off" checked>
-                    <label class="btn btn-outline-secondary" for="revM">M</label>
-                    <input type="radio" class="btn-check" name="revRange" id="revY" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="revY">Y</label>
-                  </div>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--lg">
-                  <canvas data-orchid-chart="revenue"></canvas>
-                </div>
-              </div>
+          <!-- Table footer -->
+          <div class="users-footer">
+            <div class="users-footer__meta" data-users-meta>Showing 0–0 of 0 users</div>
+            <div class="users-footer__perpage">
+              <label for="usersPerPage" class="mb-0">Rows per page</label>
+              <select id="usersPerPage" class="form-select form-select-sm" data-users-perpage aria-label="Rows per page">
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
             </div>
-          </div>
-
-          <div class="col-12 col-xxl-2">
-            <div class="card orchid-card h-100">
-              <div class="card-body d-flex flex-column">
-                <h6 class="mb-1">Retention Rate</h6>
-                <small class="text-body-secondary mb-2">Last 30 days</small>
-                <div class="orchid-chart-wrap orchid-chart-wrap--radial flex-grow-1">
-                  <canvas data-orchid-chart="retention"></canvas>
-                </div>
-                <div class="text-center mt-2">
-                  <span class="badge bg-success-subtle text-success"><i class="bi bi-arrow-up"></i> 2.4% vs last month</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 3 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-lg-5">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Upcoming Meetings</h6>
-                  <a href="#" class="small">Calendar</a>
-                </div>
-                <ul class="orchid-meeting-list list-unstyled mb-0">
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">14</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Product Roadmap Q2</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>10:00 – 11:00 AM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-primary text-white">AK</span>
-                      <span class="avatar avatar-xs bg-info text-white">JD</span>
-                      <span class="avatar avatar-xs bg-warning text-white">+3</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">14</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Client Onboarding – Nova</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>2:00 – 2:45 PM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-success text-white">SM</span>
-                      <span class="avatar avatar-xs bg-danger text-white">EL</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">15</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Design Review</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>9:30 – 10:30 AM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-primary text-white">AK</span>
-                      <span class="avatar avatar-xs bg-warning text-white">+2</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">16</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Investor Sync</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>4:00 – 5:00 PM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-info text-white">RG</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-lg-7">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <div>
-                    <h6 class="mb-0">Deals Overview</h6>
-                    <small class="text-body-secondary">Stacked by stage</small>
-                  </div>
-                  <div class="dropdown">
-                    <button class="btn btn-sm btn-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Deals menu">
-                      <i class="bi bi-three-dots"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                      <li><a class="dropdown-item" href="#">Refresh</a></li>
-                      <li><a class="dropdown-item" href="#">Export CSV</a></li>
-                      <li><a class="dropdown-item" href="#">Settings</a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--lg">
-                  <canvas data-orchid-chart="dealsOverview"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 4 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12">
-            <div class="card orchid-card">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Sales Pipeline</h6>
-                    <small class="text-body-secondary">Progress across stages · $284,500 total</small>
-                  </div>
-                  <button class="btn btn-sm btn-outline-primary"><i class="bi bi-plus-lg me-1"></i>Add Stage</button>
-                </div>
-
-                <div class="row g-3">
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Leads</span>
-                        <small class="text-body-secondary">$48k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Leads" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-primary" data-orchid-progress="85"></div>
-                      </div>
-                      <small class="text-body-secondary">142 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Qualified</span>
-                        <small class="text-body-secondary">$62k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Qualified" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-info" data-orchid-progress="70"></div>
-                      </div>
-                      <small class="text-body-secondary">98 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Proposal</span>
-                        <small class="text-body-secondary">$54k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Proposal" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-warning" data-orchid-progress="60"></div>
-                      </div>
-                      <small class="text-body-secondary">64 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Negotiation</span>
-                        <small class="text-body-secondary">$46k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Negotiation" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-purple" data-orchid-progress="45"></div>
-                      </div>
-                      <small class="text-body-secondary">32 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Won</span>
-                        <small class="text-body-secondary">$62k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Won" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-success" data-orchid-progress="92"></div>
-                      </div>
-                      <small class="text-body-secondary">48 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Lost</span>
-                        <small class="text-body-secondary">$12k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Lost" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-danger" data-orchid-progress="18"></div>
-                      </div>
-                      <small class="text-body-secondary">14 deals</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 5 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-xl-8">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Recent Customers</h6>
-                    <small class="text-body-secondary">Latest activity from your customer base</small>
-                  </div>
-                  <div class="d-flex gap-2">
-                    <div class="input-group input-group-sm orchid-inline-search">
-                      <span class="input-group-text bg-transparent border-end-0"><i class="bi bi-search"></i></span>
-                      <input type="search" class="form-control border-start-0" placeholder="Search customers…" aria-label="Search customers">
-                    </div>
-                    <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-funnel"></i></button>
-                  </div>
-                </div>
-                <div class="table-responsive">
-                  <table class="table orchid-table align-middle mb-0">
-                    <thead>
-                      <tr>
-                        <th scope="col">Customer</th>
-                        <th scope="col" class="d-none d-md-table-cell">Email</th>
-                        <th scope="col" class="d-none d-lg-table-cell">Location</th>
-                        <th scope="col">Spend</th>
-                        <th scope="col">Status</th>
-                        <th scope="col" class="text-end">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-primary-subtle text-primary fw-semibold">EW</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Emma Watson</p>
-                              <small class="text-body-secondary d-md-none">emma@nova.io</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">emma@nova.io</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">London, UK</td>
-                        <td class="fw-semibold">$4,820</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-info-subtle text-info fw-semibold">JD</span>
-                            <div>
-                              <p class="mb-0 fw-medium">James Doe</p>
-                              <small class="text-body-secondary d-md-none">james@acme.com</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">james@acme.com</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">New York, US</td>
-                        <td class="fw-semibold">$2,410</td>
-                        <td><span class="badge bg-warning-subtle text-warning">Pending</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-success-subtle text-success fw-semibold">SM</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Sarah Miller</p>
-                              <small class="text-body-secondary d-md-none">sarah@zen.co</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">sarah@zen.co</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Sydney, AU</td>
-                        <td class="fw-semibold">$7,920</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-warning-subtle text-warning fw-semibold">RG</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Ryan Green</p>
-                              <small class="text-body-secondary d-md-none">ryan@peak.io</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">ryan@peak.io</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Toronto, CA</td>
-                        <td class="fw-semibold">$1,150</td>
-                        <td><span class="badge bg-danger-subtle text-danger">Inactive</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-danger-subtle text-danger fw-semibold">AL</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Ava Lee</p>
-                              <small class="text-body-secondary d-md-none">ava@bold.co</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">ava@bold.co</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Berlin, DE</td>
-                        <td class="fw-semibold">$3,640</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xl-4">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Task Updates</h6>
-                  <a href="#" class="small">View all</a>
-                </div>
-                <ul class="orchid-timeline list-unstyled mb-0">
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-primary"></span>
-                    <div>
-                      <p class="mb-0"><strong>Alex Kim</strong> completed <a href="#">Design System Audit</a></p>
-                      <small class="text-body-secondary">2 mins ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-success"></span>
-                    <div>
-                      <p class="mb-0"><strong>Sarah Miller</strong> added a comment on <a href="#">Q2 Roadmap</a></p>
-                      <small class="text-body-secondary">18 mins ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-warning"></span>
-                    <div>
-                      <p class="mb-0"><strong>James Doe</strong> moved <a href="#">API Redesign</a> to In Progress</p>
-                      <small class="text-body-secondary">1 hour ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-info"></span>
-                    <div>
-                      <p class="mb-0"><strong>Ava Lee</strong> shared the file <a href="#">Brand.pdf</a></p>
-                      <small class="text-body-secondary">3 hours ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-danger"></span>
-                    <div>
-                      <p class="mb-0"><strong>Ryan Green</strong> reported an issue on <a href="#">Checkout</a></p>
-                      <small class="text-body-secondary">Yesterday</small>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
+            <nav aria-label="Users pagination">
+              <ul class="pagination users-pager mb-0" data-users-pager></ul>
+            </nav>
           </div>
         </div>
 
@@ -1121,11 +751,226 @@
     </main>
   </div>
 
+  <!-- ================== DRAWER (create / edit) ================== -->
+  <div class="offcanvas offcanvas-end users-drawer" tabindex="-1" id="usersDrawer" aria-labelledby="usersDrawerTitle">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="usersDrawerTitle" data-users-drawer-title>Add User</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <form class="offcanvas-body" id="usersForm" novalidate data-users-form>
+      <div class="users-avatar-upload">
+        <span class="users-avatar-upload__preview" data-users-preview>?</span>
+        <div class="users-avatar-upload__body">
+          <label for="usersAvatarInput" class="btn btn-sm btn-outline-secondary"><i class="bi bi-cloud-upload me-1"></i>Upload avatar</label>
+          <input id="usersAvatarInput" name="avatar" type="file" accept="image/*" class="visually-hidden" data-users-avatar-input>
+          <p class="users-avatar-upload__hint">PNG or JPG, up to 2MB. Optional.</p>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-6">
+          <label for="usersFirst" class="form-label">First name</label>
+          <input id="usersFirst" name="first" type="text" class="form-control" required>
+          <div class="invalid-feedback">Required.</div>
+        </div>
+        <div class="col-6">
+          <label for="usersLast" class="form-label">Last name</label>
+          <input id="usersLast" name="last" type="text" class="form-control" required>
+          <div class="invalid-feedback">Required.</div>
+        </div>
+        <div class="col-12">
+          <label for="usersEmail" class="form-label">Email</label>
+          <input id="usersEmail" name="email" type="email" class="form-control" required>
+          <div class="invalid-feedback">Enter a valid email.</div>
+        </div>
+        <div class="col-12">
+          <label for="usersPhone" class="form-label">Phone <span class="text-body-secondary fw-normal">(optional)</span></label>
+          <input id="usersPhone" name="phone" type="tel" class="form-control">
+        </div>
+        <div class="col-6">
+          <label for="usersRole" class="form-label">Role</label>
+          <select id="usersRole" name="role" class="form-select" required>
+            <option value="admin">Admin</option>
+            <option value="editor" selected>Editor</option>
+            <option value="viewer">Viewer</option>
+            <option value="guest">Guest</option>
+          </select>
+        </div>
+        <div class="col-6">
+          <label for="usersDept" class="form-label">Department</label>
+          <select id="usersDept" name="dept" class="form-select" required>
+            <option>Engineering</option>
+            <option>Design</option>
+            <option>Product</option>
+            <option>Marketing</option>
+            <option>Sales</option>
+            <option>Support</option>
+            <option>Finance</option>
+            <option>Executive</option>
+          </select>
+        </div>
+        <div class="col-12">
+          <label for="usersTz" class="form-label">Timezone</label>
+          <select id="usersTz" name="tz" class="form-select">
+            <option>UTC</option>
+            <option>Asia/Kolkata</option>
+            <option>Asia/Tokyo</option>
+            <option>Asia/Seoul</option>
+            <option>Asia/Dubai</option>
+            <option>Asia/Riyadh</option>
+            <option>Europe/London</option>
+            <option>Europe/Berlin</option>
+            <option>Europe/Madrid</option>
+            <option>Europe/Rome</option>
+            <option>Europe/Moscow</option>
+            <option>Europe/Dublin</option>
+            <option>America/New_York</option>
+            <option>America/Los_Angeles</option>
+            <option>America/Toronto</option>
+            <option>America/Sao_Paulo</option>
+            <option>Australia/Sydney</option>
+            <option>Africa/Lagos</option>
+          </select>
+        </div>
+
+        <div class="col-12">
+          <label class="form-label d-block">Status</label>
+          <div class="btn-group" role="group" aria-label="Status">
+            <input type="radio" class="btn-check" name="status" id="usersStAct" value="active" checked>
+            <label class="btn btn-sm btn-outline-success" for="usersStAct">Active</label>
+            <input type="radio" class="btn-check" name="status" id="usersStPen" value="pending">
+            <label class="btn btn-sm btn-outline-warning" for="usersStPen">Pending</label>
+            <input type="radio" class="btn-check" name="status" id="usersStSus" value="suspended">
+            <label class="btn btn-sm btn-outline-danger" for="usersStSus">Suspended</label>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <label class="form-label">Permissions</label>
+          <div class="users-perm-grid">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="perms" value="view" id="permView" checked>
+              <label class="form-check-label" for="permView">View</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="perms" value="edit" id="permEdit">
+              <label class="form-check-label" for="permEdit">Edit</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="perms" value="delete" id="permDel">
+              <label class="form-check-label" for="permDel">Delete</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="perms" value="manage" id="permManage">
+              <label class="form-check-label" for="permManage">Manage users</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="welcome" id="usersWelcome" checked>
+            <label class="form-check-label" for="usersWelcome">Send welcome email with login instructions</label>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="users-drawer__footer">
+      <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="offcanvas">Cancel</button>
+      <button type="submit" class="btn btn-primary btn-sm" form="usersForm" data-users-save><i class="bi bi-check2 me-1"></i>Save user</button>
+    </div>
+  </div>
+
+  <!-- ================== VIEW MODAL ================== -->
+  <div class="modal fade" id="usersViewModal" tabindex="-1" aria-labelledby="usersViewTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="usersViewTitle">User details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="users-view-header">
+            <span class="avatar avatar-lg" data-users-view="avatar">--</span>
+            <div class="flex-grow-1 min-w-0">
+              <h5 data-users-view="name">—</h5>
+              <p data-users-view="sub">—</p>
+            </div>
+            <div class="d-flex flex-column align-items-end gap-1">
+              <span data-users-view="role"></span>
+              <span data-users-view="status"></span>
+            </div>
+          </div>
+
+          <dl class="users-view-grid">
+            <div>
+              <dt>Phone</dt>
+              <dd data-users-view="phone">—</dd>
+            </div>
+            <div>
+              <dt>Timezone</dt>
+              <dd data-users-view="tz">—</dd>
+            </div>
+            <div>
+              <dt>Joined</dt>
+              <dd data-users-view="joined">—</dd>
+            </div>
+            <div>
+              <dt>Last Active</dt>
+              <dd data-users-view="last">—</dd>
+            </div>
+            <div class="users-view-grid__full">
+              <dt>Permissions</dt>
+              <dd data-users-view="perms">—</dd>
+            </div>
+          </dl>
+
+          <h6 class="users-view-section-title">Recent activity</h6>
+          <ul class="users-view-activity" data-users-view="activity"></ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary btn-sm" data-users-view-edit><i class="bi bi-pencil me-1"></i>Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================== DELETE CONFIRM MODAL ================== -->
+  <div class="modal fade" id="usersDeleteModal" tabindex="-1" aria-labelledby="usersDelTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="usersDelTitle"><i class="bi bi-exclamation-triangle text-danger me-2"></i>Delete user</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="users-del-alert">
+            <i class="bi bi-exclamation-octagon-fill"></i>
+            <div>
+              <strong>This action is permanent.</strong>
+              <p class="mb-0" data-users-del-msg>You are about to delete this user.</p>
+            </div>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="usersDelConfirm" data-users-del-confirm>
+            <label class="form-check-label" for="usersDelConfirm">I understand this cannot be undone</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger btn-sm" disabled data-users-del-go><i class="bi bi-trash me-1"></i>Delete forever</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="assets/js/theme.js" defer></script>
   <script src="assets/js/sidebar.js" defer></script>
   <script src="assets/js/charts.js" defer></script>
   <script src="assets/js/orchid.js" defer></script>
+  <script src="assets/js/pages/users.js" defer></script>
 </body>
 </html>

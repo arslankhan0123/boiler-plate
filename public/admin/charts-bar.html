@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Orchid - Premium Bootstrap 5.3 Admin Dashboard Template">
+  <meta name="description" content="Bar chart variants (Chart.js)">
   <meta name="theme-color" content="#4f46e5">
-  <title>Orchid - Premium Admin Dashboard</title>
+  <title>Orchid — Charts: Bar</title>
 
   <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,16 +14,16 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-  <link href="{{asset('admin/assets/css/orchid.css')}}" rel="stylesheet">
+  <link href="assets/css/orchid.css" rel="stylesheet">
+  <link href="assets/css/pages/charts-showcase.css" rel="stylesheet">
 </head>
-<body class="orchid-body">
+<body class="orchid-body" data-charts-page="bar">
 
   <a class="visually-hidden-focusable position-absolute top-0 start-0 p-2 bg-primary text-white" href="#orchid-main">Skip to main content</a>
-
   <!-- ================== SIDEBAR ================== -->
   <aside class="orchid-sidebar" id="orchidSidebar" aria-label="Primary navigation">
     <div class="orchid-sidebar__brand">
-      <a href="#" class="orchid-brand" aria-label="Orchid dashboard home">
+      <a href="index.html" class="orchid-brand" aria-label="Orchid dashboard home">
         <span class="orchid-brand__logo" aria-hidden="true">
           <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orchid logo">
             <defs>
@@ -48,13 +48,13 @@
         <span class="orchid-nav-section__label">Main</span>
         <ul class="orchid-nav">
           <li>
-            <a href="#navDashboard" class="orchid-nav__link orchid-nav__link--has-sub trail-active" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="navDashboard">
+            <a href="#navDashboard" class="orchid-nav__link orchid-nav__link--has-sub collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="navDashboard">
               <i class="bi bi-speedometer2"></i><span>Dashboard</span>
               <span class="badge bg-primary-subtle text-primary ms-auto">8</span>
               <i class="bi bi-chevron-down orchid-nav__chevron"></i>
             </a>
-            <ul class="collapse show orchid-nav__sub list-unstyled" id="navDashboard">
-              <li><a href="index.html" class="orchid-nav__sublink active" aria-current="page">Default</a></li>
+            <ul class="collapse orchid-nav__sub list-unstyled" id="navDashboard">
+              <li><a href="index.html" class="orchid-nav__sublink">Default</a></li>
               <li><a href="analytics.html" class="orchid-nav__sublink">Analytics</a></li>
               <li><a href="crm.html" class="orchid-nav__sublink">CRM</a></li>
               <li><a href="sales.html" class="orchid-nav__sublink">Sales</a></li>
@@ -289,7 +289,7 @@
         <span class="orchid-nav-section__label">Charts</span>
         <ul class="orchid-nav">
           <li><a href="charts-line.html" class="orchid-nav__link"><i class="bi bi-graph-up"></i><span>Line</span></a></li>
-          <li><a href="charts-bar.html" class="orchid-nav__link"><i class="bi bi-bar-chart"></i><span>Bar</span></a></li>
+          <li><a href="charts-bar.html" class="orchid-nav__link active" aria-current="page"><i class="bi bi-bar-chart"></i><span>Bar</span></a></li>
           <li><a href="charts-area.html" class="orchid-nav__link"><i class="bi bi-graph-up-arrow"></i><span>Area</span></a></li>
           <li><a href="charts-pie.html" class="orchid-nav__link"><i class="bi bi-pie-chart"></i><span>Pie</span></a></li>
           <li><a href="charts-donut.html" class="orchid-nav__link"><i class="bi bi-circle"></i><span>Donut</span></a></li>
@@ -360,7 +360,6 @@
   </aside>
 
   <div class="orchid-backdrop" data-orchid-sidebar-close aria-hidden="true"></div>
-
   <!-- ================== APP WRAPPER ================== -->
   <div class="orchid-app">
 
@@ -372,9 +371,9 @@
         </button>
         <nav aria-label="breadcrumb" class="orchid-header__breadcrumb d-none d-md-block">
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#"><i class="bi bi-house-door"></i></a></li>
-            <li class="breadcrumb-item"><a href="#">Overview</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i></a></li>
+            <li class="breadcrumb-item"><a href="#">Charts</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Bar</li>
           </ol>
         </nav>
       </div>
@@ -547,562 +546,284 @@
     <!-- ================== MAIN ================== -->
     <main class="orchid-main" id="orchid-main" tabindex="-1">
       <div class="container-fluid px-3 px-lg-4 py-4">
+        <!-- Hero -->
+        <section class="charts-hero">
+          <span class="charts-hero__eyebrow"><i class="bi bi-graph-up"></i> Charts / Bar</span>
+          <h1 class="charts-hero__title">Bar chart variants</h1>
+          <p class="charts-hero__lede">Ten bar-family patterns — vertical, horizontal, grouped, stacked, 100% stacked, gradient, negative, labeled, range and sorted. All bars use rounded corners and Orchid's palette by default.</p>
+          <div class="charts-hero__stats">
+            <div><span class="charts-hero__stat-label">Variants</span><span class="charts-hero__stat-value">10</span></div>
+            <div><span class="charts-hero__stat-label">Data source</span><span class="charts-hero__stat-value">Chart.js v4</span></div>
+            <div><span class="charts-hero__stat-label">Theme-aware</span><span class="charts-hero__stat-value">Yes</span></div>
+            <div><span class="charts-hero__stat-label">Interactions</span><span class="charts-hero__stat-value">Hover · Toggle</span></div>
+          </div>
+        </section>
+        <div class="charts-layout">
 
-        <!-- Page header -->
-        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
-          <div>
-            <h1 class="h3 mb-1">Welcome back, Alex 👋</h1>
-            <p class="text-body-secondary mb-0">Here's what's happening with your business today.</p>
+          <div class="charts-main">
+            <!-- Mobile TOC -->
+            <nav class="charts-toc-mobile" aria-label="Section navigation">
+              <a href="#sec-basic" class="charts-toc-mobile__link is-active">Basic</a>
+              <a href="#sec-horizontal" class="charts-toc-mobile__link">Horizontal</a>
+              <a href="#sec-grouped" class="charts-toc-mobile__link">Grouped</a>
+              <a href="#sec-stacked" class="charts-toc-mobile__link">Stacked</a>
+              <a href="#sec-stacked-100" class="charts-toc-mobile__link">100% stacked</a>
+              <a href="#sec-gradient" class="charts-toc-mobile__link">Gradient</a>
+              <a href="#sec-negative" class="charts-toc-mobile__link">Negative</a>
+              <a href="#sec-labels" class="charts-toc-mobile__link">Data labels</a>
+              <a href="#sec-range" class="charts-toc-mobile__link">Range</a>
+              <a href="#sec-sorted" class="charts-toc-mobile__link">Sorted</a>
+            </nav>
+
+            <section class="charts-section" id="sec-basic">
+              <div class="charts-section__head">
+                <div>
+                  <h2 class="charts-section__title">Basic vertical bar</h2>
+                  <p class="charts-section__desc">A single-series bar chart with rounded corners and controlled bar width. Toggle the segmented control to swap data variants.</p>
+                </div>
+                <div class="charts-section__toolbar"><div class="charts-segmented" role="group" aria-label="Data variant" data-charts-variant-group="bar-basic">
+                    <button type="button" class="charts-segmented__btn" data-charts-variant="low">Low</button>
+                    <button type="button" class="charts-segmented__btn is-active" data-charts-variant="med">Med</button>
+                    <button type="button" class="charts-segmented__btn" data-charts-variant="high">High</button>
+                  </div></div>
+              </div>
+              <div class="charts-wrap"><canvas data-charts-chart="bar-basic" aria-label="Basic vertical bar"></canvas></div>
+              
+              <div class="charts-preview">
+                <div class="charts-preview__head">
+                  <span class="charts-preview__label">Snippet</span>
+                  <div class="charts-preview__actions">
+                    <button type="button" class="charts-btn-ghost" data-charts-preview-toggle aria-expanded="false"><i class="bi bi-code-slash"></i></button>
+                    <button type="button" class="charts-btn-ghost" data-charts-copy><i class="bi bi-clipboard"></i></button>
+                  </div>
+                </div>
+                <div class="charts-preview__body"><pre>{ type: 'bar', data: { datasets: [{ data, backgroundColor: PALETTE.indigo, borderRadius: 6 }] } }</pre></div>
+              </div>
+            </section>
+
+            <section class="charts-section" id="sec-horizontal">
+              <div class="charts-section__head">
+                <div>
+                  <h2 class="charts-section__title">Horizontal bar</h2>
+                  <p class="charts-section__desc">Set <code>indexAxis: 'y'</code> to render bars along the vertical axis — ideal for long category labels.</p>
+                </div>
+                
+              </div>
+              <div class="charts-wrap"><canvas data-charts-chart="bar-horizontal" aria-label="Horizontal bar"></canvas></div>
+              
+              <div class="charts-preview">
+                <div class="charts-preview__head">
+                  <span class="charts-preview__label">Snippet</span>
+                  <div class="charts-preview__actions">
+                    <button type="button" class="charts-btn-ghost" data-charts-preview-toggle aria-expanded="false"><i class="bi bi-code-slash"></i></button>
+                    <button type="button" class="charts-btn-ghost" data-charts-copy><i class="bi bi-clipboard"></i></button>
+                  </div>
+                </div>
+                <div class="charts-preview__body"><pre>options: { indexAxis: 'y' }</pre></div>
+              </div>
+            </section>
+
+            <section class="charts-section" id="sec-grouped">
+              <div class="charts-section__head">
+                <div>
+                  <h2 class="charts-section__title">Grouped bars</h2>
+                  <p class="charts-section__desc">Multiple datasets share categories without stacking. Chart.js auto-computes bar widths.</p>
+                </div>
+                
+              </div>
+              <div class="charts-wrap"><canvas data-charts-chart="bar-grouped" aria-label="Grouped bars"></canvas></div>
+              
+              <div class="charts-preview">
+                <div class="charts-preview__head">
+                  <span class="charts-preview__label">Snippet</span>
+                  <div class="charts-preview__actions">
+                    <button type="button" class="charts-btn-ghost" data-charts-preview-toggle aria-expanded="false"><i class="bi bi-code-slash"></i></button>
+                    <button type="button" class="charts-btn-ghost" data-charts-copy><i class="bi bi-clipboard"></i></button>
+                  </div>
+                </div>
+                <div class="charts-preview__body"><pre>datasets: [
+  { label: 'Product A', data, backgroundColor: PALETTE.indigo },
+  { label: 'Product B', data, backgroundColor: PALETTE.cyan },
+  { label: 'Product C', data, backgroundColor: PALETTE.violet },
+]</pre></div>
+              </div>
+            </section>
+
+            <section class="charts-section" id="sec-stacked">
+              <div class="charts-section__head">
+                <div>
+                  <h2 class="charts-section__title">Stacked bars</h2>
+                  <p class="charts-section__desc">Enable stacking on both axes and set a shared <code>stack</code> id per dataset.</p>
+                </div>
+                
+              </div>
+              <div class="charts-wrap"><canvas data-charts-chart="bar-stacked" aria-label="Stacked bars"></canvas></div>
+              
+              <div class="charts-preview">
+                <div class="charts-preview__head">
+                  <span class="charts-preview__label">Snippet</span>
+                  <div class="charts-preview__actions">
+                    <button type="button" class="charts-btn-ghost" data-charts-preview-toggle aria-expanded="false"><i class="bi bi-code-slash"></i></button>
+                    <button type="button" class="charts-btn-ghost" data-charts-copy><i class="bi bi-clipboard"></i></button>
+                  </div>
+                </div>
+                <div class="charts-preview__body"><pre>scales: { x: { stacked: true }, y: { stacked: true } }
+datasets.forEach(ds =&gt; ds.stack = 's')</pre></div>
+              </div>
+            </section>
+
+            <section class="charts-section" id="sec-stacked-100">
+              <div class="charts-section__head">
+                <div>
+                  <h2 class="charts-section__title">100% stacked bars</h2>
+                  <p class="charts-section__desc">Cap the y-axis at 100 with a percent formatter and normalize your data upstream.</p>
+                </div>
+                
+              </div>
+              <div class="charts-wrap"><canvas data-charts-chart="bar-stacked-100" aria-label="100% stacked bars"></canvas></div>
+              
+              <div class="charts-preview">
+                <div class="charts-preview__head">
+                  <span class="charts-preview__label">Snippet</span>
+                  <div class="charts-preview__actions">
+                    <button type="button" class="charts-btn-ghost" data-charts-preview-toggle aria-expanded="false"><i class="bi bi-code-slash"></i></button>
+                    <button type="button" class="charts-btn-ghost" data-charts-copy><i class="bi bi-clipboard"></i></button>
+                  </div>
+                </div>
+                <div class="charts-preview__body"><pre>scales: { y: { stacked: true, max: 100, ticks: { callback: v =&gt; v + '%' } } }</pre></div>
+              </div>
+            </section>
+
+            <section class="charts-section" id="sec-gradient">
+              <div class="charts-section__head">
+                <div>
+                  <h2 class="charts-section__title">Bar with gradient fill</h2>
+                  <p class="charts-section__desc">Two-stop vertical gradient rendered from the canvas context — computed per chart via a color callback.</p>
+                </div>
+                
+              </div>
+              <div class="charts-wrap"><canvas data-charts-chart="bar-gradient" aria-label="Bar with gradient fill"></canvas></div>
+              
+              <div class="charts-preview">
+                <div class="charts-preview__head">
+                  <span class="charts-preview__label">Snippet</span>
+                  <div class="charts-preview__actions">
+                    <button type="button" class="charts-btn-ghost" data-charts-preview-toggle aria-expanded="false"><i class="bi bi-code-slash"></i></button>
+                    <button type="button" class="charts-btn-ghost" data-charts-copy><i class="bi bi-clipboard"></i></button>
+                  </div>
+                </div>
+                <div class="charts-preview__body"><pre>backgroundColor: OrchidCharts.gradientBarVertical(PALETTE.indigo, PALETTE.cyan)</pre></div>
+              </div>
+            </section>
+
+            <section class="charts-section" id="sec-negative">
+              <div class="charts-section__head">
+                <div>
+                  <h2 class="charts-section__title">Bar with negative values</h2>
+                  <p class="charts-section__desc">The <code>backgroundColor</code> function receives per-datapoint context, letting you color positives green and negatives red.</p>
+                </div>
+                
+              </div>
+              <div class="charts-wrap"><canvas data-charts-chart="bar-negative" aria-label="Bar with negative values"></canvas></div>
+              
+              <div class="charts-preview">
+                <div class="charts-preview__head">
+                  <span class="charts-preview__label">Snippet</span>
+                  <div class="charts-preview__actions">
+                    <button type="button" class="charts-btn-ghost" data-charts-preview-toggle aria-expanded="false"><i class="bi bi-code-slash"></i></button>
+                    <button type="button" class="charts-btn-ghost" data-charts-copy><i class="bi bi-clipboard"></i></button>
+                  </div>
+                </div>
+                <div class="charts-preview__body"><pre>backgroundColor: (ctx) =&gt; ctx.parsed.y &gt;= 0 ? PALETTE.emerald : PALETTE.rose</pre></div>
+              </div>
+            </section>
+
+            <section class="charts-section" id="sec-labels">
+              <div class="charts-section__head">
+                <div>
+                  <h2 class="charts-section__title">Bar with data labels</h2>
+                  <p class="charts-section__desc">A tiny custom plugin (<code>afterDatasetsDraw</code>) writes each value above its bar.</p>
+                </div>
+                
+              </div>
+              <div class="charts-wrap"><canvas data-charts-chart="bar-labels" aria-label="Bar with data labels"></canvas></div>
+              
+              <div class="charts-preview">
+                <div class="charts-preview__head">
+                  <span class="charts-preview__label">Snippet</span>
+                  <div class="charts-preview__actions">
+                    <button type="button" class="charts-btn-ghost" data-charts-preview-toggle aria-expanded="false"><i class="bi bi-code-slash"></i></button>
+                    <button type="button" class="charts-btn-ghost" data-charts-copy><i class="bi bi-clipboard"></i></button>
+                  </div>
+                </div>
+                <div class="charts-preview__body"><pre>plugins: [{ id: 'barValueLabels', afterDatasetsDraw(chart) { /* draw text */ } }]</pre></div>
+              </div>
+            </section>
+
+            <section class="charts-section" id="sec-range">
+              <div class="charts-section__head">
+                <div>
+                  <h2 class="charts-section__title">Range bar (min-max)</h2>
+                  <p class="charts-section__desc">Chart.js accepts a two-element array as a datapoint — the bar spans from min to max.</p>
+                </div>
+                
+              </div>
+              <div class="charts-wrap"><canvas data-charts-chart="bar-range" aria-label="Range bar (min-max)"></canvas></div>
+              
+              <div class="charts-preview">
+                <div class="charts-preview__head">
+                  <span class="charts-preview__label">Snippet</span>
+                  <div class="charts-preview__actions">
+                    <button type="button" class="charts-btn-ghost" data-charts-preview-toggle aria-expanded="false"><i class="bi bi-code-slash"></i></button>
+                    <button type="button" class="charts-btn-ghost" data-charts-copy><i class="bi bi-clipboard"></i></button>
+                  </div>
+                </div>
+                <div class="charts-preview__body"><pre>data: [[4,14],[6,17],[9,20], /* ... */ ]</pre></div>
+              </div>
+            </section>
+
+            <section class="charts-section" id="sec-sorted">
+              <div class="charts-section__head">
+                <div>
+                  <h2 class="charts-section__title">Sorted-by-value bar</h2>
+                  <p class="charts-section__desc">Sort your data descending before mapping into a bar chart. Colors cycle through the Orchid palette.</p>
+                </div>
+                
+              </div>
+              <div class="charts-wrap"><canvas data-charts-chart="bar-sorted" aria-label="Sorted-by-value bar"></canvas></div>
+              
+              <div class="charts-preview">
+                <div class="charts-preview__head">
+                  <span class="charts-preview__label">Snippet</span>
+                  <div class="charts-preview__actions">
+                    <button type="button" class="charts-btn-ghost" data-charts-preview-toggle aria-expanded="false"><i class="bi bi-code-slash"></i></button>
+                    <button type="button" class="charts-btn-ghost" data-charts-copy><i class="bi bi-clipboard"></i></button>
+                  </div>
+                </div>
+                <div class="charts-preview__body"><pre>data.sort((a, b) =&gt; b.v - a.v)</pre></div>
+              </div>
+            </section>
+
           </div>
-          <div class="d-flex gap-2">
-            <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-download me-1"></i>Export</button>
-            <button class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i>Create Report</button>
-          </div>
+
+          <!-- Right-rail TOC -->
+          <aside class="charts-toc" aria-label="On this page">
+            <div class="charts-toc__title">On this page</div>
+            <ul class="charts-toc__list">
+              <li><a href="#sec-basic" class="charts-toc__link is-active">Basic</a></li>
+              <li><a href="#sec-horizontal" class="charts-toc__link">Horizontal</a></li>
+              <li><a href="#sec-grouped" class="charts-toc__link">Grouped</a></li>
+              <li><a href="#sec-stacked" class="charts-toc__link">Stacked</a></li>
+              <li><a href="#sec-stacked-100" class="charts-toc__link">100% stacked</a></li>
+              <li><a href="#sec-gradient" class="charts-toc__link">Gradient</a></li>
+              <li><a href="#sec-negative" class="charts-toc__link">Negative</a></li>
+              <li><a href="#sec-labels" class="charts-toc__link">Data labels</a></li>
+              <li><a href="#sec-range" class="charts-toc__link">Range</a></li>
+              <li><a href="#sec-sorted" class="charts-toc__link">Sorted</a></li>
+            </ul>
+          </aside>
+
         </div>
-
-        <!-- ================== ROW 1 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card orchid-stat-card h-100 overflow-hidden">
-              <div class="card-body pb-2">
-                <div class="d-flex justify-content-between align-items-start mb-3">
-                  <div>
-                    <p class="text-body-secondary mb-1 small">Total Contacts</p>
-                    <h3 class="mb-0 fw-bold">12,480</h3>
-                  </div>
-                  <span class="orchid-stat-card__icon bg-primary-subtle text-primary"><i class="bi bi-people"></i></span>
-                </div>
-                <span class="badge bg-success-subtle text-success"><i class="bi bi-arrow-up"></i> 12.4% vs last month</span>
-              </div>
-              <div class="orchid-stat-card__spark">
-                <canvas data-orchid-chart="sparkContacts"></canvas>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h6 class="mb-0">Lead Analytics</h6>
-                  <span class="badge bg-info-subtle text-info">Weekly</span>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--sm">
-                  <canvas data-orchid-chart="leadAnalytics"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h6 class="mb-0">Traffic Sources</h6>
-                  <button class="btn btn-sm btn-icon" type="button" aria-label="More"><i class="bi bi-three-dots"></i></button>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--sm">
-                  <canvas data-orchid-chart="trafficSources"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xl-3">
-            <div class="card orchid-card orchid-earnings-card h-100 text-white">
-              <div class="card-body position-relative pb-0">
-                <div class="d-flex justify-content-between align-items-start">
-                  <div>
-                    <p class="mb-1 opacity-75 small">Total Earnings</p>
-                    <h3 class="fw-bold mb-1">$84,120.50</h3>
-                    <span class="badge bg-white text-primary"><i class="bi bi-arrow-up"></i> 8.24%</span>
-                  </div>
-                  <span class="orchid-stat-card__icon bg-white bg-opacity-25 text-white"><i class="bi bi-currency-dollar"></i></span>
-                </div>
-              </div>
-              <div class="orchid-earnings-card__chart">
-                <canvas data-orchid-chart="earnings"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 2 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-lg-6 col-xxl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Tasks Overview</h6>
-                  <a href="#" class="small">View all</a>
-                </div>
-                <ul class="orchid-task-list list-unstyled mb-0">
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task1" checked>
-                      <label class="form-check-label text-decoration-line-through text-body-secondary" for="task1">Prepare launch checklist</label>
-                    </div>
-                    <span class="badge bg-success-subtle text-success">Done</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task2">
-                      <label class="form-check-label" for="task2">Design system audit</label>
-                    </div>
-                    <span class="badge bg-warning-subtle text-warning">Today</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task3">
-                      <label class="form-check-label" for="task3">Review PR #482</label>
-                    </div>
-                    <span class="badge bg-primary-subtle text-primary">2h</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task4">
-                      <label class="form-check-label" for="task4">Sync with sales team</label>
-                    </div>
-                    <span class="badge bg-info-subtle text-info">Tomorrow</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task5">
-                      <label class="form-check-label" for="task5">Publish weekly newsletter</label>
-                    </div>
-                    <span class="badge bg-danger-subtle text-danger">Overdue</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-lg-6 col-xxl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Active Deals</h6>
-                  <span class="badge bg-primary-subtle text-primary">48 total</span>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--md">
-                  <canvas data-orchid-chart="activeDeals"></canvas>
-                </div>
-                <div class="d-flex justify-content-between mt-3 small">
-                  <div><span class="orchid-dot bg-primary"></span> Won <strong class="ms-1">28</strong></div>
-                  <div><span class="orchid-dot bg-warning"></span> Pending <strong class="ms-1">14</strong></div>
-                  <div><span class="orchid-dot bg-danger"></span> Lost <strong class="ms-1">6</strong></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xxl-4">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Revenue Analytics</h6>
-                    <small class="text-body-secondary">Monthly performance</small>
-                  </div>
-                  <div class="btn-group btn-group-sm" role="group" aria-label="Revenue range">
-                    <input type="radio" class="btn-check" name="revRange" id="revW" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="revW">W</label>
-                    <input type="radio" class="btn-check" name="revRange" id="revM" autocomplete="off" checked>
-                    <label class="btn btn-outline-secondary" for="revM">M</label>
-                    <input type="radio" class="btn-check" name="revRange" id="revY" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="revY">Y</label>
-                  </div>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--lg">
-                  <canvas data-orchid-chart="revenue"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xxl-2">
-            <div class="card orchid-card h-100">
-              <div class="card-body d-flex flex-column">
-                <h6 class="mb-1">Retention Rate</h6>
-                <small class="text-body-secondary mb-2">Last 30 days</small>
-                <div class="orchid-chart-wrap orchid-chart-wrap--radial flex-grow-1">
-                  <canvas data-orchid-chart="retention"></canvas>
-                </div>
-                <div class="text-center mt-2">
-                  <span class="badge bg-success-subtle text-success"><i class="bi bi-arrow-up"></i> 2.4% vs last month</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 3 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-lg-5">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Upcoming Meetings</h6>
-                  <a href="#" class="small">Calendar</a>
-                </div>
-                <ul class="orchid-meeting-list list-unstyled mb-0">
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">14</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Product Roadmap Q2</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>10:00 – 11:00 AM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-primary text-white">AK</span>
-                      <span class="avatar avatar-xs bg-info text-white">JD</span>
-                      <span class="avatar avatar-xs bg-warning text-white">+3</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">14</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Client Onboarding – Nova</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>2:00 – 2:45 PM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-success text-white">SM</span>
-                      <span class="avatar avatar-xs bg-danger text-white">EL</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">15</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Design Review</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>9:30 – 10:30 AM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-primary text-white">AK</span>
-                      <span class="avatar avatar-xs bg-warning text-white">+2</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">16</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Investor Sync</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>4:00 – 5:00 PM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-info text-white">RG</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-lg-7">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <div>
-                    <h6 class="mb-0">Deals Overview</h6>
-                    <small class="text-body-secondary">Stacked by stage</small>
-                  </div>
-                  <div class="dropdown">
-                    <button class="btn btn-sm btn-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Deals menu">
-                      <i class="bi bi-three-dots"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                      <li><a class="dropdown-item" href="#">Refresh</a></li>
-                      <li><a class="dropdown-item" href="#">Export CSV</a></li>
-                      <li><a class="dropdown-item" href="#">Settings</a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--lg">
-                  <canvas data-orchid-chart="dealsOverview"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 4 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12">
-            <div class="card orchid-card">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Sales Pipeline</h6>
-                    <small class="text-body-secondary">Progress across stages · $284,500 total</small>
-                  </div>
-                  <button class="btn btn-sm btn-outline-primary"><i class="bi bi-plus-lg me-1"></i>Add Stage</button>
-                </div>
-
-                <div class="row g-3">
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Leads</span>
-                        <small class="text-body-secondary">$48k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Leads" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-primary" data-orchid-progress="85"></div>
-                      </div>
-                      <small class="text-body-secondary">142 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Qualified</span>
-                        <small class="text-body-secondary">$62k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Qualified" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-info" data-orchid-progress="70"></div>
-                      </div>
-                      <small class="text-body-secondary">98 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Proposal</span>
-                        <small class="text-body-secondary">$54k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Proposal" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-warning" data-orchid-progress="60"></div>
-                      </div>
-                      <small class="text-body-secondary">64 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Negotiation</span>
-                        <small class="text-body-secondary">$46k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Negotiation" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-purple" data-orchid-progress="45"></div>
-                      </div>
-                      <small class="text-body-secondary">32 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Won</span>
-                        <small class="text-body-secondary">$62k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Won" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-success" data-orchid-progress="92"></div>
-                      </div>
-                      <small class="text-body-secondary">48 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Lost</span>
-                        <small class="text-body-secondary">$12k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Lost" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-danger" data-orchid-progress="18"></div>
-                      </div>
-                      <small class="text-body-secondary">14 deals</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 5 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-xl-8">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Recent Customers</h6>
-                    <small class="text-body-secondary">Latest activity from your customer base</small>
-                  </div>
-                  <div class="d-flex gap-2">
-                    <div class="input-group input-group-sm orchid-inline-search">
-                      <span class="input-group-text bg-transparent border-end-0"><i class="bi bi-search"></i></span>
-                      <input type="search" class="form-control border-start-0" placeholder="Search customers…" aria-label="Search customers">
-                    </div>
-                    <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-funnel"></i></button>
-                  </div>
-                </div>
-                <div class="table-responsive">
-                  <table class="table orchid-table align-middle mb-0">
-                    <thead>
-                      <tr>
-                        <th scope="col">Customer</th>
-                        <th scope="col" class="d-none d-md-table-cell">Email</th>
-                        <th scope="col" class="d-none d-lg-table-cell">Location</th>
-                        <th scope="col">Spend</th>
-                        <th scope="col">Status</th>
-                        <th scope="col" class="text-end">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-primary-subtle text-primary fw-semibold">EW</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Emma Watson</p>
-                              <small class="text-body-secondary d-md-none">emma@nova.io</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">emma@nova.io</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">London, UK</td>
-                        <td class="fw-semibold">$4,820</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-info-subtle text-info fw-semibold">JD</span>
-                            <div>
-                              <p class="mb-0 fw-medium">James Doe</p>
-                              <small class="text-body-secondary d-md-none">james@acme.com</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">james@acme.com</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">New York, US</td>
-                        <td class="fw-semibold">$2,410</td>
-                        <td><span class="badge bg-warning-subtle text-warning">Pending</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-success-subtle text-success fw-semibold">SM</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Sarah Miller</p>
-                              <small class="text-body-secondary d-md-none">sarah@zen.co</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">sarah@zen.co</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Sydney, AU</td>
-                        <td class="fw-semibold">$7,920</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-warning-subtle text-warning fw-semibold">RG</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Ryan Green</p>
-                              <small class="text-body-secondary d-md-none">ryan@peak.io</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">ryan@peak.io</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Toronto, CA</td>
-                        <td class="fw-semibold">$1,150</td>
-                        <td><span class="badge bg-danger-subtle text-danger">Inactive</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-danger-subtle text-danger fw-semibold">AL</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Ava Lee</p>
-                              <small class="text-body-secondary d-md-none">ava@bold.co</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">ava@bold.co</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Berlin, DE</td>
-                        <td class="fw-semibold">$3,640</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xl-4">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Task Updates</h6>
-                  <a href="#" class="small">View all</a>
-                </div>
-                <ul class="orchid-timeline list-unstyled mb-0">
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-primary"></span>
-                    <div>
-                      <p class="mb-0"><strong>Alex Kim</strong> completed <a href="#">Design System Audit</a></p>
-                      <small class="text-body-secondary">2 mins ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-success"></span>
-                    <div>
-                      <p class="mb-0"><strong>Sarah Miller</strong> added a comment on <a href="#">Q2 Roadmap</a></p>
-                      <small class="text-body-secondary">18 mins ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-warning"></span>
-                    <div>
-                      <p class="mb-0"><strong>James Doe</strong> moved <a href="#">API Redesign</a> to In Progress</p>
-                      <small class="text-body-secondary">1 hour ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-info"></span>
-                    <div>
-                      <p class="mb-0"><strong>Ava Lee</strong> shared the file <a href="#">Brand.pdf</a></p>
-                      <small class="text-body-secondary">3 hours ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-danger"></span>
-                    <div>
-                      <p class="mb-0"><strong>Ryan Green</strong> reported an issue on <a href="#">Checkout</a></p>
-                      <small class="text-body-secondary">Yesterday</small>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
 
       <!-- ================== FOOTER ================== -->
@@ -1125,7 +846,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="assets/js/theme.js" defer></script>
   <script src="assets/js/sidebar.js" defer></script>
-  <script src="assets/js/charts.js" defer></script>
   <script src="assets/js/orchid.js" defer></script>
+  <script src="assets/js/pages/charts-showcase.js" defer></script>
 </body>
 </html>

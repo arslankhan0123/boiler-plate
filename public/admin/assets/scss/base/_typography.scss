@@ -1,0 +1,14 @@
+// Typography scale
+h1, .h1 { font-weight: 700; letter-spacing: -.02em; }
+h2, .h2 { font-weight: 700; letter-spacing: -.015em; }
+h3, .h3 { font-weight: 700; letter-spacing: -.01em; }
+h4, .h4, h5, .h5, h6, .h6 { font-weight: 600; letter-spacing: -.005em; }
+
+.orchid-body { font-size: .925rem; line-height: 1.55; }
+
+small, .small { font-size: .8125rem; }
+
+kbd {
+  font-family: 'SFMono-Regular', ui-monospace, Consolas, 'Liberation Mono', monospace;
+  font-size: .75rem;
+}

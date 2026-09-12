@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Orchid - Premium Bootstrap 5.3 Admin Dashboard Template">
   <meta name="theme-color" content="#4f46e5">
-  <title>Orchid - Premium Admin Dashboard</title>
+  <title>Orchid — Product List</title>
 
   <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +14,8 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-  <link href="{{asset('admin/assets/css/orchid.css')}}" rel="stylesheet">
+  <link href="assets/css/orchid.css" rel="stylesheet">
+  <link href="assets/css/pages/products.css" rel="stylesheet">
 </head>
 <body class="orchid-body">
 
@@ -48,13 +49,13 @@
         <span class="orchid-nav-section__label">Main</span>
         <ul class="orchid-nav">
           <li>
-            <a href="#navDashboard" class="orchid-nav__link orchid-nav__link--has-sub trail-active" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="navDashboard">
+            <a href="#navDashboard" class="orchid-nav__link orchid-nav__link--has-sub collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="navDashboard">
               <i class="bi bi-speedometer2"></i><span>Dashboard</span>
               <span class="badge bg-primary-subtle text-primary ms-auto">8</span>
               <i class="bi bi-chevron-down orchid-nav__chevron"></i>
             </a>
-            <ul class="collapse show orchid-nav__sub list-unstyled" id="navDashboard">
-              <li><a href="index.html" class="orchid-nav__sublink active" aria-current="page">Default</a></li>
+            <ul class="collapse orchid-nav__sub list-unstyled" id="navDashboard">
+              <li><a href="index.html" class="orchid-nav__sublink">Default</a></li>
               <li><a href="analytics.html" class="orchid-nav__sublink">Analytics</a></li>
               <li><a href="crm.html" class="orchid-nav__sublink">CRM</a></li>
               <li><a href="sales.html" class="orchid-nav__sublink">Sales</a></li>
@@ -111,12 +112,12 @@
             </ul>
           </li>
           <li>
-            <a href="#navProducts" class="orchid-nav__link orchid-nav__link--has-sub collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="navProducts">
+            <a href="#navProducts" class="orchid-nav__link orchid-nav__link--has-sub trail-active" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="navProducts">
               <i class="bi bi-box-seam"></i><span>Products</span>
               <i class="bi bi-chevron-down orchid-nav__chevron"></i>
             </a>
-            <ul class="collapse orchid-nav__sub list-unstyled" id="navProducts">
-              <li><a href="product-list.html" class="orchid-nav__sublink">Product List</a></li>
+            <ul class="collapse show orchid-nav__sub list-unstyled" id="navProducts">
+              <li><a href="product-list.html" class="orchid-nav__sublink active" aria-current="page">Product List</a></li>
               <li><a href="product-categories.html" class="orchid-nav__sublink">Categories</a></li>
               <li><a href="product-brands.html" class="orchid-nav__sublink">Brands</a></li>
               <li><a href="inventory.html" class="orchid-nav__sublink">Inventory</a></li>
@@ -372,9 +373,10 @@
         </button>
         <nav aria-label="breadcrumb" class="orchid-header__breadcrumb d-none d-md-block">
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#"><i class="bi bi-house-door"></i></a></li>
-            <li class="breadcrumb-item"><a href="#">Overview</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i></a></li>
+            <li class="breadcrumb-item"><a href="#">Business</a></li>
+            <li class="breadcrumb-item"><a href="#">Products</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Product List</li>
           </ol>
         </nav>
       </div>
@@ -545,561 +547,112 @@
     </header>
 
     <!-- ================== MAIN ================== -->
-    <main class="orchid-main" id="orchid-main" tabindex="-1">
+    <main class="orchid-main" id="orchid-main" tabindex="-1" data-page="product-list">
       <div class="container-fluid px-3 px-lg-4 py-4">
 
         <!-- Page header -->
-        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+        <div class="d-flex flex-wrap align-items-start justify-content-between gap-3 mb-4">
           <div>
-            <h1 class="h3 mb-1">Welcome back, Alex 👋</h1>
-            <p class="text-body-secondary mb-0">Here's what's happening with your business today.</p>
+            <h1 class="products-page-title">Product List</h1>
+            <p class="products-page-sub">Browse, search, and manage every product in your catalog</p>
           </div>
-          <div class="d-flex gap-2">
-            <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-download me-1"></i>Export</button>
-            <button class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i>Create Report</button>
+          <div class="d-flex flex-wrap gap-2 align-items-center">
+            <div class="pl-viewtoggle" role="group" aria-label="View mode">
+              <button type="button" class="is-active" data-pl-view="grid" aria-label="Grid view"><i class="bi bi-grid"></i></button>
+              <button type="button" data-pl-view="table" aria-label="Table view"><i class="bi bi-list"></i></button>
+            </div>
+            <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#plFilters">
+              <i class="bi bi-funnel me-1"></i>Filters
+            </button>
+            <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#plAddModal">
+              <i class="bi bi-plus-lg me-1"></i>Add Product
+            </button>
           </div>
         </div>
 
-        <!-- ================== ROW 1 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card orchid-stat-card h-100 overflow-hidden">
-              <div class="card-body pb-2">
-                <div class="d-flex justify-content-between align-items-start mb-3">
-                  <div>
-                    <p class="text-body-secondary mb-1 small">Total Contacts</p>
-                    <h3 class="mb-0 fw-bold">12,480</h3>
-                  </div>
-                  <span class="orchid-stat-card__icon bg-primary-subtle text-primary"><i class="bi bi-people"></i></span>
-                </div>
-                <span class="badge bg-success-subtle text-success"><i class="bi bi-arrow-up"></i> 12.4% vs last month</span>
-              </div>
-              <div class="orchid-stat-card__spark">
-                <canvas data-orchid-chart="sparkContacts"></canvas>
-              </div>
-            </div>
+        <!-- Toolbar -->
+        <div class="products-toolbar">
+          <div class="products-toolbar__search">
+            <i class="bi bi-search"></i>
+            <input type="search" class="form-control" placeholder="Search products by name or SKU…" aria-label="Search products" data-pl-search>
           </div>
-
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h6 class="mb-0">Lead Analytics</h6>
-                  <span class="badge bg-info-subtle text-info">Weekly</span>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--sm">
-                  <canvas data-orchid-chart="leadAnalytics"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <h6 class="mb-0">Traffic Sources</h6>
-                  <button class="btn btn-sm btn-icon" type="button" aria-label="More"><i class="bi bi-three-dots"></i></button>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--sm">
-                  <canvas data-orchid-chart="trafficSources"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xl-3">
-            <div class="card orchid-card orchid-earnings-card h-100 text-white">
-              <div class="card-body position-relative pb-0">
-                <div class="d-flex justify-content-between align-items-start">
-                  <div>
-                    <p class="mb-1 opacity-75 small">Total Earnings</p>
-                    <h3 class="fw-bold mb-1">$84,120.50</h3>
-                    <span class="badge bg-white text-primary"><i class="bi bi-arrow-up"></i> 8.24%</span>
-                  </div>
-                  <span class="orchid-stat-card__icon bg-white bg-opacity-25 text-white"><i class="bi bi-currency-dollar"></i></span>
-                </div>
-              </div>
-              <div class="orchid-earnings-card__chart">
-                <canvas data-orchid-chart="earnings"></canvas>
-              </div>
-            </div>
-          </div>
+          <select class="form-select form-select-sm" aria-label="Sort" data-pl-sort>
+            <option value="popular">Sort: Popular</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="rating">Highest Rating</option>
+            <option value="new">Newest</option>
+          </select>
+          <span class="text-body-secondary small">24 products</span>
         </div>
 
-        <!-- ================== ROW 2 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-lg-6 col-xxl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Tasks Overview</h6>
-                  <a href="#" class="small">View all</a>
-                </div>
-                <ul class="orchid-task-list list-unstyled mb-0">
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task1" checked>
-                      <label class="form-check-label text-decoration-line-through text-body-secondary" for="task1">Prepare launch checklist</label>
-                    </div>
-                    <span class="badge bg-success-subtle text-success">Done</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task2">
-                      <label class="form-check-label" for="task2">Design system audit</label>
-                    </div>
-                    <span class="badge bg-warning-subtle text-warning">Today</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task3">
-                      <label class="form-check-label" for="task3">Review PR #482</label>
-                    </div>
-                    <span class="badge bg-primary-subtle text-primary">2h</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task4">
-                      <label class="form-check-label" for="task4">Sync with sales team</label>
-                    </div>
-                    <span class="badge bg-info-subtle text-info">Tomorrow</span>
-                  </li>
-                  <li class="orchid-task-list__item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="task5">
-                      <label class="form-check-label" for="task5">Publish weekly newsletter</label>
-                    </div>
-                    <span class="badge bg-danger-subtle text-danger">Overdue</span>
-                  </li>
+        <!-- Card -->
+        <div class="products-card">
+
+          <!-- Bulk actions bar -->
+          <div class="products-bulkbar" data-pl-bulk>
+            <span class="products-bulkbar__count"><span data-pl-bulk-count>0</span> selected</span>
+            <div class="products-bulkbar__actions">
+              <div class="dropdown">
+                <button class="btn btn-outline-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-toggle-on me-1"></i>Status
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#" data-pl-bulk-action="status:in">In Stock</a></li>
+                  <li><a class="dropdown-item" href="#" data-pl-bulk-action="status:low">Low</a></li>
+                  <li><a class="dropdown-item" href="#" data-pl-bulk-action="status:oos">Out of Stock</a></li>
+                  <li><a class="dropdown-item" href="#" data-pl-bulk-action="status:discontinued">Discontinued</a></li>
                 </ul>
               </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-lg-6 col-xxl-3">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Active Deals</h6>
-                  <span class="badge bg-primary-subtle text-primary">48 total</span>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--md">
-                  <canvas data-orchid-chart="activeDeals"></canvas>
-                </div>
-                <div class="d-flex justify-content-between mt-3 small">
-                  <div><span class="orchid-dot bg-primary"></span> Won <strong class="ms-1">28</strong></div>
-                  <div><span class="orchid-dot bg-warning"></span> Pending <strong class="ms-1">14</strong></div>
-                  <div><span class="orchid-dot bg-danger"></span> Lost <strong class="ms-1">6</strong></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xxl-4">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Revenue Analytics</h6>
-                    <small class="text-body-secondary">Monthly performance</small>
-                  </div>
-                  <div class="btn-group btn-group-sm" role="group" aria-label="Revenue range">
-                    <input type="radio" class="btn-check" name="revRange" id="revW" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="revW">W</label>
-                    <input type="radio" class="btn-check" name="revRange" id="revM" autocomplete="off" checked>
-                    <label class="btn btn-outline-secondary" for="revM">M</label>
-                    <input type="radio" class="btn-check" name="revRange" id="revY" autocomplete="off">
-                    <label class="btn btn-outline-secondary" for="revY">Y</label>
-                  </div>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--lg">
-                  <canvas data-orchid-chart="revenue"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-xxl-2">
-            <div class="card orchid-card h-100">
-              <div class="card-body d-flex flex-column">
-                <h6 class="mb-1">Retention Rate</h6>
-                <small class="text-body-secondary mb-2">Last 30 days</small>
-                <div class="orchid-chart-wrap orchid-chart-wrap--radial flex-grow-1">
-                  <canvas data-orchid-chart="retention"></canvas>
-                </div>
-                <div class="text-center mt-2">
-                  <span class="badge bg-success-subtle text-success"><i class="bi bi-arrow-up"></i> 2.4% vs last month</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 3 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-lg-5">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Upcoming Meetings</h6>
-                  <a href="#" class="small">Calendar</a>
-                </div>
-                <ul class="orchid-meeting-list list-unstyled mb-0">
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">14</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Product Roadmap Q2</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>10:00 – 11:00 AM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-primary text-white">AK</span>
-                      <span class="avatar avatar-xs bg-info text-white">JD</span>
-                      <span class="avatar avatar-xs bg-warning text-white">+3</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">14</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Client Onboarding – Nova</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>2:00 – 2:45 PM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-success text-white">SM</span>
-                      <span class="avatar avatar-xs bg-danger text-white">EL</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">15</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Design Review</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>9:30 – 10:30 AM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-primary text-white">AK</span>
-                      <span class="avatar avatar-xs bg-warning text-white">+2</span>
-                    </div>
-                  </li>
-                  <li class="orchid-meeting-list__item">
-                    <div class="orchid-meeting-list__date">
-                      <span class="orchid-meeting-list__day">16</span>
-                      <span class="orchid-meeting-list__month">JAN</span>
-                    </div>
-                    <div class="flex-grow-1">
-                      <p class="mb-0 fw-semibold">Investor Sync</p>
-                      <small class="text-body-secondary"><i class="bi bi-clock me-1"></i>4:00 – 5:00 PM</small>
-                    </div>
-                    <div class="avatar-group">
-                      <span class="avatar avatar-xs bg-info text-white">RG</span>
-                    </div>
-                  </li>
+              <div class="dropdown">
+                <button class="btn btn-outline-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-diagram-3 me-1"></i>Category
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#" data-pl-bulk-action="category:Headphones">Headphones</a></li>
+                  <li><a class="dropdown-item" href="#" data-pl-bulk-action="category:Laptops">Laptops</a></li>
+                  <li><a class="dropdown-item" href="#" data-pl-bulk-action="category:Kitchen">Kitchen</a></li>
+                  <li><a class="dropdown-item" href="#" data-pl-bulk-action="category:Fitness">Fitness</a></li>
                 </ul>
               </div>
+              <button class="btn btn-outline-secondary" type="button" data-pl-bulk-action="export"><i class="bi bi-download me-1"></i>Export</button>
+              <button class="btn btn-outline-danger"    type="button" data-pl-bulk-action="delete"><i class="bi bi-trash me-1"></i>Delete</button>
             </div>
           </div>
 
-          <div class="col-12 col-lg-7">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <div>
-                    <h6 class="mb-0">Deals Overview</h6>
-                    <small class="text-body-secondary">Stacked by stage</small>
-                  </div>
-                  <div class="dropdown">
-                    <button class="btn btn-sm btn-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Deals menu">
-                      <i class="bi bi-three-dots"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                      <li><a class="dropdown-item" href="#">Refresh</a></li>
-                      <li><a class="dropdown-item" href="#">Export CSV</a></li>
-                      <li><a class="dropdown-item" href="#">Settings</a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="orchid-chart-wrap orchid-chart-wrap--lg">
-                  <canvas data-orchid-chart="dealsOverview"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 4 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12">
-            <div class="card orchid-card">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Sales Pipeline</h6>
-                    <small class="text-body-secondary">Progress across stages · $284,500 total</small>
-                  </div>
-                  <button class="btn btn-sm btn-outline-primary"><i class="bi bi-plus-lg me-1"></i>Add Stage</button>
-                </div>
-
-                <div class="row g-3">
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Leads</span>
-                        <small class="text-body-secondary">$48k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Leads" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-primary" data-orchid-progress="85"></div>
-                      </div>
-                      <small class="text-body-secondary">142 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Qualified</span>
-                        <small class="text-body-secondary">$62k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Qualified" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-info" data-orchid-progress="70"></div>
-                      </div>
-                      <small class="text-body-secondary">98 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Proposal</span>
-                        <small class="text-body-secondary">$54k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Proposal" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-warning" data-orchid-progress="60"></div>
-                      </div>
-                      <small class="text-body-secondary">64 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Negotiation</span>
-                        <small class="text-body-secondary">$46k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Negotiation" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-purple" data-orchid-progress="45"></div>
-                      </div>
-                      <small class="text-body-secondary">32 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Won</span>
-                        <small class="text-body-secondary">$62k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Won" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-success" data-orchid-progress="92"></div>
-                      </div>
-                      <small class="text-body-secondary">48 deals</small>
-                    </div>
-                  </div>
-                  <div class="col-6 col-md-4 col-xl-2">
-                    <div class="orchid-pipeline">
-                      <div class="d-flex justify-content-between mb-1">
-                        <span class="fw-medium small">Lost</span>
-                        <small class="text-body-secondary">$12k</small>
-                      </div>
-                      <div class="progress orchid-pipeline__bar" role="progressbar" aria-label="Lost" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar bg-danger" data-orchid-progress="18"></div>
-                      </div>
-                      <small class="text-body-secondary">14 deals</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ================== ROW 5 ================== -->
-        <div class="row g-3 g-xl-4 mb-3 mb-xl-4">
-          <div class="col-12 col-xl-8">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-                  <div>
-                    <h6 class="mb-0">Recent Customers</h6>
-                    <small class="text-body-secondary">Latest activity from your customer base</small>
-                  </div>
-                  <div class="d-flex gap-2">
-                    <div class="input-group input-group-sm orchid-inline-search">
-                      <span class="input-group-text bg-transparent border-end-0"><i class="bi bi-search"></i></span>
-                      <input type="search" class="form-control border-start-0" placeholder="Search customers…" aria-label="Search customers">
-                    </div>
-                    <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-funnel"></i></button>
-                  </div>
-                </div>
-                <div class="table-responsive">
-                  <table class="table orchid-table align-middle mb-0">
-                    <thead>
-                      <tr>
-                        <th scope="col">Customer</th>
-                        <th scope="col" class="d-none d-md-table-cell">Email</th>
-                        <th scope="col" class="d-none d-lg-table-cell">Location</th>
-                        <th scope="col">Spend</th>
-                        <th scope="col">Status</th>
-                        <th scope="col" class="text-end">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-primary-subtle text-primary fw-semibold">EW</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Emma Watson</p>
-                              <small class="text-body-secondary d-md-none">emma@nova.io</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">emma@nova.io</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">London, UK</td>
-                        <td class="fw-semibold">$4,820</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-info-subtle text-info fw-semibold">JD</span>
-                            <div>
-                              <p class="mb-0 fw-medium">James Doe</p>
-                              <small class="text-body-secondary d-md-none">james@acme.com</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">james@acme.com</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">New York, US</td>
-                        <td class="fw-semibold">$2,410</td>
-                        <td><span class="badge bg-warning-subtle text-warning">Pending</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-success-subtle text-success fw-semibold">SM</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Sarah Miller</p>
-                              <small class="text-body-secondary d-md-none">sarah@zen.co</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">sarah@zen.co</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Sydney, AU</td>
-                        <td class="fw-semibold">$7,920</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-warning-subtle text-warning fw-semibold">RG</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Ryan Green</p>
-                              <small class="text-body-secondary d-md-none">ryan@peak.io</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">ryan@peak.io</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Toronto, CA</td>
-                        <td class="fw-semibold">$1,150</td>
-                        <td><span class="badge bg-danger-subtle text-danger">Inactive</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center gap-2">
-                            <span class="avatar avatar-sm bg-danger-subtle text-danger fw-semibold">AL</span>
-                            <div>
-                              <p class="mb-0 fw-medium">Ava Lee</p>
-                              <small class="text-body-secondary d-md-none">ava@bold.co</small>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="d-none d-md-table-cell text-body-secondary">ava@bold.co</td>
-                        <td class="d-none d-lg-table-cell text-body-secondary">Berlin, DE</td>
-                        <td class="fw-semibold">$3,640</td>
-                        <td><span class="badge bg-success-subtle text-success">Active</span></td>
-                        <td class="text-end">
-                          <button class="btn btn-sm btn-icon" type="button" aria-label="Actions"><i class="bi bi-three-dots-vertical"></i></button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
+          <!-- Grid view -->
+          <div class="pl-grid" data-pl-grid>
+            <div class="pl-card" data-pl-skeleton><div class="pl-card__thumb"><span class="products-skel-thumb w-100 h-100 d-block"></span></div><div class="pl-card__body"><span class="products-skel-bar products-skel-bar--sm"></span><br><span class="products-skel-bar products-skel-bar--lg mt-2"></span><br><span class="products-skel-bar products-skel-bar--sm mt-2"></span></div></div>
+            <div class="pl-card" data-pl-skeleton><div class="pl-card__thumb"><span class="products-skel-thumb w-100 h-100 d-block"></span></div><div class="pl-card__body"><span class="products-skel-bar products-skel-bar--sm"></span><br><span class="products-skel-bar products-skel-bar--lg mt-2"></span><br><span class="products-skel-bar products-skel-bar--sm mt-2"></span></div></div>
+            <div class="pl-card" data-pl-skeleton><div class="pl-card__thumb"><span class="products-skel-thumb w-100 h-100 d-block"></span></div><div class="pl-card__body"><span class="products-skel-bar products-skel-bar--sm"></span><br><span class="products-skel-bar products-skel-bar--lg mt-2"></span><br><span class="products-skel-bar products-skel-bar--sm mt-2"></span></div></div>
+            <div class="pl-card" data-pl-skeleton><div class="pl-card__thumb"><span class="products-skel-thumb w-100 h-100 d-block"></span></div><div class="pl-card__body"><span class="products-skel-bar products-skel-bar--sm"></span><br><span class="products-skel-bar products-skel-bar--lg mt-2"></span><br><span class="products-skel-bar products-skel-bar--sm mt-2"></span></div></div>
           </div>
 
-          <div class="col-12 col-xl-4">
-            <div class="card orchid-card h-100">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h6 class="mb-0">Task Updates</h6>
-                  <a href="#" class="small">View all</a>
-                </div>
-                <ul class="orchid-timeline list-unstyled mb-0">
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-primary"></span>
-                    <div>
-                      <p class="mb-0"><strong>Alex Kim</strong> completed <a href="#">Design System Audit</a></p>
-                      <small class="text-body-secondary">2 mins ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-success"></span>
-                    <div>
-                      <p class="mb-0"><strong>Sarah Miller</strong> added a comment on <a href="#">Q2 Roadmap</a></p>
-                      <small class="text-body-secondary">18 mins ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-warning"></span>
-                    <div>
-                      <p class="mb-0"><strong>James Doe</strong> moved <a href="#">API Redesign</a> to In Progress</p>
-                      <small class="text-body-secondary">1 hour ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-info"></span>
-                    <div>
-                      <p class="mb-0"><strong>Ava Lee</strong> shared the file <a href="#">Brand.pdf</a></p>
-                      <small class="text-body-secondary">3 hours ago</small>
-                    </div>
-                  </li>
-                  <li class="orchid-timeline__item">
-                    <span class="orchid-timeline__dot bg-danger"></span>
-                    <div>
-                      <p class="mb-0"><strong>Ryan Green</strong> reported an issue on <a href="#">Checkout</a></p>
-                      <small class="text-body-secondary">Yesterday</small>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
+          <!-- Table view -->
+          <div class="pl-table-wrap pl-hidden" data-pl-table-wrap>
+            <table class="pl-table">
+              <thead>
+                <tr>
+                  <th aria-label="Select"></th>
+                  <th>Product</th>
+                  <th>Category</th>
+                  <th>Brand</th>
+                  <th>Price</th>
+                  <th>Stock</th>
+                  <th>Rating</th>
+                  <th>Updated</th>
+                  <th class="text-end">Actions</th>
+                </tr>
+              </thead>
+              <tbody data-pl-table-body></tbody>
+            </table>
+          </div>
+
+          <!-- Empty state -->
+          <div class="products-empty" data-pl-empty>
+            <div class="products-empty__illus"><i class="bi bi-box"></i></div>
+            <h6>No products match your filters</h6>
+            <p>Try adjusting search or clearing filters to see all products.</p>
           </div>
         </div>
 
@@ -1121,11 +674,204 @@
     </main>
   </div>
 
+  <!-- ================== FILTER DRAWER ================== -->
+  <div class="offcanvas offcanvas-start pl-filter-drawer" tabindex="-1" id="plFilters" aria-labelledby="plFiltersTitle">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="plFiltersTitle"><i class="bi bi-funnel me-2"></i>Filters</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <form data-pl-filter-form>
+
+        <div class="pl-filter-group">
+          <h6 class="pl-filter-group__title">Category</h6>
+          <ul class="pl-tree">
+            <li>
+              <div class="form-check"><input class="form-check-input" type="checkbox" value="c1" id="fc1" data-pl-filter-cat><label class="form-check-label" for="fc1">Electronics</label></div>
+              <ul>
+                <li><div class="form-check"><input class="form-check-input" type="checkbox" value="Laptops" id="fc1a" data-pl-filter-cat><label class="form-check-label" for="fc1a">Laptops</label></div></li>
+                <li><div class="form-check"><input class="form-check-input" type="checkbox" value="Headphones" id="fc1b" data-pl-filter-cat><label class="form-check-label" for="fc1b">Headphones</label></div></li>
+                <li><div class="form-check"><input class="form-check-input" type="checkbox" value="Cameras" id="fc1c" data-pl-filter-cat><label class="form-check-label" for="fc1c">Cameras</label></div></li>
+                <li><div class="form-check"><input class="form-check-input" type="checkbox" value="Smart Home" id="fc1d" data-pl-filter-cat><label class="form-check-label" for="fc1d">Smart Home</label></div></li>
+              </ul>
+            </li>
+            <li>
+              <div class="form-check"><input class="form-check-input" type="checkbox" value="c2" id="fc2" data-pl-filter-cat><label class="form-check-label" for="fc2">Apparel</label></div>
+              <ul>
+                <li><div class="form-check"><input class="form-check-input" type="checkbox" value="Men's" id="fc2a" data-pl-filter-cat><label class="form-check-label" for="fc2a">Men's</label></div></li>
+                <li><div class="form-check"><input class="form-check-input" type="checkbox" value="Women's" id="fc2b" data-pl-filter-cat><label class="form-check-label" for="fc2b">Women's</label></div></li>
+                <li><div class="form-check"><input class="form-check-input" type="checkbox" value="Accessories" id="fc2c" data-pl-filter-cat><label class="form-check-label" for="fc2c">Accessories</label></div></li>
+              </ul>
+            </li>
+            <li>
+              <div class="form-check"><input class="form-check-input" type="checkbox" value="c3" id="fc3" data-pl-filter-cat><label class="form-check-label" for="fc3">Home &amp; Garden</label></div>
+              <ul>
+                <li><div class="form-check"><input class="form-check-input" type="checkbox" value="Kitchen" id="fc3b" data-pl-filter-cat><label class="form-check-label" for="fc3b">Kitchen</label></div></li>
+                <li><div class="form-check"><input class="form-check-input" type="checkbox" value="Furniture" id="fc3a" data-pl-filter-cat><label class="form-check-label" for="fc3a">Furniture</label></div></li>
+                <li><div class="form-check"><input class="form-check-input" type="checkbox" value="Tools" id="fc3c" data-pl-filter-cat><label class="form-check-label" for="fc3c">Tools</label></div></li>
+              </ul>
+            </li>
+            <li>
+              <div class="form-check"><input class="form-check-input" type="checkbox" value="c4" id="fc4" data-pl-filter-cat><label class="form-check-label" for="fc4">Sports &amp; Outdoors</label></div>
+              <ul>
+                <li><div class="form-check"><input class="form-check-input" type="checkbox" value="Fitness" id="fc4a" data-pl-filter-cat><label class="form-check-label" for="fc4a">Fitness</label></div></li>
+                <li><div class="form-check"><input class="form-check-input" type="checkbox" value="Cycling" id="fc4b" data-pl-filter-cat><label class="form-check-label" for="fc4b">Cycling</label></div></li>
+                <li><div class="form-check"><input class="form-check-input" type="checkbox" value="Camping" id="fc4c" data-pl-filter-cat><label class="form-check-label" for="fc4c">Camping</label></div></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="pl-filter-group">
+          <h6 class="pl-filter-group__title">Brand</h6>
+          <div class="row g-2">
+            <div class="col-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="Halo" id="fb1" data-pl-filter-brand><label class="form-check-label" for="fb1">Halo</label></div></div>
+            <div class="col-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="Nomad" id="fb2" data-pl-filter-brand><label class="form-check-label" for="fb2">Nomad</label></div></div>
+            <div class="col-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="Aurora" id="fb3" data-pl-filter-brand><label class="form-check-label" for="fb3">Aurora</label></div></div>
+            <div class="col-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="Meridian" id="fb4" data-pl-filter-brand><label class="form-check-label" for="fb4">Meridian</label></div></div>
+            <div class="col-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="Nova" id="fb5" data-pl-filter-brand><label class="form-check-label" for="fb5">Nova</label></div></div>
+            <div class="col-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="Terra" id="fb7" data-pl-filter-brand><label class="form-check-label" for="fb7">Terra</label></div></div>
+            <div class="col-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="Ember" id="fb9" data-pl-filter-brand><label class="form-check-label" for="fb9">Ember</label></div></div>
+            <div class="col-6"><div class="form-check"><input class="form-check-input" type="checkbox" value="Vertex" id="fb10" data-pl-filter-brand><label class="form-check-label" for="fb10">Vertex</label></div></div>
+          </div>
+        </div>
+
+        <div class="pl-filter-group">
+          <h6 class="pl-filter-group__title">Price range</h6>
+          <div class="pl-price-range">
+            <input type="number" class="form-control form-control-sm" value="0"    min="0" max="5000" step="10" aria-label="Minimum price" data-pl-price-min>
+            <span class="text-body-secondary">—</span>
+            <input type="number" class="form-control form-control-sm" value="2000" min="0" max="5000" step="10" aria-label="Maximum price" data-pl-price-max>
+          </div>
+          <div class="d-flex justify-content-between mt-2 small text-body-secondary">
+            <span>$0</span><span>$5,000</span>
+          </div>
+        </div>
+
+        <div class="pl-filter-group">
+          <h6 class="pl-filter-group__title">Minimum rating</h6>
+          <div class="pl-rating-choices">
+            <input type="radio" name="frating" id="fr0" class="visually-hidden" value="0" data-pl-filter-rating checked><label for="fr0">Any</label>
+            <input type="radio" name="frating" id="fr3" class="visually-hidden" value="3" data-pl-filter-rating><label for="fr3">3<i class="bi bi-star-fill ms-1"></i>+</label>
+            <input type="radio" name="frating" id="fr4" class="visually-hidden" value="4" data-pl-filter-rating><label for="fr4">4<i class="bi bi-star-fill ms-1"></i>+</label>
+            <input type="radio" name="frating" id="fr45" class="visually-hidden" value="4.5" data-pl-filter-rating><label for="fr45">4.5<i class="bi bi-star-fill ms-1"></i>+</label>
+          </div>
+        </div>
+
+        <div class="pl-filter-group">
+          <h6 class="pl-filter-group__title">Status</h6>
+          <div class="d-flex flex-wrap gap-2">
+            <div class="form-check"><input class="form-check-input" type="checkbox" value="in"  id="fst1" data-pl-filter-status><label class="form-check-label" for="fst1">In Stock</label></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" value="low" id="fst2" data-pl-filter-status><label class="form-check-label" for="fst2">Low</label></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" value="oos" id="fst3" data-pl-filter-status><label class="form-check-label" for="fst3">Out of Stock</label></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" value="discontinued" id="fst4" data-pl-filter-status><label class="form-check-label" for="fst4">Discontinued</label></div>
+          </div>
+        </div>
+
+        <div class="pl-filter-group">
+          <h6 class="pl-filter-group__title">Tags</h6>
+          <div class="pl-tag-chips">
+            <input type="checkbox" class="visually-hidden" id="ftag1" value="new"      data-pl-filter-tag><label for="ftag1">new</label>
+            <input type="checkbox" class="visually-hidden" id="ftag2" value="sale"     data-pl-filter-tag><label for="ftag2">sale</label>
+            <input type="checkbox" class="visually-hidden" id="ftag3" value="pro"      data-pl-filter-tag><label for="ftag3">pro</label>
+            <input type="checkbox" class="visually-hidden" id="ftag4" value="premium"  data-pl-filter-tag><label for="ftag4">premium</label>
+            <input type="checkbox" class="visually-hidden" id="ftag5" value="audio"    data-pl-filter-tag><label for="ftag5">audio</label>
+            <input type="checkbox" class="visually-hidden" id="ftag6" value="kitchen"  data-pl-filter-tag><label for="ftag6">kitchen</label>
+            <input type="checkbox" class="visually-hidden" id="ftag7" value="outdoor"  data-pl-filter-tag><label for="ftag7">outdoor</label>
+          </div>
+        </div>
+
+      </form>
+    </div>
+    <div class="offcanvas-header border-top">
+      <button type="button" class="btn btn-outline-secondary btn-sm" data-pl-filter-clear><i class="bi bi-arrow-counterclockwise me-1"></i>Clear</button>
+      <button type="button" class="btn btn-primary btn-sm ms-auto" data-pl-filter-apply><i class="bi bi-check2 me-1"></i>Apply</button>
+    </div>
+  </div>
+
+  <!-- ================== ADD PRODUCT MODAL ================== -->
+  <div class="modal fade" id="plAddModal" tabindex="-1" aria-labelledby="plAddModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="plAddModalTitle"><i class="bi bi-plus-lg me-2"></i>Add Product</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form class="modal-body" novalidate data-pl-add-form id="plAddForm">
+          <div class="row g-3">
+            <div class="col-md-8">
+              <label class="form-label" for="plName">Product name</label>
+              <input type="text" class="form-control" id="plName" name="name" required>
+              <div class="invalid-feedback">Required.</div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label" for="plSku">SKU</label>
+              <input type="text" class="form-control" id="plSku" name="sku" required>
+              <div class="invalid-feedback">Required.</div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label" for="plPrice">Price ($)</label>
+              <input type="number" class="form-control" id="plPrice" name="price" min="0" step="0.01" required>
+              <div class="invalid-feedback">Enter a valid price.</div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label" for="plStock">Initial stock</label>
+              <input type="number" class="form-control" id="plStock" name="stock" min="0" value="0" required>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label" for="plCat">Category</label>
+              <select class="form-select" id="plCat" name="category">
+                <option>Headphones</option>
+                <option>Laptops</option>
+                <option>Cameras</option>
+                <option>Smart Home</option>
+                <option>Kitchen</option>
+                <option>Furniture</option>
+                <option>Tools</option>
+                <option>Fitness</option>
+                <option>Cycling</option>
+                <option>Camping</option>
+                <option>Men's</option>
+                <option>Women's</option>
+                <option>Accessories</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="plBrand">Brand</label>
+              <select class="form-select" id="plBrand" name="brand">
+                <option>Halo</option><option>Nomad</option><option>Aurora</option><option>Meridian</option>
+                <option>Nova</option><option>Aegis</option><option>Terra</option><option>Cirrus</option>
+                <option>Ember</option><option>Vertex</option><option>Titan</option><option>Zenith</option>
+                <option>Orchid</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="plStatus">Status</label>
+              <select class="form-select" id="plStatus" name="status">
+                <option value="in">In Stock</option>
+                <option value="low">Low</option>
+                <option value="oos">Out of Stock</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label class="form-label" for="plDesc">Description</label>
+              <textarea class="form-control" id="plDesc" name="desc" rows="2" placeholder="Optional product description…"></textarea>
+            </div>
+          </div>
+        </form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm" form="plAddForm"><i class="bi bi-check2 me-1"></i>Save Product</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="assets/js/theme.js" defer></script>
   <script src="assets/js/sidebar.js" defer></script>
-  <script src="assets/js/charts.js" defer></script>
   <script src="assets/js/orchid.js" defer></script>
+  <script src="assets/js/pages/products.js" defer></script>
 </body>
 </html>

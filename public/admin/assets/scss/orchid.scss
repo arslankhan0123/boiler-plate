@@ -1,0 +1,36 @@
+// =====================================================
+// Orchid - Premium Bootstrap 5.3 Admin Dashboard
+// Master SCSS entry point (modular architecture)
+// =====================================================
+
+@import "abstracts/variables";
+@import "abstracts/mixins";
+
+@import "base/reset";
+@import "base/typography";
+
+@import "layout/app";
+@import "layout/sidebar";
+@import "layout/header";
+@import "layout/main";
+@import "layout/footer";
+
+@import "components/brand";
+@import "components/nav";
+@import "components/card";
+@import "components/avatar";
+@import "components/badge";
+@import "components/dropdown";
+@import "components/search";
+@import "components/table";
+@import "components/timeline";
+@import "components/pipeline";
+@import "components/tasks";
+@import "components/meetings";
+@import "components/charts";
+@import "components/upgrade-card";
+@import "components/theme-toggle";
+@import "components/utilities";
+
+@import "themes/light";
+@import "themes/dark";

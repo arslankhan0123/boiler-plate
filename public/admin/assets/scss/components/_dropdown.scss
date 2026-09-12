@@ -1,0 +1,93 @@
+.orchid-dropdown {
+  min-width: 320px;
+  padding: 0;
+  border: 1px solid var(--orchid-border);
+  border-radius: $orchid-radius;
+  box-shadow: $orchid-shadow-lg;
+  background-color: var(--orchid-surface);
+  overflow: hidden;
+
+  &__header {
+    padding: .875rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--orchid-border);
+
+    a { text-decoration: none; color: var(--orchid-primary); }
+  }
+
+  &__list {
+    max-height: 320px;
+    overflow-y: auto;
+    @include orchid-scrollbar;
+  }
+
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    padding: .75rem 1rem;
+    text-decoration: none;
+    color: var(--orchid-text);
+    border-bottom: 1px solid var(--orchid-border);
+    transition: background-color 160ms ease;
+
+    &:hover { background-color: var(--orchid-hover); }
+    &:last-child { border-bottom: 0; }
+
+    p { font-size: .8125rem; }
+    small { font-size: .6875rem; }
+  }
+
+  &__footer {
+    padding: .625rem 1rem;
+    text-align: center;
+    border-top: 1px solid var(--orchid-border);
+
+    a { text-decoration: none; color: var(--orchid-primary); font-size: .8125rem; font-weight: 600; }
+  }
+
+  &--apps { min-width: 300px; }
+
+  &--profile {
+    min-width: 240px;
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .55rem 1rem;
+      font-size: .875rem;
+
+      i { font-size: 1rem; color: var(--orchid-text-muted); width: 20px; }
+      &:hover i { color: inherit; }
+    }
+  }
+}
+
+.orchid-apps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: .5rem;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .375rem;
+    padding: .875rem .5rem;
+    text-decoration: none;
+    color: var(--orchid-text);
+    border-radius: 10px;
+    font-size: .75rem;
+    transition: background-color 160ms ease;
+
+    &:hover { background-color: var(--orchid-hover); }
+
+    i { font-size: 1.4rem; }
+  }
+}
+
+.dropdown-menu { border-color: var(--orchid-border); }
+.dropdown-divider { border-color: var(--orchid-border); }

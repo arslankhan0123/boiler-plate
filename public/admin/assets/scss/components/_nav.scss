@@ -1,0 +1,61 @@
+.orchid-nav-section {
+  margin-bottom: 1.25rem;
+
+  &__label {
+    display: block;
+    font-size: .6875rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--orchid-text-muted);
+    padding: 0 .75rem;
+    margin-bottom: .375rem;
+  }
+}
+
+.orchid-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .55rem .75rem;
+    border-radius: 10px;
+    color: var(--orchid-text-muted);
+    text-decoration: none;
+    font-size: .875rem;
+    font-weight: 500;
+    transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+
+    i {
+      font-size: 1.05rem;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    &:hover {
+      background-color: var(--orchid-hover);
+      color: var(--orchid-text);
+    }
+
+    &.active {
+      color: var(--orchid-primary);
+      background: linear-gradient(90deg, rgba(79,70,229,.10), rgba(34,211,238,.06));
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: -1rem;
+        top: 20%;
+        bottom: 20%;
+        width: 3px;
+        border-radius: 0 3px 3px 0;
+        background: linear-gradient(180deg, $orchid-primary, $orchid-accent);
+      }
+    }
+  }
+}
