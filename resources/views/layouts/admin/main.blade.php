@@ -51,6 +51,8 @@
     <script src="{{asset('admin/assets/js/sidebar.js')}}" defer></script>
     <script src="{{asset('admin/assets/js/charts.js')}}" defer></script>
     <script src="{{asset('admin/assets/js/orchid.js')}}" defer></script>
+    @stack('modals')
+    @stack('scripts')
 </body>
 
 </html>
