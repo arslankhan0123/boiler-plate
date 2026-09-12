@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#4f46e5">
   <title>Orchid - Premium Admin Dashboard</title>
 
-  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="{{asset('admin/assets/icons/favicon.svg')}}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -1123,9 +1123,9 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-  <script src="assets/js/theme.js" defer></script>
-  <script src="assets/js/sidebar.js" defer></script>
-  <script src="assets/js/charts.js" defer></script>
-  <script src="assets/js/orchid.js" defer></script>
+  <script src="{{asset('admin/assets/js/theme.js')}}" defer></script>
+  <script src="{{asset('admin/assets/js/sidebar.js')}}" defer></script>
+  <script src="{{asset('admin/assets/js/charts.js')}}" defer></script>
+  <script src="{{asset('admin/assets/js/orchid.js')}}" defer></script>
 </body>
 </html>
