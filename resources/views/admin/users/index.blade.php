@@ -1,0 +1,1213 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Orchid - Premium Bootstrap 5.3 Admin Dashboard Template">
+    <meta name="theme-color" content="#4f46e5">
+    <title>Orchid — Users</title>
+
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="assets/css/orchid.css" rel="stylesheet">
+    <link href="assets/css/pages/users.css" rel="stylesheet">
+</head>
+
+<body class="orchid-body">
+
+    <a class="visually-hidden-focusable position-absolute top-0 start-0 p-2 bg-primary text-white"
+        href="#orchid-main">Skip to main content</a>
+
+    <!-- ================== SIDEBAR ================== -->
+    <aside class="orchid-sidebar" id="orchidSidebar" aria-label="Primary navigation">
+        <div class="orchid-sidebar__brand">
+            <a href="#" class="orchid-brand" aria-label="Orchid dashboard home">
+                <span class="orchid-brand__logo" aria-hidden="true">
+                    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orchid logo">
+                        <defs>
+                            <linearGradient id="orchidGrad" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#6366f1" />
+                                <stop offset="100%" stop-color="#22d3ee" />
+                            </linearGradient>
+                        </defs>
+                        <circle cx="16" cy="16" r="6" fill="url(#orchidGrad)" />
+                        <ellipse cx="16" cy="16" rx="14" ry="6" fill="none" stroke="url(#orchidGrad)" stroke-width="2"
+                            transform="rotate(-30 16 16)" />
+                    </svg>
+                </span>
+                <span class="orchid-brand__text">Orchid</span>
+            </a>
+            <button class="btn btn-sm btn-icon orchid-sidebar__close d-lg-none" type="button" data-orchid-sidebar-close
+                aria-label="Close sidebar">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+
+        <nav class="orchid-sidebar__nav" aria-label="Main">
+            <div class="orchid-nav-section">
+                <span class="orchid-nav-section__label">Main</span>
+                <ul class="orchid-nav">
+                    <li>
+                        <a href="#navDashboard" class="orchid-nav__link orchid-nav__link--has-sub collapsed"
+                            data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="navDashboard">
+                            <i class="bi bi-speedometer2"></i><span>Dashboard</span>
+                            <span class="badge bg-primary-subtle text-primary ms-auto">8</span>
+                            <i class="bi bi-chevron-down orchid-nav__chevron"></i>
+                        </a>
+                        <ul class="collapse orchid-nav__sub list-unstyled" id="navDashboard">
+                            <li><a href="index.html" class="orchid-nav__sublink">Default</a></li>
+                            <li><a href="analytics.html" class="orchid-nav__sublink">Analytics</a></li>
+                            <li><a href="crm.html" class="orchid-nav__sublink">CRM</a></li>
+                            <li><a href="sales.html" class="orchid-nav__sublink">Sales</a></li>
+                            <li><a href="finance.html" class="orchid-nav__sublink">Finance</a></li>
+                            <li><a href="projects.html" class="orchid-nav__sublink">Projects</a></li>
+                            <li><a href="ecommerce.html" class="orchid-nav__sublink">E-Commerce</a></li>
+                            <li><a href="hr.html" class="orchid-nav__sublink">HR</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="orchid-nav-section">
+                <span class="orchid-nav-section__label">Business</span>
+                <ul class="orchid-nav">
+                    <li>
+                        <a href="#navCrm" class="orchid-nav__link orchid-nav__link--has-sub collapsed"
+                            data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="navCrm">
+                            <i class="bi bi-people"></i><span>CRM</span>
+                            <i class="bi bi-chevron-down orchid-nav__chevron"></i>
+                        </a>
+                        <ul class="collapse orchid-nav__sub list-unstyled" id="navCrm">
+                            <li><a href="leads.html" class="orchid-nav__sublink">Leads</a></li>
+                            <li><a href="contacts.html" class="orchid-nav__sublink">Contacts</a></li>
+                            <li><a href="companies.html" class="orchid-nav__sublink">Companies</a></li>
+                            <li><a href="opportunities.html" class="orchid-nav__sublink">Opportunities</a></li>
+                            <li><a href="deals.html" class="orchid-nav__sublink">Deals</a></li>
+                            <li><a href="sales-pipeline.html" class="orchid-nav__sublink">Sales Pipeline</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#navCustomers" class="orchid-nav__link orchid-nav__link--has-sub collapsed"
+                            data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="navCustomers">
+                            <i class="bi bi-person-heart"></i><span>Customers</span>
+                            <i class="bi bi-chevron-down orchid-nav__chevron"></i>
+                        </a>
+                        <ul class="collapse orchid-nav__sub list-unstyled" id="navCustomers">
+                            <li><a href="customer-list.html" class="orchid-nav__sublink">Customer List</a></li>
+                            <li><a href="customer-details.html" class="orchid-nav__sublink">Details</a></li>
+                            <li><a href="customer-groups.html" class="orchid-nav__sublink">Groups</a></li>
+                            <li><a href="customer-feedback.html" class="orchid-nav__sublink">Feedback</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#navSales" class="orchid-nav__link orchid-nav__link--has-sub collapsed"
+                            data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="navSales">
+                            <i class="bi bi-cart3"></i><span>Sales</span>
+                            <i class="bi bi-chevron-down orchid-nav__chevron"></i>
+                        </a>
+                        <ul class="collapse orchid-nav__sub list-unstyled" id="navSales">
+                            <li><a href="quotations.html" class="orchid-nav__sublink">Quotations</a></li>
+                            <li><a href="orders.html" class="orchid-nav__sublink">Orders</a></li>
+                            <li><a href="invoice.html" class="orchid-nav__sublink">Invoices</a></li>
+                            <li><a href="payments.html" class="orchid-nav__sublink">Payments</a></li>
+                            <li><a href="refunds.html" class="orchid-nav__sublink">Refunds</a></li>
+                            <li><a href="revenue-analytics.html" class="orchid-nav__sublink">Revenue</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#navProducts" class="orchid-nav__link orchid-nav__link--has-sub collapsed"
+                            data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="navProducts">
+                            <i class="bi bi-box-seam"></i><span>Products</span>
+                            <i class="bi bi-chevron-down orchid-nav__chevron"></i>
+                        </a>
+                        <ul class="collapse orchid-nav__sub list-unstyled" id="navProducts">
+                            <li><a href="product-list.html" class="orchid-nav__sublink">Product List</a></li>
+                            <li><a href="product-categories.html" class="orchid-nav__sublink">Categories</a></li>
+                            <li><a href="product-brands.html" class="orchid-nav__sublink">Brands</a></li>
+                            <li><a href="inventory.html" class="orchid-nav__sublink">Inventory</a></li>
+                            <li><a href="stock-transfer.html" class="orchid-nav__sublink">Stock Transfer</a></li>
+                            <li><a href="price-management.html" class="orchid-nav__sublink">Price Management</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="orchid-nav-section">
+                <span class="orchid-nav-section__label">Project Management</span>
+                <ul class="orchid-nav">
+                    <li><a href="projects.html" class="orchid-nav__link"><i
+                                class="bi bi-kanban"></i><span>Projects</span></a></li>
+                    <li><a href="tasks.html" class="orchid-nav__link"><i
+                                class="bi bi-check2-square"></i><span>Tasks</span><span
+                                class="badge bg-danger ms-auto">8</span></a></li>
+                    <li><a href="teams.html" class="orchid-nav__link"><i
+                                class="bi bi-people-fill"></i><span>Teams</span></a></li>
+                    <li><a href="calendar.html" class="orchid-nav__link"><i
+                                class="bi bi-calendar3"></i><span>Calendar</span></a></li>
+                    <li><a href="meetings.html" class="orchid-nav__link"><i
+                                class="bi bi-camera-video"></i><span>Meetings</span></a></li>
+                </ul>
+            </div>
+
+            <div class="orchid-nav-section">
+                <span class="orchid-nav-section__label">Human Resources</span>
+                <ul class="orchid-nav">
+                    <li><a href="employees.html" class="orchid-nav__link"><i
+                                class="bi bi-person-badge"></i><span>Employees</span></a></li>
+                    <li><a href="attendance.html" class="orchid-nav__link"><i
+                                class="bi bi-calendar-check"></i><span>Attendance</span></a></li>
+                    <li><a href="leave-management.html" class="orchid-nav__link"><i
+                                class="bi bi-calendar-x"></i><span>Leave Management</span></a></li>
+                    <li><a href="payroll.html" class="orchid-nav__link"><i
+                                class="bi bi-cash-stack"></i><span>Payroll</span></a></li>
+                    <li><a href="recruitment.html" class="orchid-nav__link"><i
+                                class="bi bi-person-plus"></i><span>Recruitment</span></a></li>
+                    <li><a href="performance.html" class="orchid-nav__link"><i
+                                class="bi bi-graph-up"></i><span>Performance</span></a></li>
+                </ul>
+            </div>
+
+            <div class="orchid-nav-section">
+                <span class="orchid-nav-section__label">Finance</span>
+                <ul class="orchid-nav">
+                    <li><a href="accounting.html" class="orchid-nav__link"><i
+                                class="bi bi-calculator"></i><span>Accounting</span></a></li>
+                    <li><a href="expenses.html" class="orchid-nav__link"><i
+                                class="bi bi-cash-coin"></i><span>Expenses</span></a></li>
+                    <li><a href="income.html" class="orchid-nav__link"><i
+                                class="bi bi-arrow-down-circle"></i><span>Income</span></a></li>
+                    <li><a href="transactions.html" class="orchid-nav__link"><i
+                                class="bi bi-arrow-left-right"></i><span>Transactions</span></a></li>
+                    <li><a href="budgets.html" class="orchid-nav__link"><i
+                                class="bi bi-piggy-bank"></i><span>Budgets</span></a></li>
+                    <li><a href="financial-reports.html" class="orchid-nav__link"><i
+                                class="bi bi-file-earmark-bar-graph"></i><span>Financial Reports</span></a></li>
+                </ul>
+            </div>
+
+            <div class="orchid-nav-section">
+                <span class="orchid-nav-section__label">Communication</span>
+                <ul class="orchid-nav">
+                    <li><a href="messages.html" class="orchid-nav__link"><i
+                                class="bi bi-chat-dots"></i><span>Messages</span><span
+                                class="badge bg-success ms-auto">3</span></a></li>
+                    <li><a href="chat.html" class="orchid-nav__link"><i
+                                class="bi bi-chat-left-text"></i><span>Chat</span></a></li>
+                    <li><a href="email.html" class="orchid-nav__link"><i
+                                class="bi bi-envelope"></i><span>Email</span></a></li>
+                    <li><a href="notifications.html" class="orchid-nav__link"><i
+                                class="bi bi-bell"></i><span>Notifications</span></a></li>
+                    <li><a href="support-tickets.html" class="orchid-nav__link"><i
+                                class="bi bi-life-preserver"></i><span>Support Tickets</span></a></li>
+                </ul>
+            </div>
+
+            <div class="orchid-nav-section">
+                <span class="orchid-nav-section__label">Analytics</span>
+                <ul class="orchid-nav">
+                    <li><a href="reports.html" class="orchid-nav__link"><i
+                                class="bi bi-file-earmark-text"></i><span>Reports</span></a></li>
+                    <li><a href="sales-analytics.html" class="orchid-nav__link"><i
+                                class="bi bi-graph-up-arrow"></i><span>Sales Analytics</span></a></li>
+                    <li><a href="customer-analytics.html" class="orchid-nav__link"><i
+                                class="bi bi-people"></i><span>Customer Analytics</span></a></li>
+                    <li><a href="revenue-analytics.html" class="orchid-nav__link"><i
+                                class="bi bi-currency-dollar"></i><span>Revenue Analytics</span></a></li>
+                    <li><a href="marketing-analytics.html" class="orchid-nav__link"><i
+                                class="bi bi-megaphone"></i><span>Marketing Analytics</span></a></li>
+                </ul>
+            </div>
+
+            <div class="orchid-nav-section">
+                <span class="orchid-nav-section__label">User Management</span>
+                <ul class="orchid-nav">
+                    <li><a href="users.html" class="orchid-nav__link active" aria-current="page"><i
+                                class="bi bi-person"></i><span>Users</span></a></li>
+                    <li><a href="roles.html" class="orchid-nav__link"><i
+                                class="bi bi-shield-lock"></i><span>Roles</span></a></li>
+                    <li><a href="permissions.html" class="orchid-nav__link"><i
+                                class="bi bi-key"></i><span>Permissions</span></a></li>
+                    <li><a href="user-activity.html" class="orchid-nav__link"><i class="bi bi-activity"></i><span>User
+                                Activity</span></a></li>
+                    <li><a href="login-history.html" class="orchid-nav__link"><i
+                                class="bi bi-clock-history"></i><span>Login History</span></a></li>
+                </ul>
+            </div>
+
+            <div class="orchid-nav-section">
+                <span class="orchid-nav-section__label">Applications</span>
+                <ul class="orchid-nav">
+                    <li><a href="file-manager.html" class="orchid-nav__link"><i class="bi bi-folder"></i><span>File
+                                Manager</span></a></li>
+                    <li><a href="notes.html" class="orchid-nav__link"><i class="bi bi-sticky"></i><span>Notes</span></a>
+                    </li>
+                    <li><a href="documents.html" class="orchid-nav__link"><i
+                                class="bi bi-file-earmark"></i><span>Documents</span></a></li>
+                    <li><a href="knowledge-base.html" class="orchid-nav__link"><i class="bi bi-book"></i><span>Knowledge
+                                Base</span></a></li>
+                    <li><a href="todo.html" class="orchid-nav__link"><i
+                                class="bi bi-list-check"></i><span>To-Do</span></a></li>
+                    <li><a href="bookmarks.html" class="orchid-nav__link"><i
+                                class="bi bi-bookmark"></i><span>Bookmarks</span></a></li>
+                </ul>
+            </div>
+
+            <div class="orchid-nav-section">
+                <span class="orchid-nav-section__label">E-Commerce</span>
+                <ul class="orchid-nav">
+                    <li><a href="shop-products.html" class="orchid-nav__link"><i
+                                class="bi bi-tag"></i><span>Products</span></a></li>
+                    <li><a href="orders.html" class="orchid-nav__link"><i class="bi bi-bag"></i><span>Orders</span></a>
+                    </li>
+                    <li><a href="shop-customers.html" class="orchid-nav__link"><i
+                                class="bi bi-person-check"></i><span>Customers</span></a></li>
+                    <li><a href="shop-coupons.html" class="orchid-nav__link"><i
+                                class="bi bi-ticket-perforated"></i><span>Coupons</span></a></li>
+                    <li><a href="shop-reviews.html" class="orchid-nav__link"><i
+                                class="bi bi-star"></i><span>Reviews</span></a></li>
+                    <li><a href="shop-shipping.html" class="orchid-nav__link"><i
+                                class="bi bi-truck"></i><span>Shipping</span></a></li>
+                    <li><a href="shop-taxes.html" class="orchid-nav__link"><i
+                                class="bi bi-percent"></i><span>Taxes</span></a></li>
+                </ul>
+            </div>
+
+            <div class="orchid-nav-section">
+                <span class="orchid-nav-section__label">Content Management</span>
+                <ul class="orchid-nav">
+                    <li><a href="cms-pages.html" class="orchid-nav__link"><i
+                                class="bi bi-file-earmark-richtext"></i><span>Pages</span></a></li>
+                    <li><a href="cms-blog.html" class="orchid-nav__link"><i
+                                class="bi bi-journal-text"></i><span>Blog</span></a></li>
+                    <li><a href="cms-media.html" class="orchid-nav__link"><i class="bi bi-images"></i><span>Media
+                                Library</span></a></li>
+                    <li><a href="product-categories.html" class="orchid-nav__link"><i
+                                class="bi bi-tags"></i><span>Categories</span></a></li>
+                    <li><a href="cms-comments.html" class="orchid-nav__link"><i
+                                class="bi bi-chat-square-text"></i><span>Comments</span></a></li>
+                    <li><a href="cms-menus.html" class="orchid-nav__link"><i
+                                class="bi bi-menu-app"></i><span>Menus</span></a></li>
+                </ul>
+            </div>
+
+            <div class="orchid-nav-section">
+                <span class="orchid-nav-section__label">System</span>
+                <ul class="orchid-nav">
+                    <li><a href="settings.html" class="orchid-nav__link"><i
+                                class="bi bi-gear"></i><span>Settings</span></a></li>
+                    <li><a href="integrations.html" class="orchid-nav__link"><i
+                                class="bi bi-puzzle"></i><span>Integrations</span></a></li>
+                    <li><a href="audit-logs.html" class="orchid-nav__link"><i class="bi bi-shield-check"></i><span>Audit
+                                Logs</span></a></li>
+                    <li><a href="system-logs.html" class="orchid-nav__link"><i
+                                class="bi bi-file-earmark-code"></i><span>System Logs</span></a></li>
+                    <li><a href="maintenance-mode.html" class="orchid-nav__link"><i
+                                class="bi bi-tools"></i><span>Maintenance Mode</span></a></li>
+                </ul>
+            </div>
+
+            <div class="orchid-nav-section">
+                <span class="orchid-nav-section__label">UI Components</span>
+                <ul class="orchid-nav">
+                    <li><a href="ui-alerts.html" class="orchid-nav__link"><i
+                                class="bi bi-exclamation-triangle"></i><span>Alerts</span></a></li>
+                    <li><a href="ui-badges.html" class="orchid-nav__link"><i
+                                class="bi bi-award"></i><span>Badges</span></a></li>
+                    <li><a href="ui-buttons.html" class="orchid-nav__link"><i
+                                class="bi bi-app"></i><span>Buttons</span></a></li>
+                    <li><a href="ui-cards.html" class="orchid-nav__link"><i
+                                class="bi bi-card-heading"></i><span>Cards</span></a></li>
+                    <li><a href="ui-dropdowns.html" class="orchid-nav__link"><i
+                                class="bi bi-menu-down"></i><span>Dropdowns</span></a></li>
+                    <li><a href="ui-modals.html" class="orchid-nav__link"><i
+                                class="bi bi-window"></i><span>Modals</span></a></li>
+                    <li><a href="ui-tabs.html" class="orchid-nav__link"><i
+                                class="bi bi-window-stack"></i><span>Tabs</span></a></li>
+                    <li><a href="ui-pagination.html" class="orchid-nav__link"><i
+                                class="bi bi-three-dots"></i><span>Pagination</span></a></li>
+                    <li><a href="ui-progress.html" class="orchid-nav__link"><i
+                                class="bi bi-bar-chart-steps"></i><span>Progress</span></a></li>
+                    <li><a href="ui-toasts.html" class="orchid-nav__link"><i
+                                class="bi bi-chat-square-dots"></i><span>Toasts</span></a></li>
+                    <li><a href="ui-tooltips.html" class="orchid-nav__link"><i
+                                class="bi bi-info-circle"></i><span>Tooltips</span></a></li>
+                </ul>
+            </div>
+
+            <div class="orchid-nav-section">
+                <span class="orchid-nav-section__label">Forms</span>
+                <ul class="orchid-nav">
+                    <li><a href="forms-basic.html" class="orchid-nav__link"><i
+                                class="bi bi-input-cursor"></i><span>Basic Forms</span></a></li>
+                    <li><a href="forms-validation.html" class="orchid-nav__link"><i
+                                class="bi bi-check-circle"></i><span>Validation</span></a></li>
+                    <li><a href="forms-wizard.html" class="orchid-nav__link"><i
+                                class="bi bi-magic"></i><span>Wizard</span></a></li>
+                    <li><a href="forms-file-upload.html" class="orchid-nav__link"><i
+                                class="bi bi-cloud-upload"></i><span>File Upload</span></a></li>
+                    <li><a href="forms-editor.html" class="orchid-nav__link"><i class="bi bi-textarea-t"></i><span>Rich
+                                Text Editor</span></a></li>
+                    <li><a href="forms-datepicker.html" class="orchid-nav__link"><i
+                                class="bi bi-calendar-date"></i><span>Date Picker</span></a></li>
+                    <li><a href="forms-timepicker.html" class="orchid-nav__link"><i class="bi bi-clock"></i><span>Time
+                                Picker</span></a></li>
+                    <li><a href="forms-colorpicker.html" class="orchid-nav__link"><i
+                                class="bi bi-palette"></i><span>Color Picker</span></a></li>
+                </ul>
+            </div>
+
+            <div class="orchid-nav-section">
+                <span class="orchid-nav-section__label">Tables</span>
+                <ul class="orchid-nav">
+                    <li><a href="tables-basic.html" class="orchid-nav__link"><i class="bi bi-table"></i><span>Basic
+                                Table</span></a></li>
+                    <li><a href="tables-data.html" class="orchid-nav__link"><i class="bi bi-grid"></i><span>Data
+                                Table</span></a></li>
+                    <li><a href="tables-responsive.html" class="orchid-nav__link"><i
+                                class="bi bi-phone"></i><span>Responsive Table</span></a></li>
+                    <li><a href="tables-editable.html" class="orchid-nav__link"><i
+                                class="bi bi-pencil-square"></i><span>Editable Table</span></a></li>
+                    <li><a href="tables-advanced.html" class="orchid-nav__link"><i
+                                class="bi bi-grid-3x3"></i><span>Advanced Table</span></a></li>
+                </ul>
+            </div>
+
+            <div class="orchid-nav-section">
+                <span class="orchid-nav-section__label">Charts</span>
+                <ul class="orchid-nav">
+                    <li><a href="charts-line.html" class="orchid-nav__link"><i
+                                class="bi bi-graph-up"></i><span>Line</span></a></li>
+                    <li><a href="charts-bar.html" class="orchid-nav__link"><i
+                                class="bi bi-bar-chart"></i><span>Bar</span></a></li>
+                    <li><a href="charts-area.html" class="orchid-nav__link"><i
+                                class="bi bi-graph-up-arrow"></i><span>Area</span></a></li>
+                    <li><a href="charts-pie.html" class="orchid-nav__link"><i
+                                class="bi bi-pie-chart"></i><span>Pie</span></a></li>
+                    <li><a href="charts-donut.html" class="orchid-nav__link"><i
+                                class="bi bi-circle"></i><span>Donut</span></a></li>
+                    <li><a href="charts-radar.html" class="orchid-nav__link"><i
+                                class="bi bi-broadcast"></i><span>Radar</span></a></li>
+                    <li><a href="charts-polar.html" class="orchid-nav__link"><i
+                                class="bi bi-record-circle"></i><span>Polar</span></a></li>
+                    <li><a href="charts-mixed.html" class="orchid-nav__link"><i
+                                class="bi bi-bar-chart-line"></i><span>Mixed</span></a></li>
+                    <li><a href="charts-chartjs.html" class="orchid-nav__link"><i
+                                class="bi bi-bar-chart-fill"></i><span>Chart.js</span></a></li>
+                    <li><a href="charts-apex.html" class="orchid-nav__link"><i
+                                class="bi bi-graph-up"></i><span>ApexCharts</span></a></li>
+                </ul>
+            </div>
+
+            <div class="orchid-nav-section">
+                <span class="orchid-nav-section__label">Icons</span>
+                <ul class="orchid-nav">
+                    <li><a href="icons-bootstrap.html" class="orchid-nav__link"><i
+                                class="bi bi-bootstrap"></i><span>Bootstrap Icons</span></a></li>
+                    <li><a href="icons-fontawesome.html" class="orchid-nav__link"><i
+                                class="bi bi-star-fill"></i><span>Font Awesome</span></a></li>
+                    <li><a href="icons-lucide.html" class="orchid-nav__link"><i
+                                class="bi bi-emoji-smile"></i><span>Lucide</span></a></li>
+                    <li><a href="icons-remix.html" class="orchid-nav__link"><i class="bi bi-square"></i><span>Remix
+                                Icons</span></a></li>
+                </ul>
+            </div>
+
+            <div class="orchid-nav-section">
+                <span class="orchid-nav-section__label">Maps</span>
+                <ul class="orchid-nav">
+                    <li><a href="maps-google.html" class="orchid-nav__link"><i class="bi bi-map"></i><span>Google
+                                Maps</span></a></li>
+                    <li><a href="maps-vector.html" class="orchid-nav__link"><i class="bi bi-geo-alt"></i><span>Vector
+                                Maps</span></a></li>
+                </ul>
+            </div>
+
+            <div class="orchid-nav-section">
+                <span class="orchid-nav-section__label">Authentication</span>
+                <ul class="orchid-nav">
+                    <li><a href="login.html" class="orchid-nav__link"><i
+                                class="bi bi-box-arrow-in-right"></i><span>Login</span></a></li>
+                    <li><a href="register.html" class="orchid-nav__link"><i
+                                class="bi bi-person-plus"></i><span>Register</span></a></li>
+                    <li><a href="forgot-password.html" class="orchid-nav__link"><i
+                                class="bi bi-question-circle"></i><span>Forgot Password</span></a></li>
+                    <li><a href="reset-password.html" class="orchid-nav__link"><i
+                                class="bi bi-arrow-clockwise"></i><span>Reset Password</span></a></li>
+                    <li><a href="lock-screen.html" class="orchid-nav__link"><i class="bi bi-lock"></i><span>Lock
+                                Screen</span></a></li>
+                    <li><a href="two-factor.html" class="orchid-nav__link"><i
+                                class="bi bi-shield-check"></i><span>Two-Factor Auth</span></a></li>
+                </ul>
+            </div>
+
+            <div class="orchid-nav-section">
+                <span class="orchid-nav-section__label">Extra Pages</span>
+                <ul class="orchid-nav">
+                    <li><a href="profile.html" class="orchid-nav__link"><i
+                                class="bi bi-person-circle"></i><span>Profile</span></a></li>
+                    <li><a href="account-settings.html" class="orchid-nav__link"><i
+                                class="bi bi-gear-fill"></i><span>Account Settings</span></a></li>
+                    <li><a href="pricing.html" class="orchid-nav__link"><i
+                                class="bi bi-currency-dollar"></i><span>Pricing</span></a></li>
+                    <li><a href="faq.html" class="orchid-nav__link"><i
+                                class="bi bi-question-square"></i><span>FAQ</span></a></li>
+                    <li><a href="help-center.html" class="orchid-nav__link"><i class="bi bi-headset"></i><span>Help
+                                Center</span></a></li>
+                    <li><a href="timeline.html" class="orchid-nav__link"><i
+                                class="bi bi-clock"></i><span>Timeline</span></a></li>
+                    <li><a href="invoice.html" class="orchid-nav__link"><i
+                                class="bi bi-receipt"></i><span>Invoice</span></a></li>
+                    <li><a href="coming-soon.html" class="orchid-nav__link"><i
+                                class="bi bi-hourglass-split"></i><span>Coming Soon</span></a></li>
+                    <li><a href="maintenance.html" class="orchid-nav__link"><i
+                                class="bi bi-cone-striped"></i><span>Maintenance</span></a></li>
+                    <li><a href="error-404.html" class="orchid-nav__link"><i class="bi bi-bug"></i><span>Error
+                                Pages</span></a></li>
+                </ul>
+            </div>
+
+            <div class="orchid-upgrade-card">
+                <div class="orchid-upgrade-card__glow" aria-hidden="true"></div>
+                <div class="orchid-upgrade-card__body">
+                    <i class="bi bi-rocket-takeoff orchid-upgrade-card__icon" aria-hidden="true"></i>
+                    <h6 class="orchid-upgrade-card__title">Upgrade to Pro</h6>
+                    <p class="orchid-upgrade-card__text">Unlock premium widgets, charts and priority support.</p>
+                    <a href="#" class="btn btn-light btn-sm w-100 fw-semibold">Upgrade Now</a>
+                </div>
+            </div>
+        </nav>
+    </aside>
+
+    <div class="orchid-backdrop" data-orchid-sidebar-close aria-hidden="true"></div>
+
+    <!-- ================== APP WRAPPER ================== -->
+    <div class="orchid-app">
+
+        <!-- ================== HEADER ================== -->
+        <header class="orchid-header" role="banner">
+            <div class="orchid-header__left">
+                <button class="btn btn-icon orchid-header__toggle" type="button" data-orchid-sidebar-toggle
+                    aria-label="Toggle sidebar" aria-controls="orchidSidebar" aria-expanded="false">
+                    <i class="bi bi-list"></i>
+                </button>
+                <nav aria-label="breadcrumb" class="orchid-header__breadcrumb d-none d-md-block">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i></a></li>
+                        <li class="breadcrumb-item"><a href="#">User Management</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Users</li>
+                    </ol>
+                </nav>
+            </div>
+
+            <div class="orchid-header__right">
+                <form class="orchid-search d-none d-md-flex" role="search" data-orchid-search-form>
+                    <label for="orchidSearch" class="visually-hidden">Search</label>
+                    <i class="bi bi-search orchid-search__icon" aria-hidden="true"></i>
+                    <input type="search" id="orchidSearch" class="form-control" placeholder="Search anything…"
+                        autocomplete="off">
+                    <kbd class="orchid-search__kbd">⌘K</kbd>
+                </form>
+
+                <button class="btn btn-icon d-md-none" type="button" data-orchid-search-open aria-label="Open search">
+                    <i class="bi bi-search"></i>
+                </button>
+
+                <button class="btn btn-icon orchid-theme-toggle" type="button" data-orchid-theme-toggle
+                    aria-label="Toggle color theme">
+                    <i class="bi bi-sun-fill orchid-theme-toggle__sun"></i>
+                    <i class="bi bi-moon-stars-fill orchid-theme-toggle__moon"></i>
+                </button>
+
+                <div class="dropdown">
+                    <button class="btn btn-icon position-relative" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" aria-label="Notifications">
+                        <i class="bi bi-bell"></i>
+                        <span class="orchid-badge-dot bg-danger"></span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end orchid-dropdown">
+                        <div class="orchid-dropdown__header">
+                            <h6 class="mb-0">Notifications</h6>
+                            <span class="badge bg-primary-subtle text-primary">5 New</span>
+                        </div>
+                        <ul class="orchid-dropdown__list list-unstyled mb-0">
+                            <li>
+                                <a href="#" class="orchid-dropdown__item">
+                                    <span class="avatar avatar-sm bg-primary-subtle text-primary"><i
+                                            class="bi bi-person-plus"></i></span>
+                                    <div>
+                                        <p class="mb-0">New user registration</p>
+                                        <small class="text-body-secondary">2 minutes ago</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="orchid-dropdown__item">
+                                    <span class="avatar avatar-sm bg-success-subtle text-success"><i
+                                            class="bi bi-cash-coin"></i></span>
+                                    <div>
+                                        <p class="mb-0">Payment received — $2,400</p>
+                                        <small class="text-body-secondary">14 minutes ago</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="orchid-dropdown__item">
+                                    <span class="avatar avatar-sm bg-warning-subtle text-warning"><i
+                                            class="bi bi-exclamation-triangle"></i></span>
+                                    <div>
+                                        <p class="mb-0">Server load reached 78%</p>
+                                        <small class="text-body-secondary">1 hour ago</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="orchid-dropdown__item">
+                                    <span class="avatar avatar-sm bg-info-subtle text-info"><i
+                                            class="bi bi-chat-left-text"></i></span>
+                                    <div>
+                                        <p class="mb-0">New comment on report</p>
+                                        <small class="text-body-secondary">3 hours ago</small>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="orchid-dropdown__footer">
+                            <a href="#">View all notifications</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dropdown d-none d-sm-block">
+                    <button class="btn btn-icon position-relative" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" aria-label="Messages">
+                        <i class="bi bi-chat-dots"></i>
+                        <span class="orchid-badge-count bg-success">3</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end orchid-dropdown">
+                        <div class="orchid-dropdown__header">
+                            <h6 class="mb-0">Messages</h6>
+                            <a href="#" class="small">Mark all read</a>
+                        </div>
+                        <ul class="orchid-dropdown__list list-unstyled mb-0">
+                            <li>
+                                <a href="#" class="orchid-dropdown__item">
+                                    <span class="avatar avatar-sm bg-primary text-white">SM</span>
+                                    <div>
+                                        <p class="mb-0"><strong>Sarah Miller</strong></p>
+                                        <small class="text-body-secondary">Loved your latest design mock…</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="orchid-dropdown__item">
+                                    <span class="avatar avatar-sm bg-info text-white">JD</span>
+                                    <div>
+                                        <p class="mb-0"><strong>James Doe</strong></p>
+                                        <small class="text-body-secondary">The report is ready to review.</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="orchid-dropdown__item">
+                                    <span class="avatar avatar-sm bg-warning text-white">AL</span>
+                                    <div>
+                                        <p class="mb-0"><strong>Ava Lee</strong></p>
+                                        <small class="text-body-secondary">Meeting rescheduled to Friday.</small>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="orchid-dropdown__footer"><a href="#">Open inbox</a></div>
+                    </div>
+                </div>
+
+                <div class="dropdown d-none d-sm-block">
+                    <button class="btn btn-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                        aria-label="Apps">
+                        <i class="bi bi-grid-3x3-gap"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end orchid-dropdown orchid-dropdown--apps">
+                        <div class="orchid-dropdown__header">
+                            <h6 class="mb-0">Apps</h6>
+                        </div>
+                        <div class="orchid-apps-grid">
+                            <a href="#" class="orchid-apps-grid__item"><i
+                                    class="bi bi-envelope text-primary"></i><span>Mail</span></a>
+                            <a href="#" class="orchid-apps-grid__item"><i
+                                    class="bi bi-calendar3 text-danger"></i><span>Calendar</span></a>
+                            <a href="#" class="orchid-apps-grid__item"><i
+                                    class="bi bi-file-earmark-text text-warning"></i><span>Docs</span></a>
+                            <a href="#" class="orchid-apps-grid__item"><i
+                                    class="bi bi-image text-info"></i><span>Photos</span></a>
+                            <a href="#" class="orchid-apps-grid__item"><i
+                                    class="bi bi-cloud text-success"></i><span>Drive</span></a>
+                            <a href="#" class="orchid-apps-grid__item"><i
+                                    class="bi bi-camera-video text-primary"></i><span>Meet</span></a>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-icon d-none d-lg-inline-flex" type="button" aria-label="Calendar">
+                    <i class="bi bi-calendar3"></i>
+                </button>
+
+                <div class="dropdown">
+                    <button class="btn orchid-profile-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                        aria-label="User profile">
+                        <span class="avatar avatar-sm bg-primary-subtle text-primary fw-semibold">AK</span>
+                        <span class="orchid-profile-btn__meta d-none d-lg-flex">
+                            <span class="orchid-profile-btn__name">Alex Kim</span>
+                            <span class="orchid-profile-btn__role">Administrator</span>
+                        </span>
+                        <i class="bi bi-chevron-down d-none d-lg-inline"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end orchid-dropdown orchid-dropdown--profile">
+                        <li class="orchid-dropdown__header">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="avatar bg-primary-subtle text-primary fw-semibold">AK</span>
+                                <div>
+                                    <p class="mb-0 fw-semibold">Alex Kim</p>
+                                    <small class="text-body-secondary">alex@orchid.io</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i>Profile</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i>Settings</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-wallet2"></i>Billing</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-life-preserver"></i>Help Center</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right"></i>Sign
+                                out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <!-- ================== MAIN ================== -->
+        <main class="orchid-main" id="orchid-main" tabindex="-1">
+            <div class="container-fluid px-3 px-lg-4 py-4">
+
+                <!-- Page header -->
+                <div class="d-flex flex-wrap align-items-start justify-content-between gap-3 mb-4">
+                    <div>
+                        <h1 class="users-page-title">Users</h1>
+                        <p class="users-page-sub">Manage user accounts, roles, and permissions</p>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2">
+                        <button class="btn btn-outline-secondary btn-sm" type="button" data-users-import>
+                            <i class="bi bi-upload me-1"></i>Import
+                        </button>
+                        <input type="file" class="visually-hidden" accept=".csv" data-users-import-input
+                            aria-hidden="true" tabindex="-1">
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-download me-1"></i>Export
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#" data-users-export="CSV"><i
+                                            class="bi bi-filetype-csv me-2"></i>CSV</a></li>
+                                <li><a class="dropdown-item" href="#" data-users-export="Excel"><i
+                                            class="bi bi-file-earmark-spreadsheet me-2"></i>Excel</a></li>
+                                <li><a class="dropdown-item" href="#" data-users-export="JSON"><i
+                                            class="bi bi-filetype-json me-2"></i>JSON</a></li>
+                                <li><a class="dropdown-item" href="#" data-users-export="PDF"><i
+                                            class="bi bi-filetype-pdf me-2"></i>PDF</a></li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-primary btn-sm" type="button" data-users-add>
+                            <i class="bi bi-plus-lg me-1"></i>Add User
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stats strip -->
+                <div class="row g-3 mb-3">
+                    <div class="col-6 col-xl-3">
+                        <div class="users-stat users-stat--indigo">
+                            <span class="users-stat__icon"><i class="bi bi-people-fill"></i></span>
+                            <div>
+                                <p class="users-stat__label">Total Users</p>
+                                <p class="users-stat__value" data-users-stat="total">0</p>
+                                <span class="users-stat__delta"><i class="bi bi-arrow-up-short"></i>4 this week</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-xl-3">
+                        <div class="users-stat users-stat--green">
+                            <span class="users-stat__icon"><i class="bi bi-check-circle-fill"></i></span>
+                            <div>
+                                <p class="users-stat__label">Active</p>
+                                <p class="users-stat__value" data-users-stat="active">0</p>
+                                <span class="users-stat__delta"><i class="bi bi-dot"></i>Online right now</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-xl-3">
+                        <div class="users-stat users-stat--amber">
+                            <span class="users-stat__icon"><i class="bi bi-hourglass-split"></i></span>
+                            <div>
+                                <p class="users-stat__label">Pending</p>
+                                <p class="users-stat__value" data-users-stat="pending">0</p>
+                                <span class="users-stat__delta"><i class="bi bi-envelope"></i>Awaiting
+                                    verification</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-xl-3">
+                        <div class="users-stat users-stat--red">
+                            <span class="users-stat__icon"><i class="bi bi-slash-circle-fill"></i></span>
+                            <div>
+                                <p class="users-stat__label">Suspended</p>
+                                <p class="users-stat__value" data-users-stat="suspended">0</p>
+                                <span class="users-stat__delta"><i class="bi bi-shield-exclamation"></i>Review
+                                    required</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Toolbar -->
+                <div class="users-toolbar" role="search">
+                    <div class="users-toolbar__search">
+                        <i class="bi bi-search"></i>
+                        <input type="search" class="form-control" placeholder="Search by name or email…"
+                            aria-label="Search users" data-users-search>
+                    </div>
+                    <select class="form-select form-select-sm" aria-label="Filter by role" data-users-filter="role">
+                        <option value="all">All roles</option>
+                        <option value="admin">Admin</option>
+                        <option value="editor">Editor</option>
+                        <option value="viewer">Viewer</option>
+                        <option value="guest">Guest</option>
+                    </select>
+                    <select class="form-select form-select-sm" aria-label="Filter by status" data-users-filter="status">
+                        <option value="all">All statuses</option>
+                        <option value="active">Active</option>
+                        <option value="pending">Pending</option>
+                        <option value="suspended">Suspended</option>
+                    </select>
+                    <select class="form-select form-select-sm" aria-label="Filter by join date"
+                        data-users-filter="date">
+                        <option value="all">All time</option>
+                        <option value="today">Today</option>
+                        <option value="7d">Last 7 days</option>
+                        <option value="30d">Last 30 days</option>
+                    </select>
+                    <button type="button" class="users-toolbar__reset ms-auto" data-users-reset>
+                        <i class="bi bi-arrow-counterclockwise me-1"></i>Reset filters
+                    </button>
+                </div>
+
+                <!-- Table card -->
+                <div class="users-card">
+
+                    <!-- Bulk action bar -->
+                    <div class="users-bulkbar" data-users-bulk>
+                        <span class="users-bulkbar__count"><span data-users-bulk-count>0</span> selected</span>
+                        <div class="users-bulkbar__actions">
+                            <div class="dropdown">
+                                <button class="btn btn-outline-secondary" type="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <i class="bi bi-shield me-1"></i>Change role
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#" data-users-bulk-action="role:admin"><span
+                                                class="users-role users-role--admin me-2">Admin</span>Set as Admin</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#" data-users-bulk-action="role:editor"><span
+                                                class="users-role users-role--editor me-2">Editor</span>Set as
+                                            Editor</a></li>
+                                    <li><a class="dropdown-item" href="#" data-users-bulk-action="role:viewer"><span
+                                                class="users-role users-role--viewer me-2">Viewer</span>Set as
+                                            Viewer</a></li>
+                                    <li><a class="dropdown-item" href="#" data-users-bulk-action="role:guest"><span
+                                                class="users-role users-role--guest me-2">Guest</span>Set as Guest</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <button class="btn btn-outline-secondary" type="button" data-users-bulk-action="archive"><i
+                                    class="bi bi-archive me-1"></i>Archive</button>
+                            <button class="btn btn-outline-secondary" type="button" data-users-bulk-action="export"><i
+                                    class="bi bi-download me-1"></i>Export selected</button>
+                            <button class="btn btn-outline-danger" type="button" data-users-bulk-action="delete"><i
+                                    class="bi bi-trash me-1"></i>Delete</button>
+                            <button class="btn btn-link text-decoration-none" type="button"
+                                data-users-bulk-action="clear">Clear selection</button>
+                        </div>
+                    </div>
+
+                    <!-- Table -->
+                    <div class="users-table-wrap">
+                        <table class="users-table align-middle mb-0" aria-label="Users list">
+                            <thead>
+                                <tr>
+                                    <th class="users-th-check">
+                                        <div class="form-check m-0">
+                                            <input class="form-check-input" type="checkbox"
+                                                aria-label="Select all users on this page" data-users-selectall>
+                                        </div>
+                                    </th>
+                                    <th class="users-th-sort" data-users-sort="name">User <span
+                                            class="users-sort-icon"><i class="bi bi-arrow-down-up"></i></span></th>
+                                    <th class="users-th-sort" data-users-sort="role">Role <span
+                                            class="users-sort-icon"><i class="bi bi-arrow-down-up"></i></span></th>
+                                    <th class="users-th-sort" data-users-sort="status">Status <span
+                                            class="users-sort-icon"><i class="bi bi-arrow-down-up"></i></span></th>
+                                    <th class="users-th-sort" data-users-sort="lastActive">Last Active <span
+                                            class="users-sort-icon"><i class="bi bi-arrow-down-up"></i></span></th>
+                                    <th class="users-th-sort" data-users-sort="joined">Joined <span
+                                            class="users-sort-icon"><i class="bi bi-arrow-down-up"></i></span></th>
+                                    <th class="users-th-actions">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody data-users-skeleton>
+                                <tr>
+                                    <td class="users-td-check"><span class="users-skel-avatar"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--md"></span><br><span
+                                            class="users-skel-bar users-skel-bar--sm mt-2"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--sm"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--sm"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--sm"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--md"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--sm"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="users-td-check"><span class="users-skel-avatar"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--lg"></span><br><span
+                                            class="users-skel-bar users-skel-bar--md mt-2"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--sm"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--sm"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--sm"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--md"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--sm"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="users-td-check"><span class="users-skel-avatar"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--md"></span><br><span
+                                            class="users-skel-bar users-skel-bar--sm mt-2"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--sm"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--sm"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--sm"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--md"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--sm"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="users-td-check"><span class="users-skel-avatar"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--lg"></span><br><span
+                                            class="users-skel-bar users-skel-bar--md mt-2"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--sm"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--sm"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--sm"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--md"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--sm"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="users-td-check"><span class="users-skel-avatar"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--md"></span><br><span
+                                            class="users-skel-bar users-skel-bar--sm mt-2"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--sm"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--sm"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--sm"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--md"></span></td>
+                                    <td><span class="users-skel-bar users-skel-bar--sm"></span></td>
+                                </tr>
+                            </tbody>
+                            <tbody data-users-tbody>
+                                <!-- rows injected by JS -->
+                            </tbody>
+                        </table>
+
+                        <!-- Empty state -->
+                        <div class="users-empty" data-users-empty>
+                            <div class="users-empty__illus"><i class="bi bi-people"></i></div>
+                            <h6>No users match your filters</h6>
+                            <p>Try adjusting your search or clearing filters to see all users.</p>
+                            <button class="btn btn-outline-primary btn-sm" type="button" data-users-reset><i
+                                    class="bi bi-arrow-counterclockwise me-1"></i>Clear filters</button>
+                        </div>
+                    </div>
+
+                    <!-- Table footer -->
+                    <div class="users-footer">
+                        <div class="users-footer__meta" data-users-meta>Showing 0–0 of 0 users</div>
+                        <div class="users-footer__perpage">
+                            <label for="usersPerPage" class="mb-0">Rows per page</label>
+                            <select id="usersPerPage" class="form-select form-select-sm" data-users-perpage
+                                aria-label="Rows per page">
+                                <option value="10" selected>10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                        <nav aria-label="Users pagination">
+                            <ul class="pagination users-pager mb-0" data-users-pager></ul>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ================== FOOTER ================== -->
+            <footer class="orchid-footer" role="contentinfo">
+                <div class="container-fluid px-3 px-lg-4">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+                        <p class="mb-0 small text-body-secondary">© <span data-orchid-year></span> Orchid. Crafted with
+                            <i class="bi bi-heart-fill text-danger"></i> for modern teams.
+                        </p>
+                        <ul class="list-inline mb-0 small">
+                            <li class="list-inline-item"><a class="text-body-secondary" href="#">Privacy</a></li>
+                            <li class="list-inline-item"><a class="text-body-secondary" href="#">Terms</a></li>
+                            <li class="list-inline-item"><a class="text-body-secondary" href="#">Support</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- ================== DRAWER (create / edit) ================== -->
+    <div class="offcanvas offcanvas-end users-drawer" tabindex="-1" id="usersDrawer" aria-labelledby="usersDrawerTitle">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="usersDrawerTitle" data-users-drawer-title>Add User</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <form class="offcanvas-body" id="usersForm" novalidate data-users-form>
+            <div class="users-avatar-upload">
+                <span class="users-avatar-upload__preview" data-users-preview>?</span>
+                <div class="users-avatar-upload__body">
+                    <label for="usersAvatarInput" class="btn btn-sm btn-outline-secondary"><i
+                            class="bi bi-cloud-upload me-1"></i>Upload avatar</label>
+                    <input id="usersAvatarInput" name="avatar" type="file" accept="image/*" class="visually-hidden"
+                        data-users-avatar-input>
+                    <p class="users-avatar-upload__hint">PNG or JPG, up to 2MB. Optional.</p>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-6">
+                    <label for="usersFirst" class="form-label">First name</label>
+                    <input id="usersFirst" name="first" type="text" class="form-control" required>
+                    <div class="invalid-feedback">Required.</div>
+                </div>
+                <div class="col-6">
+                    <label for="usersLast" class="form-label">Last name</label>
+                    <input id="usersLast" name="last" type="text" class="form-control" required>
+                    <div class="invalid-feedback">Required.</div>
+                </div>
+                <div class="col-12">
+                    <label for="usersEmail" class="form-label">Email</label>
+                    <input id="usersEmail" name="email" type="email" class="form-control" required>
+                    <div class="invalid-feedback">Enter a valid email.</div>
+                </div>
+                <div class="col-12">
+                    <label for="usersPhone" class="form-label">Phone <span
+                            class="text-body-secondary fw-normal">(optional)</span></label>
+                    <input id="usersPhone" name="phone" type="tel" class="form-control">
+                </div>
+                <div class="col-6">
+                    <label for="usersRole" class="form-label">Role</label>
+                    <select id="usersRole" name="role" class="form-select" required>
+                        <option value="admin">Admin</option>
+                        <option value="editor" selected>Editor</option>
+                        <option value="viewer">Viewer</option>
+                        <option value="guest">Guest</option>
+                    </select>
+                </div>
+                <div class="col-6">
+                    <label for="usersDept" class="form-label">Department</label>
+                    <select id="usersDept" name="dept" class="form-select" required>
+                        <option>Engineering</option>
+                        <option>Design</option>
+                        <option>Product</option>
+                        <option>Marketing</option>
+                        <option>Sales</option>
+                        <option>Support</option>
+                        <option>Finance</option>
+                        <option>Executive</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label for="usersTz" class="form-label">Timezone</label>
+                    <select id="usersTz" name="tz" class="form-select">
+                        <option>UTC</option>
+                        <option>Asia/Kolkata</option>
+                        <option>Asia/Tokyo</option>
+                        <option>Asia/Seoul</option>
+                        <option>Asia/Dubai</option>
+                        <option>Asia/Riyadh</option>
+                        <option>Europe/London</option>
+                        <option>Europe/Berlin</option>
+                        <option>Europe/Madrid</option>
+                        <option>Europe/Rome</option>
+                        <option>Europe/Moscow</option>
+                        <option>Europe/Dublin</option>
+                        <option>America/New_York</option>
+                        <option>America/Los_Angeles</option>
+                        <option>America/Toronto</option>
+                        <option>America/Sao_Paulo</option>
+                        <option>Australia/Sydney</option>
+                        <option>Africa/Lagos</option>
+                    </select>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label d-block">Status</label>
+                    <div class="btn-group" role="group" aria-label="Status">
+                        <input type="radio" class="btn-check" name="status" id="usersStAct" value="active" checked>
+                        <label class="btn btn-sm btn-outline-success" for="usersStAct">Active</label>
+                        <input type="radio" class="btn-check" name="status" id="usersStPen" value="pending">
+                        <label class="btn btn-sm btn-outline-warning" for="usersStPen">Pending</label>
+                        <input type="radio" class="btn-check" name="status" id="usersStSus" value="suspended">
+                        <label class="btn btn-sm btn-outline-danger" for="usersStSus">Suspended</label>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">Permissions</label>
+                    <div class="users-perm-grid">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="perms" value="view" id="permView"
+                                checked>
+                            <label class="form-check-label" for="permView">View</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="perms" value="edit" id="permEdit">
+                            <label class="form-check-label" for="permEdit">Edit</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="perms" value="delete" id="permDel">
+                            <label class="form-check-label" for="permDel">Delete</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="perms" value="manage" id="permManage">
+                            <label class="form-check-label" for="permManage">Manage users</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="welcome" id="usersWelcome" checked>
+                        <label class="form-check-label" for="usersWelcome">Send welcome email with login
+                            instructions</label>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="users-drawer__footer">
+            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="offcanvas">Cancel</button>
+            <button type="submit" class="btn btn-primary btn-sm" form="usersForm" data-users-save><i
+                    class="bi bi-check2 me-1"></i>Save user</button>
+        </div>
+    </div>
+
+    <!-- ================== VIEW MODAL ================== -->
+    <div class="modal fade" id="usersViewModal" tabindex="-1" aria-labelledby="usersViewTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="usersViewTitle">User details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="users-view-header">
+                        <span class="avatar avatar-lg" data-users-view="avatar">--</span>
+                        <div class="flex-grow-1 min-w-0">
+                            <h5 data-users-view="name">—</h5>
+                            <p data-users-view="sub">—</p>
+                        </div>
+                        <div class="d-flex flex-column align-items-end gap-1">
+                            <span data-users-view="role"></span>
+                            <span data-users-view="status"></span>
+                        </div>
+                    </div>
+
+                    <dl class="users-view-grid">
+                        <div>
+                            <dt>Phone</dt>
+                            <dd data-users-view="phone">—</dd>
+                        </div>
+                        <div>
+                            <dt>Timezone</dt>
+                            <dd data-users-view="tz">—</dd>
+                        </div>
+                        <div>
+                            <dt>Joined</dt>
+                            <dd data-users-view="joined">—</dd>
+                        </div>
+                        <div>
+                            <dt>Last Active</dt>
+                            <dd data-users-view="last">—</dd>
+                        </div>
+                        <div class="users-view-grid__full">
+                            <dt>Permissions</dt>
+                            <dd data-users-view="perms">—</dd>
+                        </div>
+                    </dl>
+
+                    <h6 class="users-view-section-title">Recent activity</h6>
+                    <ul class="users-view-activity" data-users-view="activity"></ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary btn-sm"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-sm" data-users-view-edit><i
+                            class="bi bi-pencil me-1"></i>Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================== DELETE CONFIRM MODAL ================== -->
+    <div class="modal fade" id="usersDeleteModal" tabindex="-1" aria-labelledby="usersDelTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="usersDelTitle"><i
+                            class="bi bi-exclamation-triangle text-danger me-2"></i>Delete user</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="users-del-alert">
+                        <i class="bi bi-exclamation-octagon-fill"></i>
+                        <div>
+                            <strong>This action is permanent.</strong>
+                            <p class="mb-0" data-users-del-msg>You are about to delete this user.</p>
+                        </div>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="usersDelConfirm" data-users-del-confirm>
+                        <label class="form-check-label" for="usersDelConfirm">I understand this cannot be undone</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary btn-sm"
+                        data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger btn-sm" disabled data-users-del-go><i
+                            class="bi bi-trash me-1"></i>Delete forever</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="assets/js/theme.js" defer></script>
+    <script src="assets/js/sidebar.js" defer></script>
+    <script src="assets/js/charts.js" defer></script>
+    <script src="assets/js/orchid.js" defer></script>
+    <script src="assets/js/pages/users.js" defer></script>
+</body>
+
+</html>

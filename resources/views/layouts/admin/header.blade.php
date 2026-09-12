@@ -7,8 +7,12 @@
         <nav aria-label="breadcrumb" class="orchid-header__breadcrumb d-none d-md-block">
             <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item"><a href="#"><i class="bi bi-house-door"></i></a></li>
-                <li class="breadcrumb-item"><a href="#">Overview</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                @hasSection('breadcrumbs')
+                    @yield('breadcrumbs')
+                @else
+                    <li class="breadcrumb-item"><a href="#">Overview</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                @endif
             </ol>
         </nav>
     </div>
