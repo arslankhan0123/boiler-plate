@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Orchid - Premium Bootstrap 5.3 Admin Dashboard Template">
     <meta name="theme-color" content="#4f46e5">
-    <title>{{ trim($__env->yieldContent('page_title')) ?: trim($__env->yieldContent('title', 'Dashboard')) }} - {{ config('app.name', 'Laravel') }}</title>
+    {{-- yieldContent() is already escaped; printing it with {{ }} again turned & into &amp;amp; --}}
+    <title>{!! trim($__env->yieldContent('page_title')) ?: trim($__env->yieldContent('title', 'Dashboard')) !!} - {{ config('app.name', 'Laravel') }}</title>
 
     <link rel="icon" type="image/svg+xml" href="{{asset('admin/assets/icons/favicon.svg')}}">
     <link rel="preconnect" href="https://fonts.googleapis.com">

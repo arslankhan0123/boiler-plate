@@ -55,6 +55,14 @@ return Application::configure(basePath: dirname(__DIR__))
             'platform.admin' => EnsurePlatformAdmin::class,
             'module' => \App\Http\Middleware\EnsureModuleEnabled::class,
         ]);
+
+        // Switch to the tenant DB BEFORE route-model binding, so {employee},
+        // {role}, {payslip}… are loaded from the tenant's own database.
+        // (Auth already runs earlier in Laravel's priority list.)
+        $middleware->prependToPriorityList(
+            before: \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            prepend: InitializeTenancyFromUser::class,
+        );
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         // Map exceptions onto the single response envelope for API requests.

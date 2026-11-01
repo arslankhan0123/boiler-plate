@@ -88,6 +88,7 @@ class Employee extends Model
     protected $fillable = [
         'name',
         'code',
+        'user_id',
         'department_id',
         'designation_id',
         'email',
@@ -130,6 +131,12 @@ class Employee extends Model
         'sort_order',
         'created_by',
     ];
+
+    /** Central login account (users.id) — null when the employee cannot sign in. */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\User::class);
+    }
 
     /**
      * @return BelongsTo<Department, $this>

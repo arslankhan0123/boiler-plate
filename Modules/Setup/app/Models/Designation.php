@@ -54,6 +54,7 @@ class Designation extends Model
         'code',
         'description',
         'department_id',
+        'parent_id',
         'data',
         'is_active',
         'is_default',
@@ -66,6 +67,17 @@ class Designation extends Model
      *
      * @return BelongsTo<Department, $this>
      */
+    /** The designation this one reports to (org chart). */
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(self::class, 'parent_id');
+    }
+
+    public function children(): HasMany
+    {
+        return $this->hasMany(self::class, 'parent_id');
+    }
+
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);

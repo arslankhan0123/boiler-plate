@@ -268,7 +268,8 @@ a { color: var(--app-primary); }
    ===================================================================== */
 
 /* ---- App shell: only the content area scrolls ---- */
-html, body.orchid-body { height: 100%; overflow: hidden; }
+/* Only the admin panel locks the page; public pages (careers, login) scroll normally. */
+html:has(body.orchid-body), body.orchid-body { height: 100%; overflow: hidden; }
 .orchid-app { height: 100vh; min-height: 0; overflow: hidden; display: flex; flex-direction: column; margin-left: var(--app-sidebar-w); }
 @media (max-width: 991.98px) { .orchid-app { margin-left: 0; } }
 .orchid-header { flex-shrink: 0; position: relative; z-index: 30; background: rgba(255,255,255,.92); backdrop-filter: blur(14px);

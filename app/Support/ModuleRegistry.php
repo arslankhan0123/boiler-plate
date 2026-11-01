@@ -106,7 +106,9 @@ class ModuleRegistry
         $route = self::get($code)['route'] ?? null;
 
         if ($feature !== null) {
-            return route('app.feature', [$code, $feature]);
+            $featureRoute = self::get($code)['features'][$feature]['route'] ?? null;
+
+            return $featureRoute ? route($featureRoute) : route('app.feature', [$code, $feature]);
         }
 
         return $route ? route($route) : route('app.module', $code);
@@ -120,11 +122,33 @@ class ModuleRegistry
             return request()->routeIs(\Illuminate\Support\Str::before($route, '.').'.*');
         }
 
+        if ($feature !== null && ($featureRoute = self::get($code)['features'][$feature]['route'] ?? null)) {
+            return request()->routeIs(...self::activePatterns($featureRoute));
+        }
+
+        if ($feature === null && collect(self::get($code)['features'] ?? [])->contains(fn ($f) => ($r = $f['route'] ?? null) && request()->routeIs(...self::activePatterns($r)))) {
+            return true;
+        }
+
         if (request()->route('module') !== $code) {
             return false;
         }
 
         return $feature === null || request()->route('feature') === $feature;
+    }
+
+    /**
+     * Route patterns that count as "inside" a feature:
+     *   hrm.employees.index → hrm.employees.*   (whole resource: create, show, edit…)
+     *   hrm.me.leaves       → hrm.me.leaves, hrm.me.leaves.*   (NOT the sibling hrm.me.payslips)
+     */
+    private static function activePatterns(string $route): array
+    {
+        if (str_ends_with($route, '.index')) {
+            return [\Illuminate\Support\Str::beforeLast($route, '.').'.*'];
+        }
+
+        return [$route, $route.'.*'];
     }
 
     /** Modules that directly require $code. */

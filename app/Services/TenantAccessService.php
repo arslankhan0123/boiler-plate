@@ -51,6 +51,19 @@ class TenantAccessService
                 ->filter(fn ($p) => $isPanelPerm($p->name) && ! in_array($p->name, $names, true))
                 ->each->delete();
 
+            // Starter roles for enabled modules (e.g. HRM: Employee, HR Manager).
+            // Only created/topped-up — a tenant's own edits to them are kept.
+            foreach (config('hrm.default_roles', []) as $roleName => $perms) {
+                $perms = array_values(array_intersect($perms, $names));
+                if (! $perms) {
+                    continue;
+                }
+                $starter = Role::query()->firstOrCreate(['name' => $roleName, 'guard_name' => self::GUARD]);
+                if ($starter->wasRecentlyCreated) {
+                    $starter->syncPermissions($models->whereIn('name', $perms)->all());
+                }
+            }
+
             if ($admin) {
                 $admin->syncRoles([$role]);
             }

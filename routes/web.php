@@ -11,6 +11,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Public careers site per tenant (no login): /careers/{tenant}
+Route::prefix('careers/{tenant}')->name('careers.')->group(function () {
+    Route::get('/', [\App\Http\Controllers\Hrm\CareersController::class, 'index'])->name('index');
+    Route::get('{slug}', [\App\Http\Controllers\Hrm\CareersController::class, 'show'])->name('show');
+    Route::post('{slug}/apply', [\App\Http\Controllers\Hrm\CareersController::class, 'apply'])->middleware('throttle:5,1')->name('apply');
+});
+
 // `tenant.init` switches to the tenant's own database for tenant users.
 Route::middleware(['auth', 'tenant.init'])->group(function () {
     Route::get('/dashboard', fn () => view('dashboard'))->middleware('verified')->name('dashboard');
@@ -25,6 +32,9 @@ Route::middleware(['auth', 'tenant.init'])->group(function () {
     // Generic module + feature pages (tenant module check + permission check inside).
     Route::get('/app/{module}', [ModuleController::class, 'module'])->name('app.module');
     Route::get('/app/{module}/{feature}', [ModuleController::class, 'feature'])->name('app.feature');
+
+    // HRM module (module:hrm + permission checks inside).
+    require __DIR__.'/hrm.php';
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

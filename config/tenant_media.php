@@ -24,5 +24,7 @@ return [
         'ecommerce_categories' => ['image'],
         'ecommerce_products' => ['feature_image'],
         'ecommerce_product_images' => ['path'],
+        'employee_documents' => ['file'],
+        'hrm_job_applications' => ['resume'],
     ],
 ];
