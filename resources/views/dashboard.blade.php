@@ -5,7 +5,7 @@
 @php
     $me = auth()->user();
     $modules = collect(config('module_permissions.modules'))->filter(fn ($m, $k) => $me->can("$k.view"));
-    $linkFor = fn ($k) => match ($k) { 'users' => route('users.index'), 'roles' => route('roles.index'), default => route('modules.show', $k) };
+    $linkFor = fn ($k) => match ($k) { 'users' => route('users.index'), 'roles' => route('roles.index'), 'tenants' => route('tenants.index'), default => route('modules.show', $k) };
     $hour = now()->hour;
     $greeting = $hour < 12 ? 'Good morning' : ($hour < 17 ? 'Good afternoon' : 'Good evening');
 @endphp
@@ -13,18 +13,26 @@
 @section('content')
 <div class="app-content">
     <x-admin.page-header :title="$greeting.', '.explode(' ', $me->name)[0]" subtitle="Here's an overview of your workspace.">
+        @if ($me->tenant_id)
+            <x-admin.badge tone="success" icon="building">{{ tenant('name') }}</x-admin.badge>
+        @endif
         <x-admin.badge tone="primary" icon="shield-check">{{ $me->roles->pluck('name')->join(', ') ?: 'No role assigned' }}</x-admin.badge>
     </x-admin.page-header>
 
     <div class="row g-4 mb-4">
         @can('users.view')
             <div class="col-sm-6 col-xl-3">
-                <x-admin.stat label="Total users" :value="\App\Models\User::count()" icon="people" tone="primary" :href="route('users.index')" />
+                <x-admin.stat label="Total users" :value="\App\Models\User::where('tenant_id', $me->tenant_id)->count()" icon="people" tone="primary" :href="route('users.index')" />
             </div>
         @endcan
         @can('roles.view')
             <div class="col-sm-6 col-xl-3">
                 <x-admin.stat label="Roles" :value="\App\Models\Role::where('guard_name', 'api')->count()" icon="shield-lock" tone="warning" :href="route('roles.index')" />
+            </div>
+        @endcan
+        @can('tenants.view')
+            <div class="col-sm-6 col-xl-3">
+                <x-admin.stat label="Tenants" :value="\App\Models\Tenant::count()" icon="buildings" tone="info" :href="route('tenants.index')" />
             </div>
         @endcan
         <div class="col-sm-6 col-xl-3">

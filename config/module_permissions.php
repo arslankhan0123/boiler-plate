@@ -14,9 +14,16 @@ return [
 
     'actions' => ['view', 'create', 'update', 'delete'],
 
+    /*
+     | Flags:
+     |  central => only the platform (Master Admin, no tenant) can ever use it
+     |  core    => every tenant always has it (tenant admin manages own users/roles)
+     |  others  => a tenant can use it only if enabled on the tenant (Tenants page)
+     */
     'modules' => [
-        'users'       => ['label' => 'Users',              'icon' => 'bi-people',          'group' => 'Administration'],
-        'roles'       => ['label' => 'Roles & Permissions','icon' => 'bi-shield-lock',     'group' => 'Administration'],
+        'tenants'     => ['label' => 'Tenants',            'icon' => 'bi-buildings',       'group' => 'Platform', 'central' => true],
+        'users'       => ['label' => 'Users',              'icon' => 'bi-people',          'group' => 'Administration', 'core' => true],
+        'roles'       => ['label' => 'Roles & Permissions','icon' => 'bi-shield-lock',     'group' => 'Administration', 'core' => true],
         'accounting'  => ['label' => 'Accounting',         'icon' => 'bi-calculator',      'group' => 'Modules'],
         'admin'       => ['label' => 'Admin',              'icon' => 'bi-gear',            'group' => 'Modules'],
         'ecommerce'   => ['label' => 'Ecommerce',          'icon' => 'bi-bag',             'group' => 'Modules'],

@@ -32,7 +32,7 @@ class CatalogController extends Controller
     {
         $data = $r->validate(['parent_id' => ['nullable', 'integer', 'exists:ecommerce_categories,id'], 'name' => ['required', 'string', 'max:255'], 'slug' => ['nullable', 'string', 'max:255', 'unique:ecommerce_categories,slug'], 'description' => ['nullable', 'string'], 'image' => ['nullable', 'image', 'max:5120'], 'is_active' => ['sometimes', 'boolean'], 'sort_order' => ['sometimes', 'integer', 'min:0']]);
         if ($r->hasFile('image')) {
-            $data['image'] = $r->file('image')->store('ecommerce/categories', 'public');
+            $data['image'] = $r->file('image')->store(tenant_upload_path('ecommerce/categories'), 'public');
         }
         $data['slug'] = $data['slug'] ?? Str::slug($data['name']).'-'.Str::lower(Str::random(6));
         $data['created_by'] = Auth::guard('api')->id();
@@ -45,7 +45,7 @@ class CatalogController extends Controller
         $data = $r->validate(['parent_id' => ['nullable', 'integer', 'exists:ecommerce_categories,id', 'different:id'], 'name' => ['sometimes', 'string', 'max:255'], 'slug' => ['sometimes', 'string', 'max:255', 'unique:ecommerce_categories,slug,'.$category->id], 'description' => ['nullable', 'string'], 'image' => ['nullable', 'image', 'max:5120'], 'is_active' => ['sometimes', 'boolean'], 'sort_order' => ['sometimes', 'integer', 'min:0']]);
         if ($r->hasFile('image')) {
             $this->deleteFile($category->image);
-            $data['image'] = $r->file('image')->store('ecommerce/categories', 'public');
+            $data['image'] = $r->file('image')->store(tenant_upload_path('ecommerce/categories'), 'public');
         }
         $category->update($data);
 
@@ -101,7 +101,7 @@ class CatalogController extends Controller
     {
         $data = $this->productData($r);
         if ($r->hasFile('feature_image')) {
-            $data['feature_image'] = $r->file('feature_image')->store('ecommerce/products', 'public');
+            $data['feature_image'] = $r->file('feature_image')->store(tenant_upload_path('ecommerce/products'), 'public');
         }
         $data['slug'] = $data['slug'] ?? Str::slug($data['name']).'-'.Str::lower(Str::random(6));
         $data['created_by'] = Auth::guard('api')->id();
@@ -116,7 +116,7 @@ class CatalogController extends Controller
         $data = $this->productData($r, $product);
         if ($r->hasFile('feature_image')) {
             $this->deleteFile($product->feature_image);
-            $data['feature_image'] = $r->file('feature_image')->store('ecommerce/products', 'public');
+            $data['feature_image'] = $r->file('feature_image')->store(tenant_upload_path('ecommerce/products'), 'public');
         }
         $product->update($data);
         $this->storeGallery($r, $product);
@@ -134,7 +134,7 @@ class CatalogController extends Controller
     public function addGalleryImage(Request $r, Product $product): JsonResponse
     {
         $r->validate(['image' => ['required', 'image', 'max:5120'], 'alt_text' => ['nullable', 'string', 'max:255'], 'sort_order' => ['nullable', 'integer', 'min:0']]);
-        $image = $product->images()->create(['path' => $r->file('image')->store('ecommerce/products/gallery', 'public'), 'alt_text' => $r->input('alt_text'), 'sort_order' => $r->integer('sort_order')]);
+        $image = $product->images()->create(['path' => $r->file('image')->store(tenant_upload_path('ecommerce/products/gallery'), 'public'), 'alt_text' => $r->input('alt_text'), 'sort_order' => $r->integer('sort_order')]);
 
         return ApiResponse::successResponse('Gallery image added.', $image);
     }
@@ -161,7 +161,7 @@ class CatalogController extends Controller
     private function storeGallery(Request $r, Product $p): void
     {
         foreach ($r->file('gallery_images', []) as $i => $file) {
-            $p->images()->create(['path' => $file->store('ecommerce/products/gallery', 'public'), 'sort_order' => $p->images()->count() + $i]);
+            $p->images()->create(['path' => $file->store(tenant_upload_path('ecommerce/products/gallery'), 'public'), 'sort_order' => $p->images()->count() + $i]);
         }
     }
 

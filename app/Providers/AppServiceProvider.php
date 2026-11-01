@@ -47,11 +47,29 @@ class AppServiceProvider extends ServiceProvider
 
         $this->configureRateLimiters();
 
-        // Master Admin always passes every permission check (incl. new modules).
-        Gate::before(function ($user) {
-            return method_exists($user, 'hasRole') && $user->hasRole(config('module_permissions.master_role'))
-                ? true
-                : null;
+        // Sessions + DB cache must stay on the CENTRAL database even after
+        // tenancy switches the default connection to a tenant DB.
+        $central = Config::string('tenancy.database.central_connection');
+        Config::set('session.connection', Config::get('session.connection') ?: $central);
+        Config::set('cache.stores.database.connection', Config::get('cache.stores.database.connection') ?: $central);
+        Config::set('cache.stores.database.lock_connection', Config::get('cache.stores.database.lock_connection') ?: $central);
+
+        Gate::before(function ($user, string $ability) {
+            if (! $user instanceof \App\Models\User) {
+                return null;
+            }
+
+            // 1) Module not enabled for this tenant => deny, whatever the role says.
+            if (\App\Support\ModuleAccess::moduleEnabledFor($user, $ability) === false) {
+                return false;
+            }
+
+            // 2) Central Master Admin passes everything else.
+            if ($user->tenant_id === null && $user->hasRole(config('module_permissions.master_role'))) {
+                return true;
+            }
+
+            return null;
         });
     }
 

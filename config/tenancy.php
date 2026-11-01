@@ -61,10 +61,12 @@ return [
 
         /**
          * Tenant database names are created like this:
-         * prefix + tenant_id + suffix  ->  tenant_001_database, tenant_002_database, …
+         * prefix + tenant_id + suffix. With DB_PREFIX=boilerplate:
+         *   main DB   -> boilerplate_main        (DB_DATABASE in .env)
+         *   tenants   -> boilerplate_tenant_001, boilerplate_tenant_002, …
          */
-        'prefix' => 'tenant_',
-        'suffix' => '_database',
+        'prefix' => env('DB_PREFIX', 'app').'_tenant_',
+        'suffix' => '',
 
         /**
          * TenantDatabaseManagers are classes that handle the creation & deletion of tenant databases.

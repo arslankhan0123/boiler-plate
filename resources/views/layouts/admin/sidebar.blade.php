@@ -30,11 +30,13 @@
             $routeFor = fn ($key) => match ($key) {
                 'users' => route('users.index'),
                 'roles' => route('roles.index'),
+                'tenants' => route('tenants.index'),
                 default => route('modules.show', $key),
             };
             $isActive = fn ($key) => match ($key) {
                 'users' => request()->routeIs('users.*'),
                 'roles' => request()->routeIs('roles.*'),
+                'tenants' => request()->routeIs('tenants.*'),
                 default => request()->routeIs('modules.show') && request()->route('module') === $key,
             };
         @endphp

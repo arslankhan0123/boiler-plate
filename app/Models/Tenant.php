@@ -31,6 +31,17 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         ];
     }
 
+    public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(User::class);
+    }
+
+    /** Database name, e.g. tenant_001_database */
+    public function databaseName(): string
+    {
+        return config('tenancy.database.prefix').$this->getTenantKey().config('tenancy.database.suffix');
+    }
+
     /**
      * @return array<string, string>
      */

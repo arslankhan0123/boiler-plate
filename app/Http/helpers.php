@@ -46,3 +46,23 @@ if (! function_exists('paginated')) {
         ];
     }
 }
+
+
+if (! function_exists('tenant_upload_path')) {
+    /**
+     * Folder for uploads: "tenants/{id}/<path>" inside a tenant, "<path>" centrally.
+     * Keeps every tenant's files separate so they can be removed with the tenant.
+     */
+    function tenant_upload_path(string $path): string
+    {
+        $tenant = function_exists('tenant') ? tenant() : null;
+
+        if (! $tenant) {
+            return $path;
+        }
+
+        $folder = str_replace('{id}', (string) $tenant->getTenantKey(), config('tenant_media.folder', 'tenants/{id}'));
+
+        return $folder.'/'.ltrim($path, '/');
+    }
+}

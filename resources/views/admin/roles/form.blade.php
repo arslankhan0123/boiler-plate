@@ -39,7 +39,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach (config('module_permissions.modules') as $key => $m)
+                        @foreach (collect(config('module_permissions.modules'))->filter(fn ($x, $k) => auth()->user()->can("$k.view")) as $key => $m)
                             <tr>
                                 <td>
                                     <div class="perm-module">

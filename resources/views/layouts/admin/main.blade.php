@@ -57,6 +57,7 @@
     <script src="{{asset('admin/assets/js/orchid.js')}}" defer></script>
     @stack('modals')
     @stack('scripts')
+    <x-toast />
 </body>
 
 </html>

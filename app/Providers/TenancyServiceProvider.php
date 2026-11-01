@@ -44,7 +44,10 @@ class TenancyServiceProvider extends ServiceProvider
             Events\TenantSaved::class => [],
             Events\UpdatingTenant::class => [],
             Events\TenantUpdated::class => [],
-            Events\DeletingTenant::class => [],
+            // Delete this tenant's uploaded files while its DB still exists.
+            Events\DeletingTenant::class => [
+                \App\Listeners\DeleteTenantMedia::class,
+            ],
             Events\TenantDeleted::class => [
                 JobPipeline::make([
                     Jobs\DeleteDatabase::class,

@@ -19,15 +19,18 @@ class RolesController extends Controller
         abort_unless(auth()->user()?->can($ability), 403, 'You do not have permission for this action.');
     }
 
+    /** Master Admin (platform) and Tenant Admin (tenant) are locked system roles. */
     private function isMaster(Role $role): bool
     {
-        return $role->name === config('module_permissions.master_role');
+        return in_array($role->name, [config('module_permissions.master_role'), \App\Support\Authorization\DefaultRoles::TENANT_ADMIN], true);
     }
 
     public function index()
     {
         $this->check('roles.view');
-        $roles = Role::query()->where('guard_name', self::GUARD)->withCount(['permissions', 'users'])->orderBy('name')->get();
+        $roles = Role::query()->where('guard_name', self::GUARD)->withCount('permissions')->orderBy('name')->get();
+        $counts = $this->pivot()->selectRaw('role_id, COUNT(*) as c')->groupBy('role_id')->pluck('c', 'role_id');
+        $roles->each(fn ($r) => $r->users_count = (int) ($counts[$r->id] ?? 0));
 
         return view('admin.roles.index', compact('roles'));
     }
@@ -53,7 +56,7 @@ class RolesController extends Controller
     public function edit(Role $role)
     {
         $this->check('roles.update');
-        abort_if($this->isMaster($role), 403, 'Master Admin role cannot be edited.');
+        abort_if($this->isMaster($role), 403, 'System roles cannot be edited.');
 
         return view('admin.roles.form', ['role' => $role, 'assigned' => $role->permissions->pluck('name')->all()]);
     }
@@ -61,7 +64,7 @@ class RolesController extends Controller
     public function update(Request $request, Role $role)
     {
         $this->check('roles.update');
-        abort_if($this->isMaster($role), 403, 'Master Admin role cannot be edited.');
+        abort_if($this->isMaster($role), 403, 'System roles cannot be edited.');
         $data = $this->validated($request, $role);
 
         $role->update(['name' => $data['name']]);
@@ -73,9 +76,9 @@ class RolesController extends Controller
     public function destroy(Role $role)
     {
         $this->check('roles.delete');
-        abort_if($this->isMaster($role), 403, 'Master Admin role cannot be deleted.');
+        abort_if($this->isMaster($role), 403, 'System roles cannot be deleted.');
 
-        if ($role->users()->exists()) {
+        if ($this->pivot()->where('role_id', $role->id)->exists()) {
             return back()->with('error', 'This role is assigned to users. Reassign them first.');
         }
 
@@ -84,12 +87,19 @@ class RolesController extends Controller
         return redirect()->route('roles.index')->with('success', 'Role deleted.');
     }
 
+    /** model_has_roles on the same DB as the roles (tenant DB for tenant users). */
+    private function pivot()
+    {
+        return \Illuminate\Support\Facades\DB::connection((new Role())->getConnectionName())
+            ->table(config('permission.table_names.model_has_roles'));
+    }
+
     private function validated(Request $request, ?Role $role = null): array
     {
         return $request->validate([
             'name' => [
                 'required', 'string', 'max:100',
-                Rule::notIn([config('module_permissions.master_role')]),
+                Rule::notIn([config('module_permissions.master_role'), \App\Support\Authorization\DefaultRoles::TENANT_ADMIN]),
                 Rule::unique((new Role())->getTable(), 'name')->where('guard_name', self::GUARD)->ignore($role?->id),
             ],
             'permissions' => ['array'],
@@ -105,8 +115,8 @@ class RolesController extends Controller
         return Permission::query()
             ->where('guard_name', self::GUARD)
             ->whereIn('name', $requested)
-            ->pluck('name')
-            ->filter(fn ($p) => $user->can($p))
+            ->get()
+            ->filter(fn ($p) => $user->can($p->name))
             ->values()
             ->all();
     }

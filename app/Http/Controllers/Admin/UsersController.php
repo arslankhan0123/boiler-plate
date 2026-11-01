@@ -21,6 +21,23 @@ class UsersController extends Controller
         abort_unless(auth()->user()?->can($ability), 403, 'You do not have permission for this action.');
     }
 
+    /** Users are always scoped to the logged-in user's tenant (null = platform). */
+    private function scoped()
+    {
+        $tenantId = auth()->user()->tenant_id;
+
+        return User::query()->when(
+            $tenantId === null,
+            fn ($q) => $q->whereNull('tenant_id'),
+            fn ($q) => $q->where('tenant_id', $tenantId),
+        );
+    }
+
+    private function ensureSameTenant(User $user): void
+    {
+        abort_unless($user->tenant_id === auth()->user()->tenant_id, 404);
+    }
+
     /** Master Admin role can only be handed out by a Master Admin. */
     private function assignableRoles()
     {
@@ -37,7 +54,7 @@ class UsersController extends Controller
     {
         $this->check('users.view');
 
-        $users = User::query()
+        $users = $this->scoped()
             ->with('roles')
             ->when($request->filled('search'), fn ($q) => $q->where(fn ($w) => $w
                 ->where('name', 'like', '%'.$request->search.'%')
@@ -72,6 +89,7 @@ class UsersController extends Controller
             'phone' => $data['phone'] ?? null,
             'password' => Hash::make($data['password']),
             'email_verified_at' => now(),
+            'tenant_id' => auth()->user()->tenant_id,
         ]);
         $user->syncRoles([$data['role']]);
 
@@ -81,6 +99,7 @@ class UsersController extends Controller
     public function edit(User $user)
     {
         $this->check('users.update');
+        $this->ensureSameTenant($user);
 
         return view('admin.users.form', ['user' => $user, 'roles' => $this->assignableRoles()]);
     }
@@ -88,6 +107,7 @@ class UsersController extends Controller
     public function update(Request $request, User $user)
     {
         $this->check('users.update');
+        $this->ensureSameTenant($user);
         $data = $this->validated($request, $user);
 
         $payload = [
@@ -110,6 +130,7 @@ class UsersController extends Controller
     public function destroy(User $user)
     {
         $this->check('users.delete');
+        $this->ensureSameTenant($user);
         abort_if($user->id === auth()->id(), 403, 'You cannot delete your own account.');
 
         $user->delete();
@@ -121,7 +142,7 @@ class UsersController extends Controller
     {
         return $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user?->id)],
+            'email' => ['required', 'email', 'max:255', Rule::unique(User::class, 'email')->ignore($user?->id)],
             'phone' => ['nullable', 'string', 'max:20'],
             'password' => [$user ? 'nullable' : 'required', 'confirmed', Password::min(8)],
             'role' => ['required', 'string', Rule::in($this->assignableRoles()->pluck('name')->all())],
