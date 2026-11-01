@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Holiday extends Model
 {
     use UsesTenantConnection;
+    use \App\Models\Concerns\Auditable;
 
     protected $table = 'hrm_holidays';
 

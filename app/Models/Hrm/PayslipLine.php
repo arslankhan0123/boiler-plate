@@ -12,6 +12,7 @@ use Modules\Setup\Models\Employee;
 class PayslipLine extends Model
 {
     use UsesTenantConnection;
+    use \App\Models\Concerns\Auditable;
 
     protected $table = 'hrm_payslip_lines';
 

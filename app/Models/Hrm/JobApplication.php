@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class JobApplication extends Model
 {
     use UsesTenantConnection;
+    use \App\Models\Concerns\Auditable;
 
     protected $table = 'hrm_job_applications';
 

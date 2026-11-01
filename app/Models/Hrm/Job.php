@@ -14,6 +14,7 @@ use Modules\Setup\Models\Designation;
 class Job extends Model
 {
     use UsesTenantConnection;
+    use \App\Models\Concerns\Auditable;
 
     protected $table = 'hrm_jobs';
 

@@ -12,6 +12,7 @@ use Modules\Setup\Models\Employee;
 class LeaveAllocation extends Model
 {
     use UsesTenantConnection;
+    use \App\Models\Concerns\Auditable;
 
     protected $table = 'hrm_leave_allocations';
 

@@ -12,6 +12,7 @@ use Modules\Setup\Models\Employee;
 class SalaryComponent extends Model
 {
     use UsesTenantConnection;
+    use \App\Models\Concerns\Auditable;
 
     protected $table = 'hrm_salary_components';
 

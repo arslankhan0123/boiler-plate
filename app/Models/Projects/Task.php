@@ -14,6 +14,7 @@ use Modules\Setup\Models\Employee;
 class Task extends Model
 {
     use SoftDeletes;
+    use \App\Models\Concerns\Auditable;
     use UsesTenantConnection;
 
     protected $table = 'prj_tasks';

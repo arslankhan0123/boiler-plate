@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class LeaveType extends Model
 {
     use UsesTenantConnection;
+    use \App\Models\Concerns\Auditable;
 
     protected $table = 'hrm_leave_types';
 

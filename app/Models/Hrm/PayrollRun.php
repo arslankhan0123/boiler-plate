@@ -12,6 +12,7 @@ use Illuminate\Support\Carbon;
 class PayrollRun extends Model
 {
     use UsesTenantConnection;
+    use \App\Models\Concerns\Auditable;
 
     protected $table = 'hrm_payroll_runs';
 

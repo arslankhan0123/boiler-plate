@@ -150,6 +150,10 @@ class SettingsController extends Controller
     public function taxes()
     {
         $this->need('settings.view');
+        // The master currency list lives in the central DB — fill it once if it was never seeded.
+        if (! Lookup::query()->where('type', Lookup::TYPE_CURRENCY)->exists()) {
+            \Illuminate\Support\Facades\Artisan::call('db:seed', ['--class' => \Modules\Setup\Database\Seeders\LookupCurrencySeeder::class, '--force' => true]);
+        }
         $have = Currency::query()->pluck('lookup_id');
 
         return view('settings.taxes', [
@@ -207,7 +211,12 @@ class SettingsController extends Controller
     {
         $this->need('settings.update');
         $id = (int) $request->validate(['lookup_id' => ['required', 'integer']])['lookup_id'];
-        $service->createFromLookups([$id]);
+        $first = ! Currency::query()->exists();
+        $currency = $service->createFromLookups([$id])->first();
+        if ($first && $currency) { // the first currency becomes the default
+            $currency->update(['is_default' => true, 'is_active' => true]);
+            Settings::set(['default_currency' => $currency->code]);
+        }
 
         return back()->with('success', 'Currency added.');
     }

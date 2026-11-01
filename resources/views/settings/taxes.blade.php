@@ -29,17 +29,6 @@
             </x-admin.card>
 
             <x-admin.card flush :title="'Currencies ('.$currencies->count().')'">
-                @if ($canEdit && $available->isNotEmpty())
-                    <x-slot:actions>
-                        <form method="POST" action="{{ route('settings.currencies.store') }}" class="d-flex gap-2">@csrf
-                            <select name="lookup_id" class="form-select" style="width:240px;min-height:40px" required>
-                                <option value="">Add a currency…</option>
-                                @foreach ($available as $c)<option value="{{ $c->id }}">{{ $c->code }} — {{ $c->name }}</option>@endforeach
-                            </select>
-                            <x-admin.button size="sm" icon="plus-lg">Add</x-admin.button>
-                        </form>
-                    </x-slot:actions>
-                @endif
                 <div class="table-responsive"><table class="table app-table">
                     <thead><tr><th>Currency</th><th>Symbol</th><th>Status</th><th class="text-end"></th></tr></thead>
                     <tbody>
@@ -59,7 +48,7 @@
                             @endif</td>
                         </tr>
                     @empty
-                        <tr><td colspan="4"><x-admin.empty icon="currency-exchange" text="No currencies yet — add PKR to start." /></td></tr>
+                        <tr><td colspan="4"><x-admin.empty icon="currency-exchange" text="No currencies yet — add one from the right (e.g. PKR)." /></td></tr>
                     @endforelse
                     </tbody></table></div>
             </x-admin.card>
@@ -67,6 +56,18 @@
 
         @if ($canEdit)
             <div class="app-aside">
+                <div class="app-card"><div class="app-card__body">
+                    <h3 class="app-aside-title">Add currency</h3>
+                    <form method="POST" action="{{ route('settings.currencies.store') }}">@csrf
+                        <label class="form-label" for="lookupId">Currency <span class="req">*</span></label>
+                        <select name="lookup_id" id="lookupId" class="form-select" required @disabled($available->isEmpty())>
+                            <option value="">Choose…</option>
+                            @foreach ($available as $c)<option value="{{ $c->id }}" @selected($c->code === 'PKR' && $currencies->isEmpty())>{{ $c->code }} — {{ $c->name }}</option>@endforeach
+                        </select>
+                        <div class="form-text">The first currency you add becomes the default.</div>
+                        <x-admin.button icon="plus-lg" class="mt-3" :disabled="$available->isEmpty()">Add Currency</x-admin.button>
+                    </form>
+                </div></div>
                 <div class="app-card"><div class="app-card__body">
                     <h3 class="app-aside-title">{{ $editing ? 'Edit tax rate' : 'New tax rate' }}</h3>
                     <form method="POST" action="{{ $editing ? route('settings.taxes.update', $editing) : route('settings.taxes.store') }}">@csrf @if ($editing) @method('PUT') @endif

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class TaskComment extends Model
 {
     use UsesTenantConnection;
+    use \App\Models\Concerns\Auditable;
 
     protected $table = 'prj_task_comments';
 
