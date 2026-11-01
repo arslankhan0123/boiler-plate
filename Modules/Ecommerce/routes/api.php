@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Ecommerce\Http\Controllers\CatalogController;
 use Modules\Ecommerce\Http\Controllers\OrderController;
 
-Route::prefix('v1/ecommerce')->middleware(['auth:api', 'tenant.init', 'tenant.required'])->group(function (): void {
+Route::prefix('v1/ecommerce')->middleware(['auth:api', 'tenant.init', 'tenant.required', 'module:ecommerce'])->group(function (): void {
     Route::apiResource('categories', CatalogController::class)->parameters(['categories' => 'category'])->only(['index', 'store', 'show', 'update', 'destroy']);
     Route::get('services', [CatalogController::class, 'services']);
     Route::post('services', [CatalogController::class, 'storeService']);

@@ -24,21 +24,13 @@
 
     <nav class="orchid-sidebar__nav" aria-label="Main">
         @php
-            $navGroups = collect(config('module_permissions.modules'))
-                ->filter(fn ($m, $key) => auth()->user()?->can("$key.view"))
-                ->groupBy('group', true);
-            $routeFor = fn ($key) => match ($key) {
-                'users' => route('users.index'),
-                'roles' => route('roles.index'),
-                'tenants' => route('tenants.index'),
-                default => route('modules.show', $key),
-            };
-            $isActive = fn ($key) => match ($key) {
-                'users' => request()->routeIs('users.*'),
-                'roles' => request()->routeIs('roles.*'),
-                'tenants' => request()->routeIs('tenants.*'),
-                default => request()->routeIs('modules.show') && request()->route('module') === $key,
-            };
+            // Built from the module registry: only modules enabled for this
+            // user's tenant AND features the user has permission for.
+            $reg = \App\Support\ModuleRegistry::class;
+            $navGroups = auth()->check()
+                ? collect(\App\Support\ModuleAccess::visibleModules(auth()->user()))->groupBy('group', true)
+                : collect();
+            $groupNames = $reg::groups();
         @endphp
 
         <div class="orchid-nav-section">
@@ -52,15 +44,35 @@
             </ul>
         </div>
 
-        @foreach ($navGroups as $group => $items)
+        @foreach (array_keys($groupNames) as $group)
+            @continue(! $navGroups->has($group))
             <div class="orchid-nav-section">
-                <span class="orchid-nav-section__label">{{ $group }}</span>
+                <span class="orchid-nav-section__label">{{ $groupNames[$group] }}</span>
                 <ul class="orchid-nav">
-                    @foreach ($items as $key => $item)
+                    @foreach ($navGroups[$group] as $code => $m)
+                        @php
+                            $active = $reg::isActive($code);
+                            $subs = $m['route'] ? [] : $m['visible_features'];
+                        @endphp
                         <li>
-                            <a href="{{ $routeFor($key) }}" class="orchid-nav__link {{ $isActive($key) ? 'active' : '' }}">
-                                <i class="bi {{ $item['icon'] }}"></i><span>{{ $item['label'] }}</span>
-                            </a>
+                            @if ($subs)
+                                <a href="#nav-{{ $code }}" class="orchid-nav__link orchid-nav__link--has-sub {{ $active ? 'trail-active' : 'collapsed' }}"
+                                   data-bs-toggle="collapse" role="button" aria-expanded="{{ $active ? 'true' : 'false' }}" aria-controls="nav-{{ $code }}">
+                                    <i class="bi {{ $m['icon'] }}"></i><span>{{ $m['name'] }}</span>
+                                    <i class="bi bi-chevron-down orchid-nav__chevron"></i>
+                                </a>
+                                <ul class="collapse {{ $active ? 'show' : '' }} orchid-nav__sub list-unstyled" id="nav-{{ $code }}">
+                                    @foreach ($subs as $fkey => $f)
+                                        <li>
+                                            <a href="{{ $reg::url($code, $fkey) }}" class="orchid-nav__sublink {{ $reg::isActive($code, $fkey) ? 'active' : '' }}">{{ $f['name'] }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @else
+                                <a href="{{ $reg::url($code) }}" class="orchid-nav__link {{ $active ? 'active' : '' }}">
+                                    <i class="bi {{ $m['icon'] }}"></i><span>{{ $m['name'] }}</span>
+                                </a>
+                            @endif
                         </li>
                     @endforeach
                 </ul>

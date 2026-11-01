@@ -3,7 +3,7 @@
     $editing = $user->exists;
     $self = $editing && $user->id === auth()->id();
     $currentRole = old('role', $user->roles->first()?->name);
-    $master = config('module_permissions.master_role');
+    $master = config('modules.master_role');
 @endphp
 @section('title', $editing ? 'Edit User' : 'Create User')
 @section('subtitle', $editing ? 'Update an existing user account' : 'Add a new user account')

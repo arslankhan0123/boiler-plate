@@ -1,41 +1,25 @@
 @extends('layouts.admin.main')
-@section('title', $config['label'])
-@section('subtitle', "Module workspace")
+@section('title', $module['name'])
+@section('subtitle', $module['description'])
 
 @section('content')
 <div class="app-content">
-    <x-admin.page-header :title="$config['label']" subtitle="Module workspace">
-        @can("$module.create")
-            <x-admin.button icon="plus-lg" type="button" disabled>New</x-admin.button>
-        @endcan
-    </x-admin.page-header>
+    <x-admin.page-header :title="$module['name']" :subtitle="$module['description']" :back="route('dashboard')" />
 
-    <div class="row g-4">
-        <div class="col-lg-8">
-            <x-admin.card>
-                <div class="app-empty">
-                    <i class="bi {{ $config['icon'] }}"></i>
-                    <div class="fw-semibold text-body mb-1">{{ $config['label'] }} screens coming soon</div>
-                    This module's pages will appear here.
+    @if ($module['visible_features'])
+        <div class="row g-3">
+            @foreach ($module['visible_features'] as $key => $f)
+                <div class="col-sm-6 col-lg-4 col-xxl-3">
+                    <a href="{{ \App\Support\ModuleRegistry::url($code, $key) }}" class="app-tile">
+                        <span class="app-tile__icon tone-primary"><i class="bi {{ $module['icon'] }}"></i></span>
+                        <div><div class="fw-semibold">{{ $f['name'] }}</div><div class="small text-body-secondary">{{ $module['name'] }}</div></div>
+                        <i class="bi bi-chevron-right app-tile__arrow"></i>
+                    </a>
                 </div>
-            </x-admin.card>
+            @endforeach
         </div>
-        <div class="col-lg-4">
-            <x-admin.card title="Your access">
-                <ul class="list-unstyled mb-0 d-grid gap-2">
-                    @foreach (config('module_permissions.actions') as $a)
-                        <li class="d-flex justify-content-between align-items-center">
-                            <span class="text-capitalize">{{ $a }}</span>
-                            @can("$module.$a")
-                                <x-admin.badge tone="success" icon="check-lg">Allowed</x-admin.badge>
-                            @else
-                                <x-admin.badge tone="muted" icon="x-lg">No access</x-admin.badge>
-                            @endcan
-                        </li>
-                    @endforeach
-                </ul>
-            </x-admin.card>
-        </div>
-    </div>
+    @else
+        <x-admin.card><x-admin.empty icon="lock" text="You can see this module, but no screens are assigned to your role yet." /></x-admin.card>
+    @endif
 </div>
 @endsection

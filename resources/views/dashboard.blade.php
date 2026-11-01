@@ -4,8 +4,10 @@
 
 @php
     $me = auth()->user();
-    $modules = collect(config('module_permissions.modules'))->filter(fn ($m, $k) => $me->can("$k.view"));
-    $linkFor = fn ($k) => match ($k) { 'users' => route('users.index'), 'roles' => route('roles.index'), 'tenants' => route('tenants.index'), default => route('modules.show', $k) };
+    // Only modules enabled for this tenant AND permitted for this user.
+    $modules = collect(\App\Support\ModuleAccess::visibleModules($me));
+    $linkFor = fn ($k) => \App\Support\ModuleRegistry::url($k);
+    $groupNames = \App\Support\ModuleRegistry::groups();
     $hour = now()->hour;
     $greeting = $hour < 12 ? 'Good morning' : ($hour < 17 ? 'Good afternoon' : 'Good evening');
 @endphp
@@ -53,8 +55,8 @@
                         <a href="{{ $linkFor($key) }}" class="app-tile">
                             <span class="app-tile__icon tone-primary"><i class="bi {{ $m['icon'] }}"></i></span>
                             <div>
-                                <div class="fw-semibold">{{ $m['label'] }}</div>
-                                <div class="small text-body-secondary">{{ $m['group'] }}</div>
+                                <div class="fw-semibold">{{ $m['name'] }}</div>
+                                <div class="small text-body-secondary">{{ count($m['visible_features']) ? count($m['visible_features']).' screens' : ($groupNames[$m['group']] ?? '') }}</div>
                             </div>
                             <i class="bi bi-chevron-right app-tile__arrow"></i>
                         </a>

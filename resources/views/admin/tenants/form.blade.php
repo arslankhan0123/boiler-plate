@@ -1,7 +1,10 @@
 @extends('layouts.admin.main')
 @php
     $editing = $tenant->exists;
-    $selected = old('modules', (array) ($tenant->modules ?? []));
+    $selected = old('modules', $tenant->exists ? $tenant->enabledModules() : []);
+    $offFeatures = $tenant->exists ? $tenant->disabledFeatures() : [];
+    $registry = \App\Support\ModuleRegistry::class;
+    $byGroup = collect($registry::assignable())->groupBy('group', true);
     $active = (string) old('is_active', $tenant->is_active ? '1' : '0');
 @endphp
 @section('title', $editing ? 'Edit Tenant' : 'Create Tenant')
@@ -24,25 +27,58 @@
             <x-admin.input name="name" label="Tenant / Company Name" :value="$tenant->name" placeholder="e.g. Acme Retailers" required />
 
             <div class="app-field">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <label class="form-label mb-0">Modules <span class="opt">what this tenant can use</span></label>
-                    <label class="d-flex align-items-center gap-2 mb-0 small fw-semibold" style="cursor:pointer">
-                        <input class="form-check-input mt-0" type="checkbox" id="allModules"> Select all
-                    </label>
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <label class="form-label mb-0">Modules <span class="opt">subscription — what this tenant can use</span></label>
                 </div>
-                <div class="row g-3">
-                    @foreach (\App\Support\ModuleAccess::assignable() as $key => $m)
-                        <div class="col-md-6 col-xl-4">
-                            <label class="app-radio-card h-100 mb-0">
-                                <input type="checkbox" class="module-cb" name="modules[]" value="{{ $key }}" @checked(in_array($key, $selected))>
-                                <span class="app-tile__icon tone-primary" style="width:34px;height:34px;font-size:.95rem"><i class="bi {{ $m['icon'] }}"></i></span>
-                                <span class="app-radio-card__title">{{ $m['label'] }}</span>
-                            </label>
-                        </div>
-                    @endforeach
-                </div>
-                <div class="form-text mt-2">Users & Roles are always available so the tenant admin can manage their team.</div>
-                @error('modules')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
+                <p class="form-text mt-0 mb-3">Users, Roles &amp; Settings are always included. Required modules are enabled automatically.</p>
+
+                @if ($errors->has('modules'))
+                    <div class="app-alert app-alert--danger mb-3"><i class="bi bi-exclamation-circle-fill"></i>
+                        <div>@foreach ($errors->get('modules') as $msg)<div>{{ $msg }}</div>@endforeach</div>
+                    </div>
+                @endif
+
+                @foreach ($byGroup as $group => $mods)
+                    <div class="form-section-title mt-3">{{ $registry::groups()[$group] ?? $group }}</div>
+                    <div class="d-grid gap-3">
+                        @foreach ($mods as $code => $m)
+                            @php
+                                $on = in_array($code, $selected);
+                                $oldFeatures = old("features.$code");
+                            @endphp
+                            <div class="mod-card {{ $on ? 'is-on' : '' }}" data-module="{{ $code }}"
+                                 data-requires='@json($m['requires'])' data-name="{{ $m['name'] }}">
+                                <label class="mod-card__head">
+                                    <input type="checkbox" class="form-check-input mod-cb" name="modules[]" value="{{ $code }}" @checked($on)>
+                                    <span class="app-tile__icon tone-primary"><i class="bi {{ $m['icon'] }}"></i></span>
+                                    <span class="flex-grow-1">
+                                        <span class="mod-card__name">{{ $m['name'] }}</span>
+                                        <span class="mod-card__desc">{{ $m['description'] }}</span>
+                                    </span>
+                                    @if ($m['requires'])
+                                        <span class="mod-card__req"><i class="bi bi-link-45deg"></i>Needs {{ collect($m['requires'])->map(fn ($r) => $registry::get($r)['name'])->join(', ') }}</span>
+                                    @elseif ($m['requires_any'])
+                                        <span class="mod-card__req"><i class="bi bi-link-45deg"></i>Needs 1 business module</span>
+                                    @endif
+                                    @if ($m['features'])
+                                        <button type="button" class="mod-card__toggle" aria-label="Features"><i class="bi bi-chevron-down"></i></button>
+                                    @endif
+                                </label>
+                                @if ($m['features'])
+                                    <div class="mod-card__features">
+                                        @foreach ($m['features'] as $fkey => $f)
+                                            @php $fOn = is_array($oldFeatures) ? in_array($fkey, $oldFeatures) : ! in_array($fkey, $offFeatures[$code] ?? []); @endphp
+                                            <label class="mod-feature">
+                                                <input type="checkbox" class="form-check-input mt-0" name="features[{{ $code }}][]" value="{{ $fkey }}" @checked($fOn)>
+                                                {{ $f['name'] }}
+                                            </label>
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                @endforeach
             </div>
 
             @unless ($editing)
@@ -94,13 +130,62 @@
 </div>
 @endsection
 
+@push('styles')
+<style>
+    .mod-card { border: 1.5px solid var(--app-border); border-radius: 12px; transition: all .18s; background: var(--app-surface); }
+    .mod-card.is-on { border-color: #818cf8; background: rgba(99,102,241,.04); }
+    .mod-card__head { display: flex; align-items: center; gap: .9rem; padding: .9rem 1rem; margin: 0; cursor: pointer; }
+    .mod-card__head .form-check-input { margin: 0; flex-shrink: 0; }
+    .mod-card__name { display: block; font-weight: 600; color: var(--app-text); }
+    .mod-card__desc { display: block; font-size: .8rem; color: var(--app-text-muted); }
+    .mod-card__req { font-size: .72rem; font-weight: 600; color: #6366f1; background: rgba(99,102,241,.1); padding: .25rem .55rem; border-radius: 99px; white-space: nowrap; }
+    .mod-card__toggle { border: 0; background: none; color: var(--app-text-muted); padding: .3rem .4rem; border-radius: 8px; transition: transform .2s; }
+    .mod-card.is-open .mod-card__toggle { transform: rotate(180deg); }
+    .mod-card__features { display: none; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: .5rem 1rem;
+        padding: .25rem 1rem 1rem 3.4rem; }
+    .mod-card.is-open.is-on .mod-card__features { display: grid; }
+    .mod-feature { display: flex; align-items: center; gap: .5rem; font-size: .85rem; color: var(--app-text); margin: 0; cursor: pointer; }
+    @media (max-width: 767px) { .mod-card__req { display: none; } .mod-card__features { padding-left: 1rem; } }
+</style>
+@endpush
+
 @push('scripts')
 <script>
 (() => {
-    const cbs = [...document.querySelectorAll('.module-cb')], all = document.getElementById('allModules');
-    const sync = () => all.checked = cbs.length && cbs.every(c => c.checked);
-    all.addEventListener('change', () => { cbs.forEach(c => c.checked = all.checked); });
-    cbs.forEach(c => c.addEventListener('change', sync)); sync();
+    const cards = [...document.querySelectorAll('.mod-card')];
+    const byCode = Object.fromEntries(cards.map(c => [c.dataset.module, c]));
+    const cb = c => c.querySelector('.mod-cb');
+    const name = code => byCode[code]?.dataset.name || code;
+    const reqs = c => JSON.parse(c.dataset.requires || '[]');
+    const paint = c => c.classList.toggle('is-on', cb(c).checked);
+
+    cards.forEach(card => {
+        const box = cb(card);
+        card.querySelector('.mod-card__toggle')?.addEventListener('click', e => {
+            e.preventDefault(); card.classList.toggle('is-open');
+        });
+        box.addEventListener('change', () => {
+            const code = card.dataset.module;
+            if (box.checked) {
+                // Turn on everything this module needs (recursively).
+                const added = [];
+                const enable = c => reqs(byCode[c]).forEach(r => {
+                    if (byCode[r] && !cb(byCode[r]).checked) { cb(byCode[r]).checked = true; paint(byCode[r]); added.push(name(r)); enable(r); }
+                });
+                enable(code);
+                if (added.length) Toast.info(`${added.join(', ')} enabled because ${name(code)} needs it.`, 'Dependencies added');
+                card.classList.add('is-open');
+            } else {
+                // Block turning off a module another enabled module depends on.
+                const blockers = cards.filter(c => cb(c).checked && reqs(c).includes(code)).map(c => c.dataset.name);
+                if (blockers.length) {
+                    box.checked = true;
+                    Toast.warning(`Disable ${blockers.join(', ')} first — ${blockers.length > 1 ? 'they need' : 'it needs'} ${name(code)}.`, 'Dependency');
+                }
+            }
+            paint(card);
+        });
+    });
 })();
 </script>
 @endpush

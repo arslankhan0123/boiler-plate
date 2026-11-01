@@ -8,7 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Tenant;
 use App\Models\User;
 use App\Services\TenantAccessService;
-use App\Support\ModuleAccess;
+use App\Support\ModuleRegistry;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -43,6 +44,7 @@ class TenantsController extends Controller
     public function create()
     {
         $this->check('tenants.create');
+        ModuleRegistry::sync();
 
         return view('admin.tenants.form', ['tenant' => new Tenant(['is_active' => true]), 'admin' => null]);
     }
@@ -54,13 +56,13 @@ class TenantsController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string', 'max:150', Rule::unique(Tenant::class, 'name')],
             'is_active' => ['required', 'boolean'],
-            'modules' => ['array'],
-            'modules.*' => [Rule::in(array_keys(ModuleAccess::assignable()))],
+            ...$this->moduleRules(),
             'admin_name' => ['required', 'string', 'max:255'],
             'admin_email' => ['required', 'email', 'max:255', Rule::unique(User::class, 'email')],
             'admin_password' => ['required', 'confirmed', Password::min(8)],
         ]);
 
+        [$modules, $disabledFeatures] = $this->moduleSelection($request);
         $tenant = null;
 
         try {
@@ -68,8 +70,8 @@ class TenantsController extends Controller
             $tenant = Tenant::create([
                 'name' => $data['name'],
                 'is_active' => (bool) $data['is_active'],
-                'modules' => array_values($data['modules'] ?? []),
             ]);
+            $tenant->syncModules($modules, $disabledFeatures);
 
             $admin = User::create([
                 'name' => $data['admin_name'],
@@ -105,6 +107,7 @@ class TenantsController extends Controller
     {
         $this->check('tenants.update');
 
+        ModuleRegistry::sync();
         $admin = User::query()->where('tenant_id', $tenant->id)->oldest()->first();
 
         return view('admin.tenants.form', compact('tenant', 'admin'));
@@ -117,20 +120,56 @@ class TenantsController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string', 'max:150', Rule::unique(Tenant::class, 'name')->ignore($tenant->id)],
             'is_active' => ['required', 'boolean'],
-            'modules' => ['array'],
-            'modules.*' => [Rule::in(array_keys(ModuleAccess::assignable()))],
+            ...$this->moduleRules(),
         ]);
+
+        [$modules, $disabledFeatures] = $this->moduleSelection($request);
 
         $tenant->update([
             'name' => $data['name'],
             'is_active' => (bool) $data['is_active'],
-            'modules' => array_values($data['modules'] ?? []),
         ]);
+        $tenant->syncModules($modules, $disabledFeatures);
 
         // Add permissions for newly ticked modules, remove the unticked ones.
         $access->sync($tenant);
 
         return redirect()->route('tenants.index')->with('success', 'Tenant updated and permissions synced.');
+    }
+
+    private function moduleRules(): array
+    {
+        return [
+            'modules' => ['array'],
+            'modules.*' => [Rule::in(array_keys(ModuleRegistry::assignable()))],
+            'features' => ['array'],
+        ];
+    }
+
+    /**
+     * Enabled modules + switched-off features, checked against the dependency matrix.
+     *
+     * @return array{0: list<string>, 1: array<string, list<string>>}
+     */
+    private function moduleSelection(Request $request): array
+    {
+        $modules = array_values(array_unique((array) $request->input('modules', [])));
+
+        if ($errors = ModuleRegistry::validateSelection($modules)) {
+            throw ValidationException::withMessages(['modules' => $errors]);
+        }
+
+        $disabled = [];
+        foreach ($modules as $code) {
+            $all = array_keys(ModuleRegistry::get($code)['features']);
+            $on = (array) $request->input("features.$code", []);
+            $off = array_values(array_diff($all, $on));
+            if ($off) {
+                $disabled[$code] = $off;
+            }
+        }
+
+        return [$modules, $disabled];
     }
 
     public function destroy(Tenant $tenant)

@@ -453,3 +453,14 @@ textarea.form-control { min-height: 120px; padding-top: .85rem; }
 
 /* Footer */
 .orchid-footer { padding: 1rem 0; }
+
+/* ---- v4: sub-menus in the dark sidebar ---- */
+.orchid-nav__sub { border-left: 1px solid rgba(255,255,255,.1); margin: .15rem 0 .35rem 1.55rem; padding: .15rem 0 .15rem .65rem; }
+.orchid-nav__sublink { color: rgba(255,255,255,.55); font-size: .82rem; padding: .42rem .7rem; border-radius: 8px; text-decoration: none; display: block; transition: all .18s; }
+.orchid-nav__sublink::before { display: none; }
+.orchid-nav__sublink:hover { color: #fff; background: rgba(255,255,255,.06); }
+.orchid-nav__sublink.active { color: #c7d2fe; background: rgba(99,102,241,.18); font-weight: 600; }
+.orchid-nav__link--has-sub[aria-expanded="true"], .orchid-nav__link.trail-active { color: #fff; background: rgba(255,255,255,.06); }
+.orchid-nav__link.trail-active::before { display: none; }
+.orchid-nav__link--has-sub .orchid-nav__chevron { color: rgba(255,255,255,.4); margin-left: auto; }
+.orchid-nav__link--has-sub[aria-expanded="true"] .orchid-nav__chevron { color: #a5b4fc; }

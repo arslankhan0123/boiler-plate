@@ -1,330 +1,270 @@
 <?php
 
-use Nwidart\Modules\Activators\FileActivator;
-use Nwidart\Modules\Providers\ConsoleServiceProvider;
+/*
+|--------------------------------------------------------------------------
+| Module registry — single source of truth
+|--------------------------------------------------------------------------
+| Tenant subscription → enabled modules → user roles → permissions.
+|
+| scope:
+|   platform  Master Admin only (central). Never available to tenants.
+|   core      Always on for every tenant (tenant admin manages team/settings).
+|   tenant    Business module. Master Admin enables it per tenant.
+|
+| requires     Modules that must also be enabled (dependency matrix).
+| permissions  Granular actions => label. "<code>.view" shows the module.
+| features     Submodules (menu items). Each needs a permission to be visible;
+|              Master Admin can switch features off per tenant.
+|
+| The registry is synced into the master DB tables `modules` and
+| `module_dependencies` automatically (App\Support\ModuleRegistry::sync()).
+*/
 
 return [
+    'master_role' => 'Master Admin',
 
-    /*
-    |--------------------------------------------------------------------------
-    | Module Namespace
-    |--------------------------------------------------------------------------
-    |
-    | Default module namespace.
-    |
-    */
-    'namespace' => 'Modules',
+    'groups' => [
+        'platform' => 'Platform',
+        'core' => 'Administration',
+        'operations' => 'Operations',
+        'business' => 'Business Management',
+    ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Vapor Maintenance Mode
-    |--------------------------------------------------------------------------
-    |
-    | Indicates if the application is running on Laravel Vapor.
-    | When enabled, cached services path will be set to a writable location.
-    |
-    */
-    'vapor_maintenance_mode' => env('VAPOR_MAINTENANCE_MODE', false),
+    'modules' => [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Module Stubs
-    |--------------------------------------------------------------------------
-    |
-    | Default module stubs.
-    |
-    */
-    'stubs' => [
-        // Use the project's customized stubs (PSR-12 + declare(strict_types=1),
-        // API-only) so generated modules conform to the coding standards.
-        'enabled' => true,
-        'path' => base_path('stubs/nwidart-stubs'),
-        // API-only project: no Blade views, frontend assets, vite, or package.json
-        // are scaffolded into modules (Standards §1, §18).
-        'files' => [
-            'routes/web' => 'routes/web.php',
-            'routes/api' => 'routes/api.php',
-            'scaffold/config' => 'config/config.php',
-            'composer' => 'composer.json',
+        /* ───────────── Platform (Master Admin) ───────────── */
+        'tenants' => [
+            'route' => 'tenants.index',
+            'name' => 'Tenants', 'icon' => 'bi-buildings', 'scope' => 'platform', 'group' => 'platform',
+            'description' => 'Tenants, their databases, status and module assignments.',
+            'permissions' => ['tenants.view' => 'View tenants', 'tenants.create' => 'Create tenants', 'tenants.update' => 'Edit tenants & modules', 'tenants.delete' => 'Delete tenants'],
+            'features' => [],
         ],
-        'replacements' => [
-            /**
-             * Define custom replacements for each section.
-             * You can now specify a class name that extends
-             * \Nwidart\Modules\Support\ReplacementKeyCommand for dynamic values.
-             *
-             * Example:
-             *
-             * 'composer' => [
-             *      // Map the UPPERCASE token to your command class
-             *      'CUSTOM_KEY' => \App\Modules\Support\Replacements\CustomKey::class,
-             *      // You can still list built-in tokens by their names
-             *      'LOWER_NAME',
-             *      'STUDLY_NAME',
-             *      // ...
-             * ],
-             *
-             * The command class must extend ReplacementKeyCommand and implement handle(): string
-             * to return the replacement text.
-             *
-             * Note: Keys should be in UPPERCASE.
-             */
-            'routes/web' => ['LOWER_NAME', 'STUDLY_NAME', 'PLURAL_LOWER_NAME', 'KEBAB_NAME', 'MODULE_NAMESPACE', 'CONTROLLER_NAMESPACE'],
-            'routes/api' => ['LOWER_NAME', 'STUDLY_NAME', 'PLURAL_LOWER_NAME', 'KEBAB_NAME', 'MODULE_NAMESPACE', 'CONTROLLER_NAMESPACE'],
-            'vite' => ['LOWER_NAME', 'STUDLY_NAME', 'KEBAB_NAME'],
-            'json' => ['LOWER_NAME', 'STUDLY_NAME', 'KEBAB_NAME', 'MODULE_NAMESPACE', 'PROVIDER_NAMESPACE'],
-            'views/index' => ['LOWER_NAME'],
-            'views/master' => ['LOWER_NAME', 'STUDLY_NAME', 'KEBAB_NAME'],
-            'scaffold/config' => ['STUDLY_NAME'],
-            'composer' => [
-                'LOWER_NAME',
-                'STUDLY_NAME',
-                'VENDOR',
-                'AUTHOR_NAME',
-                'AUTHOR_EMAIL',
-                'MODULE_NAMESPACE',
-                'PROVIDER_NAMESPACE',
-                'APP_FOLDER_NAME',
+        'modules' => [
+            'route' => 'modules.index',
+            'name' => 'Module Registry', 'icon' => 'bi-boxes', 'scope' => 'platform', 'group' => 'platform',
+            'description' => 'All available modules and their dependencies.',
+            'permissions' => ['modules.view' => 'View module registry'],
+            'features' => [],
+        ],
+
+        /* ───────────── Core (every tenant) ───────────── */
+        'users' => [
+            'route' => 'users.index',
+            'name' => 'Users', 'icon' => 'bi-people', 'scope' => 'core', 'group' => 'core',
+            'description' => 'User accounts.',
+            'permissions' => ['users.view' => 'View users', 'users.create' => 'Create users', 'users.update' => 'Edit users', 'users.delete' => 'Delete users'],
+            'features' => [],
+        ],
+        'roles' => [
+            'route' => 'roles.index',
+            'name' => 'Roles & Permissions', 'icon' => 'bi-shield-lock', 'scope' => 'core', 'group' => 'core',
+            'description' => 'Roles and what each role may do.',
+            'permissions' => ['roles.view' => 'View roles', 'roles.create' => 'Create roles', 'roles.update' => 'Edit roles', 'roles.delete' => 'Delete roles'],
+            'features' => [],
+        ],
+        'settings' => [
+            'name' => 'Settings', 'icon' => 'bi-sliders', 'scope' => 'core', 'group' => 'core',
+            'description' => 'Company profile, branches, taxes, currencies and other settings.',
+            'permissions' => ['settings.view' => 'View settings', 'settings.update' => 'Change settings', 'settings.audit_logs' => 'View audit logs'],
+            'features' => [
+                'company' => ['name' => 'Company Profile', 'permission' => 'settings.view'],
+                'branches' => ['name' => 'Branches / Locations', 'permission' => 'settings.view'],
+                'taxes' => ['name' => 'Taxes & Currencies', 'permission' => 'settings.view'],
+                'payments' => ['name' => 'Payment & Shipping', 'permission' => 'settings.view'],
+                'notifications' => ['name' => 'Notifications', 'permission' => 'settings.view'],
+                'audit-logs' => ['name' => 'Audit Logs', 'permission' => 'settings.audit_logs'],
             ],
         ],
-        'gitkeep' => true,
-    ],
-    'paths' => [
-        /*
-        |--------------------------------------------------------------------------
-        | Modules path
-        |--------------------------------------------------------------------------
-        |
-        | This path is used to save the generated module.
-        | This path will also be added automatically to the list of scanned folders.
-        |
-        */
-        'modules' => base_path('Modules'),
 
-        /*
-        |--------------------------------------------------------------------------
-        | Modules assets path
-        |--------------------------------------------------------------------------
-        |
-        | Here you may update the modules' assets path.
-        |
-        */
-        'assets' => public_path('modules'),
-
-        /*
-        |--------------------------------------------------------------------------
-        | The migrations' path
-        |--------------------------------------------------------------------------
-        |
-        | Where you run the 'module:publish-migration' command, where do you publish the
-        | the migration files?
-        |
-        */
-        'migration' => base_path('database/migrations'),
-
-        /*
-        |--------------------------------------------------------------------------
-        | The app path
-        |--------------------------------------------------------------------------
-        |
-        | app folder name
-        | for example can change it to 'src' or 'App'
-        */
-        'app_folder' => 'app/',
-
-        /*
-        |--------------------------------------------------------------------------
-        | Generator path
-        |--------------------------------------------------------------------------
-        | Customise the paths where the folders will be generated.
-        | Setting the generate key to false will not generate that folder
-        */
-        'generator' => [
-            // app/
-            'actions' => ['path' => 'app/Actions', 'generate' => false],
-            'casts' => ['path' => 'app/Casts', 'generate' => false],
-            'channels' => ['path' => 'app/Broadcasting', 'generate' => false],
-            'class' => ['path' => 'app/Classes', 'generate' => false],
-            'command' => ['path' => 'app/Console', 'generate' => false],
-            'command_replacements' => ['path' => 'app/Console/Replacements', 'generate' => false],
-            'component-class' => ['path' => 'app/View/Components', 'generate' => false],
-            'emails' => ['path' => 'app/Emails', 'generate' => false],
-            'event' => ['path' => 'app/Events', 'generate' => false],
-            'enums' => ['path' => 'app/Enums', 'generate' => false],
-            'exceptions' => ['path' => 'app/Exceptions', 'generate' => false],
-            'jobs' => ['path' => 'app/Jobs', 'generate' => false],
-            'helpers' => ['path' => 'app/Helpers', 'generate' => false],
-            'interfaces' => ['path' => 'app/Interfaces', 'generate' => false],
-            'listener' => ['path' => 'app/Listeners', 'generate' => false],
-            'model' => ['path' => 'app/Models', 'generate' => true],
-            'notifications' => ['path' => 'app/Notifications', 'generate' => false],
-            'observer' => ['path' => 'app/Observers', 'generate' => false],
-            'policies' => ['path' => 'app/Policies', 'generate' => true],
-            'provider' => ['path' => 'app/Providers', 'generate' => true],
-            'repository' => ['path' => 'app/Repositories', 'generate' => false],
-            'resource' => ['path' => 'app/Transformers', 'generate' => true],
-            'route-provider' => ['path' => 'app/Providers', 'generate' => true],
-            'rules' => ['path' => 'app/Rules', 'generate' => false],
-            'services' => ['path' => 'app/Services', 'generate' => true],
-            'scopes' => ['path' => 'app/Models/Scopes', 'generate' => false],
-            'traits' => ['path' => 'app/Traits', 'generate' => false],
-
-            // app/Http/
-            'controller' => ['path' => 'app/Http/Controllers', 'generate' => true],
-            'filter' => ['path' => 'app/Http/Middleware', 'generate' => false],
-            'request' => ['path' => 'app/Http/Requests', 'generate' => true],
-
-            // config/
-            'config' => ['path' => 'config', 'generate' => true],
-
-            // database/
-            'factory' => ['path' => 'database/factories', 'generate' => true],
-            'migration' => ['path' => 'database/migrations', 'generate' => true],
-            'seeder' => ['path' => 'database/seeders', 'generate' => true],
-
-            // lang/
-            'lang' => ['path' => 'lang', 'generate' => false],
-
-            // resource/
-            'assets' => ['path' => 'resources/assets', 'generate' => false],
-            'component-view' => ['path' => 'resources/views/components', 'generate' => false],
-            'views' => ['path' => 'resources/views', 'generate' => false],
-            'inertia' => ['path' => 'resources/js/Pages', 'generate' => false],
-            'inertia-components' => ['path' => 'resources/js/Components', 'generate' => false],
-
-            // routes/
-            'routes' => ['path' => 'routes', 'generate' => true],
-
-            // tests/
-            'test-feature' => ['path' => 'tests/Feature', 'generate' => true],
-            'test-unit' => ['path' => 'tests/Unit', 'generate' => true],
+        /* ───────────── Operations ───────────── */
+        'sales' => [
+            'name' => 'Sales', 'icon' => 'bi-receipt', 'scope' => 'tenant', 'group' => 'operations',
+            'description' => 'Quotations, orders, invoices, payments and returns.',
+            'requires' => [],
+            'permissions' => [
+                'sales.view' => 'View sales', 'sales.create' => 'Create', 'sales.update' => 'Edit', 'sales.delete' => 'Delete',
+                'sales.approve' => 'Approve', 'sales.invoice' => 'Issue invoices', 'sales.receive_payment' => 'Receive payments',
+                'sales.refund' => 'Returns & credit notes', 'sales.reports' => 'Sales reports',
+            ],
+            'features' => [
+                'quotations' => ['name' => 'Quotations', 'permission' => 'sales.view'],
+                'orders' => ['name' => 'Sales Orders', 'permission' => 'sales.view'],
+                'invoices' => ['name' => 'Invoices', 'permission' => 'sales.invoice'],
+                'payments' => ['name' => 'Customer Payments', 'permission' => 'sales.receive_payment'],
+                'returns' => ['name' => 'Returns & Credit Notes', 'permission' => 'sales.refund'],
+                'commissions' => ['name' => 'Sales Reps & Commissions', 'permission' => 'sales.view'],
+                'reports' => ['name' => 'Sales Reports', 'permission' => 'sales.reports'],
+            ],
         ],
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Auto Discover of Modules
-    |--------------------------------------------------------------------------
-    |
-    | Here you configure auto discover of module
-    | This is useful for simplify module providers.
-    |
-    */
-    'auto-discover' => [
-        /*
-        |--------------------------------------------------------------------------
-        | Migrations
-        |--------------------------------------------------------------------------
-        |
-        | This option for register migration automatically.
-        |
-        */
-        'migrations' => true,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Translations
-        |--------------------------------------------------------------------------
-        |
-        | This option for register lang file automatically.
-        |
-        */
-        'translations' => false,
-
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Package commands
-    |--------------------------------------------------------------------------
-    |
-    | Here you can define which commands will be visible and used in your
-    | application. You can add your own commands to merge section.
-    |
-    */
-    'commands' => ConsoleServiceProvider::defaultCommands()
-        ->merge([
-            // New commands go here
-        ])->toArray(),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Scan Path
-    |--------------------------------------------------------------------------
-    |
-    | Here you define which folder will be scanned. By default will scan vendor
-    | directory. This is useful if you host the package in packagist website.
-    |
-    */
-    'scan' => [
-        'enabled' => false,
-        'paths' => [
-            base_path('vendor/*/*'),
+        'purchase' => [
+            'name' => 'Purchase', 'icon' => 'bi-cart-plus', 'scope' => 'tenant', 'group' => 'operations',
+            'description' => 'Requests, RFQs, purchase orders, GRN, bills and supplier payments.',
+            'requires' => ['inventory'],
+            'permissions' => [
+                'purchase.view' => 'View purchases', 'purchase.create' => 'Create', 'purchase.update' => 'Edit', 'purchase.delete' => 'Delete',
+                'purchase.approve' => 'Approve', 'purchase.receive' => 'Receive goods (GRN)', 'purchase.pay' => 'Pay suppliers',
+                'purchase.return' => 'Purchase returns', 'purchase.reports' => 'Purchase reports',
+            ],
+            'features' => [
+                'requests' => ['name' => 'Purchase Requests', 'permission' => 'purchase.view'],
+                'rfq' => ['name' => 'Requests for Quotation', 'permission' => 'purchase.view'],
+                'orders' => ['name' => 'Purchase Orders', 'permission' => 'purchase.view'],
+                'grn' => ['name' => 'Goods Received Notes', 'permission' => 'purchase.receive'],
+                'bills' => ['name' => 'Supplier Bills', 'permission' => 'purchase.view'],
+                'payments' => ['name' => 'Supplier Payments', 'permission' => 'purchase.pay'],
+                'returns' => ['name' => 'Purchase Returns', 'permission' => 'purchase.return'],
+                'reports' => ['name' => 'Purchase Reports', 'permission' => 'purchase.reports'],
+            ],
         ],
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Composer File Template
-    |--------------------------------------------------------------------------
-    |
-    | Here is the config for the composer.json file, generated by this package
-    |
-    */
-    'composer' => [
-        'vendor' => env('MODULE_VENDOR', 'nwidart'),
-        'author' => [
-            'name' => env('MODULE_AUTHOR_NAME', 'Nicolas Widart'),
-            'email' => env('MODULE_AUTHOR_EMAIL', 'n.widart@gmail.com'),
+        'inventory' => [
+            'name' => 'Inventory', 'icon' => 'bi-box-seam', 'scope' => 'tenant', 'group' => 'operations',
+            'description' => 'Products, warehouses, stock levels, transfers and counts.',
+            'requires' => [],
+            'permissions' => [
+                'inventory.view' => 'View inventory', 'inventory.manage_products' => 'Manage products', 'inventory.manage_warehouses' => 'Manage warehouses',
+                'inventory.adjust' => 'Stock adjustments', 'inventory.transfer' => 'Stock transfers', 'inventory.stock_count' => 'Stock counts',
+                'inventory.reports' => 'Inventory reports',
+            ],
+            'features' => [
+                'products' => ['name' => 'Products & Variants', 'permission' => 'inventory.view'],
+                'categories' => ['name' => 'Categories & Brands', 'permission' => 'inventory.manage_products'],
+                'warehouses' => ['name' => 'Warehouses & Locations', 'permission' => 'inventory.manage_warehouses'],
+                'stock' => ['name' => 'Stock Levels', 'permission' => 'inventory.view'],
+                'transfers' => ['name' => 'Stock Transfers', 'permission' => 'inventory.transfer'],
+                'adjustments' => ['name' => 'Stock Adjustments', 'permission' => 'inventory.adjust'],
+                'tracking' => ['name' => 'Batch / Serial / Expiry', 'permission' => 'inventory.view'],
+                'counts' => ['name' => 'Stock Counts', 'permission' => 'inventory.stock_count'],
+                'reorder' => ['name' => 'Reorder Levels', 'permission' => 'inventory.manage_products'],
+                'reports' => ['name' => 'Valuation & Reports', 'permission' => 'inventory.reports'],
+            ],
         ],
-        'composer-output' => false,
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Choose what laravel-modules will register as custom namespaces.
-    | Setting one to false will require you to register that part
-    | in your own Service Provider class.
-    |--------------------------------------------------------------------------
-    */
-    'register' => [
-        'translations' => true,
-        /**
-         * load files on boot or register method
-         */
-        'files' => 'register',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Activators
-    |--------------------------------------------------------------------------
-    |
-    | You can define new types of activators here, file, database, etc. The only
-    | required parameter is 'class'.
-    | The file activator will store the activation status in storage/installed_modules
-    */
-    'activators' => [
-        'file' => [
-            'class' => FileActivator::class,
-            'statuses-file' => base_path('modules_statuses.json'),
+        'pos' => [
+            'name' => 'POS', 'icon' => 'bi-shop', 'scope' => 'tenant', 'group' => 'operations',
+            'description' => 'Point of sale — a sales channel using Sales and Inventory.',
+            'requires' => ['sales', 'inventory'],
+            'permissions' => [
+                'pos.view' => 'Access POS', 'pos.open' => 'Open register', 'pos.sell' => 'Sell / checkout', 'pos.print_receipt' => 'Print receipts',
+                'pos.hold' => 'Hold orders', 'pos.refund' => 'Refunds', 'pos.close_register' => 'Close register', 'pos.manage_register' => 'Manage registers',
+                'pos.reports' => 'Register reports',
+            ],
+            'features' => [
+                'terminal' => ['name' => 'POS Terminal', 'permission' => 'pos.sell'],
+                'registers' => ['name' => 'Registers & Shifts', 'permission' => 'pos.open'],
+                'held' => ['name' => 'Held Orders', 'permission' => 'pos.hold'],
+                'returns' => ['name' => 'Returns & Refunds', 'permission' => 'pos.refund'],
+                'reports' => ['name' => 'Register Reports', 'permission' => 'pos.reports'],
+            ],
         ],
-    ],
+        'ecommerce' => [
+            'name' => 'E-commerce', 'icon' => 'bi-bag', 'scope' => 'tenant', 'group' => 'operations',
+            'description' => 'Online store — orders flow into Sales.',
+            'requires' => ['sales', 'inventory'],
+            'permissions' => [
+                'ecommerce.view' => 'View store', 'ecommerce.manage_products' => 'Manage catalog', 'ecommerce.manage_orders' => 'Manage online orders',
+                'ecommerce.manage_promotions' => 'Coupons & promotions', 'ecommerce.manage_shipping' => 'Shipping & delivery',
+                'ecommerce.manage_reviews' => 'Reviews', 'ecommerce.manage_seo' => 'SEO & marketing', 'ecommerce.settings' => 'Store settings',
+                'ecommerce.reports' => 'Store analytics',
+            ],
+            'features' => [
+                'catalog' => ['name' => 'Catalog', 'permission' => 'ecommerce.manage_products'],
+                'orders' => ['name' => 'Online Orders', 'permission' => 'ecommerce.manage_orders'],
+                'promotions' => ['name' => 'Coupons & Promotions', 'permission' => 'ecommerce.manage_promotions'],
+                'shipping' => ['name' => 'Shipping & Delivery', 'permission' => 'ecommerce.manage_shipping'],
+                'customers' => ['name' => 'Customer Accounts', 'permission' => 'ecommerce.view'],
+                'reviews' => ['name' => 'Reviews & Wishlists', 'permission' => 'ecommerce.manage_reviews'],
+                'seo' => ['name' => 'SEO & Marketing', 'permission' => 'ecommerce.manage_seo'],
+                'abandoned' => ['name' => 'Abandoned Carts', 'permission' => 'ecommerce.manage_orders'],
+                'storefront' => ['name' => 'Storefront & Payments', 'permission' => 'ecommerce.settings'],
+                'analytics' => ['name' => 'Store Analytics', 'permission' => 'ecommerce.reports'],
+            ],
+        ],
+        'crm' => [
+            'name' => 'CRM', 'icon' => 'bi-person-lines-fill', 'scope' => 'tenant', 'group' => 'operations',
+            'description' => 'Leads, contacts, pipeline and follow-ups.',
+            'requires' => [],
+            'permissions' => [
+                'crm.view' => 'View CRM', 'crm.manage_leads' => 'Manage leads', 'crm.manage_contacts' => 'Manage contacts',
+                'crm.manage_pipeline' => 'Manage pipeline', 'crm.manage_activities' => 'Activities & follow-ups', 'crm.manage_campaigns' => 'Campaigns',
+            ],
+            'features' => [
+                'leads' => ['name' => 'Leads', 'permission' => 'crm.manage_leads'],
+                'contacts' => ['name' => 'Contacts & Companies', 'permission' => 'crm.manage_contacts'],
+                'pipeline' => ['name' => 'Opportunities / Pipeline', 'permission' => 'crm.manage_pipeline'],
+                'activities' => ['name' => 'Activities & Follow-ups', 'permission' => 'crm.manage_activities'],
+                'campaigns' => ['name' => 'Campaigns', 'permission' => 'crm.manage_campaigns'],
+                'history' => ['name' => 'Customer History', 'permission' => 'crm.view'],
+            ],
+        ],
 
-    'activator' => 'file',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Inertia
-    |--------------------------------------------------------------------------
-    |
-    | Default Inertia frontend framework used by make commands when no
-    | framework flag (--vue, --react, --svelte) is provided.
-    |
-    | Supported: "vue", "react", "svelte"
-    |
-    */
-    'inertia' => [
-        'frontend' => 'vue',
+        /* ───────────── Business management ───────────── */
+        'accounting' => [
+            'name' => 'Accounting', 'icon' => 'bi-calculator', 'scope' => 'tenant', 'group' => 'business',
+            'description' => 'Chart of accounts, journals, ledger, AR/AP, banking and statements.',
+            'requires' => [],
+            'permissions' => [
+                'accounting.view' => 'View accounting', 'accounting.manage_accounts' => 'Chart of accounts', 'accounting.post_journal' => 'Post journal entries',
+                'accounting.reconcile' => 'Bank reconciliation', 'accounting.manage_tax' => 'Tax management', 'accounting.close_period' => 'Close periods',
+                'accounting.reports' => 'Financial statements',
+            ],
+            'features' => [
+                'chart' => ['name' => 'Chart of Accounts', 'permission' => 'accounting.manage_accounts'],
+                'journals' => ['name' => 'Journal Entries', 'permission' => 'accounting.view'],
+                'ledger' => ['name' => 'General Ledger', 'permission' => 'accounting.view'],
+                'receivable' => ['name' => 'Accounts Receivable', 'permission' => 'accounting.view'],
+                'payable' => ['name' => 'Accounts Payable', 'permission' => 'accounting.view'],
+                'banking' => ['name' => 'Bank & Cash', 'permission' => 'accounting.view'],
+                'reconciliation' => ['name' => 'Reconciliation', 'permission' => 'accounting.reconcile'],
+                'tax' => ['name' => 'Tax Management', 'permission' => 'accounting.manage_tax'],
+                'statements' => ['name' => 'Financial Statements', 'permission' => 'accounting.reports'],
+                'periods' => ['name' => 'Accounting Periods', 'permission' => 'accounting.close_period'],
+            ],
+        ],
+        'hrm' => [
+            'name' => 'HRM', 'icon' => 'bi-person-badge', 'scope' => 'tenant', 'group' => 'business',
+            'description' => 'Employees, attendance, leave, payroll and recruitment.',
+            'requires' => [],
+            'permissions' => [
+                'hrm.view_employees' => 'View employees', 'hrm.manage_employees' => 'Manage employees', 'hrm.manage_attendance' => 'Attendance & shifts',
+                'hrm.manage_leave' => 'Leave management', 'hrm.process_payroll' => 'Process payroll', 'hrm.manage_recruitment' => 'Recruitment & onboarding',
+                'hrm.manage_performance' => 'Performance reviews', 'hrm.reports' => 'HR reports',
+            ],
+            'view_permission' => 'hrm.view_employees',
+            'features' => [
+                'employees' => ['name' => 'Employee Directory', 'permission' => 'hrm.view_employees'],
+                'departments' => ['name' => 'Departments & Designations', 'permission' => 'hrm.manage_employees'],
+                'attendance' => ['name' => 'Attendance & Shifts', 'permission' => 'hrm.manage_attendance'],
+                'leave' => ['name' => 'Leave Management', 'permission' => 'hrm.manage_leave'],
+                'payroll' => ['name' => 'Payroll & Payslips', 'permission' => 'hrm.process_payroll'],
+                'recruitment' => ['name' => 'Recruitment & Onboarding', 'permission' => 'hrm.manage_recruitment'],
+                'performance' => ['name' => 'Performance Reviews', 'permission' => 'hrm.manage_performance'],
+                'documents' => ['name' => 'Employee Documents', 'permission' => 'hrm.manage_employees'],
+                'reports' => ['name' => 'HR Reports', 'permission' => 'hrm.reports'],
+            ],
+        ],
+        'projects' => [
+            'name' => 'Projects', 'icon' => 'bi-kanban', 'scope' => 'tenant', 'group' => 'business',
+            'description' => 'Projects, tasks and time tracking.',
+            'requires' => [],
+            'permissions' => ['projects.view' => 'View projects', 'projects.create' => 'Create', 'projects.update' => 'Edit', 'projects.delete' => 'Delete', 'projects.manage_tasks' => 'Manage tasks'],
+            'features' => [
+                'list' => ['name' => 'Projects', 'permission' => 'projects.view'],
+                'tasks' => ['name' => 'Tasks', 'permission' => 'projects.manage_tasks'],
+            ],
+        ],
+        'reports' => [
+            'name' => 'Reports & Analytics', 'icon' => 'bi-bar-chart-line', 'scope' => 'tenant', 'group' => 'business',
+            'description' => 'Cross-module dashboards. Shows only enabled, permitted modules.',
+            'requires_any' => ['sales', 'purchase', 'inventory', 'pos', 'ecommerce', 'accounting', 'hrm'],
+            'permissions' => ['reports.view' => 'View reports', 'reports.export' => 'Export reports'],
+            'features' => [
+                'sales' => ['name' => 'Sales & Purchase', 'permission' => 'reports.view', 'needs_module' => ['sales', 'purchase']],
+                'inventory' => ['name' => 'Inventory', 'permission' => 'reports.view', 'needs_module' => ['inventory']],
+                'pos' => ['name' => 'POS', 'permission' => 'reports.view', 'needs_module' => ['pos']],
+                'ecommerce' => ['name' => 'E-commerce', 'permission' => 'reports.view', 'needs_module' => ['ecommerce']],
+                'accounting' => ['name' => 'Accounting', 'permission' => 'reports.view', 'needs_module' => ['accounting']],
+                'hr' => ['name' => 'HR', 'permission' => 'reports.view', 'needs_module' => ['hrm']],
+            ],
+        ],
     ],
 ];

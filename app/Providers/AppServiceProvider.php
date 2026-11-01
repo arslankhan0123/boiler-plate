@@ -65,7 +65,7 @@ class AppServiceProvider extends ServiceProvider
             }
 
             // 2) Central Master Admin passes everything else.
-            if ($user->tenant_id === null && $user->hasRole(config('module_permissions.master_role'))) {
+            if ($user->tenant_id === null && $user->hasRole(config('modules.master_role'))) {
                 return true;
             }
 

@@ -43,8 +43,8 @@ class UsersController extends Controller
     {
         $query = Role::query()->with('permissions')->where('guard_name', self::GUARD)->orderBy('name');
 
-        if (! auth()->user()->hasRole(config('module_permissions.master_role'))) {
-            $query->where('name', '!=', config('module_permissions.master_role'));
+        if (! auth()->user()->hasRole(config('modules.master_role'))) {
+            $query->where('name', '!=', config('modules.master_role'));
         }
 
         return $query->get();

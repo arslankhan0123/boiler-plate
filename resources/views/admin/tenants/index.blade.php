@@ -25,7 +25,7 @@
                 <thead><tr><th>Tenant</th><th>Database</th><th>Modules</th><th>Users</th><th>Status</th><th class="text-end">Actions</th></tr></thead>
                 <tbody>
                 @forelse ($tenants as $t)
-                    @php $mods = collect((array) ($t->modules ?? [])); $all = \App\Support\ModuleAccess::assignable(); @endphp
+                    @php $mods = collect($t->enabledModules()); $all = \App\Support\ModuleRegistry::assignable(); @endphp
                     <tr>
                         <td>
                             <div class="d-flex align-items-center gap-3">
@@ -39,7 +39,7 @@
                         <td><code class="small">{{ $t->databaseName() }}</code></td>
                         <td style="max-width:320px">
                             @forelse ($mods->take(4) as $m)
-                                <x-admin.badge tone="primary" class="mb-1">{{ $all[$m]['label'] ?? $m }}</x-admin.badge>
+                                <x-admin.badge tone="primary" class="mb-1">{{ $all[$m]['name'] ?? $m }}</x-admin.badge>
                             @empty
                                 <x-admin.badge tone="muted">None</x-admin.badge>
                             @endforelse

@@ -11,7 +11,7 @@ use Modules\Pos\Http\Controllers\PosController;
 |--------------------------------------------------------------------------
 */
 
-Route::prefix('v1')->middleware(['auth:api', 'tenant.init', 'tenant.required'])->group(function (): void {
+Route::prefix('v1')->middleware(['auth:api', 'tenant.init', 'tenant.required', 'module:pos'])->group(function (): void {
     Route::prefix('pos')->name('pos.')->group(function (): void {
         Route::get('/', [PosController::class, 'index'])->name('index');
         Route::get('terminals', [PosController::class, 'terminals']);

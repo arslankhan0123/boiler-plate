@@ -53,6 +53,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'tenant.init' => InitializeTenancyFromUser::class,
             'tenant.required' => EnsureTenantInitialized::class,
             'platform.admin' => EnsurePlatformAdmin::class,
+            'module' => \App\Http\Middleware\EnsureModuleEnabled::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

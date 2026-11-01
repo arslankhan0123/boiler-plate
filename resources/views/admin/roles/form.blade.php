@@ -2,8 +2,13 @@
 @php
     $editing = $role->exists;
     $checked = old('permissions', $assigned);
-    $actions = config('module_permissions.actions');
-    $actionIcons = ['view' => 'eye', 'create' => 'plus-circle', 'update' => 'pencil', 'delete' => 'trash3'];
+    $me = auth()->user();
+    // Modules available in this context, with only the permissions the editor holds.
+    $modules = collect(\App\Support\ModuleRegistry::all())
+        ->filter(fn ($m, $code) => \App\Support\ModuleAccess::moduleAvailable($me, $code))
+        ->map(function ($m) use ($me) { $m['permissions'] = array_filter($m['permissions'], fn ($l, $p) => $me->can($p), ARRAY_FILTER_USE_BOTH); return $m; })
+        ->filter(fn ($m) => $m['permissions']);
+    $groups = \App\Support\ModuleRegistry::groups();
 @endphp
 @section('title', $editing ? 'Edit Role' : 'Create Role')
 @section('subtitle', 'Define a role and its module permissions')
@@ -23,47 +28,40 @@
             <x-admin.input name="name" label="Role Name" :value="$role->name" placeholder="e.g. Store Manager, Cashier, Accountant" required />
 
             <div class="app-field">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <label class="form-label mb-0">Permissions <span class="opt">“View” shows the module in the sidebar</span></label>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <label class="form-label mb-0">Permissions <span class="opt">only modules enabled for your organization are listed</span></label>
                     <label class="d-flex align-items-center gap-2 mb-0 small fw-semibold" style="cursor:pointer">
                         <input class="form-check-input mt-0" type="checkbox" id="checkAll"> Select all
                     </label>
                 </div>
-                <div class="table-responsive border rounded-3">
-                    <table class="table app-table perm-matrix">
-                        <thead>
-                            <tr>
-                                <th>Module</th>
-                                @foreach ($actions as $a)<th><i class="bi bi-{{ $actionIcons[$a] ?? 'dot' }} me-1"></i>{{ ucfirst($a) }}</th>@endforeach
-                                <th>All</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @foreach (collect(config('module_permissions.modules'))->filter(fn ($x, $k) => auth()->user()->can("$k.view")) as $key => $m)
-                            <tr>
-                                <td>
-                                    <div class="perm-module">
-                                        <span class="app-tile__icon tone-primary"><i class="bi {{ $m['icon'] }}"></i></span>
-                                        <div>{{ $m['label'] }}<div class="small text-body-secondary fw-normal">{{ $m['group'] }}</div></div>
+
+                @foreach ($modules->groupBy('group', true) as $group => $mods)
+                    <div class="form-section-title mt-3">{{ $groups[$group] ?? $group }}</div>
+                    <div class="d-grid gap-3">
+                        @foreach ($mods as $code => $m)
+                            <div class="perm-card" data-module="{{ $code }}" data-view="{{ $m['view_permission'] }}">
+                                <div class="perm-card__head">
+                                    <span class="app-tile__icon tone-primary"><i class="bi {{ $m['icon'] }}"></i></span>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-semibold">{{ $m['name'] }}</div>
+                                        <div class="small text-body-secondary"><span class="perm-count">0</span> of {{ count($m['permissions']) }} selected</div>
                                     </div>
-                                </td>
-                                @foreach ($actions as $a)
-                                    @php $perm = "$key.$a"; @endphp
-                                    <td>
-                                        @can($perm)
-                                            <input class="form-check-input perm perm-{{ $key }}" type="checkbox" name="permissions[]"
-                                                   value="{{ $perm }}" @checked(in_array($perm, $checked))>
-                                        @else
-                                            <i class="bi bi-lock text-body-tertiary" title="You don't have this permission"></i>
-                                        @endcan
-                                    </td>
-                                @endforeach
-                                <td><input class="form-check-input row-toggle" type="checkbox" data-row="{{ $key }}"></td>
-                            </tr>
+                                    <label class="d-flex align-items-center gap-2 mb-0 small fw-semibold" style="cursor:pointer">
+                                        <input class="form-check-input mt-0 row-toggle" type="checkbox"> All
+                                    </label>
+                                </div>
+                                <div class="perm-card__body">
+                                    @foreach ($m['permissions'] as $perm => $label)
+                                        <label class="mod-feature">
+                                            <input class="form-check-input mt-0 perm" type="checkbox" name="permissions[]" value="{{ $perm }}" @checked(in_array($perm, $checked))>
+                                            <span>{{ $label }} <code class="perm-code">{{ $perm }}</code></span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
                         @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                    </div>
+                @endforeach
             </div>
 
             <div class="app-form-actions">
@@ -81,8 +79,8 @@
 
             <x-admin.tips :items="[
                 'Give each role only the access it really needs.',
-                'Ticking Create, Update or Delete also ticks View.',
-                'Unticking View removes the module completely.',
+                'Ticking any action also ticks that module\'s View permission.',
+                'Unticking View removes the whole module from the role.',
                 'Users get the new permissions on their next page load.',
             ]" />
         </div>
@@ -90,31 +88,49 @@
 </div>
 @endsection
 
+@push('styles')
+<style>
+    .perm-card { border: 1.5px solid var(--app-border); border-radius: 12px; background: var(--app-surface); }
+    .perm-card.has-any { border-color: #a5b4fc; }
+    .perm-card__head { display: flex; align-items: center; gap: .9rem; padding: .85rem 1rem; border-bottom: 1px solid var(--app-border); }
+    .perm-card__body { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: .6rem 1rem; padding: 1rem; }
+    .mod-feature { display: flex; align-items: center; gap: .5rem; font-size: .85rem; margin: 0; cursor: pointer; }
+    .perm-code { font-size: .7rem; color: var(--app-text-muted); background: var(--app-hover); padding: 1px 5px; border-radius: 4px; margin-left: 2px; }
+</style>
+@endpush
+
 @push('scripts')
 <script>
 (() => {
-    const perms = [...document.querySelectorAll('.perm')];
-    const rows = [...document.querySelectorAll('.row-toggle')];
+    const cards = [...document.querySelectorAll('.perm-card')];
     const all = document.getElementById('checkAll');
+    const permsOf = c => [...c.querySelectorAll('.perm')];
     const sync = () => {
-        rows.forEach(r => {
-            const cbs = perms.filter(p => p.classList.contains('perm-' + r.dataset.row));
-            r.checked = cbs.length && cbs.every(c => c.checked);
+        let total = 0, mods = 0;
+        cards.forEach(c => {
+            const p = permsOf(c), on = p.filter(x => x.checked).length;
+            c.querySelector('.perm-count').textContent = on;
+            c.querySelector('.row-toggle').checked = on === p.length;
+            c.classList.toggle('has-any', on > 0);
+            total += on; if (on) mods++;
         });
-        all.checked = perms.length && perms.every(c => c.checked);
-        document.getElementById('permCount').textContent = perms.filter(c => c.checked).length;
-        document.getElementById('modCount').textContent = perms.filter(c => c.checked && c.value.endsWith('.view')).length;
+        const every = cards.flatMap(permsOf);
+        all.checked = every.length && every.every(x => x.checked);
+        const pc = document.getElementById('permCount'), mc = document.getElementById('modCount');
+        if (pc) pc.textContent = total; if (mc) mc.textContent = mods;
     };
-    all.addEventListener('change', () => { perms.forEach(c => c.checked = all.checked); sync(); });
-    rows.forEach(r => r.addEventListener('change', () => {
-        perms.filter(p => p.classList.contains('perm-' + r.dataset.row)).forEach(c => c.checked = r.checked); sync();
-    }));
-    perms.forEach(cb => cb.addEventListener('change', () => {
-        const [mod, act] = cb.value.split('.');
-        if (cb.checked && act !== 'view') { const v = perms.find(p => p.value === mod + '.view'); if (v) v.checked = true; }
-        if (!cb.checked && act === 'view') perms.filter(p => p.value.startsWith(mod + '.')).forEach(p => p.checked = false);
-        sync();
-    }));
+    all.addEventListener('change', () => { cards.flatMap(permsOf).forEach(x => x.checked = all.checked); sync(); });
+    cards.forEach(c => {
+        const view = c.dataset.view;
+        c.querySelector('.row-toggle').addEventListener('change', e => { permsOf(c).forEach(x => x.checked = e.target.checked); sync(); });
+        permsOf(c).forEach(x => x.addEventListener('change', () => {
+            const v = permsOf(c).find(p => p.value === view);
+            // Any action needs the module's view permission; removing view removes the module.
+            if (x.checked && v && x !== v) v.checked = true;
+            if (!x.checked && x === v) permsOf(c).forEach(p => p.checked = false);
+            sync();
+        }));
+    });
     sync();
 })();
 </script>

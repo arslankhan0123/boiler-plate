@@ -40,7 +40,7 @@
                         <td class="text-body-secondary">{{ $u->phone ?: '—' }}</td>
                         <td>
                             @forelse ($u->roles as $r)
-                                <x-admin.badge :tone="$r->name === config('module_permissions.master_role') ? 'warning' : 'primary'">{{ $r->name }}</x-admin.badge>
+                                <x-admin.badge :tone="$r->name === config('modules.master_role') ? 'warning' : 'primary'">{{ $r->name }}</x-admin.badge>
                             @empty
                                 <x-admin.badge tone="muted">No role</x-admin.badge>
                             @endforelse

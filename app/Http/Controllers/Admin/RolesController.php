@@ -22,7 +22,7 @@ class RolesController extends Controller
     /** Master Admin (platform) and Tenant Admin (tenant) are locked system roles. */
     private function isMaster(Role $role): bool
     {
-        return in_array($role->name, [config('module_permissions.master_role'), \App\Support\Authorization\DefaultRoles::TENANT_ADMIN], true);
+        return in_array($role->name, [config('modules.master_role'), \App\Support\Authorization\DefaultRoles::TENANT_ADMIN], true);
     }
 
     public function index()
@@ -99,7 +99,7 @@ class RolesController extends Controller
         return $request->validate([
             'name' => [
                 'required', 'string', 'max:100',
-                Rule::notIn([config('module_permissions.master_role'), \App\Support\Authorization\DefaultRoles::TENANT_ADMIN]),
+                Rule::notIn([config('modules.master_role'), \App\Support\Authorization\DefaultRoles::TENANT_ADMIN]),
                 Rule::unique((new Role())->getTable(), 'name')->where('guard_name', self::GUARD)->ignore($role?->id),
             ],
             'permissions' => ['array'],

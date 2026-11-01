@@ -18,7 +18,7 @@
                 <thead><tr><th>Role</th><th>Permissions</th><th>Users</th><th>Created</th><th class="text-end">Actions</th></tr></thead>
                 <tbody>
                 @forelse ($roles as $role)
-                    @php $locked = $role->name === config('module_permissions.master_role'); @endphp
+                    @php $locked = $role->name === config('modules.master_role'); @endphp
                     <tr>
                         <td>
                             <div class="d-flex align-items-center gap-3">

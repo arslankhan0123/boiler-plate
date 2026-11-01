@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ModuleController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\TenantsController;
 use App\Http\Controllers\Admin\UsersController;
@@ -18,15 +19,12 @@ Route::middleware(['auth', 'tenant.init'])->group(function () {
     Route::resource('users', UsersController::class);
     Route::resource('roles', RolesController::class)->except('show');
 
-    // Module landing pages — visible only with "<module>.view" permission
-    // (and only if the module is enabled for the user's tenant).
-    Route::get('/modules/{module}', function (string $module) {
-        $config = config("module_permissions.modules.$module");
-        abort_if(! $config || in_array($module, ['users', 'roles', 'tenants'], true), 404);
-        abort_unless(auth()->user()->can("$module.view"), 403);
+    // Platform: module registry.
+    Route::get('/modules', [ModuleController::class, 'index'])->name('modules.index');
 
-        return view('admin.modules.show', compact('module', 'config'));
-    })->name('modules.show');
+    // Generic module + feature pages (tenant module check + permission check inside).
+    Route::get('/app/{module}', [ModuleController::class, 'module'])->name('app.module');
+    Route::get('/app/{module}/{feature}', [ModuleController::class, 'feature'])->name('app.feature');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
