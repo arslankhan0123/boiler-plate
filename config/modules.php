@@ -243,6 +243,7 @@ return [
                 'my-profile' => ['employee_only' => true, 'name' => 'My Profile', 'permission' => 'hrm.self_service', 'route' => 'hrm.me.profile'],
                 'my-attendance' => ['employee_only' => true, 'name' => 'My Attendance', 'permission' => 'hrm.self_service', 'route' => 'hrm.me.attendance'],
                 'my-leaves' => ['employee_only' => true, 'name' => 'My Leaves', 'permission' => 'hrm.self_service', 'route' => 'hrm.me.leaves'],
+                'my-interviews' => ['employee_only' => true, 'name' => 'My Interviews', 'permission' => 'hrm.self_service', 'route' => 'hrm.me.interviews'],
                 'my-payslips' => ['employee_only' => true, 'name' => 'My Payslips', 'permission' => 'hrm.self_service', 'route' => 'hrm.me.payslips'],
                 // HR team
                 'employees' => ['name' => 'Employees', 'permission' => 'hrm.view_employees', 'route' => 'hrm.employees.index'],

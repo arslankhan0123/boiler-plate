@@ -32,20 +32,27 @@
             </form>
         </x-slot:actions>
         <div class="table-responsive"><table class="table app-table table-hover">
-            <thead><tr><th>Candidate</th><th>Job</th><th>Applied</th><th>Rating</th><th>Status</th><th class="text-end"></th></tr></thead>
+            <thead><tr><th>Candidate</th><th>Job</th><th>Interview</th><th>Applied</th><th>Rating</th><th>Status</th><th class="text-end"></th></tr></thead>
             <tbody>
             @forelse ($applications as $a)
                 <tr>
                     <td><div class="d-flex align-items-center gap-3"><span class="app-avatar">{{ \App\Support\Hrm\Hrm::initials($a->name) }}</span>
                         <div><a href="{{ route('hrm.applications.show', $a) }}" class="fw-semibold text-body text-decoration-none">{{ $a->name }}</a><div class="small text-body-secondary">{{ $a->email }}</div></div></div></td>
                     <td>{{ $a->job->title ?? '—' }}</td>
+                    <td>
+                        @if ($a->interviewer)
+                            <div class="small fw-semibold">{{ $a->interviewer->name }}</div>
+                            <div class="small text-body-secondary">{{ $a->interview_at?->format('d M, h:i A') }}
+                                @if ($a->feedback_at)<i class="bi bi-check-circle-fill text-success" title="Feedback received"></i>@endif</div>
+                        @else<span class="text-body-secondary small">—</span>@endif
+                    </td>
                     <td class="text-body-secondary">{{ $a->created_at->diffForHumans() }}</td>
                     <td class="text-warning">{!! $a->rating ? str_repeat('<i class="bi bi-star-fill"></i>', $a->rating) : '<span class="text-body-secondary">—</span>' !!}</td>
                     <td>@php [$l, $t] = $statuses[$a->status] ?? [$a->status, 'muted']; @endphp<x-admin.badge :tone="$t">{{ $l }}</x-admin.badge></td>
                     <td class="text-end"><a href="{{ route('hrm.applications.show', $a) }}" class="btn btn-sm btn-light">Review <i class="bi bi-arrow-right"></i></a></td>
                 </tr>
             @empty
-                <tr><td colspan="6"><x-admin.empty icon="inbox" text="No applications yet." /></td></tr>
+                <tr><td colspan="7"><x-admin.empty icon="inbox" text="No applications yet." /></td></tr>
             @endforelse
             </tbody></table></div>
         @if ($applications->hasPages())

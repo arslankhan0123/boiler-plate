@@ -129,6 +129,48 @@ class SelfServiceController extends HrmController
         return back()->with('success', 'Leave request cancelled.');
     }
 
+    /* ───────────── My Interviews ───────────── */
+
+    public function interviews(Request $request)
+    {
+        $me = $this->me();
+        $tab = $request->input('tab', 'upcoming');
+
+        $base = \App\Models\Hrm\JobApplication::query()->with('job.department')->where('interviewer_id', $me->id);
+
+        return view('hrm.me.interviews.index', [
+            'tab' => $tab,
+            'interviews' => (clone $base)
+                ->when($tab === 'upcoming', fn ($q) => $q->whereNull('feedback_at')->orderBy('interview_at'))
+                ->when($tab === 'done', fn ($q) => $q->whereNotNull('feedback_at')->latest('feedback_at'))
+                ->get(),
+            'counts' => ['upcoming' => (clone $base)->whereNull('feedback_at')->count(), 'done' => (clone $base)->whereNotNull('feedback_at')->count()],
+        ]);
+    }
+
+    public function interview(\App\Models\Hrm\JobApplication $application)
+    {
+        $me = $this->me();
+        abort_unless($application->interviewer_id === $me->id, 404);
+
+        return view('hrm.me.interviews.show', ['application' => $application->load('job.department')]);
+    }
+
+    public function interviewFeedback(Request $request, \App\Models\Hrm\JobApplication $application)
+    {
+        $me = $this->me();
+        abort_unless($application->interviewer_id === $me->id, 404);
+
+        $data = $request->validate([
+            'interview_result' => ['required', 'in:'.implode(',', array_keys(\App\Models\Hrm\JobApplication::RESULTS))],
+            'interview_rating' => ['nullable', 'integer', 'min:1', 'max:5'],
+            'interview_feedback' => ['required', 'string', 'max:5000'],
+        ]);
+        $application->update($data + ['feedback_at' => now()]);
+
+        return redirect()->route('hrm.me.interviews')->with('success', "Feedback for {$application->name} sent to HR.");
+    }
+
     public function payslips()
     {
         $me = $this->me();

@@ -25,6 +25,11 @@ Route::prefix('hrm')->name('hrm.')->middleware('module:hrm')->group(function () 
         Route::post('me/leaves', [Hrm\SelfServiceController::class, 'applyLeave'])->name('me.leaves.apply');
         Route::post('me/leaves/{leave}/cancel', [Hrm\SelfServiceController::class, 'cancelLeave'])->name('me.leaves.cancel');
     });
+    Route::middleware('module:hrm,my-interviews')->group(function () {
+        Route::get('me/interviews', [Hrm\SelfServiceController::class, 'interviews'])->name('me.interviews');
+        Route::get('me/interviews/{application}', [Hrm\SelfServiceController::class, 'interview'])->name('me.interviews.show');
+        Route::put('me/interviews/{application}', [Hrm\SelfServiceController::class, 'interviewFeedback'])->name('me.interviews.feedback');
+    });
     Route::get('me/payslips', [Hrm\SelfServiceController::class, 'payslips'])->middleware('module:hrm,my-payslips')->name('me.payslips');
 
     // ── Employees & organization ──
@@ -83,9 +88,11 @@ Route::prefix('hrm')->name('hrm.')->middleware('module:hrm')->group(function () 
         Route::get('applications', [Hrm\ApplicationController::class, 'index'])->name('applications.index');
         Route::get('applications/{application}', [Hrm\ApplicationController::class, 'show'])->name('applications.show');
         Route::put('applications/{application}', [Hrm\ApplicationController::class, 'update'])->name('applications.update');
-        Route::get('applications/{application}/resume', [Hrm\ApplicationController::class, 'resume'])->name('applications.resume');
         Route::delete('applications/{application}', [Hrm\ApplicationController::class, 'destroy'])->name('applications.destroy');
     });
+
+    // Resume: HR or the assigned interviewer (checked in controller).
+    Route::get('applications/{application}/resume', [Hrm\ApplicationController::class, 'resume'])->name('applications.resume');
 
     Route::get('reports', Hrm\ReportController::class)->middleware('module:hrm,reports')->name('reports');
 });
