@@ -38,6 +38,7 @@ Route::middleware(['auth', 'tenant.init'])->group(function () {
 
     // Projects & Tasks (Kanban board).
     require __DIR__.'/projects.php';
+    require __DIR__.'/settings.php';
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

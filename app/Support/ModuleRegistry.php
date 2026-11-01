@@ -100,6 +100,33 @@ class ModuleRegistry
         return self::get($code)['view_permission'] ?? "{$code}.view";
     }
 
+    /**
+     * How far a module is built: a module/feature counts as built when it has
+     * a real screen (a named 'route') instead of the generic placeholder page.
+     *
+     * @return array{status: string, built: int, total: int}
+     */
+    public static function buildStatus(string $code): array
+    {
+        $m = self::get($code);
+        if (! empty($m['status'])) {
+            $f = count($m['features']);
+
+            return ['status' => $m['status'], 'built' => $m['status'] === 'complete' ? $f : 0, 'total' => $f];
+        }
+        if (! $m['features']) {
+            return ['status' => $m['route'] ? 'complete' : 'planned', 'built' => $m['route'] ? 1 : 0, 'total' => 1];
+        }
+        $total = count($m['features']);
+        $built = count(array_filter($m['features'], fn ($f) => ! empty($f['route'])));
+
+        return [
+            'status' => $built === $total ? 'complete' : ($built > 0 ? 'in_progress' : 'planned'),
+            'built' => $built,
+            'total' => $total,
+        ];
+    }
+
     /** URL of a module (its own screen, or the generic module page) or one of its features. */
     public static function url(string $code, ?string $feature = null): string
     {

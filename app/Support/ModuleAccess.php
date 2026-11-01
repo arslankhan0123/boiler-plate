@@ -42,7 +42,7 @@ class ModuleAccess
         }
 
         if ($user->tenant_id === null) {
-            return in_array($m['scope'], ['platform', 'core'], true);
+            return in_array($m['scope'], ['platform', 'core'], true) && empty($m['tenant_only']);
         }
 
         return match ($m['scope']) {

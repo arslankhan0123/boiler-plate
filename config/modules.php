@@ -64,16 +64,16 @@ return [
             'features' => [],
         ],
         'settings' => [
-            'name' => 'Settings', 'icon' => 'bi-sliders', 'scope' => 'core', 'group' => 'core',
+            'name' => 'Settings', 'icon' => 'bi-sliders', 'scope' => 'core', 'group' => 'core', 'tenant_only' => true,
             'description' => 'Company profile, branches, taxes, currencies and other settings.',
             'permissions' => ['settings.view' => 'View settings', 'settings.update' => 'Change settings', 'settings.audit_logs' => 'View audit logs'],
             'features' => [
-                'company' => ['name' => 'Company Profile', 'permission' => 'settings.view'],
-                'branches' => ['name' => 'Branches / Locations', 'permission' => 'settings.view'],
-                'taxes' => ['name' => 'Taxes & Currencies', 'permission' => 'settings.view'],
-                'payments' => ['name' => 'Payment & Shipping', 'permission' => 'settings.view'],
-                'notifications' => ['name' => 'Notifications', 'permission' => 'settings.view'],
-                'audit-logs' => ['name' => 'Audit Logs', 'permission' => 'settings.audit_logs'],
+                'company' => ['route' => 'settings.company', 'name' => 'Company Profile', 'permission' => 'settings.view'],
+                'branches' => ['route' => 'settings.branches', 'name' => 'Branches / Locations', 'permission' => 'settings.view'],
+                'taxes' => ['route' => 'settings.taxes', 'name' => 'Taxes & Currencies', 'permission' => 'settings.view'],
+                'payments' => ['route' => 'settings.payments', 'name' => 'Payment & Shipping', 'permission' => 'settings.view'],
+                'notifications' => ['route' => 'settings.notifications', 'name' => 'Notifications', 'permission' => 'settings.view'],
+                'audit-logs' => ['route' => 'settings.audit', 'name' => 'Audit Logs', 'permission' => 'settings.audit_logs'],
             ],
         ],
 
