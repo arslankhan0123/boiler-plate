@@ -10,6 +10,7 @@ use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;
@@ -45,6 +46,13 @@ class AppServiceProvider extends ServiceProvider
         Passport::personalAccessTokensExpireIn(Date::now()->addMonths(6));
 
         $this->configureRateLimiters();
+
+        // Master Admin always passes every permission check (incl. new modules).
+        Gate::before(function ($user) {
+            return method_exists($user, 'hasRole') && $user->hasRole(config('module_permissions.master_role'))
+                ? true
+                : null;
+        });
     }
 
     /**

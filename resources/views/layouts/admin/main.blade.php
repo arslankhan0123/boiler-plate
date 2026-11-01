@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Orchid - Premium Bootstrap 5.3 Admin Dashboard Template">
     <meta name="theme-color" content="#4f46e5">
-    <title>Orchid - Premium Admin Dashboard</title>
+    <title>{{ trim($__env->yieldContent('page_title')) ?: trim($__env->yieldContent('title', 'Dashboard')) }} - {{ config('app.name', 'Laravel') }}</title>
 
     <link rel="icon" type="image/svg+xml" href="{{asset('admin/assets/icons/favicon.svg')}}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,6 +19,9 @@
     <link href="{{asset('admin/assets/css/orchid.css')}}" rel="stylesheet">
 
     <link href="{{asset('admin/assets/css/pages/users.css')}}" rel="stylesheet">
+    {{-- Theme tokens (brand color, buttons, forms) — keep last --}}
+    <link href="{{ asset('admin/assets/css/theme.css') }}?v={{ @filemtime(public_path('admin/assets/css/theme.css')) }}" rel="stylesheet">
+    @stack('styles')
 </head>
 
 <body class="orchid-body">
@@ -40,9 +43,10 @@
         <!-- ================== MAIN ================== -->
         <main class="orchid-main" id="orchid-main" tabindex="-1">
             @yield('content')
-            <!-- ================== FOOTER ================== -->
-            @include('layouts.admin.footer')
         </main>
+
+        <!-- ================== FOOTER (sticks to bottom) ================== -->
+        @include('layouts.admin.footer')
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
