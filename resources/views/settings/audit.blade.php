@@ -4,7 +4,9 @@
 
 @php
     $eventTone = ['created' => 'success', 'updated' => 'primary', 'deleted' => 'danger', 'hardDeleted' => 'danger', 'restored' => 'warning'];
-    $fmt = fn ($v) => is_array($v) ? json_encode($v, JSON_UNESCAPED_UNICODE) : (is_bool($v) ? ($v ? 'true' : 'false') : (string) $v);
+    $val = fn ($f, $v) => ($v !== null && isset($names[$f][(int) $v]) && is_numeric($v)) ? $names[$f][(int) $v] : $v;
+    $label = fn ($f) => \Illuminate\Support\Str::of($f)->replaceMatches('/_id$/', '')->replace('_', ' ')->ucfirst();
+    $fmt = fn ($v) => $v === null || $v === '' ? '—' : (is_array($v) ? json_encode($v, JSON_UNESCAPED_UNICODE) : (is_bool($v) ? ($v ? 'true' : 'false') : (string) $v));
 @endphp
 
 @section('content')
@@ -42,16 +44,16 @@
                     <td class="small"><b>{{ \Illuminate\Support\Str::headline(class_basename($log->auditable_type)) }}</b> #{{ $log->auditable_id }}</td>
                     @php
                         $fields = array_values(array_diff($changed, ['id']));
-                        $line = fn ($f) => $f.': '.(array_key_exists($f, $log->old_values ?? []) ? \Illuminate\Support\Str::limit($fmt($log->old_values[$f]), 30).' → ' : '').\Illuminate\Support\Str::limit($fmt($log->new_values[$f] ?? '—'), 40);
+                        $line = fn ($f) => $label($f).': '.(array_key_exists($f, $log->old_values ?? []) ? \Illuminate\Support\Str::limit($fmt($val($f, $log->old_values[$f])), 30).' → ' : '').\Illuminate\Support\Str::limit($fmt($val($f, $log->new_values[$f] ?? null)), 40);
                         $full = implode("\n", array_map($line, $fields));
                     @endphp
                     <td class="small audit-changes">
                         @if ($fields)
                             <div class="audit-summary" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="audit-tip" title="{{ $full }}">
                                 @foreach (array_slice($fields, 0, 2) as $f)
-                                    <div class="text-truncate"><span class="text-body-secondary">{{ $f }}:</span>
-                                        @if (array_key_exists($f, $log->old_values ?? []))<span class="text-danger text-decoration-line-through">{{ \Illuminate\Support\Str::limit($fmt($log->old_values[$f]), 20) }}</span> → @endif
-                                        <span class="text-success">{{ \Illuminate\Support\Str::limit($fmt($log->new_values[$f] ?? '—'), 28) }}</span></div>
+                                    <div class="text-truncate"><span class="text-body-secondary">{{ $label($f) }}:</span>
+                                        @if (array_key_exists($f, $log->old_values ?? []))<span class="text-danger text-decoration-line-through">{{ \Illuminate\Support\Str::limit($fmt($val($f, $log->old_values[$f])), 20) }}</span> → @endif
+                                        <span class="text-success">{{ \Illuminate\Support\Str::limit($fmt($val($f, $log->new_values[$f] ?? null)), 28) }}</span></div>
                                 @endforeach
                                 @if (count($fields) > 2)<span class="audit-more">+{{ count($fields) - 2 }} more…</span>@endif
                             </div>

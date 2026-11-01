@@ -390,9 +390,61 @@ class SettingsController extends Controller
 
         return view('settings.audit', [
             'logs' => $logs,
+            'names' => $this->auditNames($logs->getCollection()),
             'types' => $types->mapWithKeys(fn ($t) => [$t => Str::headline(class_basename($t))]),
             'users' => User::query()->whereIn('id', $logs->pluck('user_id')->filter()->unique())->pluck('name', 'id'),
             'allUsers' => User::query()->where('tenant_id', $tenantId)->orderBy('name')->pluck('name', 'id'),
         ]);
+    }
+
+    /** Foreign-key columns shown in audit logs → model that holds the readable name. */
+    private const AUDIT_REFS = [
+        'employee_id' => \Modules\Setup\Models\Employee::class, 'manager_id' => \Modules\Setup\Models\Employee::class,
+        'assignee_id' => \Modules\Setup\Models\Employee::class, 'interviewer_id' => \Modules\Setup\Models\Employee::class,
+        'reviewer_id' => \Modules\Setup\Models\Employee::class,
+        'department_id' => \Modules\Setup\Models\Department::class, 'designation_id' => \Modules\Setup\Models\Designation::class,
+        'leave_type_id' => \App\Models\Hrm\LeaveType::class, 'shift_id' => \App\Models\Hrm\Shift::class,
+        'job_id' => \App\Models\Hrm\Job::class, 'loan_id' => \App\Models\Hrm\Loan::class,
+        'payroll_run_id' => \App\Models\Hrm\PayrollRun::class, 'payslip_id' => \App\Models\Hrm\Payslip::class,
+        'task_id' => \App\Models\Projects\Task::class, 'component_id' => \App\Models\Hrm\SalaryComponent::class,
+        'branch_id' => \App\Models\Settings\Branch::class, 'currency_id' => Currency::class,
+    ];
+
+    /**
+     * Resolve ids in the visible audit rows to names: [field => [id => label]].
+     * `*_by` and `user_id` columns are users; others come from AUDIT_REFS.
+     */
+    private function auditNames(\Illuminate\Support\Collection $logs): array
+    {
+        $ids = [];
+        foreach ($logs as $log) {
+            foreach ([$log->old_values ?? [], $log->new_values ?? []] as $values) {
+                foreach ($values as $field => $value) {
+                    if (is_numeric($value) && (isset(self::AUDIT_REFS[$field]) || $field === 'user_id' || str_ends_with($field, '_by'))) {
+                        $ids[$field][] = (int) $value;
+                    }
+                }
+            }
+        }
+
+        $names = [];
+        foreach ($ids as $field => $list) {
+            $class = self::AUDIT_REFS[$field] ?? User::class;
+            try {
+                $names[$field] = $class::query()->whereIn('id', array_unique($list))->get()
+                    ->mapWithKeys(function ($m) use ($class) {
+                        $label = $m->name ?? $m->title ?? $m->code ?? null;
+                        if (! $label && $m->employee_id ?? null) {
+                            $label = \Modules\Setup\Models\Employee::query()->whereKey($m->employee_id)->value('name');
+                        }
+
+                        return [$m->getKey() => $label ?: Str::headline(class_basename($class)).' #'.$m->getKey()];
+                    })->all();
+            } catch (\Throwable) {
+                $names[$field] = [];
+            }
+        }
+
+        return $names;
     }
 }
