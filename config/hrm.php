@@ -23,13 +23,14 @@ return [
         'offered' => ['Offered', 'warning'], 'hired' => ['Hired', 'success'], 'rejected' => ['Rejected', 'danger'],
     ],
 
-    // Default roles created in every tenant that has HRM.
+    // Starter roles created in every tenant. Permissions of modules the tenant
+    // doesn't have are skipped, and missing ones are added when modules are enabled.
     'default_roles' => [
-        'Employee' => ['hrm.self_service'],
+        'Employee' => ['hrm.self_service', 'projects.view'],
         'HR Manager' => [
             'hrm.self_service', 'hrm.view_employees', 'hrm.manage_employees', 'hrm.manage_org', 'hrm.view_attendance',
             'hrm.manage_attendance', 'hrm.approve_leave', 'hrm.manage_leave', 'hrm.process_payroll',
-            'hrm.manage_recruitment', 'hrm.reports',
+            'hrm.manage_recruitment', 'hrm.reports', 'projects.view', 'projects.manage_tasks',
         ],
     ],
 ];

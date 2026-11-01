@@ -58,10 +58,9 @@ class TenantAccessService
                 if (! $perms) {
                     continue;
                 }
+                // Only ADD (never remove), so a tenant's own changes to these roles survive.
                 $starter = Role::query()->firstOrCreate(['name' => $roleName, 'guard_name' => self::GUARD]);
-                if ($starter->wasRecentlyCreated) {
-                    $starter->syncPermissions($models->whereIn('name', $perms)->all());
-                }
+                $starter->givePermissionTo($models->whereIn('name', $perms)->all());
             }
 
             if ($admin) {

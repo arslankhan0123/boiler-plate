@@ -262,13 +262,15 @@ return [
             ],
         ],
         'projects' => [
-            'name' => 'Projects', 'icon' => 'bi-kanban', 'scope' => 'tenant', 'group' => 'business',
-            'description' => 'Projects, tasks and time tracking.',
-            'requires' => [],
-            'permissions' => ['projects.view' => 'View projects', 'projects.create' => 'Create', 'projects.update' => 'Edit', 'projects.delete' => 'Delete', 'projects.manage_tasks' => 'Manage tasks'],
+            'name' => 'Projects & Tasks', 'icon' => 'bi-kanban', 'scope' => 'tenant', 'group' => 'business',
+            'description' => 'Kanban task board — assign tasks to employees and track progress.',
+            'requires' => ['hrm'], // tasks are assigned to HRM employees
+            'permissions' => [
+                'projects.view' => 'See & move my own tasks',
+                'projects.manage_tasks' => 'Create, assign & manage everyone\'s tasks',
+            ],
             'features' => [
-                'list' => ['name' => 'Projects', 'permission' => 'projects.view'],
-                'tasks' => ['name' => 'Tasks', 'permission' => 'projects.manage_tasks'],
+                'tasks' => ['name' => 'Task Board', 'permission' => 'projects.view', 'route' => 'projects.tasks.index'],
             ],
         ],
         'reports' => [
