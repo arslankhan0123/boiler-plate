@@ -33,20 +33,55 @@ class Hrm
     private static array $team = [];
 
     /**
-     * Direct reports of the logged-in employee: active employees whose
-     * designation "reports to" my designation (org chart).
+     * Who an employee reports to: the person picked on their profile, or —
+     * if none was picked — the first active employee in the designation
+     * their designation reports to (org chart fallback).
      */
+    public static function managerOf(Employee $employee): ?Employee
+    {
+        if ($employee->manager_id) {
+            $m = Employee::query()->with('designation')->where('is_active', true)->find($employee->manager_id);
+            if ($m) {
+                return $m;
+            }
+        }
+        $parentId = $employee->designation?->parent_id;
+
+        return $parentId ? Employee::query()->with('designation')->where('is_active', true)->where('designation_id', $parentId)
+            ->whereKeyNot($employee->id)->orderBy('join_date')->first() : null;
+    }
+
+    /** People who report to $manager (picked directly, or via the designation fallback). */
+    public static function reportsOf(Employee $manager): Collection
+    {
+        $active = Employee::query()->with(['designation', 'department'])->where('is_active', true)->whereKeyNot($manager->id)->get();
+
+        $all = $active->concat([$manager]);
+
+        return $active->filter(fn (Employee $e) => self::managerOfFromList($e, $all)?->id === $manager->id)
+            ->sortBy('name')->values();
+    }
+
+    /** managerOf() resolved against an in-memory list (no extra queries). */
+    private static function managerOfFromList(Employee $e, Collection $all): ?Employee
+    {
+        if ($e->manager_id && ($m = $all->firstWhere('id', $e->manager_id))) {
+            return $m;
+        }
+        $parentId = $e->designation?->parent_id;
+
+        return $parentId ? $all->where('designation_id', $parentId)->where('id', '!=', $e->id)->sortBy('join_date')->first() : null;
+    }
+
+    /** Direct reports of the logged-in employee. */
     public static function team(): Collection
     {
         $me = self::me();
-        if (! $me || ! $me->designation_id) {
+        if (! $me) {
             return collect();
         }
 
-        return self::$team[$me->id] ??= Employee::query()->with(['designation', 'department'])->where('is_active', true)
-            ->whereKeyNot($me->id)
-            ->whereIn('designation_id', \Modules\Setup\Models\Designation::query()->where('parent_id', $me->designation_id)->pluck('id'))
-            ->orderBy('name')->get();
+        return self::$team[$me->id] ??= self::reportsOf($me->loadMissing('designation'));
     }
 
     public static function isManagerOf(Employee $employee): bool

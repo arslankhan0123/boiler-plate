@@ -54,6 +54,23 @@
                             @error('designation_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
                     </div>
+                    <div class="col-md-12">
+                        <div class="app-field">
+                            <label class="form-label" for="f_manager_id">Reports to <span class="opt">the person this employee reports to</span></label>
+                            <select id="f_manager_id" name="manager_id" @class(['form-select', 'is-invalid' => $errors->has('manager_id')])>
+                                <option value="">— Use the designation chart / nobody (top level) —</option>
+                                <optgroup label="Suggested (from the designation chart)" id="mgrSuggested"></optgroup>
+                                <optgroup label="Everyone" id="mgrAll">
+                                    @foreach ($managers as $m)
+                                        <option value="{{ $m->id }}" data-designation="{{ $m->designation_id }}" @selected((string) old('manager_id', $employee->manager_id) === (string) $m->id)>
+                                            {{ $m->name }}{{ $m->designation ? ' — '.$m->designation->name : '' }}</option>
+                                    @endforeach
+                                </optgroup>
+                            </select>
+                            @error('manager_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            <div class="form-text">Pick the exact person (e.g. which Team Lead). People whose designation is above this one are suggested first.</div>
+                        </div>
+                    </div>
                     <div class="col-md-6"><x-admin.input name="join_date" type="date" label="Joining Date" :value="$employee->join_date ? \Illuminate\Support\Carbon::parse($employee->join_date)->format('Y-m-d') : ''" required /></div>
                     <div class="col-md-3"><x-admin.select name="employment_type" label="Employment Type" optional :options="config('hrm.employment_types')" :value="$employee->employment_type" placeholder="—" /></div>
                     <div class="col-md-3"><x-admin.select name="shift_id" label="Shift" optional :options="$shifts->mapWithKeys(fn ($s) => [$s->id => $s->label()])" :value="$employee->shift_id" placeholder="Default shift" /></div>
@@ -140,7 +157,7 @@
                 </div>
             </div></div>
             <x-admin.tips :items="[
-                'The designation decides the manager in the org chart.',
+                '“Reports to” decides the org chart; if empty, the designation chart is used.',
                 'Allow login to let the employee check in, apply for leave and see payslips.',
                 'Give HR staff the “HR Manager” role, or pick extra permissions.',
                 'Setting an employee inactive removes their login.',
@@ -170,6 +187,21 @@
     const filter = () => [...des.options].forEach(o => { if (o.value) o.hidden = dept.value && o.dataset.dept !== dept.value; });
     dept?.addEventListener('change', () => { filter(); if (des.selectedOptions[0]?.hidden) des.value = ''; });
     filter();
+
+    // "Reports to": move people from the parent designation into "Suggested".
+    const parents = @json($designationParents), mgr = document.getElementById('f_manager_id');
+    const sug = document.getElementById('mgrSuggested'), all = document.getElementById('mgrAll');
+    const suggest = () => {
+        [...sug.children].forEach(o => all.appendChild(o));
+        const parent = String(parents[des.value] ?? '');
+        if (parent) [...all.children].filter(o => o.dataset.designation === parent).forEach(o => sug.appendChild(o));
+        sug.hidden = !sug.children.length;
+        [...all.children].sort((a, b) => a.text.localeCompare(b.text)).forEach(o => all.appendChild(o));
+        // Only one candidate and nothing chosen yet → pick them.
+        if (!mgr.value && sug.children.length === 1) mgr.value = sug.children[0].value;
+    };
+    des.addEventListener('change', suggest);
+    suggest();
 })();
 </script>
 @endpush

@@ -27,14 +27,12 @@ class SelfServiceController extends HrmController
     public function profile()
     {
         $me = $this->me()->load(['department', 'designation.parent', 'documents']);
-        $manager = $me->designation?->parent_id
-            ? Employee::query()->where('is_active', true)->where('designation_id', $me->designation->parent_id)->first() : null;
+        $manager = Hrm::managerOf($me);
 
         return view('hrm.me.profile', [
             'employee' => $me,
             'manager' => $manager,
-            'team' => Employee::query()->where('is_active', true)
-                ->whereIn('designation_id', Designation::query()->where('parent_id', $me->designation_id)->pluck('id'))->get(),
+            'team' => Hrm::reportsOf($me),
             'balances' => Hrm::balances($me, now()->year),
             'today' => Attendance::query()->where('employee_id', $me->id)->whereDate('date', today())->first(),
         ]);

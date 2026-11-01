@@ -91,6 +91,7 @@ class Employee extends Model
         'user_id',
         'department_id',
         'designation_id',
+        'manager_id',
         'shift_id',
         'email',
         'phone',
@@ -132,6 +133,17 @@ class Employee extends Model
         'sort_order',
         'created_by',
     ];
+
+    /** The person this employee reports to. */
+    public function manager(): BelongsTo
+    {
+        return $this->belongsTo(self::class, 'manager_id');
+    }
+
+    public function directReports(): HasMany
+    {
+        return $this->hasMany(self::class, 'manager_id');
+    }
 
     public function shift(): BelongsTo
     {

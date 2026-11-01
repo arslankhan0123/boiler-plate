@@ -107,15 +107,14 @@ class EmployeeController extends HrmController
             'leaves' => LeaveRequest::query()->with('type')->where('employee_id', $employee->id)->latest()->limit(10)->get(),
             'attendance' => Attendance::query()->where('employee_id', $employee->id)->whereBetween('date', [now()->startOfMonth(), now()->endOfMonth()])->orderBy('date')->get(),
             'payslips' => Payslip::query()->with('run')->where('employee_id', $employee->id)->latest()->limit(12)->get(),
-            'manager' => $this->managerOf($employee),
+            'manager' => Hrm::managerOf($employee),
             'components' => \App\Models\Hrm\SalaryComponent::query()->where('employee_id', $employee->id)->get(),
             'loans' => \App\Models\Hrm\Loan::query()->where('employee_id', $employee->id)->latest()->get(),
             'checklists' => \App\Models\Hrm\ChecklistItem::query()->where('employee_id', $employee->id)->orderBy('sort')->get()->groupBy('type'),
             'exit' => \App\Models\Hrm\EmployeeExit::query()->where('employee_id', $employee->id)->latest()->first(),
             'reviews' => \App\Models\Hrm\Review::query()->where('employee_id', $employee->id)->latest()->limit(5)->get(),
             'shift' => \App\Models\Hrm\Shift::forEmployee($employee),
-            'reports' => Employee::query()->where('is_active', true)
-                ->whereIn('designation_id', Designation::query()->where('parent_id', $employee->designation_id)->pluck('id'))->get(),
+            'reports' => Hrm::reportsOf($employee),
         ]);
     }
 
@@ -130,6 +129,15 @@ class EmployeeController extends HrmController
     {
         $this->need('hrm.manage_employees');
         $data = $this->validated($request, $employee);
+
+        // Prevent cycles: the new manager must not report (directly or indirectly) to this employee.
+        $managerId = $data['employee']['manager_id'] ?? null;
+        for ($i = 0; $managerId && $i < 100; $i++) {
+            if ((int) $managerId === (int) $employee->id) {
+                return back()->withInput()->with('error', 'That person reports to '.$employee->name.' — pick someone above them in the chart.');
+            }
+            $managerId = Employee::query()->whereKey($managerId)->value('manager_id');
+        }
 
         DB::transaction(function () use ($employee, $data, $request) {
             $employee->update($data['employee']);
@@ -198,13 +206,6 @@ class EmployeeController extends HrmController
 
     /* ───────────── helpers ───────────── */
 
-    private function managerOf(Employee $employee): ?Employee
-    {
-        $parentId = $employee->designation?->parent_id;
-
-        return $parentId ? Employee::query()->where('is_active', true)->where('designation_id', $parentId)->orderBy('join_date')->first() : null;
-    }
-
     private function formData(Employee $employee): array
     {
         $editor = auth()->user();
@@ -216,6 +217,9 @@ class EmployeeController extends HrmController
             'departments' => Department::query()->where('is_active', true)->orderBy('name')->pluck('name', 'id'),
             'designations' => Designation::query()->where('is_active', true)->orderBy('name')->get(['id', 'name', 'department_id']),
             'shifts' => \App\Models\Hrm\Shift::query()->orderBy('start_time')->get(),
+            'managers' => Employee::query()->with('designation')->where('is_active', true)
+                ->when($employee->exists, fn ($q) => $q->whereKeyNot($employee->id))->orderBy('name')->get(['id', 'name', 'designation_id']),
+            'designationParents' => Designation::query()->pluck('parent_id', 'id'),
             'roles' => $this->assignableRoles(),
             'userRoles' => $user ? $user->roles()->pluck('name')->all() : ['Employee'],
             'userPermissions' => $user ? $user->permissions()->pluck('name')->all() : [],
@@ -270,6 +274,7 @@ class EmployeeController extends HrmController
             'join_date' => ['required', 'date'],
             'employment_type' => ['nullable', Rule::in(array_keys(config('hrm.employment_types')))],
             'shift_id' => ['nullable', Rule::exists((new \App\Models\Hrm\Shift())->getTable(), 'id')],
+            'manager_id' => ['nullable', Rule::exists((new Employee())->getTable(), 'id')->whereNull('deleted_at'), Rule::notIn([$employee?->id])],
             'basic_salary' => ['nullable', 'numeric', 'min:0'],
             'transport_allowance' => ['nullable', 'numeric', 'min:0'],
             'bank_name' => ['nullable', 'string', 'max:100'],
@@ -287,9 +292,10 @@ class EmployeeController extends HrmController
         ]);
 
         $employeeData = collect($v)->only(['name', 'code', 'email', 'phone', 'dob', 'gender', 'marital_status', 'blood_group',
-            'national_id', 'street', 'city', 'department_id', 'designation_id', 'shift_id', 'join_date', 'employment_type', 'basic_salary',
+            'national_id', 'street', 'city', 'department_id', 'designation_id', 'manager_id', 'shift_id', 'join_date', 'employment_type', 'basic_salary',
             'transport_allowance', 'bank_name', 'bank_account_no', 'iban_num'])->all();
         $employeeData['is_active'] = $request->boolean('is_active', true);
+        $employeeData['manager_id'] = ! empty($employeeData['manager_id']) ? (int) $employeeData['manager_id'] : null;
         $employeeData['gross_salary'] = (float) ($v['basic_salary'] ?? 0) + (float) ($v['transport_allowance'] ?? 0);
 
         return ['employee' => $employeeData] + $v;

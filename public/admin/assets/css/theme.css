@@ -465,3 +465,80 @@ textarea.form-control { min-height: 120px; padding-top: .85rem; }
 .orchid-nav__link.trail-active::before { display: none; }
 .orchid-nav__link--has-sub .orchid-nav__chevron { color: rgba(255,255,255,.4); margin-left: auto; }
 .orchid-nav__link--has-sub[aria-expanded="true"] .orchid-nav__chevron { color: #a5b4fc; }
+
+/* =====================================================================
+   v5 — Two-pane sidebar: icon rail (modules) + panel (module screens)
+   ===================================================================== */
+:root { --app-sidebar-w: 300px; --app-rail-w: 78px; }
+.orchid-sidebar { width: var(--app-sidebar-w); }
+@media (min-width: 992px) { .orchid-app { margin-left: var(--app-sidebar-w); } }
+
+.app-nav2 { flex: 1 1 auto; min-height: 0; display: flex; }
+
+/* Rail */
+.app-rail { width: var(--app-rail-w); flex-shrink: 0; overflow-y: auto; overflow-x: hidden; padding: .75rem .45rem;
+  display: flex; flex-direction: column; align-items: stretch; gap: .2rem; background: rgba(0,0,0,.22);
+  border-right: 1px solid var(--app-sidebar-border); scrollbar-width: none; }
+.app-rail::-webkit-scrollbar { display: none; }
+.app-rail__item { display: flex; flex-direction: column; align-items: center; gap: .2rem; padding: .55rem .2rem; border-radius: 12px;
+  border: 0; background: transparent; color: rgba(255,255,255,.6); text-decoration: none; cursor: pointer; transition: all .18s; position: relative; }
+.app-rail__item i { font-size: 1.25rem; line-height: 1; }
+.app-rail__item span { font-size: .62rem; font-weight: 600; line-height: 1.1; text-align: center; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.app-rail__item:hover { color: #fff; background: rgba(255,255,255,.08); }
+.app-rail__item.is-active { color: #fff; background: linear-gradient(135deg, rgba(99,102,241,.55), rgba(139,92,246,.35)); box-shadow: 0 4px 14px rgba(0,0,0,.25); }
+.app-rail__item.is-active i { color: #fff; }
+.app-rail__item.is-open:not(.is-active) { color: #fff; background: rgba(255,255,255,.12); }
+.app-rail__item.is-open::after, .app-rail__item.is-active::after { content: ''; position: absolute; right: -.45rem; top: 22%; bottom: 22%; width: 3px;
+  border-radius: 3px 0 0 3px; background: #a5b4fc; }
+.app-rail__sep { height: 1px; background: rgba(255,255,255,.1); margin: .45rem .35rem; flex-shrink: 0; }
+
+/* Panel */
+.app-panel { flex: 1 1 auto; min-width: 0; overflow-y: auto; padding: 1rem .75rem 1rem .85rem; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.15) transparent; }
+.app-panel__title { display: flex; align-items: center; gap: .5rem; color: #fff; font-weight: 700; font-size: .95rem; padding: .25rem .4rem; }
+.app-panel__title i { color: #a5b4fc; }
+.app-panel__hint { color: rgba(255,255,255,.45); font-size: .74rem; line-height: 1.4; padding: 0 .4rem; margin: .2rem 0 .8rem; }
+.app-panel__group { color: rgba(255,255,255,.35); font-size: .64rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: .6rem .4rem .3rem; }
+.app-panel__list { list-style: none; padding: 0; margin: 0 0 .25rem; display: grid; gap: 2px; }
+.app-panel__link { display: flex; align-items: center; gap: .6rem; padding: .5rem .65rem; border-radius: 9px; color: rgba(255,255,255,.68);
+  text-decoration: none; font-size: .84rem; font-weight: 500; transition: all .15s; }
+.app-panel__link i { font-size: 1rem; opacity: .85; }
+.app-panel__link:hover { color: #fff; background: rgba(255,255,255,.07); transform: translateX(2px); }
+.app-panel__link.active { color: #fff; background: rgba(99,102,241,.32); font-weight: 600; box-shadow: inset 3px 0 0 #a5b4fc; }
+
+/* Collapsed (desktop toggle): rail only */
+@media (min-width: 992px) {
+  body.orchid-sidebar-collapsed .orchid-sidebar { width: var(--app-rail-w); }
+  body.orchid-sidebar-collapsed .orchid-app { margin-left: var(--app-rail-w); }
+  body.orchid-sidebar-collapsed .app-panel,
+  body.orchid-sidebar-collapsed .orchid-brand__text,
+  body.orchid-sidebar-collapsed .app-sidebar-user .overflow-hidden,
+  body.orchid-sidebar-collapsed .app-sidebar-user form { display: none !important; }
+  body.orchid-sidebar-collapsed .orchid-sidebar__brand { justify-content: center; padding-left: 0; padding-right: 0; }
+  body.orchid-sidebar-collapsed .app-sidebar-user { justify-content: center; padding: .9rem 0; }
+  body.orchid-sidebar-collapsed .app-rail__item.is-open::after { display: none; }
+}
+@media (max-width: 991.98px) { .orchid-sidebar { width: min(var(--app-sidebar-w), 88vw); } }
+
+/* ---- Layout fix: grid columns must never grow past their track ---- */
+.app-form-grid > * { min-width: 0; }
+.app-form-grid > .d-grid > *, .app-card { min-width: 0; max-width: 100%; }
+.app-card > .table-responsive { border-radius: 0 0 var(--app-radius-lg) var(--app-radius-lg); }
+/* Side column a bit narrower on mid screens, stacked below 1200px */
+@media (max-width: 1399.98px) { .app-form-grid { grid-template-columns: minmax(0, 1fr) 320px; gap: 1.25rem; } }
+@media (max-width: 1199.98px) { .app-form-grid { grid-template-columns: minmax(0, 1fr); } .app-aside { position: static; } }
+
+/* ---- v6: icon-only rail with hover tooltips ---- */
+:root { --app-rail-w: 68px; --app-sidebar-w: 292px; }
+.app-rail { padding: .85rem 0; align-items: center; gap: .35rem; overflow: visible; }
+.app-rail__item { width: 44px; height: 44px; padding: 0; justify-content: center; border-radius: 12px; flex-shrink: 0; }
+.app-rail__item i { font-size: 1.2rem; }
+.app-rail__item.is-open::after, .app-rail__item.is-active::after { right: -12px; top: 10px; bottom: 10px; }
+.app-rail { padding-left: 0; padding-right: 0; }
+.app-rail__sep { width: 28px; margin: .35rem auto; }
+/* Tooltip (positioned by JS so the scrolling rail can't clip it) */
+.app-rail-tip { position: fixed; z-index: 2000; background: #0f172a; color: #fff; font-size: .78rem; font-weight: 600; white-space: nowrap;
+  padding: .4rem .7rem; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.35); pointer-events: none; opacity: 0;
+  transform: translate(-4px, -50%); transition: opacity .12s, transform .12s; }
+.app-rail-tip.is-on { opacity: 1; transform: translate(0, -50%); }
+.app-rail-tip::before { content: ''; position: absolute; left: -5px; top: 50%; transform: translateY(-50%); border: 5px solid transparent; border-left: 0; border-right-color: #0f172a; }
+.app-rail { overflow-y: auto; overflow-x: hidden; }
