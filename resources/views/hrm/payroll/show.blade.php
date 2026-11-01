@@ -41,9 +41,17 @@
                     @else
                         <td>{{ $money($p->bonus) }}</td>
                         <td>{{ $p->unpaid_days }}</td>
-                        <td class="text-danger">{{ $money($p->unpaid_deduction + $p->other_deductions) }}</td>
+                        <td class="text-danger">{{ $money($p->totalDeductions()) }}</td>
                     @endif
-                    <td class="fw-bold">{{ $money($p->net) }}</td>
+                    <td class="fw-bold">{{ $money($p->net) }}
+                        @if ($p->component_earnings || $p->component_deductions || $p->loan_deductions)
+                            <div class="small text-body-secondary fw-normal">
+                                @if ($p->component_earnings)+{{ number_format($p->component_earnings) }} @endif
+                                @if ($p->component_deductions)−{{ number_format($p->component_deductions) }} @endif
+                                @if ($p->loan_deductions)<span title="Loan installment">−{{ number_format($p->loan_deductions) }} loan</span>@endif
+                            </div>
+                        @endif
+                    </td>
                     <td class="text-end text-nowrap">
                         @if ($draft)
                             <form id="ps-{{ $p->id }}" method="POST" action="{{ route('hrm.payslips.update', $p) }}" class="d-inline">@csrf @method('PUT')
@@ -55,6 +63,6 @@
             @endforeach
             </tbody></table></div>
     </x-admin.card>
-    <p class="form-text mt-3">Unpaid days = unpaid leave + absences + ½ per half day + days before joining. Deduction = basic ÷ working days × unpaid days.</p>
+    <p class="form-text mt-3">Unpaid days = unpaid leave + absences + ½ per half day + days before joining. Deduction = basic ÷ working days × unpaid days. Recurring salary components and loan installments are added automatically; loans are repaid when you Finalize.</p>
 </div>
 @endsection

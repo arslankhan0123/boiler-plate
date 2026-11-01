@@ -68,6 +68,9 @@ class ModuleAccess
         if (! empty($def['employee_only']) && ! \App\Support\Hrm\Hrm::me()) {
             return false; // self-service needs a linked employee profile
         }
+        if (! empty($def['team_only']) && ! \App\Support\Hrm\Hrm::team()->count()) {
+            return false; // only managers (people with direct reports)
+        }
 
         foreach ((array) ($def['needs_module'] ?? []) as $needed) {
             if (self::moduleAvailable($user, $needed)) {

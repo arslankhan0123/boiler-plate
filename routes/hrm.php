@@ -94,5 +94,43 @@ Route::prefix('hrm')->name('hrm.')->middleware('module:hrm')->group(function () 
     // Resume: HR or the assigned interviewer (checked in controller).
     Route::get('applications/{application}/resume', [Hrm\ApplicationController::class, 'resume'])->name('applications.resume');
 
+    // ── v2: dashboard, team, shifts, loans, reviews, lifecycle, announcements ──
+    Route::get('dashboard', Hrm\DashboardController::class)->middleware('module:hrm,dashboard')->name('dashboard');
+
+    Route::middleware('module:hrm,my-team')->group(function () {
+        Route::get('me/team', [Hrm\TeamController::class, 'index'])->name('team');
+        Route::post('me/team/leaves/{leave}/{decision}', [Hrm\TeamController::class, 'decide'])
+            ->whereIn('decision', ['approve', 'reject'])->name('team.leaves.decide');
+    });
+
+    Route::middleware('module:hrm,my-reviews')->group(function () {
+        Route::get('me/reviews', [Hrm\ReviewController::class, 'mine'])->name('me.reviews');
+        Route::post('me/reviews/{review}/acknowledge', [Hrm\ReviewController::class, 'acknowledge'])->name('me.reviews.acknowledge');
+    });
+    // HR (hrm.manage_performance) or the employee's manager — checked in controller.
+    Route::resource('reviews', Hrm\ReviewController::class)->middleware('module:hrm,reviews');
+
+    Route::resource('shifts', Hrm\ShiftController::class)->only(['index', 'store', 'update', 'destroy'])->middleware('module:hrm,shifts');
+
+    Route::middleware('module:hrm,loans')->group(function () {
+        Route::get('loans', [Hrm\LoanController::class, 'index'])->name('loans.index');
+        Route::post('loans', [Hrm\LoanController::class, 'store'])->name('loans.store');
+        Route::post('loans/{loan}/close', [Hrm\LoanController::class, 'close'])->name('loans.close');
+        Route::post('employees/{employee}/components', [Hrm\LoanController::class, 'storeComponent'])->name('components.store');
+        Route::delete('employees/{employee}/components/{component}', [Hrm\LoanController::class, 'destroyComponent'])->name('components.destroy');
+    });
+
+    Route::middleware('module:hrm,lifecycle')->group(function () {
+        Route::get('lifecycle', [Hrm\LifecycleController::class, 'index'])->name('lifecycle.index');
+        Route::post('lifecycle/onboarding/{employee}', [Hrm\LifecycleController::class, 'startOnboarding'])->name('lifecycle.onboarding');
+        Route::post('lifecycle/items/{item}/toggle', [Hrm\LifecycleController::class, 'toggle'])->name('lifecycle.items.toggle');
+        Route::post('lifecycle/{employee}/items', [Hrm\LifecycleController::class, 'addItem'])->name('lifecycle.items.store');
+        Route::post('lifecycle/{employee}/exit', [Hrm\LifecycleController::class, 'startExit'])->name('lifecycle.exit.start');
+        Route::post('lifecycle/exits/{exit}/complete', [Hrm\LifecycleController::class, 'completeExit'])->name('lifecycle.exit.complete');
+        Route::post('lifecycle/exits/{exit}/withdraw', [Hrm\LifecycleController::class, 'withdrawExit'])->name('lifecycle.exit.withdraw');
+    });
+
+    Route::resource('announcements', Hrm\AnnouncementController::class)->only(['index', 'store', 'update', 'destroy'])->middleware('module:hrm,announcements');
+
     Route::get('reports', Hrm\ReportController::class)->middleware('module:hrm,reports')->name('reports');
 });

@@ -107,6 +107,80 @@
                     </x-slot:footer>
                 @endcan
             </x-admin.card>
+
+            @can('hrm.process_payroll')
+                <x-admin.card flush title="Salary components" subtitle="Recurring monthly earnings / deductions — added to every payroll.">
+                    <div class="table-responsive"><table class="table app-table">
+                        <tbody>
+                        @forelse ($components as $c)
+                            <tr><td class="fw-semibold">{{ $c->name }}</td>
+                                <td><x-admin.badge :tone="$c->type === 'earning' ? 'success' : 'danger'">{{ ucfirst($c->type) }}</x-admin.badge></td>
+                                <td class="fw-semibold {{ $c->type === 'earning' ? 'text-success' : 'text-danger' }}">{{ $c->type === 'earning' ? '+' : '−' }}{{ $money($c->amount) }}</td>
+                                <td class="text-end"><x-admin.delete-button :action="route('hrm.components.destroy', [$employee, $c])" confirm="Remove this component?" /></td></tr>
+                        @empty
+                            <tr><td><x-admin.empty icon="plus-slash-minus" text="No recurring components (e.g. house rent, tax, EOBI)." /></td></tr>
+                        @endforelse
+                        </tbody></table></div>
+                    <x-slot:footer>
+                        <form method="POST" action="{{ route('hrm.components.store', $employee) }}" class="d-flex flex-wrap gap-2 w-100 align-items-center">@csrf
+                            <input name="name" class="form-control" style="max-width:220px;min-height:42px" placeholder="e.g. House rent" required>
+                            <select name="type" class="form-select" style="max-width:150px;min-height:42px"><option value="earning">Earning</option><option value="deduction">Deduction</option></select>
+                            <input name="amount" type="number" step="0.01" min="0.01" class="form-control" style="max-width:150px;min-height:42px" placeholder="Amount" required>
+                            <x-admin.button size="sm" icon="plus-lg">Add</x-admin.button>
+                        </form>
+                    </x-slot:footer>
+                </x-admin.card>
+
+                @if ($loans->isNotEmpty())
+                    <x-admin.card flush title="Loans & advances">
+                        <div class="table-responsive"><table class="table app-table"><thead><tr><th>Type</th><th>Amount</th><th>Monthly</th><th>Balance</th><th>Status</th></tr></thead><tbody>
+                            @foreach ($loans as $l)
+                                <tr><td>{{ ucfirst($l->type) }}<div class="small text-body-secondary">{{ $l->reason }}</div></td><td>{{ $money($l->amount) }}</td><td>{{ $money($l->installment) }}</td>
+                                    <td class="fw-semibold">{{ $money($l->balance()) }}</td><td><x-admin.badge :tone="$l->status === 'active' ? 'warning' : 'success'">{{ ucfirst($l->status) }}</x-admin.badge></td></tr>
+                            @endforeach
+                        </tbody></table></div>
+                    </x-admin.card>
+                @endif
+            @endcan
+
+            @if ($reviews->isNotEmpty() && (auth()->user()->can('hrm.manage_performance') || \App\Support\Hrm\Hrm::isManagerOf($employee)))
+                <x-admin.card flush title="Performance reviews">
+                    <div class="table-responsive"><table class="table app-table"><tbody>
+                        @foreach ($reviews as $r)
+                            <tr><td class="fw-semibold">{{ $r->period }}</td><td>{{ $r->overall ? number_format($r->overall, 1).' / 5' : '—' }}</td>
+                                <td><x-admin.badge :tone="\App\Models\Hrm\Review::STATUSES[$r->status]">{{ ucfirst($r->status) }}</x-admin.badge></td>
+                                <td class="text-end"><a href="{{ route('hrm.reviews.show', $r) }}" class="btn btn-sm btn-light">Open</a></td></tr>
+                        @endforeach
+                    </tbody></table></div>
+                </x-admin.card>
+            @endif
+
+            @can('hrm.manage_lifecycle')
+                @foreach (['onboarding' => 'Onboarding checklist', 'offboarding' => 'Offboarding checklist'] as $type => $label)
+                    @php $items = $checklists->get($type, collect()); @endphp
+                    @continue($items->isEmpty())
+                    <x-admin.card :title="$label" :subtitle="$items->whereNotNull('done_at')->count().' of '.$items->count().' done'">
+                        <div class="d-grid gap-2">
+                            @foreach ($items as $item)
+                                <form method="POST" action="{{ route('hrm.lifecycle.items.toggle', $item) }}">@csrf
+                                    <button class="btn btn-light w-100 justify-content-start text-start {{ $item->done_at ? 'text-body-secondary' : '' }}">
+                                        <i class="bi {{ $item->done_at ? 'bi-check-circle-fill text-success' : 'bi-circle' }}"></i>
+                                        <span class="{{ $item->done_at ? 'text-decoration-line-through' : '' }}">{{ $item->title }}</span>
+                                        @if ($item->done_at)<span class="ms-auto small">{{ $item->done_by }} · {{ $item->done_at->format('d M') }}</span>@endif
+                                    </button>
+                                </form>
+                            @endforeach
+                        </div>
+                        <x-slot:footer>
+                            <form method="POST" action="{{ route('hrm.lifecycle.items.store', $employee) }}" class="d-flex gap-2 w-100">@csrf
+                                <input type="hidden" name="type" value="{{ $type }}">
+                                <input name="title" class="form-control" style="min-height:42px" placeholder="Add a step…" required>
+                                <x-admin.button size="sm" icon="plus-lg">Add</x-admin.button>
+                            </form>
+                        </x-slot:footer>
+                    </x-admin.card>
+                @endforeach
+            @endcan
         </div>
 
         <div class="app-aside">
@@ -136,6 +210,26 @@
                 </div>
             </x-admin.card>
 
+            <x-admin.card title="Shift">
+                <div class="fw-semibold">{{ $shift?->label() ?? 'Office hours ('.config('hrm.office_start').')' }}</div>
+                <div class="small text-body-secondary">{{ $employee->shift_id ? 'Assigned' : 'Default shift' }}{{ $shift ? ' · '.$shift->grace_minutes.' min grace' : '' }}</div>
+            </x-admin.card>
+
+            @can('hrm.manage_lifecycle')
+                <x-admin.card title="Employment status">
+                    @if ($exit && $exit->status === 'in_progress')
+                        <x-admin.badge tone="warning" icon="box-arrow-right">{{ \App\Models\Hrm\EmployeeExit::TYPES[$exit->type] }} in progress</x-admin.badge>
+                        <div class="small mt-2">Last working day: <b>{{ $exit->last_working_day->format('d M Y') }}</b></div>
+                        <a href="{{ route('hrm.lifecycle.index') }}" class="btn btn-sm btn-light mt-3 w-100">Manage exit</a>
+                    @elseif ($exit && $exit->status === 'completed')
+                        <x-admin.badge tone="danger">Left on {{ $exit->last_working_day->format('d M Y') }}</x-admin.badge>
+                    @elseif ($employee->is_active)
+                        <x-admin.badge tone="success">Active</x-admin.badge>
+                        <button type="button" class="btn btn-sm btn-light text-danger w-100 mt-3" data-bs-toggle="modal" data-bs-target="#exitModal"><i class="bi bi-box-arrow-right"></i> Start exit / resignation</button>
+                    @endif
+                </x-admin.card>
+            @endcan
+
             <x-admin.card title="Login">
                 @if ($employee->user)
                     <x-admin.badge tone="success" icon="key">Can sign in</x-admin.badge>
@@ -149,4 +243,21 @@
         </div>
     </div>
 </div>
+@can('hrm.manage_lifecycle')
+<div class="modal fade" id="exitModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content" style="border-radius:16px">
+    <form method="POST" action="{{ route('hrm.lifecycle.exit.start', $employee) }}">@csrf
+        <div class="modal-header"><h5 class="modal-title fw-bold">Start exit — {{ $employee->name }}</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-body">
+            <x-admin.select name="type" label="Type" :options="\App\Models\Hrm\EmployeeExit::TYPES" value="resignation" required />
+            <div class="row g-3 mt-0">
+                <div class="col-6"><x-admin.input name="notice_date" type="date" label="Notice date" :value="today()->toDateString()" required /></div>
+                <div class="col-6"><x-admin.input name="last_working_day" type="date" label="Last working day" :value="today()->addMonth()->toDateString()" required /></div>
+            </div>
+            <div class="app-field"><label class="form-label">Reason <span class="opt">(optional)</span></label><textarea name="reason" class="form-control" rows="3"></textarea></div>
+            <p class="form-text">An offboarding checklist is created. The login is removed when you complete the exit.</p>
+        </div>
+        <div class="modal-footer"><x-admin.button variant="light" type="button" data-bs-dismiss="modal">Cancel</x-admin.button><x-admin.button variant="danger" icon="box-arrow-right">Start Exit</x-admin.button></div>
+    </form>
+</div></div></div>
+@endcan
 @endsection

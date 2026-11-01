@@ -78,7 +78,7 @@ class SelfServiceController extends HrmController
         abort_if($today->exists && $today->check_in, 422, 'You have already checked in today.');
         abort_if($today->status === 'on_leave', 422, 'You are on approved leave today.');
 
-        $today->fill(AttendanceController::compute(now()->format('H:i'), null) + ['marked_by' => auth()->id()])->save();
+        $today->fill(AttendanceController::compute(now()->format('H:i'), null, 'present', \App\Models\Hrm\Shift::forEmployee($me)) + ['marked_by' => auth()->id()])->save();
 
         return back()->with('success', 'Checked in at '.now()->format('h:i A').'. Have a great day!');
     }
@@ -90,7 +90,7 @@ class SelfServiceController extends HrmController
         abort_unless($today && $today->check_in, 422, 'Please check in first.');
         abort_if((bool) $today->check_out, 422, 'You have already checked out today.');
 
-        $today->fill(AttendanceController::compute(substr((string) $today->check_in, 0, 5), now()->format('H:i')))->save();
+        $today->fill(AttendanceController::compute(substr((string) $today->check_in, 0, 5), now()->format('H:i'), $today->status, \App\Models\Hrm\Shift::forEmployee($me)))->save();
 
         return back()->with('success', 'Checked out at '.now()->format('h:i A').'. Worked '.$today->workedLabel().'.');
     }

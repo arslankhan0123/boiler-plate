@@ -16,11 +16,13 @@ class Payslip extends Model
     protected $table = 'hrm_payslips';
 
     protected $fillable = ['payroll_run_id', 'employee_id', 'number', 'basic_salary', 'allowances', 'bonus', 'unpaid_days',
-        'unpaid_deduction', 'other_deductions', 'gross', 'net', 'present_days', 'note'];
+        'unpaid_deduction', 'other_deductions', 'gross', 'net', 'present_days', 'note',
+        'component_earnings', 'component_deductions', 'loan_deductions'];
 
     protected function casts(): array
     {
-        return collect(['basic_salary', 'allowances', 'bonus', 'unpaid_days', 'unpaid_deduction', 'other_deductions', 'gross', 'net'])
+        return collect(['basic_salary', 'allowances', 'bonus', 'unpaid_days', 'unpaid_deduction', 'other_deductions', 'gross', 'net',
+            'component_earnings', 'component_deductions', 'loan_deductions'])
             ->mapWithKeys(fn ($c) => [$c => 'float'])->all();
     }
 
@@ -34,10 +36,20 @@ class Payslip extends Model
         return $this->belongsTo(Employee::class)->withTrashed();
     }
 
-    /** gross = basic + allowances + bonus; net = gross − deductions */
+    public function lines(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(PayslipLine::class);
+    }
+
+    public function totalDeductions(): float
+    {
+        return round($this->unpaid_deduction + $this->other_deductions + $this->component_deductions + $this->loan_deductions, 2);
+    }
+
+    /** gross = basic + allowances + bonus + recurring earnings; net = gross − all deductions */
     public function recalc(): void
     {
-        $this->gross = round($this->basic_salary + $this->allowances + $this->bonus, 2);
-        $this->net = round(max(0, $this->gross - $this->unpaid_deduction - $this->other_deductions), 2);
+        $this->gross = round($this->basic_salary + $this->allowances + $this->bonus + $this->component_earnings, 2);
+        $this->net = round(max(0, $this->gross - $this->totalDeductions()), 2);
     }
 }

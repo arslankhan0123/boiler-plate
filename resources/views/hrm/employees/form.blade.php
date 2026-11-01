@@ -55,7 +55,8 @@
                         </div>
                     </div>
                     <div class="col-md-6"><x-admin.input name="join_date" type="date" label="Joining Date" :value="$employee->join_date ? \Illuminate\Support\Carbon::parse($employee->join_date)->format('Y-m-d') : ''" required /></div>
-                    <div class="col-md-6"><x-admin.select name="employment_type" label="Employment Type" optional :options="config('hrm.employment_types')" :value="$employee->employment_type" placeholder="—" /></div>
+                    <div class="col-md-3"><x-admin.select name="employment_type" label="Employment Type" optional :options="config('hrm.employment_types')" :value="$employee->employment_type" placeholder="—" /></div>
+                    <div class="col-md-3"><x-admin.select name="shift_id" label="Shift" optional :options="$shifts->mapWithKeys(fn ($s) => [$s->id => $s->label()])" :value="$employee->shift_id" placeholder="Default shift" /></div>
                 </div>
 
                 <div class="form-section-title mt-5">Salary & Bank</div>

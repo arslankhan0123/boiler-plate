@@ -30,6 +30,30 @@ class Hrm
         return self::$me[$id] ??= Employee::query()->where('user_id', $id)->first();
     }
 
+    private static array $team = [];
+
+    /**
+     * Direct reports of the logged-in employee: active employees whose
+     * designation "reports to" my designation (org chart).
+     */
+    public static function team(): Collection
+    {
+        $me = self::me();
+        if (! $me || ! $me->designation_id) {
+            return collect();
+        }
+
+        return self::$team[$me->id] ??= Employee::query()->with(['designation', 'department'])->where('is_active', true)
+            ->whereKeyNot($me->id)
+            ->whereIn('designation_id', \Modules\Setup\Models\Designation::query()->where('parent_id', $me->designation_id)->pluck('id'))
+            ->orderBy('name')->get();
+    }
+
+    public static function isManagerOf(Employee $employee): bool
+    {
+        return self::team()->contains('id', $employee->id);
+    }
+
     public static function meOrFail(): Employee
     {
         $me = self::me();

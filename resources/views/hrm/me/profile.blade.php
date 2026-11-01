@@ -19,6 +19,11 @@
 
     <div class="mt-4">@include('hrm.me._checkin', ['today' => $today])</div>
 
+    @php $notices = \App\Models\Hrm\Announcement::query()->visibleTo($employee)->orderByDesc('is_pinned')->latest()->limit(5)->get(); @endphp
+    @if ($notices->isNotEmpty())
+        <div class="mt-4">@include('hrm.announcements._feed', ['notices' => $notices])</div>
+    @endif
+
     <div class="app-form-grid mt-4">
         <div class="d-grid gap-4">
             <x-admin.card :title="'My leave balance '.now()->year">@include('hrm.partials.balances', ['balances' => $balances])</x-admin.card>
@@ -52,6 +57,8 @@
                 <dl class="row small mb-0 g-2">
                     <dt class="col-5 text-body-secondary fw-normal">Joined</dt><dd class="col-7 mb-0">{{ $d($e->join_date) }}</dd>
                     <dt class="col-5 text-body-secondary fw-normal">Type</dt><dd class="col-7 mb-0">{{ config('hrm.employment_types')[$e->employment_type] ?? '—' }}</dd>
+                    @php $myShift = \App\Models\Hrm\Shift::forEmployee($e); @endphp
+                    <dt class="col-5 text-body-secondary fw-normal">Shift</dt><dd class="col-7 mb-0">{{ $myShift?->label() ?? config('hrm.office_start').' start' }}</dd>
                     <dt class="col-5 text-body-secondary fw-normal">Email</dt><dd class="col-7 mb-0 text-break">{{ $e->email ?: '—' }}</dd>
                     <dt class="col-5 text-body-secondary fw-normal">Bank</dt><dd class="col-7 mb-0">{{ $e->bank_name ?: '—' }}</dd>
                 </dl>

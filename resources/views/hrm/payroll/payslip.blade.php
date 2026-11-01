@@ -1,7 +1,9 @@
 @php
     $money = fn ($v) => \App\Support\Hrm\Hrm::money($v);
     $e = $payslip->employee;
-    $deductions = $payslip->unpaid_deduction + $payslip->other_deductions;
+    $deductions = $payslip->totalDeductions();
+    $earnLines = $payslip->lines->where('type', 'earning');
+    $dedLines = $payslip->lines->where('type', 'deduction');
 @endphp
 <!doctype html>
 <html lang="en">
@@ -59,11 +61,12 @@
                     <tr><td>Basic salary</td><td class="r">{{ $money($payslip->basic_salary) }}</td></tr>
                     <tr><td>Allowances</td><td class="r">{{ $money($payslip->allowances) }}</td></tr>
                     <tr><td>Bonus</td><td class="r">{{ $money($payslip->bonus) }}</td></tr>
+                    @foreach ($earnLines as $l)<tr><td>{{ $l->label }}</td><td class="r">{{ $money($l->amount) }}</td></tr>@endforeach
                     <tr><th>Gross</th><th class="r">{{ $money($payslip->gross) }}</th></tr></tbody></table>
                 <table><thead><tr><th>Deductions</th><th class="r">Amount</th></tr></thead><tbody>
                     <tr><td>Unpaid leave / absence ({{ $payslip->unpaid_days }} days)</td><td class="r">{{ $money($payslip->unpaid_deduction) }}</td></tr>
                     <tr><td>Other deductions</td><td class="r">{{ $money($payslip->other_deductions) }}</td></tr>
-                    <tr><td>&nbsp;</td><td></td></tr>
+                    @foreach ($dedLines as $l)<tr><td>{{ $l->label }}</td><td class="r">{{ $money($l->amount) }}</td></tr>@endforeach
                     <tr><th>Total</th><th class="r">{{ $money($deductions) }}</th></tr></tbody></table>
             </div>
             @if ($payslip->note)<p style="color:#64748b;margin-top:18px">Note: {{ $payslip->note }}</p>@endif

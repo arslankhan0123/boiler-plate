@@ -38,7 +38,7 @@ class PayrollRun extends Model
     {
         $this->update([
             'total_gross' => $this->payslips()->sum('gross'),
-            'total_deductions' => $this->payslips()->sum('unpaid_deduction') + $this->payslips()->sum('other_deductions'),
+            'total_deductions' => $this->payslips()->get()->sum(fn ($p) => $p->totalDeductions()),
             'total_net' => $this->payslips()->sum('net'),
         ]);
     }

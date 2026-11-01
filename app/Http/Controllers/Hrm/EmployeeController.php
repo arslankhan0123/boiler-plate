@@ -83,6 +83,11 @@ class EmployeeController extends HrmController
             Hrm::allocateYear(now()->year, $employee->id);
         }
 
+        // Start the onboarding checklist straight away.
+        foreach (config('hrm.onboarding_checklist', []) as $i => $title) {
+            \App\Models\Hrm\ChecklistItem::create(['employee_id' => $employee->id, 'type' => 'onboarding', 'title' => $title, 'sort' => $i]);
+        }
+
         if ($request->filled('application')) {
             \App\Models\Hrm\JobApplication::query()->whereKey($request->application)->update(['status' => 'hired', 'employee_id' => $employee->id]);
         }
@@ -103,6 +108,12 @@ class EmployeeController extends HrmController
             'attendance' => Attendance::query()->where('employee_id', $employee->id)->whereBetween('date', [now()->startOfMonth(), now()->endOfMonth()])->orderBy('date')->get(),
             'payslips' => Payslip::query()->with('run')->where('employee_id', $employee->id)->latest()->limit(12)->get(),
             'manager' => $this->managerOf($employee),
+            'components' => \App\Models\Hrm\SalaryComponent::query()->where('employee_id', $employee->id)->get(),
+            'loans' => \App\Models\Hrm\Loan::query()->where('employee_id', $employee->id)->latest()->get(),
+            'checklists' => \App\Models\Hrm\ChecklistItem::query()->where('employee_id', $employee->id)->orderBy('sort')->get()->groupBy('type'),
+            'exit' => \App\Models\Hrm\EmployeeExit::query()->where('employee_id', $employee->id)->latest()->first(),
+            'reviews' => \App\Models\Hrm\Review::query()->where('employee_id', $employee->id)->latest()->limit(5)->get(),
+            'shift' => \App\Models\Hrm\Shift::forEmployee($employee),
             'reports' => Employee::query()->where('is_active', true)
                 ->whereIn('designation_id', Designation::query()->where('parent_id', $employee->designation_id)->pluck('id'))->get(),
         ]);
@@ -204,6 +215,7 @@ class EmployeeController extends HrmController
             'loginUser' => $user,
             'departments' => Department::query()->where('is_active', true)->orderBy('name')->pluck('name', 'id'),
             'designations' => Designation::query()->where('is_active', true)->orderBy('name')->get(['id', 'name', 'department_id']),
+            'shifts' => \App\Models\Hrm\Shift::query()->orderBy('start_time')->get(),
             'roles' => $this->assignableRoles(),
             'userRoles' => $user ? $user->roles()->pluck('name')->all() : ['Employee'],
             'userPermissions' => $user ? $user->permissions()->pluck('name')->all() : [],
@@ -257,6 +269,7 @@ class EmployeeController extends HrmController
             'designation_id' => ['required', Rule::exists((new Designation())->getTable(), 'id')],
             'join_date' => ['required', 'date'],
             'employment_type' => ['nullable', Rule::in(array_keys(config('hrm.employment_types')))],
+            'shift_id' => ['nullable', Rule::exists((new \App\Models\Hrm\Shift())->getTable(), 'id')],
             'basic_salary' => ['nullable', 'numeric', 'min:0'],
             'transport_allowance' => ['nullable', 'numeric', 'min:0'],
             'bank_name' => ['nullable', 'string', 'max:100'],
@@ -274,7 +287,7 @@ class EmployeeController extends HrmController
         ]);
 
         $employeeData = collect($v)->only(['name', 'code', 'email', 'phone', 'dob', 'gender', 'marital_status', 'blood_group',
-            'national_id', 'street', 'city', 'department_id', 'designation_id', 'join_date', 'employment_type', 'basic_salary',
+            'national_id', 'street', 'city', 'department_id', 'designation_id', 'shift_id', 'join_date', 'employment_type', 'basic_salary',
             'transport_allowance', 'bank_name', 'bank_account_no', 'iban_num'])->all();
         $employeeData['is_active'] = $request->boolean('is_active', true);
         $employeeData['gross_salary'] = (float) ($v['basic_salary'] ?? 0) + (float) ($v['transport_allowance'] ?? 0);

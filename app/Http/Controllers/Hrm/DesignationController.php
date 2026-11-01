@@ -25,7 +25,9 @@ class DesignationController extends HrmController
     public function store(Request $request)
     {
         $this->need('hrm.manage_org');
-        Designation::create($this->data($request) + ['created_by' => auth()->id()]);
+        $data = $this->data($request);
+        $data['parent_id'] = ! empty($data['parent_id']) ? (int) $data['parent_id'] : null;
+        Designation::create($data + ['created_by' => auth()->id()]);
 
         return back()->with('success', 'Designation created.');
     }
@@ -34,7 +36,10 @@ class DesignationController extends HrmController
     {
         $this->need('hrm.manage_org');
         $data = $this->data($request, $designation);
-        abort_if($this->wouldLoop($designation, $data['parent_id'] ?? null), 422, 'A designation cannot report to itself or its own team.');
+        $data['parent_id'] = ! empty($data['parent_id']) ? (int) $data['parent_id'] : null;
+        if ($this->wouldLoop($designation, $data['parent_id'])) {
+            return back()->withInput()->with('error', 'A designation cannot report to itself or to someone below it in the chart.');
+        }
         $designation->update($data);
 
         return redirect()->route('hrm.designations.index')->with('success', 'Designation updated.');
@@ -69,11 +74,13 @@ class DesignationController extends HrmController
     private function wouldLoop(Designation $self, ?int $parentId): bool
     {
         $seen = 0;
+        // Walk up the chain from the new parent; reaching $self means a cycle.
         while ($parentId && $seen++ < 100) {
-            if ($parentId === $self->id) {
+            if ((int) $parentId === (int) $self->id) {
                 return true;
             }
-            $parentId = Designation::query()->whereKey($parentId)->value('parent_id');
+            $next = Designation::query()->whereKey($parentId)->value('parent_id');
+            $parentId = $next !== null ? (int) $next : null;
         }
 
         return false;

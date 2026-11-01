@@ -12,7 +12,7 @@
             @forelse ($payslips as $p)
                 <tr><td class="fw-semibold">{{ $p->run->label() }}</td><td>{{ $p->number }}</td>
                     <td>{{ \App\Support\Hrm\Hrm::money($p->gross) }}</td>
-                    <td class="text-danger">{{ \App\Support\Hrm\Hrm::money($p->unpaid_deduction + $p->other_deductions) }}</td>
+                    <td class="text-danger">{{ \App\Support\Hrm\Hrm::money($p->totalDeductions()) }}</td>
                     <td class="fw-bold">{{ \App\Support\Hrm\Hrm::money($p->net) }}</td>
                     <td><x-admin.badge :tone="\App\Models\Hrm\PayrollRun::STATUSES[$p->run->status]">{{ ucfirst($p->run->status) }}</x-admin.badge></td>
                     <td class="text-end"><a href="{{ route('hrm.payslips.show', $p) }}" class="btn btn-sm btn-light"><i class="bi bi-file-earmark-text"></i> View</a></td></tr>

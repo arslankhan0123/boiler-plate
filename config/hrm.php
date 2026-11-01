@@ -13,6 +13,16 @@ return [
 
     'currency' => 'PKR',
 
+    // Checklists created when an employee joins / leaves (editable per employee).
+    'onboarding_checklist' => [
+        'Collect signed offer letter & contract', 'Collect CNIC copy & educational documents', 'Create login & assign role',
+        'Assign laptop / equipment', 'Add to payroll & bank details', 'Introduce to team & reporting manager', 'Explain policies & leave rules',
+    ],
+    'offboarding_checklist' => [
+        'Receive resignation / issue termination letter', 'Handover of work & documents', 'Return laptop / equipment & ID card',
+        'Revoke system access', 'Clear loans / advances', 'Final settlement processed', 'Exit interview', 'Issue experience letter',
+    ],
+
     'employment_types' => [
         'full_time' => 'Full-time', 'part_time' => 'Part-time', 'contract' => 'Contract',
         'internship' => 'Internship', 'remote' => 'Remote',
@@ -30,7 +40,8 @@ return [
         'HR Manager' => [
             'hrm.self_service', 'hrm.view_employees', 'hrm.manage_employees', 'hrm.manage_org', 'hrm.view_attendance',
             'hrm.manage_attendance', 'hrm.approve_leave', 'hrm.manage_leave', 'hrm.process_payroll',
-            'hrm.manage_recruitment', 'hrm.reports', 'projects.view', 'projects.manage_tasks',
+            'hrm.manage_recruitment', 'hrm.reports', 'hrm.manage_shifts', 'hrm.manage_performance',
+            'hrm.manage_lifecycle', 'hrm.manage_announcements', 'projects.view', 'projects.manage_tasks',
         ],
     ],
 ];

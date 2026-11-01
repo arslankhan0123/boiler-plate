@@ -91,6 +91,7 @@ class Employee extends Model
         'user_id',
         'department_id',
         'designation_id',
+        'shift_id',
         'email',
         'phone',
         'dob',
@@ -131,6 +132,11 @@ class Employee extends Model
         'sort_order',
         'created_by',
     ];
+
+    public function shift(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Hrm\Shift::class);
+    }
 
     /** Central login account (users.id) — null when the employee cannot sign in. */
     public function user(): BelongsTo

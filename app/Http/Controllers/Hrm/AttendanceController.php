@@ -57,7 +57,8 @@ class AttendanceController extends HrmController
 
                 continue;
             }
-            $values = self::compute($row['check_in'] ?? null, $row['check_out'] ?? null, $row['status']);
+            $values = self::compute($row['check_in'] ?? null, $row['check_out'] ?? null, $row['status'],
+                \App\Models\Hrm\Shift::forEmployee(Employee::query()->find($employeeId)));
             Attendance::query()->updateOrCreate(
                 ['employee_id' => (int) $employeeId, 'date' => $data['date']],
                 $values + ['note' => $row['note'] ?? null, 'marked_by' => auth()->id()],
@@ -76,7 +77,9 @@ class AttendanceController extends HrmController
         $done = Attendance::query()->whereDate('date', $date)->pluck('employee_id');
         $n = 0;
         Employee::query()->where('is_active', true)->whereDate('join_date', '<=', $date)->whereNotIn('id', $done)->each(function ($e) use ($date, &$n) {
-            Attendance::create(['employee_id' => $e->id, 'date' => $date, 'status' => 'present', 'check_in' => config('hrm.office_start'), 'marked_by' => auth()->id()]);
+            $shift = \App\Models\Hrm\Shift::forEmployee($e);
+            Attendance::create(['employee_id' => $e->id, 'date' => $date, 'status' => 'present',
+                'check_in' => $shift ? substr((string) $shift->start_time, 0, 5) : config('hrm.office_start'), 'marked_by' => auth()->id()]);
             $n++;
         });
 
@@ -105,7 +108,7 @@ class AttendanceController extends HrmController
     }
 
     /** Status + worked minutes from times (late / half day are automatic). */
-    public static function compute(?string $in, ?string $out, string $status = 'present'): array
+    public static function compute(?string $in, ?string $out, string $status = 'present', ?\App\Models\Hrm\Shift $shift = null): array
     {
         $minutes = 0;
         if ($in && $out) {
@@ -120,9 +123,16 @@ class AttendanceController extends HrmController
         }
 
         if (in_array($status, ['present', 'late', 'half_day'], true) && $in) {
-            $start = Carbon::createFromFormat('H:i', config('hrm.office_start'))->addMinutes(config('hrm.late_grace_minutes'));
-            $status = Carbon::createFromFormat('H:i', substr($in, 0, 5))->gt($start) ? 'late' : 'present';
-            if ($out && $minutes < config('hrm.half_day_minutes')) {
+            // The employee's shift (or the default config) decides late / half day.
+            $startAt = $shift ? substr((string) $shift->start_time, 0, 5) : config('hrm.office_start');
+            $grace = $shift?->grace_minutes ?? config('hrm.late_grace_minutes');
+            $halfDay = $shift?->half_day_minutes ?? config('hrm.half_day_minutes');
+            $start = Carbon::createFromFormat('H:i', $startAt)->addMinutes($grace);
+            $checkIn = Carbon::createFromFormat('H:i', substr($in, 0, 5));
+            // Night shifts: a check-in long before the start belongs to the next day's shift.
+            $diff = $checkIn->diffInMinutes($start, false); // minutes until (start+grace)
+            $status = $diff < 0 && $diff > -12 * 60 ? 'late' : 'present';
+            if ($out && $minutes < $halfDay) {
                 $status = 'half_day';
             }
         }
