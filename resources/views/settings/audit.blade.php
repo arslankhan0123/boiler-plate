@@ -30,7 +30,7 @@
                 <input type="date" name="to" value="{{ request('to') }}" class="form-control" style="width:150px;min-height:40px" onchange="this.form.submit()">
             </form>
         </x-slot:actions>
-        <div class="table-responsive"><table class="table app-table align-top">
+        <div class="table-responsive"><table class="table app-table align-middle">
             <thead><tr><th>When</th><th>User</th><th>Action</th><th>Record</th><th>Changes</th></tr></thead>
             <tbody>
             @forelse ($logs as $log)
@@ -40,13 +40,22 @@
                     <td class="small">{{ $users[$log->user_id] ?? ($log->user_id ? 'User #'.$log->user_id : 'System') }}</td>
                     <td><x-admin.badge :tone="$eventTone[$log->event] ?? 'muted'">{{ \Illuminate\Support\Str::headline($log->event) }}</x-admin.badge></td>
                     <td class="small"><b>{{ \Illuminate\Support\Str::headline(class_basename($log->auditable_type)) }}</b> #{{ $log->auditable_id }}</td>
-                    <td class="small" style="max-width:520px">
-                        @forelse (array_slice($changed, 0, 6) as $field)
-                            <div class="text-truncate"><span class="text-body-secondary">{{ $field }}:</span>
-                                @if (array_key_exists($field, $log->old_values ?? []))<span class="text-danger text-decoration-line-through">{{ \Illuminate\Support\Str::limit($fmt($log->old_values[$field]), 40) }}</span> → @endif
-                                <span class="text-success">{{ \Illuminate\Support\Str::limit($fmt($log->new_values[$field] ?? ''), 60) }}</span></div>
-                        @empty<span class="text-body-secondary">—</span>@endforelse
-                        @if (count($changed) > 6)<div class="text-body-secondary">+{{ count($changed) - 6 }} more fields</div>@endif
+                    @php
+                        $fields = array_values(array_diff($changed, ['id']));
+                        $line = fn ($f) => $f.': '.(array_key_exists($f, $log->old_values ?? []) ? \Illuminate\Support\Str::limit($fmt($log->old_values[$f]), 30).' → ' : '').\Illuminate\Support\Str::limit($fmt($log->new_values[$f] ?? '—'), 40);
+                        $full = implode("\n", array_map($line, $fields));
+                    @endphp
+                    <td class="small audit-changes">
+                        @if ($fields)
+                            <div class="audit-summary" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-custom-class="audit-tip" title="{{ $full }}">
+                                @foreach (array_slice($fields, 0, 2) as $f)
+                                    <div class="text-truncate"><span class="text-body-secondary">{{ $f }}:</span>
+                                        @if (array_key_exists($f, $log->old_values ?? []))<span class="text-danger text-decoration-line-through">{{ \Illuminate\Support\Str::limit($fmt($log->old_values[$f]), 20) }}</span> → @endif
+                                        <span class="text-success">{{ \Illuminate\Support\Str::limit($fmt($log->new_values[$f] ?? '—'), 28) }}</span></div>
+                                @endforeach
+                                @if (count($fields) > 2)<span class="audit-more">+{{ count($fields) - 2 }} more…</span>@endif
+                            </div>
+                        @else<span class="text-body-secondary">—</span>@endif
                     </td>
                 </tr>
             @empty
@@ -60,3 +69,16 @@
     <p class="form-text mt-3">Changes are recorded in the background — make sure the queue worker is running (<code>php artisan queue:work</code>).</p>
 </div>
 @endsection
+
+@push('styles')
+<style>
+    .audit-changes { max-width: 380px; }
+    .audit-summary { cursor: help; line-height: 1.5; }
+    .audit-more { display: inline-block; margin-top: 2px; font-size: .75rem; font-weight: 600; color: var(--app-primary, #4f46e5); background: #eef2ff; border-radius: 6px; padding: 1px 8px; }
+    .audit-tip .tooltip-inner { max-width: 420px; text-align: left; white-space: pre-line; font-size: .78rem; }
+</style>
+@endpush
+
+@push('scripts')
+<script>document.querySelectorAll('.audit-summary[data-bs-toggle="tooltip"]').forEach(el => window.bootstrap && new bootstrap.Tooltip(el));</script>
+@endpush
