@@ -174,6 +174,9 @@ class ModuleRegistry
         if (str_ends_with($route, '.index')) {
             return [\Illuminate\Support\Str::beforeLast($route, '.').'.*'];
         }
+        if (! str_contains($route, '.')) {
+            return [$route]; // top-level route (e.g. "pos"): exact only, so pos.held etc. don't light it up
+        }
 
         return [$route, $route.'.*'];
     }
