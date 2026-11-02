@@ -46,6 +46,12 @@ Route::middleware(['auth', 'tenant.init'])->group(function () {
     // Sales, Purchase, POS and retail reports.
     require __DIR__.'/retail.php';
 
+    // CRM (leads, contacts, companies, pipeline, activities, campaigns).
+    require __DIR__.'/crm.php';
+
+    // Accounting (chart of accounts, journals, ledger, AR/AP, banking, statements).
+    require __DIR__.'/accounting.php';
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
