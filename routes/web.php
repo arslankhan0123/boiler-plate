@@ -18,6 +18,21 @@ Route::prefix('careers/{tenant}')->name('careers.')->group(function () {
     Route::post('{slug}/apply', [\App\Http\Controllers\Hrm\CareersController::class, 'apply'])->middleware('throttle:5,1')->name('apply');
 });
 
+// Public storefront per tenant (no login): /store/{tenant}
+Route::prefix('store/{tenant}')->name('store.')->group(function () {
+    $s = \App\Http\Controllers\Ecommerce\StoreController::class;
+    Route::get('/', [$s, 'index'])->name('index');
+    Route::get('cart', [$s, 'cart'])->name('cart');
+    Route::post('cart/add', [$s, 'addToCart'])->name('cart.add');
+    Route::post('cart/update', [$s, 'updateCart'])->name('cart.update');
+    Route::delete('cart/{product}', [$s, 'removeFromCart'])->whereNumber('product')->name('cart.remove');
+    Route::get('checkout', [$s, 'checkout'])->name('checkout');
+    Route::post('checkout', [$s, 'placeOrder'])->middleware('throttle:10,1')->name('place');
+    Route::get('order/{orderNo}', [$s, 'confirm'])->name('confirm');
+    Route::get('p/{slug}', [$s, 'product'])->name('product');
+    Route::post('p/{product}/review', [$s, 'submitReview'])->whereNumber('product')->middleware('throttle:5,1')->name('review');
+});
+
 // `tenant.init` switches to the tenant's own database for tenant users.
 Route::middleware(['auth', 'tenant.init'])->group(function () {
     Route::get('/dashboard', fn () => view('dashboard'))->middleware('verified')->name('dashboard');
@@ -51,6 +66,9 @@ Route::middleware(['auth', 'tenant.init'])->group(function () {
 
     // Accounting (chart of accounts, journals, ledger, AR/AP, banking, statements).
     require __DIR__.'/accounting.php';
+
+    // E-commerce (catalog, orders, promotions, shipping, reviews, storefront).
+    require __DIR__.'/ecommerce.php';
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
