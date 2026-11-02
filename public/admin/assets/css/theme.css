@@ -499,12 +499,11 @@ textarea.form-control { min-height: 120px; padding-top: .85rem; }
 .app-panel__hint { color: rgba(255,255,255,.45); font-size: .74rem; line-height: 1.4; padding: 0 .4rem; margin: .2rem 0 .8rem; }
 .app-panel__group { color: rgba(255,255,255,.35); font-size: .64rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: .6rem .4rem .3rem; }
 .app-panel__list { list-style: none; padding: 0; margin: 0 0 .25rem; display: grid; gap: 2px; }
-.app-panel__link { position: relative; display: flex; align-items: center; gap: .6rem; padding: .5rem .65rem; border-radius: 9px; color: rgba(255,255,255,.68);
+.app-panel__link { display: flex; align-items: center; gap: .6rem; padding: .5rem .65rem; border-radius: 9px; color: rgba(255,255,255,.68);
   text-decoration: none; font-size: .84rem; font-weight: 500; transition: all .15s; }
 .app-panel__link i { font-size: 1rem; opacity: .85; }
 .app-panel__link:hover { color: #fff; background: rgba(255,255,255,.07); transform: translateX(2px); }
-.app-panel__link.active { color: #fff; background: rgba(99,102,241,.32); font-weight: 600; }
-.app-panel__link.active::after { content: ""; position: absolute; left: 0; right: 0; bottom: 1px; height: 3px; background: #a5b4fc; border-radius: 3px; }
+.app-panel__link.active { color: #fff; background: rgba(99,102,241,.32); font-weight: 600; box-shadow: inset 3px 0 0 #a5b4fc; }
 
 /* Collapsed (desktop toggle): rail only */
 @media (min-width: 992px) {
