@@ -10,6 +10,7 @@
 @section('content')
 <div class="app-content">
     <x-admin.page-header :title="$c ? 'Customers' : 'Suppliers'" :subtitle="($c ? 'Total receivable: ' : 'Total payable: ').$cur.' '.number_format($totalDue, 2)">
+        @if ($canEdit)<x-admin.button variant="light" icon="upload" :href="route('imports.form', $c ? 'customers' : 'suppliers')">Import</x-admin.button>@endif
         @if ($canEdit)<x-admin.button icon="plus-lg" :href="route($r.'.create')">New {{ $c ? 'customer' : 'supplier' }}</x-admin.button>@endif
     </x-admin.page-header>
     <x-admin.card flush>

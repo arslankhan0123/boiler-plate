@@ -45,6 +45,8 @@
         </div>
     </div>
 
+    @include('retail.dashboard-widgets')
+
     <x-admin.card title="Quick access" subtitle="Modules available to your role">
         @if ($modules->isEmpty())
             <x-admin.empty icon="lock" text="No modules assigned yet. Ask your administrator to grant your role permissions." />

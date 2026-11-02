@@ -12,6 +12,7 @@
     <x-admin.page-header title="Items & Services" subtitle="Your catalogue — prices, tax, stock per warehouse and variants.">
         <x-admin.button variant="light" icon="upc-scan" :href="route('inventory.labels')">Print Labels</x-admin.button>
         @if ($canEdit)
+            <x-admin.button variant="light" icon="upload" :href="route('imports.form', 'items')">Import</x-admin.button>
             <x-admin.button variant="light" icon="tools" :href="route('inventory.items.create', ['service' => 1])">New Service</x-admin.button>
             <x-admin.button icon="plus-lg" :href="route('inventory.items.create')">New Item</x-admin.button>
         @endif

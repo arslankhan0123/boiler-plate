@@ -116,6 +116,10 @@ class CustomerController extends RetailController
         $left = (float) $data['amount'];
 
         DB::transaction(function () use ($customer, $data, &$left) {
+            // Only the customer's net due can be settled (unrefunded returns already reduce it); the rest becomes advance.
+            $applicable = min($left, max(0, Ledger::customerDue($customer->id)));
+            $extra = $left - $applicable;
+            $left = $applicable;
             $opening = Ledger::customerOpeningDue($customer);
             if ($opening > 0 && $left > 0) {
                 $pay = min($opening, $left);
@@ -134,6 +138,7 @@ class CustomerController extends RetailController
                 DocumentService::refreshPaid($inv);
                 $left -= $pay;
             }
+            $left += $extra;
             if ($left > 0.004) {
                 Payment::create(array_merge($data, ['amount' => round($left, 4), 'code' => DocumentService::paymentCode('in'), 'direction' => 'in', 'kind' => 'advance',
                     'party_type' => 'customer', 'party_id' => $customer->id, 'note' => trim(($data['note'] ?? '').' (extra kept as advance)'), 'created_by' => auth()->id()]));

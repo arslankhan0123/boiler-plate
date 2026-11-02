@@ -138,3 +138,10 @@ Route::prefix('pos')->group(function () {
 /* ───────────── Reports ───────────── */
 Route::get('retail-reports', [ReportController::class, 'index'])->name('retail.reports');
 Route::get('retail-reports/{report}', [ReportController::class, 'show'])->where('report', '[a-z_]+')->name('retail.reports.show');
+
+/* ───────────── CSV import ───────────── */
+Route::prefix('imports')->name('imports.')->group(function () {
+    Route::get('{type}', [\App\Http\Controllers\Retail\ImportController::class, 'form'])->where('type', 'items|customers|suppliers')->name('form');
+    Route::get('{type}/sample', [\App\Http\Controllers\Retail\ImportController::class, 'sample'])->where('type', 'items|customers|suppliers')->name('sample');
+    Route::post('{type}', [\App\Http\Controllers\Retail\ImportController::class, 'store'])->where('type', 'items|customers|suppliers')->name('store');
+});

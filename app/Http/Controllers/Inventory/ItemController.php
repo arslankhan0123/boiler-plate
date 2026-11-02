@@ -301,7 +301,7 @@ class ItemController extends InventoryController
         }
 
         if ($isNew) {
-            $attrs['code'] = $data['code'] ?: StockService::nextNumber(Item::class, 'code', 'IT');
+            $attrs['code'] = ($data['code'] ?? null) ?: StockService::nextNumber(Item::class, 'code', 'IT');
             $attrs['created_by'] = auth()->id();
         } elseif (! empty($data['code'])) {
             $attrs['code'] = $data['code'];

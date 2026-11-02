@@ -31,6 +31,9 @@
         @if ($doc->type === 'invoice' && $doc->status === 'final' && $can['return'])
             <x-admin.button variant="light" icon="arrow-return-left" :href="route('sales.returns.create', ['from' => $doc->id])">Sales return</x-admin.button>
         @endif
+        @if (in_array($doc->type, ['purchase', 'order']) && auth()->user()->can('inventory.view'))
+            <x-admin.button variant="light" icon="upc-scan" :href="route('inventory.labels', ['item' => $doc->items->pluck('item_id')->all()])">Print labels</x-admin.button>
+        @endif
         @if ($doc->type === 'purchase' && $can['return'])
             <x-admin.button variant="light" icon="arrow-return-right" :href="route('purchase.returns.create', ['from' => $doc->id])">Purchase return</x-admin.button>
         @endif
