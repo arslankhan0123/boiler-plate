@@ -165,7 +165,7 @@
     const $ = id => document.getElementById(id), num = v => parseFloat(v) || 0;
     const fx = v => (Math.round((+v || 0) * 100) / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-    const toast = (m, ok = true) => window.Toast ? (ok ? Toast.success(m) : Toast.error(m)) : alert(m);
+    const toast = (m, ok = true, title = null) => window.Toast ? (ok ? Toast.success(m, title || 'Done') : Toast.error(m, title || (/stock/i.test(m) ? 'Out of stock' : 'Cannot complete'))) : alert(m);
     const post = async (url, body, method = 'POST') => {
         const r = await fetch(url, { method, headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'X-CSRF-TOKEN': CSRF }, body: body ? JSON.stringify(body) : null });
         const j = await r.json().catch(() => ({}));
@@ -205,9 +205,12 @@
         $('tItems').textContent = cart.length; $('tQty').textContent = +t.qty.toFixed(3); $('tSub').textContent = fx(t.sub); $('tTax').textContent = fx(t.tax);
         $('tOther').textContent = fx(t.other); $('tDisc').textContent = fx(t.disc); $('tCoupon').textContent = fx(t.cp); $('tRound').textContent = fx(t.round); $('tGrand').textContent = fx(t.grand);
     };
+    const noStock = (l, qty) => !l.is_service && qty > +l.stock + 0.0001;
+    const stockMsg = l => +l.stock > 0 ? `Only ${+l.stock} in stock for ${l.name}.` : `${l.name} is out of stock.`;
     const add = (it, vals = {}) => {
         const ex = !vals.qty && cart.find(l => l.id === it.id);
-        if (ex) { ex.qty = +ex.qty + 1; render(); return; }
+        if (ex) { if (noStock(ex, +ex.qty + 1)) return toast(stockMsg(ex), false); ex.qty = +ex.qty + 1; render(); return; }
+        if (!vals.qty && noStock(it, 1)) return toast(stockMsg(it), false);
         cart.push({ ...it, qty: vals.qty ?? 1, unit_price: vals.unit_price ?? priceFor(it), discount_type: vals.discount_type ?? it.discount_type ?? 'percentage',
             discount_input: vals.discount_input ?? (+it.discount || 0), tax_id: vals.tax_id !== undefined ? vals.tax_id : it.tax_id, tax_rate: +it.tax_rate || 0, tax_type: vals.tax_type ?? it.tax_type ?? 'exclusive' });
         render();
@@ -216,14 +219,14 @@
     const logVoid = (l, reason = 'Removed from cart') => post(URL.void, { item_id: l.id, item_name: l.name, qty: l.qty, price: l.unit_price, customer_id: customer?.id, reason }).catch(() => {});
     $('cart').addEventListener('click', e => {
         const b = e.target.closest('[data-a]'); if (!b || b.tagName === 'INPUT') return; const l = cart[+b.dataset.i];
-        if (b.dataset.a === 'inc') l.qty = +l.qty + 1;
+        if (b.dataset.a === 'inc') { if (noStock(l, +l.qty + 1)) return toast(stockMsg(l), false); l.qty = +l.qty + 1; }
         if (b.dataset.a === 'dec') { l.qty = Math.max(0, +l.qty - 1); if (!l.qty) { logVoid({ ...l, qty: 1 }); cart.splice(+b.dataset.i, 1); } else logVoid({ ...l, qty: 1 }, 'Qty reduced'); }
         if (b.dataset.a === 'rm') { logVoid(l); cart.splice(+b.dataset.i, 1); }
         render();
     });
     $('cart').addEventListener('change', e => {
         const el = e.target, l = cart[+el.dataset.i]; if (!l) return;
-        if (el.dataset.a === 'qty') { const v = num(el.value); if (v < l.qty) logVoid({ ...l, qty: l.qty - v }, 'Qty reduced'); l.qty = v; if (!v) cart.splice(+el.dataset.i, 1); }
+        if (el.dataset.a === 'qty') { let v = num(el.value); if (noStock(l, v)) { toast(stockMsg(l), false); v = Math.max(0, +l.stock); } if (v < l.qty) logVoid({ ...l, qty: l.qty - v }, 'Qty reduced'); l.qty = v; if (!v) cart.splice(+el.dataset.i, 1); }
         if (el.dataset.a === 'price') l.unit_price = num(el.value);
         render();
     });
@@ -246,7 +249,7 @@
         const q = $('posSearch').value.trim(); if (!q) return;
         const r = await fetch(URL.search + '?' + new URLSearchParams({ q, warehouse: $('posWh').value, limit: 5 }), { headers: { Accept: 'application/json' } });
         const items = r.ok ? await r.json() : []; const hit = items.find(i => i.barcode === q || i.code === q) || (items.length === 1 ? items[0] : null);
-        if (hit) { add(hit); $('posSearch').value = ''; loadGrid(); } else toast(items.length ? 'Several items match — tap one.' : 'Item not found: ' + q, false);
+        if (hit) { add(hit); $('posSearch').value = ''; loadGrid(); } else toast(items.length ? 'Several items match — tap one.' : 'No item matches "' + q + '".', false, items.length ? 'Pick an item' : 'Item not found');
     });
 
     // Customer
@@ -291,7 +294,7 @@
         $('mTotal').textContent = fx(g); $('mPaid').textContent = fx(paid); $('mChange').textContent = fx(Math.max(0, paid - g)); $('mDue').textContent = fx(Math.max(0, g - paid));
     };
     const openPay = () => {
-        if (!cart.length) return toast('Cart is empty.', false);
+        if (!cart.length) return toast('Add at least one item first.', false, 'Cart is empty');
         const g = totals().grand; $('payRows').innerHTML = ''; payRow(methods[0], Math.round(g * 100) / 100);
         const notes = [10, 50, 100, 500, 1000, 5000].filter(n => n >= g * 0.2);
         $('quickCash').innerHTML = `<button type="button" class="btn btn-sm btn-outline-primary" data-v="${Math.round(g * 100) / 100}">Exact</button>` + [Math.ceil(g / 100) * 100, Math.ceil(g / 500) * 500, Math.ceil(g / 1000) * 1000, ...notes].filter((v, i, a) => v > g && a.indexOf(v) === i).slice(0, 5).map(v => `<button type="button" class="btn btn-sm btn-outline-secondary" data-v="${v}">${v.toLocaleString()}</button>`).join('');
@@ -301,7 +304,7 @@
     };
     $('addPayRow').onclick = () => payRow(methods[1] || methods[0], '');
     $('btnPay').onclick = openPay;
-    $('btnCash').onclick = () => { if (!cart.length) return toast('Cart is empty.', false); $('payRows').innerHTML = ''; payRow(methods.includes('Cash') ? 'Cash' : methods[0], Math.round(totals().grand * 100) / 100); paySum(); checkout(); };
+    $('btnCash').onclick = () => { if (!cart.length) return toast('Add at least one item first.', false, 'Cart is empty'); $('payRows').innerHTML = ''; payRow(methods.includes('Cash') ? 'Cash' : methods[0], Math.round(totals().grand * 100) / 100); paySum(); checkout(); };
     const checkout = async () => {
         const btn = $('confirmPay'); btn.disabled = true;
         try {
@@ -312,16 +315,16 @@
             $('doneReceipt').href = j.receipt; $('doneA4').href = j.a4;
             if ($('autoPrint').checked) window.open(j.receipt, '_blank', 'width=420,height=700');
             reset(); doneModal.show();
-        } catch (e) { toast(e.message, false); } finally { btn.disabled = false; }
+        } catch (e) { toast(e.message, false, /stock/i.test(e.message) ? 'Out of stock' : 'Sale not completed'); } finally { btn.disabled = false; }
     };
     $('confirmPay').onclick = checkout;
 
     // Hold
     const heldModal = $('heldModal') ? new bootstrap.Modal($('heldModal')) : null;
     $('btnHold')?.addEventListener('click', async () => {
-        if (!cart.length) return toast('Cart is empty.', false);
+        if (!cart.length) return toast('Add at least one item first.', false, 'Cart is empty');
         const ref = prompt('Hold reference (optional)', holdRef || ''); if (ref === null) return; holdRef = ref;
-        try { const j = await post(URL.hold, payload()); $('heldCount').textContent = j.held; toast('Held as ' + j.number + '.'); reset(); } catch (e) { toast(e.message, false); }
+        try { const j = await post(URL.hold, payload()); $('heldCount').textContent = j.held; toast('Saved as ' + j.number + '.', true, 'Invoice on hold'); reset(); } catch (e) { toast(e.message, false, 'Could not hold'); }
     });
     const loadDoc = d => {
         cart = []; holdId = d.type === 'hold' ? d.id : null; editId = d.type === 'invoice' ? d.id : null; holdRef = d.ref || null;

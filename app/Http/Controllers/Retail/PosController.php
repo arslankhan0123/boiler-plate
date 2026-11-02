@@ -246,6 +246,29 @@ class PosController extends RetailController
             unset($r);
             $header['discount_input'] = 0;
         }
+        // Can't sell more than the warehouse has (services are exempt). When editing, the invoice's own qty is available again.
+        if (! $holding) {
+            $editId = $request->integer('edit_id') ?: null;
+            $map = \App\Models\Inventory\Item::query()->whereIn('id', array_column($items, 'item_id'))->get()->keyBy('id');
+            $own = $editId ? \App\Models\Retail\DocumentItem::query()->where('document_id', $editId)->groupBy('item_id')->selectRaw('item_id, SUM(qty) q')->pluck('q', 'item_id') : collect();
+            $want = [];
+            foreach ($items as $r) {
+                $want[$r['item_id']] = ($want[$r['item_id']] ?? 0) + (float) $r['qty'];
+            }
+            foreach ($want as $id => $qty) {
+                $it = $map[$id] ?? null;
+                if (! $it || $it->is_service) {
+                    continue;
+                }
+                $available = \App\Support\Inventory\StockService::available((int) $id, (int) $v['warehouse_id']) + (float) ($own[$id] ?? 0);
+                if ($qty > $available + 0.0001) {
+                    throw \Illuminate\Validation\ValidationException::withMessages(['items' => $available > 0
+                        ? "Only {$available} in stock for {$it->name}."
+                        : "{$it->name} is out of stock."]);
+                }
+            }
+        }
+
         // Walk-in customers must pay in full (no credit).
         if (! $holding && ($c = Customer::query()->find($customerId)) && $c->is_default) {
             $calc = DocumentService::calcDoc(array_map(fn ($r) => DocumentService::calcLine($r + ['tax_rate' => (float) TaxRate::query()->whereKey($r['tax_id'] ?? 0)->value('rate')]), $items), $header);
