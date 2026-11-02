@@ -60,9 +60,10 @@
         </div>
 
         <div class="col-xl-5 d-grid gap-4 align-content-start">
-            @if ($canClose && $isOwner)
+            @if ($canClose)
                 <div class="app-card"><div class="app-card__body">
                     <h3 class="app-aside-title">Close register</h3>
+                    @unless ($isOwner)<p class="small text-warning-emphasis mb-2"><i class="bi bi-shield-lock"></i> Manager override — closing {{ $openedBy }}'s drawer.</p>@endunless
                     <p class="small text-body-secondary">Count all cash in the drawer and enter the total. Over/short is worked out against the expected {{ $cur }} {{ $m($live['expected']) }}.</p>
                     <form method="POST" action="{{ route('pos.registers.close', $reg) }}" onsubmit="return confirm('Close this register? This cannot be undone.')">@csrf
                         <x-admin.input name="counted_cash" type="number" step="any" min="0" label="Counted cash" required autofocus />
@@ -70,8 +71,8 @@
                         <x-admin.button icon="lock" class="btn-lg-app w-100">Close Register</x-admin.button>
                     </form>
                 </div></div>
-            @elseif ($canClose)
-                <div class="app-card"><div class="app-card__body text-body-secondary small">Only {{ $openedBy }} (who opened this register) can close it.</div></div>
+            @elseif ($reg->status === 'open')
+                <div class="app-card"><div class="app-card__body text-body-secondary small">Only {{ $openedBy }} (who opened this register) or a manager can close it.</div></div>
             @endif
             <x-admin.card title="Details">
                 <dl class="row small mb-0">

@@ -65,7 +65,8 @@ class RegisterController extends RetailController
             'live' => $register->status === 'open' ? $register->liveExpected() : null,
             'openedBy' => User::query()->whereKey($register->opened_by)->value('name'),
             'closedBy' => User::query()->whereKey($register->closed_by)->value('name'),
-            'canClose' => $this->can('pos.close_register') && $register->status === 'open',
+            'canClose' => $register->status === 'open'
+                && (($register->opened_by === auth()->id() && $this->can('pos.open')) || $this->can('pos.close_register')),
             'isOwner' => $register->opened_by === auth()->id(),
         ]);
     }
@@ -88,7 +89,14 @@ class RegisterController extends RetailController
     /** Close the shift: counts come in, over/short is computed and frozen. */
     public function close(Request $request, Register $register)
     {
-        $this->need('pos.close_register');
+        // Hybrid: the opener may close their own drawer (needs pos.open);
+        // anyone with pos.close_register may close any drawer (manager override).
+        $isOwner = $register->opened_by === auth()->id();
+        abort_unless(
+            ($isOwner && $this->can('pos.open')) || $this->can('pos.close_register'),
+            403,
+            'You can only close your own register. Ask a manager to close someone else\'s drawer.'
+        );
         abort_unless($register->status === 'open', 422);
         $data = $request->validate([
             'counted_cash' => ['required', 'numeric', 'min:0'],
