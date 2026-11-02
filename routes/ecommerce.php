@@ -24,6 +24,7 @@ Route::prefix('ecommerce')->name('ecommerce.')->group(function () {
         Route::post('categories', [CatalogController::class, 'storeCategory'])->name('categories.store');
         Route::get('categories/{category}/edit', [CatalogController::class, 'editCategory'])->whereNumber('category')->name('categories.edit');
         Route::put('categories/{category}', [CatalogController::class, 'updateCategory'])->whereNumber('category')->name('categories.update');
+        Route::patch('categories/{category}/reparent', [CatalogController::class, 'reparentCategory'])->whereNumber('category')->name('categories.reparent');
         Route::delete('categories/{category}', [CatalogController::class, 'destroyCategory'])->whereNumber('category')->name('categories.destroy');
         Route::get('{product}/edit', [CatalogController::class, 'edit'])->whereNumber('product')->name('edit');
         Route::put('{product}', [CatalogController::class, 'update'])->whereNumber('product')->name('update');

@@ -149,6 +149,21 @@ class CatalogController extends EcommerceController
         return back()->with('success', 'Category deleted.');
     }
 
+    /** Drag & drop: move a category under a new parent (or to the top level). */
+    public function reparentCategory(Request $request, Category $category)
+    {
+        $this->need('ecommerce.manage_products');
+        $data = $request->validate(['parent_id' => ['nullable', 'integer', 'exists:ecom_categories,id']]);
+        $parentId = $data['parent_id'] ?? null;
+
+        if ($parentId !== null && in_array((int) $parentId, $category->load('children')->descendantIds(), true)) {
+            return response()->json(['ok' => false, 'message' => 'Cannot place a category under itself or one of its subcategories.'], 422);
+        }
+        $category->update(['parent_id' => $parentId]);
+
+        return response()->json(['ok' => true]);
+    }
+
     private function categoryData(Request $request, ?Category $category = null): array
     {
         $data = $request->validate([
