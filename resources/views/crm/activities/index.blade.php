@@ -2,15 +2,30 @@
 @section('title', 'Activities')
 @section('subtitle', 'CRM')
 @section('content')
+<style>
+    .seg{display:inline-flex;gap:3px;padding:4px;background:rgba(130,140,160,.12);border-radius:12px;flex-wrap:wrap}
+    .seg__item{display:inline-flex;align-items:center;gap:.4rem;padding:.42rem .85rem;border-radius:9px;font-size:.84rem;font-weight:600;line-height:1;color:var(--bs-secondary-color,#64748b);text-decoration:none;transition:background .15s,color .15s,box-shadow .15s;white-space:nowrap}
+    .seg__item:hover{color:var(--bs-body-color,#1e293b)}
+    .seg__item.is-active{background:var(--app-surface,#fff);color:var(--app-primary,#4f46e5);box-shadow:0 1px 4px rgba(16,24,40,.12)}
+    .seg__count{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;border-radius:999px;font-size:.7rem;font-weight:700;background:rgba(130,140,160,.22);color:inherit}
+    .seg__item.is-active .seg__count{background:color-mix(in srgb,var(--app-primary,#4f46e5) 16%,transparent)}
+    .seg__count--danger{background:rgba(239,68,68,.16);color:#ef4444}
+</style>
 <div class="app-content">
     <x-admin.page-header title="Activities & Follow-ups" :subtitle="$openCount.' open · '.$overdueCount.' overdue'" />
     <div class="row g-4">
         <div class="col-lg-8">
             <x-admin.card flush>
                 <x-slot:actions>
-                    <div class="btn-group btn-group-sm">
+                    @php $counts = ['open' => $openCount, 'overdue' => $overdueCount]; @endphp
+                    <div class="seg" role="tablist">
                         @foreach (['open' => 'Open', 'today' => 'Today', 'overdue' => 'Overdue', 'done' => 'Done', 'all' => 'All'] as $k => $l)
-                            <a href="{{ route('crm.activities.index', ['filter' => $k]) }}" class="btn {{ $filter === $k ? 'btn-primary' : 'btn-light' }}">{{ $l }}</a>
+                            <a href="{{ route('crm.activities.index', ['filter' => $k]) }}" class="seg__item {{ $filter === $k ? 'is-active' : '' }}" role="tab" aria-selected="{{ $filter === $k ? 'true' : 'false' }}">
+                                {{ $l }}
+                                @if (isset($counts[$k]) && $counts[$k] > 0)
+                                    <span class="seg__count {{ $k === 'overdue' ? 'seg__count--danger' : '' }}">{{ $counts[$k] }}</span>
+                                @endif
+                            </a>
                         @endforeach
                     </div>
                 </x-slot:actions>

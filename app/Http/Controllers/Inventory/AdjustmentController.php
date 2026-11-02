@@ -25,7 +25,7 @@ class AdjustmentController extends InventoryController
 
     public function index(Request $request, string $kind)
     {
-        $this->need('inventory.view');
+        $this->need('inventory.view', 'inventory.adjust');
         $rows = Adjustment::query()->with('warehouse')->withCount('items')->withSum('items', 'qty')->where('kind', $kind)
             ->when($request->q, fn ($q, $s) => $q->where(fn ($w) => $w->where('reference_no', 'like', "%$s%")->orWhere('note', 'like', "%$s%")))
             ->when($request->warehouse, fn ($q, $v) => $q->where('warehouse_id', $v))

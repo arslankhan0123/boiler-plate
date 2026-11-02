@@ -22,7 +22,7 @@ class StockCountController extends InventoryController
 {
     public function index(Request $request)
     {
-        $this->need('inventory.view');
+        $this->need('inventory.view', 'inventory.adjust');
         $rows = StockCount::query()->with('warehouse')->withCount('items')
             ->when($request->q, fn ($q, $s) => $q->where('reference_no', 'like', "%$s%"))
             ->when($request->status, fn ($q, $v) => $q->where('status', $v))

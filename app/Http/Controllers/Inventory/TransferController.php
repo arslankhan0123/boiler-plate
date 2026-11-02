@@ -16,7 +16,7 @@ class TransferController extends InventoryController
 {
     public function index(Request $request)
     {
-        $this->need('inventory.view');
+        $this->need('inventory.view', 'inventory.transfer');
         $rows = Transfer::query()->with('from', 'to')->withCount('items')->withSum('items', 'qty')
             ->when($request->q, fn ($q, $s) => $q->where(fn ($w) => $w->where('reference_no', 'like', "%$s%")->orWhere('note', 'like', "%$s%")))
             ->when($request->warehouse, fn ($q, $v) => $q->where(fn ($w) => $w->where('from_warehouse_id', $v)->orWhere('to_warehouse_id', $v)))
