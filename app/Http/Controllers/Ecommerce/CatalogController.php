@@ -39,7 +39,7 @@ class CatalogController extends EcommerceController
         return view('ecommerce.catalog.form', [
             'product' => new Product(['is_published' => true]),
             'items' => $this->publishableItems(),
-            'categories' => Category::where('is_active', true)->orderBy('name')->pluck('name', 'id'),
+            'categories' => Category::where('is_active', true)->with('parent')->orderBy('name')->get()->mapWithKeys(fn ($c) => [$c->id => $c->path()]),
         ]);
     }
 
@@ -50,7 +50,7 @@ class CatalogController extends EcommerceController
         return view('ecommerce.catalog.form', [
             'product' => $product,
             'items' => $this->publishableItems($product->item_id),
-            'categories' => Category::where('is_active', true)->orderBy('name')->pluck('name', 'id'),
+            'categories' => Category::where('is_active', true)->with('parent')->orderBy('name')->get()->mapWithKeys(fn ($c) => [$c->id => $c->path()]),
         ]);
     }
 
@@ -88,28 +88,80 @@ class CatalogController extends EcommerceController
     }
 
     // ---- Categories ----
-    public function categories()
+    public function categories(?Category $editing = null)
     {
         $this->need('ecommerce.manage_products');
+        // Parent options exclude the category being edited and its descendants (no loops).
+        $exclude = $editing ? $editing->load('children')->descendantIds() : [];
+        $parents = Category::query()->whereNotIn('id', $exclude)->orderBy('name')
+            ->get()->mapWithKeys(fn ($c) => [$c->id => $c->path()])->all();
 
-        return view('ecommerce.catalog.categories', ['categories' => Category::withCount('products')->orderBy('sort')->orderBy('name')->get()]);
+        // Order as a depth-first tree so each child sits right under its parent,
+        // with a depth for progressive indentation.
+        $all = Category::withCount('products')->with('parent')->orderBy('sort')->orderBy('name')->get();
+        $byParent = $all->groupBy(fn ($c) => $c->parent_id ?? 0);
+        $rows = collect();
+        $walk = function ($parentId, $depth) use (&$walk, $byParent, &$rows) {
+            foreach ($byParent->get($parentId, collect()) as $cat) {
+                $rows->push(['cat' => $cat, 'depth' => $depth]);
+                $walk($cat->id, $depth + 1);
+            }
+        };
+        $walk(0, 0);
+
+        return view('ecommerce.catalog.categories', [
+            'rows' => $rows,
+            'parents' => $parents,
+            'editing' => $editing,
+        ]);
+    }
+
+    public function editCategory(Category $category)
+    {
+        return $this->categories($category);
     }
 
     public function storeCategory(Request $request)
     {
         $this->need('ecommerce.manage_products');
-        $data = $request->validate(['name' => ['required', 'string', 'max:100'], 'sort' => ['nullable', 'integer']]);
-        Category::create(['name' => $data['name'], 'slug' => $this->uniqueSlug($data['name'], 'ecom_categories'), 'sort' => $data['sort'] ?? 0, 'is_active' => true]);
+        $data = $this->categoryData($request);
+        Category::create($data + ['slug' => $this->uniqueSlug($data['name'], 'ecom_categories'), 'is_active' => true]);
 
-        return back()->with('success', 'Category added.');
+        return redirect()->route('ecommerce.catalog.categories')->with('success', 'Category added.');
+    }
+
+    public function updateCategory(Request $request, Category $category)
+    {
+        $this->need('ecommerce.manage_products');
+        $data = $this->categoryData($request, $category);
+        $category->update($data);
+
+        return redirect()->route('ecommerce.catalog.categories')->with('success', 'Category saved.');
     }
 
     public function destroyCategory(Category $category)
     {
         $this->need('ecommerce.manage_products');
+        // Detach children so they become top-level, not orphaned.
+        Category::where('parent_id', $category->id)->update(['parent_id' => null]);
         $category->delete();
 
         return back()->with('success', 'Category deleted.');
+    }
+
+    private function categoryData(Request $request, ?Category $category = null): array
+    {
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:100'],
+            'sort' => ['nullable', 'integer'],
+            'parent_id' => ['nullable', 'integer', 'exists:ecom_categories,id'],
+        ]);
+        // A category cannot be its own parent or a descendant's parent.
+        if ($category && ! empty($data['parent_id']) && in_array((int) $data['parent_id'], $category->load('children')->descendantIds(), true)) {
+            throw \Illuminate\Validation\ValidationException::withMessages(['parent_id' => 'A category cannot be placed under itself or one of its subcategories.']);
+        }
+
+        return ['name' => $data['name'], 'sort' => $data['sort'] ?? 0, 'parent_id' => $data['parent_id'] ?? null];
     }
 
     /** Inventory items not yet published (plus the current one when editing). */
