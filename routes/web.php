@@ -40,6 +40,12 @@ Route::middleware(['auth', 'tenant.init'])->group(function () {
     require __DIR__.'/projects.php';
     require __DIR__.'/settings.php';
 
+    // Inventory (items, warehouses, stock, adjustments, transfers, labels).
+    require __DIR__.'/inventory.php';
+
+    // Sales, Purchase, POS and retail reports.
+    require __DIR__.'/retail.php';
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
