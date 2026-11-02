@@ -503,7 +503,7 @@ textarea.form-control { min-height: 120px; padding-top: .85rem; }
   text-decoration: none; font-size: .84rem; font-weight: 500; transition: all .15s; }
 .app-panel__link i { font-size: 1rem; opacity: .85; }
 .app-panel__link:hover { color: #fff; background: rgba(255,255,255,.07); transform: translateX(2px); }
-.app-panel__link.active { color: #fff; background: rgba(99,102,241,.32); font-weight: 600; box-shadow: inset 3px 0 0 #a5b4fc; }
+.app-panel__link.active { color: #fff; background: rgba(99,102,241,.32); font-weight: 600; box-shadow: inset 0 -3px 0 #a5b4fc; }
 
 /* Collapsed (desktop toggle): rail only */
 @media (min-width: 992px) {

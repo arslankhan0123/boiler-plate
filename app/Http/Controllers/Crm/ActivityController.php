@@ -31,6 +31,7 @@ class ActivityController extends CrmController
             'owners' => $this->owners(),
             'openCount' => Activity::where('done', false)->count(),
             'overdueCount' => Activity::where('done', false)->whereNotNull('due_at')->where('due_at', '<', now())->count(),
+            'doneCount' => Activity::where('done', true)->count(),
             'canEdit' => $this->can('crm.manage_activities'),
         ]);
     }

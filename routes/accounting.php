@@ -26,6 +26,13 @@ Route::prefix('accounting')->name('accounting.')->group(function () {
         Route::delete('{account}', [ChartController::class, 'destroy'])->whereNumber('account')->name('destroy');
     });
 
+    // Vouchers (quick expense / receipt)
+    Route::prefix('vouchers')->name('vouchers.')->middleware('module:accounting,vouchers')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Accounting\VoucherController::class, 'index'])->name('index');
+        Route::get('create', [\App\Http\Controllers\Accounting\VoucherController::class, 'create'])->name('create');
+        Route::post('/', [\App\Http\Controllers\Accounting\VoucherController::class, 'store'])->name('store');
+    });
+
     // Journal entries
     Route::prefix('journals')->name('journals.')->middleware('module:accounting,journals')->group(function () {
         Route::get('/', [JournalController::class, 'index'])->name('index');

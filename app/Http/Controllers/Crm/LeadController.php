@@ -70,6 +70,7 @@ class LeadController extends CrmController
             'activities' => \App\Models\Crm\Activity::query()->where('related_type', 'lead')->where('related_id', $lead->id)->latest('id')->get(),
             'canEdit' => $this->can('crm.manage_leads'),
             'canPipeline' => $this->can('crm.manage_pipeline'),
+            'canLog' => $this->can('crm.manage_activities'),
         ]);
     }
 

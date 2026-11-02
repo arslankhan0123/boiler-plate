@@ -77,6 +77,7 @@ class OpportunityController extends CrmController
             'opp' => $opportunity->load('company', 'contact', 'owner'),
             'activities' => \App\Models\Crm\Activity::query()->where('related_type', 'opportunity')->where('related_id', $opportunity->id)->latest('id')->get(),
             'canEdit' => $this->can('crm.manage_pipeline'),
+            'canLog' => $this->can('crm.manage_activities'),
         ]);
     }
 

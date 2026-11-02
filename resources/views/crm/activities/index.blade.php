@@ -17,7 +17,7 @@
         <div class="col-lg-8">
             <x-admin.card flush>
                 <x-slot:actions>
-                    @php $counts = ['open' => $openCount, 'overdue' => $overdueCount]; @endphp
+                    @php $counts = ['open' => $openCount, 'overdue' => $overdueCount, 'done' => $doneCount]; @endphp
                     <div class="seg" role="tablist">
                         @foreach (['open' => 'Open', 'today' => 'Today', 'overdue' => 'Overdue', 'done' => 'Done', 'all' => 'All'] as $k => $l)
                             <a href="{{ route('crm.activities.index', ['filter' => $k]) }}" class="seg__item {{ $filter === $k ? 'is-active' : '' }}" role="tab" aria-selected="{{ $filter === $k ? 'true' : 'false' }}">

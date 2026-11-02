@@ -213,6 +213,7 @@ return [
             ],
             'features' => [
                 'chart' => ['name' => 'Chart of Accounts', 'permission' => 'accounting.manage_accounts', 'route' => 'accounting.chart.index'],
+                'vouchers' => ['name' => 'Expense & Receipt', 'permission' => 'accounting.post_journal', 'route' => 'accounting.vouchers.index'],
                 'journals' => ['name' => 'Journal Entries', 'permission' => 'accounting.view', 'route' => 'accounting.journals.index'],
                 'ledger' => ['name' => 'General Ledger', 'permission' => 'accounting.view', 'route' => 'accounting.ledger.index'],
                 'receivable' => ['name' => 'Accounts Receivable', 'permission' => 'accounting.view', 'route' => 'accounting.receivable.index'],

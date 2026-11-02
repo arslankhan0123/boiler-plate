@@ -40,5 +40,10 @@
             @endif
         </div>
     </div>
+    <div class="row g-4 mt-1">
+        <div class="col-lg-8">
+            @include('crm.partials.activities', ['activities' => $activities, 'canLog' => $canLog, 'relatedType' => 'lead', 'relatedId' => $lead->id])
+        </div>
+    </div>
 </div>
 @endsection
