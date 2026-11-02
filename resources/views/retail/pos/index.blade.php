@@ -14,7 +14,16 @@
         </div>
         <div class="pos-grid" id="posGrid"><div class="text-body-secondary p-4">Loading items…</div></div>
         <div class="pos-foot small text-body-secondary">
-            <span>Today (you): <b>{{ $today->n ?? 0 }}</b> sales · <b>{{ $cur }} {{ number_format($today->total ?? 0, 2) }}</b></span>
+            <span>
+                Today (you): <b>{{ $today->n ?? 0 }}</b> sales · <b>{{ $cur }} {{ number_format($today->total ?? 0, 2) }}</b>
+                @if ($register)
+                    @if ($register['open'])
+                        · <a href="{{ $register['show_url'] }}" class="text-decoration-none"><i class="bi bi-cash-coin text-success"></i> Register open — drawer {{ $cur }} {{ number_format($register['expected'], 2) }}</a>
+                    @elseif ($canRegister)
+                        · <a href="{{ route('pos.registers.open') }}" class="text-decoration-none"><i class="bi bi-unlock"></i> Open register</a>
+                    @endif
+                @endif
+            </span>
             <span>F2 search · F4 pay · F8 hold · F9 held list · Esc close</span>
         </div>
     </div>
@@ -158,6 +167,7 @@
 @push('scripts')
 <script>
 (() => {
+    const NEED_REG = @json($requireRegister && !($register['open'] ?? false)), REG_URL = @json($canRegister ? route('pos.registers.open') : null);
     const CUR = @json($cur), CAN_DISC = @json($canDiscount), ROUND = @json($roundOff), methods = @json(array_values($methods));
     const URL = { search: @json(route('inventory.items.search')), store: @json(route('pos.store')), hold: @json(route('pos.hold')), holds: @json(route('pos.holds')),
         hold1: @json(route('pos.holds.show', 0)).replace(/0$/, ''), void: @json(route('pos.void')), coupon: @json(route('sales.coupon-check')) };
@@ -293,7 +303,9 @@
         const g = totals().grand, paid = payRowsData().reduce((s, p) => s + p.amount, 0);
         $('mTotal').textContent = fx(g); $('mPaid').textContent = fx(paid); $('mChange').textContent = fx(Math.max(0, paid - g)); $('mDue').textContent = fx(Math.max(0, g - paid));
     };
+    const needReg = () => { if (NEED_REG) { toast('Open a cash register before selling.', false, 'Register required'); if (REG_URL) setTimeout(() => location.href = REG_URL, 900); return true; } return false; };
     const openPay = () => {
+        if (needReg()) return;
         if (!cart.length) return toast('Add at least one item first.', false, 'Cart is empty');
         const g = totals().grand; $('payRows').innerHTML = ''; payRow(methods[0], Math.round(g * 100) / 100);
         const notes = [10, 50, 100, 500, 1000, 5000].filter(n => n >= g * 0.2);

@@ -29,7 +29,8 @@
                     <div class="col-md-8"><x-admin.input name="name" :label="$item->is_service ? 'Service name' : 'Item name'" :value="$item->name" required autofocus /></div>
                     <div class="col-md-4"><x-admin.input name="code" label="Item code" :value="$item->code" optional :placeholder="$editing ? '' : 'Auto (IT0001)'" /></div>
                     @unless ($item->is_service)
-                        <div class="col-md-4"><x-admin.input name="barcode" label="Barcode" :value="$item->barcode" optional placeholder="Blank = item code" /></div>
+                        @php $barcodeManual = \App\Support\Settings::get('barcode_mode', 'auto') === 'manual'; @endphp
+                        <div class="col-md-4"><x-admin.input name="barcode" label="Barcode" :value="$item->barcode" :optional="! $barcodeManual" :required="$barcodeManual && $item->item_group !== 'variant'" :placeholder="$barcodeManual ? 'Scan or enter barcode' : 'Blank = item code'" /></div>
                     @endunless
                     <div class="col-md-4"><x-admin.input name="sku" label="SKU" :value="$item->sku" optional /></div>
                     <div class="col-md-4"><x-admin.input name="hsn" label="HSN / HS code" :value="$item->hsn" optional /></div>

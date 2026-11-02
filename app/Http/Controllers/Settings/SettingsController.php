@@ -156,13 +156,40 @@ class SettingsController extends Controller
         }
         $have = Currency::query()->pluck('lookup_id');
 
+        $editing = request('edit') ? TaxRate::query()->find(request('edit')) : null;
+
         return view('settings.taxes', [
-            'taxes' => TaxRate::query()->orderByDesc('is_default')->orderBy('name')->get(),
+            'taxes' => TaxRate::query()->orderByDesc('is_default')->orderByDesc('is_group')->orderBy('name')->get(),
+            'simpleTaxes' => TaxRate::query()->where('is_group', false)->orderBy('name')->get(),
+            'editingGroup' => request('group') ? TaxRate::query()->where('is_group', true)->find(request('group')) : null,
             'currencies' => Currency::query()->orderByDesc('is_default')->orderBy('code')->get(),
             'available' => Lookup::query()->where('type', Lookup::TYPE_CURRENCY)->whereNotIn('id', $have)->orderBy('code')->get(['id', 'code', 'name']),
-            'editing' => request('edit') ? TaxRate::query()->find(request('edit')) : null,
+            'editing' => $editing,
             'canEdit' => auth()->user()->can('settings.update'),
         ]);
+    }
+
+    public function storeTaxGroup(Request $request)
+    {
+        $this->need('settings.update');
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:100'],
+            'type' => ['required', Rule::in(['exclusive', 'inclusive'])],
+            'components' => ['required', 'array', 'min:2'],
+            'components.*' => ['integer', Rule::exists('tax_rates', 'id')->where('is_group', false)],
+            'group_id' => ['nullable', 'integer', 'exists:tax_rates,id'],
+        ]);
+        $ids = array_values(array_unique(array_map('intval', $data['components'])));
+        $rate = (float) TaxRate::query()->whereIn('id', $ids)->sum('rate');
+        $values = ['name' => $data['name'], 'type' => $data['type'], 'rate' => $rate, 'is_group' => true, 'components' => $ids, 'is_default' => false, 'is_active' => true];
+        if (! empty($data['group_id'])) {
+            TaxRate::query()->whereKey($data['group_id'])->update($values);
+
+            return redirect()->route('settings.taxes')->with('success', 'Tax group updated.');
+        }
+        TaxRate::create($values);
+
+        return back()->with('success', 'Tax group created ('.rtrim(rtrim(number_format($rate, 3), '0'), '.').'%).');
     }
 
     public function storeTax(Request $request)
@@ -179,6 +206,7 @@ class SettingsController extends Controller
         $this->need('settings.update');
         $tax->update($this->taxData($request));
         $this->singleDefault($tax);
+        $this->refreshGroups();
 
         return redirect()->route('settings.taxes')->with('success', 'Tax rate updated.');
     }
@@ -186,9 +214,23 @@ class SettingsController extends Controller
     public function destroyTax(TaxRate $tax)
     {
         $this->need('settings.update');
+        if (! $tax->is_group) {
+            $usedBy = TaxRate::query()->where('is_group', true)->get()->filter(fn ($g) => in_array($tax->id, (array) $g->components, true));
+            if ($usedBy->isNotEmpty()) {
+                return back()->with('error', 'This tax is part of group(s): '.$usedBy->pluck('name')->join(', ').'. Remove it from there first.');
+            }
+        }
         $tax->delete();
 
-        return back()->with('success', 'Tax rate removed.');
+        return back()->with('success', $tax->is_group ? 'Tax group removed.' : 'Tax rate removed.');
+    }
+
+    /** Keep every group's rate equal to the sum of its (current) component rates. */
+    private function refreshGroups(): void
+    {
+        foreach (TaxRate::query()->where('is_group', true)->get() as $g) {
+            $g->update(['rate' => (float) TaxRate::query()->whereIn('id', (array) $g->components)->sum('rate')]);
+        }
     }
 
     private function singleDefault(TaxRate $tax): void

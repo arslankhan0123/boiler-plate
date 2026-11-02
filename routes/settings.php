@@ -22,6 +22,7 @@ Route::prefix('settings')->name('settings.')->middleware('module:settings')->gro
     Route::middleware('module:settings,taxes')->group(function () {
         Route::get('taxes', [S::class, 'taxes'])->name('taxes');
         Route::post('taxes', [S::class, 'storeTax'])->name('taxes.store');
+        Route::post('tax-groups', [S::class, 'storeTaxGroup'])->name('tax-groups.store');
         Route::put('taxes/{tax}', [S::class, 'updateTax'])->name('taxes.update');
         Route::delete('taxes/{tax}', [S::class, 'destroyTax'])->name('taxes.destroy');
         Route::post('currencies', [S::class, 'addCurrency'])->name('currencies.store');

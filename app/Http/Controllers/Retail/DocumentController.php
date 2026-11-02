@@ -435,7 +435,7 @@ class DocumentController extends RetailController
     private function afterSave(Document $doc): void
     {
         // Converting a quotation / delivery note / purchase order marks the source as converted.
-        if ($doc->parent && in_array($doc->parent->type, ['quotation', 'delivery', 'order'], true) && in_array($doc->type, ['invoice', 'purchase'], true)) {
+        if ($doc->parent && in_array($doc->parent->type, ['quotation', 'delivery', 'order', 'rfq'], true) && in_array($doc->type, ['invoice', 'purchase', 'order'], true)) {
             $doc->parent->update(['status' => 'converted']);
         }
     }

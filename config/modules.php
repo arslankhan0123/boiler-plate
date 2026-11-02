@@ -108,10 +108,11 @@ return [
             'requires' => ['inventory'],
             'permissions' => [
                 'purchase.view' => 'View purchases', 'purchase.create' => 'Create purchases', 'purchase.update' => 'Edit purchases', 'purchase.delete' => 'Delete purchases',
-                'purchase.orders' => 'Purchase orders', 'purchase.returns' => 'Purchase returns', 'purchase.suppliers' => 'Manage suppliers',
+                'purchase.rfq' => 'Requests for quotation', 'purchase.orders' => 'Purchase orders', 'purchase.returns' => 'Purchase returns', 'purchase.suppliers' => 'Manage suppliers',
                 'purchase.payments' => 'Pay suppliers', 'purchase.reports' => 'Purchase reports',
             ],
             'features' => [
+                'rfq' => ['name' => 'Requests for Quotation', 'permission' => 'purchase.rfq', 'route' => 'purchase.rfq.index'],
                 'orders' => ['name' => 'Purchase Orders', 'permission' => 'purchase.orders', 'route' => 'purchase.orders.index'],
                 'purchases' => ['name' => 'Purchases', 'permission' => 'purchase.view', 'route' => 'purchase.purchases.index'],
                 'returns' => ['name' => 'Purchase Returns', 'permission' => 'purchase.returns', 'route' => 'purchase.returns.index'],
@@ -136,6 +137,7 @@ return [
                 'adjustments' => ['name' => 'Stock Adjustments', 'permission' => 'inventory.adjust', 'route' => 'inventory.adjustments.index'],
                 'damages' => ['name' => 'Damaged Items', 'permission' => 'inventory.adjust', 'route' => 'inventory.damages.index'],
                 'transfers' => ['name' => 'Stock Transfers', 'permission' => 'inventory.transfer', 'route' => 'inventory.transfers.index'],
+                'counts' => ['name' => 'Stock Count', 'permission' => 'inventory.adjust', 'route' => 'inventory.counts.index'],
                 'labels' => ['name' => 'Barcode Labels', 'permission' => 'inventory.view', 'route' => 'inventory.labels'],
                 'reports' => ['name' => 'Inventory Reports', 'permission' => 'inventory.reports', 'route' => 'retail.reports'],
             ],
@@ -146,10 +148,12 @@ return [
             'requires' => ['sales', 'inventory'],
             'permissions' => [
                 'pos.sell' => 'Use POS (checkout)', 'pos.hold' => 'Hold & resume invoices', 'pos.edit' => 'Edit POS invoices', 'pos.discount' => 'Change price / discount in POS',
+                'pos.open' => 'Open cash register & pay in/out', 'pos.close_register' => 'Close register (count cash)',
                 'pos.sales' => 'View POS sales', 'pos.void_logs' => 'View void log', 'pos.summary' => 'Daily POS summary',
             ],
             'features' => [
                 'terminal' => ['name' => 'POS Terminal', 'permission' => 'pos.sell', 'route' => 'pos'],
+                'registers' => ['name' => 'Cash Registers', 'permission' => 'pos.open', 'route' => 'pos.registers.index'],
                 'sales' => ['name' => 'POS Sales', 'permission' => 'pos.sales', 'route' => 'pos.sales'],
                 'held' => ['name' => 'Held Invoices', 'permission' => 'pos.hold', 'route' => 'pos.held'],
                 'summary' => ['name' => 'Daily Summary', 'permission' => 'pos.summary', 'route' => 'pos.summary'],

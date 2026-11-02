@@ -19,11 +19,12 @@
             <div class="row g-3">
                 <div class="col-md-6"><x-admin.input name="invoice_title" label="Invoice title" :value="$s['invoice_title'] ?? null" placeholder="Tax Invoice" /></div>
                 <div class="col-md-6"><x-admin.select name="thermal_width" label="Thermal paper" :options="['80' => '80 mm', '58' => '58 mm']" :value="$s['thermal_width'] ?? '80'" required /></div>
+                <div class="col-md-6"><x-admin.select name="barcode_mode" label="Item barcode" :options="['auto' => 'Auto — use the item code as barcode', 'manual' => 'Manual — require a barcode on each item']" :value="$s['barcode_mode'] ?? 'auto'" required /></div>
                 <div class="col-12"><label class="form-label">Default terms & conditions</label><textarea name="invoice_terms" rows="3" class="form-control">{{ old('invoice_terms', $s['invoice_terms'] ?? '') }}</textarea></div>
                 <div class="col-12"><x-admin.input name="invoice_footer" label="Invoice footer" :value="$s['invoice_footer'] ?? null" placeholder="Thank you for your business!" /></div>
             </div>
             <div class="d-grid gap-2 small mt-4">
-                @foreach (['round_off' => ['Round off grand totals', '0'], 'show_previous_due' => ['Show customer previous due on invoices', '1'], 'show_tax_column' => ['Show tax column on A4 invoices', '1']] as $k => [$l, $d])
+                @foreach (['round_off' => ['Round off grand totals', '0'], 'show_previous_due' => ['Show customer previous due on invoices', '1'], 'show_tax_column' => ['Show tax column on A4 invoices', '1'], 'pos_require_register' => ['POS: require an open cash register before selling', '0']] as $k => [$l, $d])
                     <label class="d-flex gap-2 align-items-center"><input type="checkbox" class="form-check-input mt-0" name="{{ $k }}" value="1" @checked(($s[$k] ?? $d) === '1')> {{ $l }}</label>
                 @endforeach
             </div>

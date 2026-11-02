@@ -43,6 +43,11 @@ class Document extends Model
             'statuses' => ['final' => 'Returned'], 'stock_statuses' => ['final'], 'route' => 'sales.returns',
             'perm' => 'sales.returns', 'perm_create' => 'sales.returns', 'perm_edit' => 'sales.returns', 'perm_delete' => 'sales.returns', 'icon' => 'arrow-return-left',
         ],
+        'rfq' => [
+            'side' => 'purchase', 'one' => 'Request for Quotation', 'many' => 'Requests for Quotation', 'prefix' => 'RFQ', 'stock' => 0, 'payments' => false,
+            'statuses' => ['open' => 'Open', 'converted' => 'Ordered', 'cancelled' => 'Cancelled'], 'stock_statuses' => [], 'route' => 'purchase.rfq',
+            'perm' => 'purchase.rfq', 'perm_create' => 'purchase.rfq', 'perm_edit' => 'purchase.rfq', 'perm_delete' => 'purchase.rfq', 'icon' => 'question-square',
+        ],
         'order' => [
             'side' => 'purchase', 'one' => 'Purchase Order', 'many' => 'Purchase Orders', 'prefix' => 'PO', 'stock' => 0, 'payments' => false,
             'statuses' => ['ordered' => 'Ordered', 'converted' => 'Received (purchase made)', 'cancelled' => 'Cancelled'], 'stock_statuses' => [], 'route' => 'purchase.orders',
@@ -140,6 +145,29 @@ class Document extends Model
     public function due(): float
     {
         return round(max(0, $this->grand_total - $this->paid_amount), 4);
+    }
+
+    /**
+     * Tax collected per tax name, splitting any tax group into its components.
+     * @return array<string, float>
+     */
+    public function taxSummary(): array
+    {
+        $this->loadMissing('items');
+        $taxes = \App\Models\Settings\TaxRate::query()->whereIn('id', $this->items->pluck('tax_id')->filter()->unique())->get()->keyBy('id');
+        $out = [];
+        foreach ($this->items as $l) {
+            if ($l->tax_amt <= 0) {
+                continue;
+            }
+            $tax = $l->tax_id ? ($taxes[$l->tax_id] ?? null) : null;
+            $parts = $tax ? $tax->split((float) $l->tax_amt) : ['Tax ('.rtrim(rtrim(number_format((float) $l->tax_rate, 2), '0'), '.').'%)' => (float) $l->tax_amt];
+            foreach ($parts as $name => $amt) {
+                $out[$name] = round(($out[$name] ?? 0) + $amt, 4);
+            }
+        }
+
+        return $out;
     }
 
     public function affectsStock(): bool

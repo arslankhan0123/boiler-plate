@@ -14,13 +14,16 @@
                     <tbody>
                     @forelse ($taxes as $t)
                         <tr>
-                            <td class="fw-semibold">{{ $t->name }} @if ($t->is_default)<x-admin.badge tone="primary">Default</x-admin.badge>@endif</td>
+                            <td class="fw-semibold">{{ $t->name }}
+                                @if ($t->is_default)<x-admin.badge tone="primary">Default</x-admin.badge>@endif
+                                @if ($t->is_group)<x-admin.badge tone="info" icon="diagram-2">Group</x-admin.badge>
+                                    <div class="small text-body-secondary fw-normal">{{ $t->componentRows()->map(fn ($c) => $c->name.' '.rtrim(rtrim(number_format($c->rate, 3), '0'), '.').'%')->join(' + ') }}</div>@endif</td>
                             <td class="fw-bold">{{ rtrim(rtrim(number_format($t->rate, 3), '0'), '.') }}%</td>
                             <td>{{ $t->type === 'inclusive' ? 'Included in price' : 'Added on top' }}</td>
                             <td><x-admin.badge :tone="$t->is_active ? 'success' : 'muted'">{{ $t->is_active ? 'Active' : 'Inactive' }}</x-admin.badge></td>
                             <td class="text-end text-nowrap">@if ($canEdit)
-                                <a href="{{ route('settings.taxes', ['edit' => $t->id]) }}" class="btn btn-action"><i class="bi bi-pencil-square"></i></a>
-                                <x-admin.delete-button :action="route('settings.taxes.destroy', $t)" confirm="Remove this tax rate?" />@endif</td>
+                                <a href="{{ $t->is_group ? route('settings.taxes', ['group' => $t->id]) : route('settings.taxes', ['edit' => $t->id]) }}" class="btn btn-action"><i class="bi bi-pencil-square"></i></a>
+                                <x-admin.delete-button :action="route('settings.taxes.destroy', $t)" :confirm="$t->is_group ? 'Remove this tax group?' : 'Remove this tax rate?'" />@endif</td>
                         </tr>
                     @empty
                         <tr><td colspan="5"><x-admin.empty icon="percent" text="No tax rates yet (e.g. GST 18%)." /></td></tr>
@@ -83,6 +86,34 @@
                             @if ($editing)<x-admin.button variant="light" :href="route('settings.taxes')">Cancel</x-admin.button>@endif
                         </div>
                     </form>
+                </div></div>
+
+                <div class="app-card"><div class="app-card__body">
+                    <h3 class="app-aside-title">{{ $editingGroup ? 'Edit tax group' : 'New tax group' }}</h3>
+                    <p class="small text-body-secondary">Combine two or more taxes, e.g. GST = CGST 9% + SGST 9%. The group's rate is their sum.</p>
+                    @if ($simpleTaxes->count() < 2)
+                        <div class="alert alert-light border small mb-0">Add at least two simple tax rates above first.</div>
+                    @else
+                        <form method="POST" action="{{ route('settings.tax-groups.store') }}">@csrf
+                            @if ($editingGroup)<input type="hidden" name="group_id" value="{{ $editingGroup->id }}">@endif
+                            <x-admin.input name="name" label="Group name" :value="$editingGroup?->name" placeholder="e.g. GST" required />
+                            <x-admin.select name="type" label="Type" :options="['exclusive' => 'Added on top of the price', 'inclusive' => 'Included in the price']" :value="$editingGroup?->type ?? 'exclusive'" required />
+                            <label class="form-label">Component taxes <span class="req">*</span></label>
+                            <div class="d-grid gap-2 tax-comp">
+                                @foreach ($simpleTaxes as $st)
+                                    <label class="d-flex gap-2 align-items-center small border rounded px-2 py-1">
+                                        <input type="checkbox" class="form-check-input mt-0" name="components[]" value="{{ $st->id }}" @checked(in_array($st->id, (array) ($editingGroup?->components ?? []), true))>
+                                        <span>{{ $st->name }} <b>{{ rtrim(rtrim(number_format($st->rate, 3), '0'), '.') }}%</b></span>
+                                    </label>
+                                @endforeach
+                            </div>
+                            <div class="form-text">Combined rate updates automatically.</div>
+                            <div class="d-flex gap-2 mt-3">
+                                <x-admin.button icon="diagram-2">{{ $editingGroup ? 'Save group' : 'Create group' }}</x-admin.button>
+                                @if ($editingGroup)<x-admin.button variant="light" :href="route('settings.taxes')">Cancel</x-admin.button>@endif
+                            </div>
+                        </form>
+                    @endif
                 </div></div>
             </div>
         @endif

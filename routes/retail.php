@@ -90,6 +90,7 @@ Route::prefix('sales')->name('sales.')->group(function () use ($documents) {
 
 /* ───────────── Purchase ───────────── */
 Route::prefix('purchase')->name('purchase.')->group(function () use ($documents) {
+    $documents('rfq', 'rfq', 'module:purchase,rfq');
     $documents('orders', 'order', 'module:purchase,orders');
     $documents('purchases', 'purchase', 'module:purchase,purchases');
     $documents('returns', 'purchase_return', 'module:purchase,returns');
@@ -127,6 +128,15 @@ Route::prefix('pos')->middleware('module:pos,terminal')->group(function () {
     Route::get('holds/{document}', [PosController::class, 'loadHold'])->whereNumber('document')->name('pos.holds.show');
     Route::delete('holds/{document}', [PosController::class, 'deleteHold'])->whereNumber('document')->name('pos.holds.destroy');
     Route::post('void', [PosController::class, 'void'])->name('pos.void');
+});
+Route::prefix('pos/registers')->name('pos.registers.')->group(function () {
+    Route::get('/', [\App\Http\Controllers\Retail\RegisterController::class, 'index'])->middleware('module:pos,registers')->name('index');
+    Route::get('open', [\App\Http\Controllers\Retail\RegisterController::class, 'create'])->middleware('module:pos,registers')->name('open');
+    Route::post('open', [\App\Http\Controllers\Retail\RegisterController::class, 'open'])->middleware('module:pos,registers')->name('open.store');
+    Route::get('{register}', [\App\Http\Controllers\Retail\RegisterController::class, 'show'])->middleware('module:pos,registers')->whereNumber('register')->name('show');
+    Route::get('{register}/report', [\App\Http\Controllers\Retail\RegisterController::class, 'print'])->middleware('module:pos,registers')->whereNumber('register')->name('report');
+    Route::post('{register}/movement', [\App\Http\Controllers\Retail\RegisterController::class, 'movement'])->middleware('module:pos,registers')->whereNumber('register')->name('movement');
+    Route::post('{register}/close', [\App\Http\Controllers\Retail\RegisterController::class, 'close'])->middleware('module:pos,registers')->whereNumber('register')->name('close');
 });
 Route::prefix('pos')->group(function () {
     Route::get('sales', [PosController::class, 'sales'])->middleware('module:pos,sales')->name('pos.sales');

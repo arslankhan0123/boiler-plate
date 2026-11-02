@@ -308,7 +308,7 @@ class DocumentService
             StockService::reverse($doc);
             CustomerCoupon::query()->where('used_document_id', $doc->id)->update(['used_document_id' => null, 'used_at' => null]);
             $doc->payments()->delete();
-            if ($doc->parent && in_array($doc->parent->type, ['quotation', 'delivery', 'order'], true) && $doc->parent->status === 'converted') {
+            if ($doc->parent && in_array($doc->parent->type, ['quotation', 'delivery', 'order', 'rfq'], true) && $doc->parent->status === 'converted') {
                 $doc->parent->update(['status' => array_key_first(Document::TYPES[$doc->parent->type]['statuses'])]);
             }
             $doc->delete();

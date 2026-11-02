@@ -99,7 +99,14 @@
             @if ($doc->coupon_amt > 0)<tr><td>Coupon ({{ $doc->coupon_code }})</td><td class="r">−{{ $money($doc->coupon_amt) }}</td></tr>@endif
             @if ($doc->round_off != 0)<tr><td>Round off</td><td class="r">{{ $money($doc->round_off) }}</td></tr>@endif
             <tr class="grand"><td>Total ({{ $cur }})</td><td class="r">{{ $money($doc->grand_total) }}</td></tr>
-            @if ($doc->tax_total > 0)<tr><td class="muted">Tax included</td><td class="r muted">{{ $money($doc->tax_total) }}</td></tr>@endif
+            @if ($doc->tax_total > 0)
+                @php $taxParts = $doc->taxSummary(); @endphp
+                @if (count($taxParts) > 1)
+                    @foreach ($taxParts as $tName => $tAmt)<tr><td class="muted">{{ $tName }}</td><td class="r muted">{{ $money($tAmt) }}</td></tr>@endforeach
+                @else
+                    <tr><td class="muted">Tax included</td><td class="r muted">{{ $money($doc->tax_total) }}</td></tr>
+                @endif
+            @endif
             @if ($meta['payments'])
                 <tr><td>{{ in_array($doc->type, ['sale_return', 'purchase_return']) ? 'Refunded' : 'Paid' }}</td><td class="r">{{ $money($doc->paid_amount) }}</td></tr>
                 <tr><td><b>Balance</b></td><td class="r"><b>{{ $money($doc->due()) }}</b></td></tr>

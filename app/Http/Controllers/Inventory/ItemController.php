@@ -237,7 +237,7 @@ class ItemController extends InventoryController
             'item_group' => ['required', 'in:single,variant'],
             'is_service' => ['nullable', 'boolean'],
             'code' => ['nullable', 'string', 'max:50', Rule::unique('inv_items', 'code')->ignore($item->id)],
-            'barcode' => ['nullable', 'string', 'max:100'],
+            'barcode' => [\App\Support\Settings::get('barcode_mode', 'auto') === 'manual' && ! $request->boolean('is_service') && $request->input('item_group') !== 'variant' ? 'required' : 'nullable', 'string', 'max:100'],
             'sku' => ['nullable', 'string', 'max:100'],
             'hsn' => ['nullable', 'string', 'max:50'],
             ...collect(Item::ATTRS)->mapWithKeys(fn ($a) => [$a.'_id' => ['nullable', 'integer', Rule::exists('inv_attributes', 'id')->where('type', $a)]])->all(),

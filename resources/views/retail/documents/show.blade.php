@@ -25,6 +25,9 @@
         @if (in_array($doc->type, ['quotation', 'delivery']) && $doc->status !== 'converted' && $can['invoice'])
             <x-admin.button variant="light" icon="receipt" :href="route('sales.invoices.create', ['from' => $doc->id])">Convert to invoice</x-admin.button>
         @endif
+        @if ($doc->type === 'rfq' && $doc->status !== 'converted' && auth()->user()->can('purchase.orders'))
+            <x-admin.button variant="light" icon="clipboard-check" :href="route('purchase.orders.create', ['from' => $doc->id])">Convert to Purchase Order</x-admin.button>
+        @endif
         @if ($doc->type === 'order' && $doc->status !== 'converted' && $can['purchase'])
             <x-admin.button variant="light" icon="cart-plus" :href="route('purchase.purchases.create', ['from' => $doc->id])">Convert to purchase</x-admin.button>
         @endif
@@ -123,7 +126,9 @@
                     @if ($doc->discount_amt > 0)<div class="sum-row"><span>Discount {{ $doc->discount_type === 'percentage' ? '('.+$doc->discount_input.'%)' : '' }}</span><b class="text-danger">−{{ $money($doc->discount_amt) }}</b></div>@endif
                     @if ($doc->coupon_amt > 0)<div class="sum-row"><span>Coupon <code>{{ $doc->coupon_code }}</code></span><b class="text-danger">−{{ $money($doc->coupon_amt) }}</b></div>@endif
                     @if ($doc->round_off != 0)<div class="sum-row"><span>Round off</span><b>{{ $money($doc->round_off) }}</b></div>@endif
-                    @if ($doc->tax_total > 0)<div class="sum-row sub"><span>Tax included</span><span>{{ $money($doc->tax_total) }}</span></div>@endif
+                    @if ($doc->tax_total > 0)
+                        @foreach ($doc->taxSummary() as $tName => $tAmt)<div class="sum-row sub"><span>{{ $tName }}</span><span>{{ $money($tAmt) }}</span></div>@endforeach
+                    @endif
                 </div>
                 <div class="sum-grand"><span>Grand total</span><b><small>{{ $cur }}</small> {{ $money($doc->grand_total) }}</b></div>
                 @if ($meta['payments'])

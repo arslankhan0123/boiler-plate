@@ -48,6 +48,16 @@ Route::prefix('inventory')->name('inventory.')->group(function () {
         Route::delete('warehouses/{warehouse}', [WarehouseController::class, 'destroy'])->whereNumber('warehouse')->name('warehouses.destroy');
     });
 
+    Route::prefix('counts')->name('counts.')->middleware('module:inventory,counts')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Inventory\StockCountController::class, 'index'])->name('index');
+        Route::get('create', [\App\Http\Controllers\Inventory\StockCountController::class, 'create'])->name('create');
+        Route::post('/', [\App\Http\Controllers\Inventory\StockCountController::class, 'store'])->name('store');
+        Route::get('{count}', [\App\Http\Controllers\Inventory\StockCountController::class, 'show'])->whereNumber('count')->name('show');
+        Route::put('{count}', [\App\Http\Controllers\Inventory\StockCountController::class, 'update'])->whereNumber('count')->name('update');
+        Route::post('{count}/finalize', [\App\Http\Controllers\Inventory\StockCountController::class, 'finalize'])->whereNumber('count')->name('finalize');
+        Route::delete('{count}', [\App\Http\Controllers\Inventory\StockCountController::class, 'destroy'])->whereNumber('count')->name('destroy');
+    });
+
     Route::middleware('module:inventory,stock')->group(function () {
         Route::get('stock', [StockController::class, 'index'])->name('stock');
         Route::get('stock/ledger', [StockController::class, 'movements'])->name('stock.ledger');

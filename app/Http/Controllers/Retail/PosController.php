@@ -9,6 +9,7 @@ use App\Models\Inventory\Attribute;
 use App\Models\Inventory\Warehouse;
 use App\Models\Retail\Customer;
 use App\Models\Retail\Document;
+use App\Models\Retail\Register;
 use App\Models\Retail\Salesman;
 use App\Models\Retail\VoidLog;
 use App\Models\Settings\TaxRate;
@@ -47,6 +48,9 @@ class PosController extends RetailController
             'canDiscount' => $this->can('sales.discount') || $this->can('pos.discount'),
             'canHold' => $this->can('pos.hold'), 'canCustomer' => $this->can('sales.customers'),
             'roundOff' => Settings::enabled('round_off'),
+            'register' => $this->registerInfo(),
+            'requireRegister' => $this->registerFeatureOn() && Settings::enabled('pos_require_register'),
+            'canRegister' => $this->registerFeatureOn() && $this->can('pos.open'),
             'today' => Document::query()->where('type', 'invoice')->where('is_pos', true)->whereDate('date', today())->where('created_by', auth()->id())
                 ->selectRaw('COUNT(*) n, SUM(grand_total) total')->first(),
         ]);
@@ -226,8 +230,21 @@ class PosController extends RetailController
         ]);
         $customerId = $v['customer_id'] ?? Customer::walkIn()->id;
         $items = $v['items'];
+        // Ensure every line carries an explicit tax so the change preview matches what is saved.
+        $taxMap = \App\Models\Inventory\Item::query()->whereIn('id', array_column($items, 'item_id'))->pluck('tax_id', 'id');
+        foreach ($items as &$li) {
+            if (! array_key_exists('tax_id', $li) || $li['tax_id'] === null) {
+                $li['tax_id'] = $taxMap[$li['item_id']] ?? null;
+            }
+        }
+        unset($li);
+        $register = $this->registerFeatureOn() ? Register::openFor(auth()->id()) : null;
+        if (! $holding && $this->registerFeatureOn() && Settings::enabled('pos_require_register') && ! $register) {
+            throw \Illuminate\Validation\ValidationException::withMessages(['register' => 'Open a cash register before selling.']);
+        }
         $header = [
             'customer_id' => $customerId, 'warehouse_id' => $v['warehouse_id'], 'salesman_id' => $v['salesman_id'] ?? null,
+            'register_id' => $register?->id,
             'date' => today()->toDateString(), 'status' => 'final',
             'other_charges_input' => (float) ($v['other_charges_input'] ?? 0), 'other_charges_tax_id' => $v['other_charges_tax_id'] ?? null,
             'discount_input' => (float) ($v['discount_input'] ?? 0), 'discount_type' => $v['discount_type'] ?? 'percentage',
@@ -308,5 +325,26 @@ class PosController extends RetailController
                 'tax_id' => $l->tax_id, 'tax_type' => $l->tax_type,
             ])->values(),
         ];
+    }
+
+    private function registerFeatureOn(): bool
+    {
+        return \App\Support\ModuleAccess::featureAvailable(auth()->user(), 'pos', 'registers');
+    }
+
+    private function registerInfo(): ?array
+    {
+        if (! $this->registerFeatureOn()) {
+            return null;
+        }
+        $r = Register::openFor(auth()->id());
+        if (! $r) {
+            return ['open' => false];
+        }
+        $live = $r->liveExpected();
+
+        return ['open' => true, 'id' => $r->id, 'opened_at' => $r->opened_at?->format('d M, h:i A'), 'opening_cash' => $r->opening_cash,
+            'expected' => $live['expected'], 'cash_sales' => $live['cash_sales'], 'invoices' => $live['invoices'], 'total_sales' => $live['total_sales'],
+            'show_url' => route('pos.registers.show', $r)];
     }
 }
