@@ -39,7 +39,7 @@ class ReportController extends RetailController
         'profit_loss' => ['Profit & Loss', 'Sales', 'sales.reports', 'Sales, returns, purchases, cost of goods and gross profit.', ['date']],
         'seller_points' => ['Seller Points', 'Sales', 'sales.reports', 'Points / commission earned per salesman.', ['date', 'salesman']],
         'delivery_sheet' => ['Delivery / Load Sheet', 'Sales', 'sales.reports', 'Items to load for invoices in a period.', ['date', 'customer', 'warehouse', 'salesman']],
-        'void_logs' => ['POS Void Log', 'Sales', 'sales.reports', 'Items removed from POS carts before checkout.', ['date', 'user']],
+        'void_logs' => ['POS Void Log', 'Sales', 'sales.reports|pos.void_logs', 'Items removed from POS carts before checkout.', ['date', 'user']],
         'purchase' => ['Purchase Report', 'Purchase', 'purchase.reports', 'Purchases with totals, paid and due.', ['date', 'supplier', 'warehouse', 'payment']],
         'purchase_return' => ['Purchase Return Report', 'Purchase', 'purchase.reports', 'Returns to suppliers.', ['date', 'supplier', 'warehouse']],
         'purchase_payments' => ['Purchase Payments', 'Purchase', 'purchase.reports', 'Money paid to suppliers.', ['date', 'supplier', 'method']],
@@ -53,7 +53,7 @@ class ReportController extends RetailController
     public function index()
     {
         $this->need('sales.reports', 'purchase.reports', 'inventory.reports');
-        $list = collect(self::REPORTS)->filter(fn ($r) => $this->can($r[2]))->groupBy(fn ($r) => $r[1], preserveKeys: true);
+        $list = collect(self::REPORTS)->filter(fn ($r) => collect(explode('|', $r[2]))->contains(fn ($p) => $this->can($p)))->groupBy(fn ($r) => $r[1], preserveKeys: true);
 
         return view('retail.reports.index', ['groups' => $list]);
     }
@@ -62,7 +62,7 @@ class ReportController extends RetailController
     {
         abort_unless(isset(self::REPORTS[$report]), 404);
         [$title, $group, $perm, $desc, $filters] = self::REPORTS[$report];
-        $this->need($perm);
+        $this->need(...explode('|', $perm));
         $from = $request->input('from', in_array('date', $filters, true) ? today()->startOfMonth()->toDateString() : null);
         $to = $request->input('to', in_array('date', $filters, true) ? today()->toDateString() : null);
         $f = $request->all() + ['from' => $from, 'to' => $to];

@@ -128,6 +128,12 @@ Route::prefix('pos')->middleware('module:pos,terminal')->group(function () {
     Route::delete('holds/{document}', [PosController::class, 'deleteHold'])->whereNumber('document')->name('pos.holds.destroy');
     Route::post('void', [PosController::class, 'void'])->name('pos.void');
 });
+Route::prefix('pos')->group(function () {
+    Route::get('sales', [PosController::class, 'sales'])->middleware('module:pos,sales')->name('pos.sales');
+    Route::get('held', [PosController::class, 'held'])->middleware('module:pos,held')->name('pos.held');
+    Route::get('summary', [PosController::class, 'summary'])->middleware('module:pos,summary')->name('pos.summary');
+    Route::get('void-logs', [PosController::class, 'voidLogs'])->middleware('module:pos,void_logs')->name('pos.void-logs');
+});
 
 /* ───────────── Reports ───────────── */
 Route::get('retail-reports', [ReportController::class, 'index'])->name('retail.reports');

@@ -113,20 +113,22 @@
                     <x-admin.badge :tone="in_array($doc->status, ['final', 'received', 'delivered', 'converted']) ? 'success' : 'warning'">{{ $meta['statuses'][$doc->status] ?? $doc->status }}</x-admin.badge>
                     @if ($meta['payments'])<x-admin.badge :tone="['paid' => 'success', 'partial' => 'warning', 'unpaid' => 'danger'][$doc->payment_status] ?? 'muted'">{{ ucfirst($doc->payment_status) }}</x-admin.badge>@endif
                 </div>
-                <table class="table table-sm mb-0 small">
-                    <tr><td>Subtotal</td><td class="text-end">{{ $money($doc->subtotal) }}</td></tr>
-                    @if ($doc->item_discount_total > 0)<tr><td class="text-body-secondary">(item discounts {{ $money($doc->item_discount_total) }})</td><td></td></tr>@endif
-                    @if ($doc->other_charges_amt > 0)<tr><td>Other charges</td><td class="text-end">{{ $money($doc->other_charges_amt) }}</td></tr>@endif
-                    @if ($doc->discount_amt > 0)<tr><td>Discount {{ $doc->discount_type === 'percentage' ? '('.+$doc->discount_input.'%)' : '' }}</td><td class="text-end text-danger">−{{ $money($doc->discount_amt) }}</td></tr>@endif
-                    @if ($doc->coupon_amt > 0)<tr><td>Coupon {{ $doc->coupon_code }}</td><td class="text-end text-danger">−{{ $money($doc->coupon_amt) }}</td></tr>@endif
-                    @if ($doc->round_off != 0)<tr><td>Round off</td><td class="text-end">{{ $money($doc->round_off) }}</td></tr>@endif
-                    <tr><td class="fw-bold">Grand total</td><td class="text-end fw-bold fs-5">{{ $cur }} {{ $money($doc->grand_total) }}</td></tr>
-                    <tr><td>Tax included</td><td class="text-end">{{ $money($doc->tax_total) }}</td></tr>
-                    @if ($meta['payments'])
-                        <tr><td>{{ $isReturn ? 'Refunded' : 'Paid' }}</td><td class="text-end text-success">{{ $money($doc->paid_amount) }}</td></tr>
-                        <tr><td class="fw-bold">Balance</td><td class="text-end fw-bold {{ $doc->due() > 0 ? 'text-danger' : '' }}">{{ $money($doc->due()) }}</td></tr>
-                    @endif
-                </table>
+                <div class="sum-list">
+                    <div class="sum-row"><span>Subtotal</span><b>{{ $money($doc->subtotal) }}</b></div>
+                    @if ($doc->item_discount_total > 0)<div class="sum-row sub"><span>Item discounts (included)</span><span>{{ $money($doc->item_discount_total) }}</span></div>@endif
+                    @if ($doc->other_charges_amt > 0)<div class="sum-row"><span>Other charges</span><b>+{{ $money($doc->other_charges_amt) }}</b></div>@endif
+                    @if ($doc->discount_amt > 0)<div class="sum-row"><span>Discount {{ $doc->discount_type === 'percentage' ? '('.+$doc->discount_input.'%)' : '' }}</span><b class="text-danger">−{{ $money($doc->discount_amt) }}</b></div>@endif
+                    @if ($doc->coupon_amt > 0)<div class="sum-row"><span>Coupon <code>{{ $doc->coupon_code }}</code></span><b class="text-danger">−{{ $money($doc->coupon_amt) }}</b></div>@endif
+                    @if ($doc->round_off != 0)<div class="sum-row"><span>Round off</span><b>{{ $money($doc->round_off) }}</b></div>@endif
+                    @if ($doc->tax_total > 0)<div class="sum-row sub"><span>Tax included</span><span>{{ $money($doc->tax_total) }}</span></div>@endif
+                </div>
+                <div class="sum-grand"><span>Grand total</span><b><small>{{ $cur }}</small> {{ $money($doc->grand_total) }}</b></div>
+                @if ($meta['payments'])
+                    <div class="sum-pay">
+                        <div><span>{{ $isReturn ? 'Refunded' : 'Paid' }}</span><b class="text-success">{{ $money($doc->paid_amount) }}</b></div>
+                        <div class="{{ $doc->due() > 0 ? 'is-due' : 'is-clear' }}"><span>Balance</span><b>{{ $money($doc->due()) }}</b></div>
+                    </div>
+                @endif
             </div></div>
 
             <x-admin.card title="Details">
@@ -154,3 +156,19 @@
     </div>
 </div>
 @endsection
+
+@push('styles')
+<style>
+    .sum-list { display: grid; gap: 2px; }
+    .sum-row { display: flex; justify-content: space-between; align-items: center; padding: .55rem .2rem; border-bottom: 1px dashed var(--app-border); font-size: .9rem; }
+    .sum-row span { color: var(--app-text-muted); } .sum-row b { font-weight: 600; }
+    .sum-row.sub { font-size: .78rem; padding: .35rem .2rem; } .sum-row.sub span { font-style: italic; }
+    .sum-grand { display: flex; justify-content: space-between; align-items: center; margin: 14px 0 12px; padding: 14px 16px; border-radius: 14px;
+        background: linear-gradient(135deg, var(--app-primary, #4f46e5), #6366f1); color: #fff; box-shadow: 0 8px 22px rgba(79,70,229,.25); }
+    .sum-grand span { font-weight: 600; opacity: .9; } .sum-grand b { font-size: 1.45rem; font-weight: 800; } .sum-grand small { font-size: .75rem; opacity: .8; font-weight: 600; }
+    .sum-pay { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .sum-pay div { border-radius: 12px; padding: 10px 12px; background: var(--app-hover); display: grid; gap: 2px; }
+    .sum-pay span { font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; color: var(--app-text-muted); font-weight: 600; }
+    .sum-pay b { font-size: 1.1rem; } .sum-pay .is-due { background: #fef2f2; } .sum-pay .is-due b { color: #dc2626; } .sum-pay .is-clear { background: #ecfdf5; } .sum-pay .is-clear b { color: #059669; }
+</style>
+@endpush

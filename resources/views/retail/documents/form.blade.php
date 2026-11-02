@@ -59,8 +59,8 @@
             </div>
             <div class="table-responsive"><table class="table app-table doc-lines mb-0">
                 <thead><tr>
-                    <th>#</th><th style="min-width:220px">Item</th><th style="width:110px">Qty</th><th style="width:130px">{{ $sale ? 'Price' : 'Unit cost' }}</th>
-                    <th style="width:170px">Discount</th><th style="width:150px">Tax</th><th class="text-end">Tax amt</th><th class="text-end">Total</th>
+                    <th>#</th><th style="min-width:220px">Item</th><th style="width:100px">Qty</th><th style="width:130px">{{ $sale ? 'Price' : 'Unit cost' }}</th>
+                    <th style="width:150px">Discount</th><th style="width:140px">Tax</th><th class="text-end">Tax amt</th><th class="text-end">Total</th>
                     @if ($isPurchase)<th class="upd-col" style="width:110px">Margin %</th><th class="upd-col" style="width:120px">Sales price</th>@endif
                     <th></th>
                 </tr></thead>
@@ -93,27 +93,38 @@
             </div>
             <div class="col-lg-5">
                 <div class="app-card"><div class="app-card__body">
-                    <table class="table table-sm totals mb-0">
-                        <tr><td>Subtotal <small class="text-body-secondary" id="tCount"></small></td><td class="text-end fw-semibold" id="tSub">0.00</td></tr>
-                        <tr><td>Other charges
-                            <div class="d-flex gap-2 mt-1">
-                                <input type="number" step="any" min="0" name="other_charges_input" id="otherIn" class="form-control form-control-sm" value="{{ old('other_charges_input', $doc->other_charges_input ?: '') }}" placeholder="0">
-                                <select name="other_charges_tax_id" id="otherTax" class="form-select form-select-sm"><option value="" data-rate="0">No tax</option>@foreach ($taxes as $t)<option value="{{ $t->id }}" data-rate="{{ $t->rate }}" @selected(old('other_charges_tax_id', $doc->other_charges_tax_id) == $t->id)>{{ $t->name }} {{ +$t->rate }}%</option>@endforeach</select>
-                            </div></td><td class="text-end align-bottom" id="tOther">0.00</td></tr>
-                        <tr><td>Discount on all
-                            <div class="d-flex gap-2 mt-1">
-                                <input type="number" step="any" min="0" name="discount_input" id="discIn" class="form-control form-control-sm" value="{{ old('discount_input', $doc->discount_input ?: '') }}" placeholder="0" @readonly(! $canDiscount)>
-                                <select name="discount_type" id="discType" class="form-select form-select-sm" style="max-width:110px" @disabled(! $canDiscount)><option value="percentage" @selected(old('discount_type', $doc->discount_type) === 'percentage')>%</option><option value="fixed" @selected(old('discount_type', $doc->discount_type) === 'fixed')>{{ $cur }}</option></select>
-                            </div></td><td class="text-end align-bottom text-danger" id="tDisc">0.00</td></tr>
+                    <h3 class="app-aside-title mb-3">Summary</h3>
+                    <div class="tot">
+                        <div class="tot-row"><span class="lbl">Subtotal <small id="tCount"></small></span><b id="tSub">0.00</b></div>
+                        <div class="tot-row">
+                            <span class="lbl">Other charges</span>
+                            <div class="tot-in"><input type="number" step="any" min="0" name="other_charges_input" id="otherIn" class="form-control" value="{{ old('other_charges_input', $doc->other_charges_input ?: '') }}" placeholder="0">
+                                <select name="other_charges_tax_id" id="otherTax" class="form-select"><option value="" data-rate="0">No tax</option>@foreach ($taxes as $t)<option value="{{ $t->id }}" data-rate="{{ $t->rate }}" @selected(old('other_charges_tax_id', $doc->other_charges_tax_id) == $t->id)>{{ $t->name }} {{ +$t->rate }}%</option>@endforeach</select></div>
+                            <b id="tOther">0.00</b>
+                        </div>
+                        <div class="tot-row">
+                            <span class="lbl">Discount</span>
+                            <div class="tot-in"><input type="number" step="any" min="0" name="discount_input" id="discIn" class="form-control" value="{{ old('discount_input', $doc->discount_input ?: '') }}" placeholder="0" @readonly(! $canDiscount)>
+                                <select name="discount_type" id="discType" class="form-select" @disabled(! $canDiscount)><option value="percentage" @selected(old('discount_type', $doc->discount_type) === 'percentage')>%</option><option value="fixed" @selected(old('discount_type', $doc->discount_type) === 'fixed')>{{ $cur }}</option></select></div>
+                            <b class="text-danger" id="tDisc">0.00</b>
+                        </div>
                         @if ($sale && ! $isReturn)
-                            <tr><td>Coupon
-                                <div class="d-flex gap-2 mt-1"><input name="coupon_code" id="couponCode" class="form-control form-control-sm text-uppercase" value="{{ old('coupon_code', $doc->coupon_code) }}" placeholder="Code"><button type="button" class="btn btn-sm btn-light" id="applyCoupon">Apply</button></div>
-                                <div class="small mt-1" id="couponMsg"></div></td><td class="text-end align-bottom text-danger" id="tCoupon">0.00</td></tr>
+                            <div class="tot-row">
+                                <span class="lbl">Coupon</span>
+                                <div class="tot-in"><input name="coupon_code" id="couponCode" class="form-control text-uppercase" value="{{ old('coupon_code', $doc->coupon_code) }}" placeholder="Code"><button type="button" class="btn btn-light" id="applyCoupon">Apply</button></div>
+                                <b class="text-danger" id="tCoupon">0.00</b>
+                            </div>
+                            <div class="small" id="couponMsg"></div>
                         @endif
-                        <tr id="roundRow" class="{{ $roundOff ? '' : 'd-none' }}"><td>Round off</td><td class="text-end" id="tRound">0.00</td></tr>
-                        <tr class="grand"><td>Grand total</td><td class="text-end" id="tGrand">0.00</td></tr>
-                        @if ($meta['payments'] && $canPay)<tr><td>{{ $isReturn ? 'Refunding now' : 'Paying now' }}</td><td class="text-end" id="tPaying">0.00</td></tr><tr class="due-row"><td>Balance</td><td class="text-end" id="tBalance">0.00</td></tr>@endif
-                    </table>
+                        <div class="tot-row {{ $roundOff ? '' : 'd-none' }}" id="roundRow"><span class="lbl">Round off</span><b id="tRound">0.00</b></div>
+                    </div>
+                    <div class="tot-grand"><span>Grand total</span><b id="tGrand">0.00</b></div>
+                    @if ($meta['payments'] && $canPay)
+                        <div class="tot-pay">
+                            <div><span>{{ $isReturn ? 'Refunding now' : 'Paying now' }}</span><b id="tPaying">0.00</b></div>
+                            <div><span>Balance</span><b id="tBalance">0.00</b></div>
+                        </div>
+                    @endif
                     <div class="d-grid gap-2 mt-4">
                         <x-admin.button icon="check2" class="btn-lg-app">Save {{ strtolower($meta['one']) }}</x-admin.button>
                         @if (in_array($meta['type'], ['invoice', 'quotation', 'delivery', 'sale_return', 'purchase', 'order'], true))
@@ -132,12 +143,12 @@
         <td><div class="fw-semibold nm"></div><div class="small text-body-secondary meta"></div><input class="form-control form-control-sm mt-1 desc d-none" data-f="description" placeholder="Description"></td>
         <td><input type="hidden" data-f="item_id"><input type="number" step="any" min="0" class="form-control form-control-sm" data-f="qty"><div class="small mt-1 stockinfo"></div></td>
         <td><input type="number" step="any" min="0" class="form-control form-control-sm" data-f="unit_price"></td>
-        <td><div class="d-flex gap-1"><input type="number" step="any" min="0" class="form-control form-control-sm" data-f="discount_input" placeholder="0"><select class="form-select form-select-sm" data-f="discount_type" style="max-width:70px"><option value="percentage">%</option><option value="fixed">{{ $cur }}</option></select></div></td>
-        <td><select class="form-select form-select-sm" data-f="tax_id"><option value="" data-rate="0">None</option>@foreach ($taxes as $t)<option value="{{ $t->id }}" data-rate="{{ $t->rate }}">{{ $t->name }} {{ +$t->rate }}%</option>@endforeach</select>
-            <select class="form-select form-select-sm mt-1" data-f="tax_type"><option value="exclusive">Exclusive</option><option value="inclusive">Inclusive</option></select></td>
+        <td><div class="disc-grp"><input type="number" step="any" min="0" class="form-control form-control-sm" data-f="discount_input" placeholder="0"><select class="form-select form-select-sm" data-f="discount_type"><option value="percentage">%</option><option value="fixed">{{ $cur }}</option></select></div></td>
+        <td><div class="tax-grp"><select class="form-select form-select-sm" data-f="tax_id"><option value="" data-rate="0">None</option>@foreach ($taxes as $t)<option value="{{ $t->id }}" data-rate="{{ $t->rate }}">{{ $t->name }} {{ +$t->rate }}%</option>@endforeach</select>
+            <select class="form-select form-select-sm" data-f="tax_type"><option value="exclusive">Exclusive</option><option value="inclusive">Inclusive</option></select></div></td>
         <td class="text-end taxamt"></td><td class="text-end fw-semibold total"></td>
         @if ($isPurchase)<td class="upd-col"><input type="number" step="any" class="form-control form-control-sm" data-f="profit_margin"></td><td class="upd-col"><input type="number" step="any" min="0" class="form-control form-control-sm" data-f="sales_price"></td>@endif
-        <td class="text-nowrap"><button type="button" class="btn btn-sm btn-light dsc" title="Description"><i class="bi bi-chat-left-text"></i></button> <button type="button" class="btn btn-sm btn-light text-danger rm"><i class="bi bi-x-lg"></i></button></td>
+        <td class="text-nowrap text-end"><button type="button" class="btn btn-sm btn-light dsc" title="Description"><i class="bi bi-chat-left-text"></i></button> <button type="button" class="btn btn-sm btn-light text-danger rm"><i class="bi bi-x-lg"></i></button></td>
     </tr>
 </template>
 @include('inventory.partials.picker')
@@ -146,10 +157,26 @@
 
 @push('styles')
 <style>
-    .doc-lines td { vertical-align: top; } .doc-lines .form-control-sm, .doc-lines .form-select-sm { min-height: 34px; }
-    .totals td { padding: .55rem .25rem; border-color: var(--app-border); } .totals .grand td { font-size: 1.15rem; font-weight: 800; color: var(--app-primary, #4f46e5); }
-    .totals .due-row td { font-weight: 700; } .pay-row { display: grid; grid-template-columns: 1.1fr 1fr 1.4fr auto; gap: .5rem; }
-    .pay-row .chq { grid-column: 1 / -1; display: none; gap: .5rem; } .pay-row.has-chq .chq { display: flex; }
+    .doc-lines { min-width: 980px; } .doc-lines td { vertical-align: top; padding-top: .7rem; padding-bottom: .7rem; }
+    .doc-lines .form-control, .doc-lines .form-select { min-height: 34px !important; height: 34px; padding: .25rem .5rem; font-size: .85rem; border-radius: 8px; }
+    .doc-lines .form-select { padding-right: 1.6rem; background-position: right .45rem center; }
+    .doc-lines .disc-grp { display: flex; } .doc-lines .disc-grp .form-control { border-radius: 8px 0 0 8px; } .doc-lines .disc-grp .form-select { width: 64px; flex: 0 0 64px; border-radius: 0 8px 8px 0; border-left: 0; }
+    .doc-lines .tax-grp { display: grid; gap: 4px; } .doc-lines .btn-sm { height: 32px; width: 32px; padding: 0; display: inline-flex; align-items: center; justify-content: center; }
+    .doc-lines .stockinfo { font-size: .72rem; white-space: nowrap; } .doc-lines .nm { line-height: 1.25; }
+    #docForm.no-upd .upd-col { display: none; }
+    .tot { display: grid; } .tot-row { display: grid; grid-template-columns: 110px 1fr 100px; align-items: center; gap: 10px; padding: .55rem 0; border-bottom: 1px dashed var(--app-border); }
+    .tot-row:first-child, .tot-row#roundRow { grid-template-columns: 1fr auto; } .tot-row .lbl { color: var(--app-text-muted); font-size: .88rem; } .tot-row .lbl small { display: block; font-size: .72rem; }
+    .tot-row b { text-align: right; font-weight: 700; }
+    .tot-in { display: flex; } .tot-in .form-control, .tot-in .form-select, .tot-in .btn { min-height: 36px !important; height: 36px; padding: .3rem .55rem; font-size: .85rem; }
+    .tot-in .form-control { border-radius: 8px 0 0 8px; min-width: 0; } .tot-in .form-select, .tot-in .btn { border-radius: 0 8px 8px 0; border-left: 0; width: auto; flex: 0 0 auto; max-width: 120px; padding-right: 1.6rem; background-position: right .4rem center; }
+    .tot-in .btn { padding-right: .7rem; border: 1px solid var(--app-border); }
+    #couponMsg { padding: .2rem 0 0 120px; }
+    .tot-grand { display: flex; justify-content: space-between; align-items: center; margin: 14px 0 10px; padding: 14px 16px; border-radius: 14px; background: linear-gradient(135deg, var(--app-primary, #4f46e5), #6366f1); color: #fff; box-shadow: 0 8px 22px rgba(79,70,229,.25); }
+    .tot-grand span { font-weight: 600; opacity: .9; } .tot-grand b { font-size: 1.4rem; font-weight: 800; }
+    .tot-pay { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; } .tot-pay div { background: var(--app-hover); border-radius: 12px; padding: 10px 12px; display: grid; }
+    .tot-pay span { font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; color: var(--app-text-muted); font-weight: 600; } .tot-pay b { font-size: 1.05rem; }
+    .pay-row { display: grid; grid-template-columns: 1.1fr 1fr 1.4fr auto; gap: .5rem; } .pay-row .chq { grid-column: 1 / -1; display: none; gap: .5rem; } .pay-row.has-chq .chq { display: flex; }
+    .pay-row .form-control, .pay-row .form-select { min-height: 36px !important; height: 36px; font-size: .85rem; }
 </style>
 @endpush
 
@@ -200,7 +227,7 @@
         if ($('tCoupon')) $('tCoupon').textContent = cp ? '−' + fx(cp) : '0.00';
         $('tRound').textContent = fx(round); $('tGrand').textContent = CUR + ' ' + fx(grand);
         const paying = [...document.querySelectorAll('#payRows [data-amt]')].reduce((s, i) => s + num(i.value), 0);
-        if ($('tPaying')) { $('tPaying').textContent = fx(paying); $('tBalance').textContent = fx(grand - paying); $('tBalance').className = 'text-end ' + (grand - paying > 0.004 ? 'text-danger' : 'text-success'); }
+        if ($('tPaying')) { $('tPaying').textContent = fx(paying); $('tBalance').textContent = fx(grand - paying); $('tBalance').className = grand - paying > 0.004 ? 'text-danger' : 'text-success'; }
         window.__grand = grand;
     };
 
@@ -263,8 +290,8 @@
     });
 
     ['otherIn', 'otherTax', 'discIn', 'discType'].forEach(id => $(id)?.addEventListener('input', recalc));
-    $('otherTax').addEventListener('change', recalc); $('discType').addEventListener('change', recalc);
-    const upd = $('updPrices'); const syncUpd = () => document.querySelectorAll('.upd-col').forEach(c => c.style.display = upd?.checked ? '' : 'none');
+    $('otherTax').addEventListener('change', recalc); $('discType').addEventListener('change', recalc); $('otherIn').addEventListener('input', recalc);
+    const upd = $('updPrices'); const syncUpd = () => $('docForm').classList.toggle('no-upd', !upd?.checked);
     upd?.addEventListener('change', syncUpd);
 
     (@json($lines)).forEach(l => addLine(l, l));

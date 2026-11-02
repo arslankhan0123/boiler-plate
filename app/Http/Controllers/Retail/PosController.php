@@ -132,6 +132,59 @@ class PosController extends RetailController
         return response()->json(['ok' => true, 'held' => Document::query()->where('type', 'hold')->count()]);
     }
 
+    /** POS sales list (all POS invoices, filterable). */
+    public function sales(Request $request)
+    {
+        $this->need('pos.sales');
+        $base = Document::query()->where('type', 'invoice')->where('is_pos', true)
+            ->when($request->q, fn ($q, $s) => $q->where(fn ($w) => $w->where('number', 'like', "%$s%")->orWhereHas('customer', fn ($c) => $c->where('company_name', 'like', "%$s%"))))
+            ->when($request->user, fn ($q, $v) => $q->where('created_by', $v))
+            ->when($request->payment, fn ($q, $v) => $q->where('payment_status', $v))
+            ->when($request->from, fn ($q, $v) => $q->whereDate('date', '>=', $v))
+            ->when($request->to, fn ($q, $v) => $q->whereDate('date', '<=', $v));
+
+        return view('retail.pos.sales', [
+            'rows' => (clone $base)->with('customer')->withCount('items')->latest('id')->paginate(30)->withQueryString(),
+            'sum' => (clone $base)->selectRaw('COUNT(*) n, SUM(grand_total) total, SUM(paid_amount) paid')->first(),
+            'users' => \App\Models\User::query()->where('tenant_id', auth()->user()->tenant_id)->orderBy('name')->pluck('name', 'id'),
+            'canEdit' => $this->can('pos.edit'),
+        ]);
+    }
+
+    /** Held invoices page. */
+    public function held()
+    {
+        $this->need('pos.hold');
+
+        return view('retail.pos.held', ['rows' => Document::query()->with('customer')->withCount('items')->where('type', 'hold')->latest()->get()]);
+    }
+
+    /** Daily summary: totals by payment method and by cashier for a day. */
+    public function summary(Request $request)
+    {
+        $this->need('pos.summary');
+        $date = $request->input('date', today()->toDateString());
+        $docs = Document::query()->where('type', 'invoice')->where('is_pos', true)->whereDate('date', $date);
+        $payments = \App\Models\Retail\Payment::query()->whereIn('document_id', (clone $docs)->select('id'));
+        $users = \App\Models\User::query()->where('tenant_id', auth()->user()->tenant_id)->pluck('name', 'id');
+
+        return view('retail.pos.summary', [
+            'date' => $date,
+            'sum' => (clone $docs)->selectRaw('COUNT(*) n, SUM(grand_total) total, SUM(paid_amount) paid, SUM(discount_amt + coupon_amt + item_discount_total) disc, SUM(tax_total) tax')->first(),
+            'byMethod' => (clone $payments)->groupBy('method')->selectRaw('method, COUNT(*) n, SUM(amount) amt, SUM(change_return) chg')->get(),
+            'byUser' => (clone $docs)->groupBy('created_by')->selectRaw('created_by, COUNT(*) n, SUM(grand_total) total, SUM(paid_amount) paid')->get(),
+            'users' => $users,
+            'voids' => VoidLog::query()->whereDate('created_at', $date)->selectRaw('COUNT(*) n, SUM(qty * price) v')->first(),
+        ]);
+    }
+
+    public function voidLogs()
+    {
+        $this->need('pos.void_logs');
+
+        return redirect()->route('retail.reports.show', 'void_logs');
+    }
+
     /** Log items removed from the cart (void log). */
     public function void(Request $request)
     {

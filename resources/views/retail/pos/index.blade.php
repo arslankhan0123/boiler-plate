@@ -111,7 +111,7 @@
 @push('styles')
 <style>
     .app-content:has(.pos) { padding: 0 !important; }
-    .pos { display: grid; grid-template-columns: 1fr 470px; gap: 14px; height: calc(100vh - 150px); min-height: 560px; padding: 14px; }
+    .pos { display: grid; grid-template-columns: minmax(0, 1fr) 430px; gap: 14px; height: calc(100vh - 150px); min-height: 560px; padding: 14px; }
     .pos-left, .pos-right { background: #fff; border-radius: 16px; border: 1px solid var(--app-border); display: flex; flex-direction: column; min-height: 0; }
     .pos-bar { display: grid; grid-template-columns: 1fr 170px 150px; gap: 8px; padding: 12px; border-bottom: 1px solid var(--app-border); }
     .pos-bar .form-control, .pos-bar .form-select { min-height: 44px; }
@@ -130,7 +130,20 @@
     .pos-totals { padding: 12px; border-top: 1px solid var(--app-border); background: #f8fafc; border-radius: 0 0 16px 16px; }
     .tot-line { display: flex; justify-content: space-between; margin-top: 4px; }
     .grand { display: flex; justify-content: space-between; align-items: center; background: var(--app-primary, #4f46e5); color: #fff; border-radius: 12px; padding: 10px 14px; margin: 8px 0; font-size: 1.1rem; } .grand b { font-size: 1.5rem; }
-    .pos-actions { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; } .pos-actions .btn { min-height: 46px; font-weight: 600; font-size: .85rem; }
+    .pos-left, .pos-right { min-width: 0; overflow: hidden; }
+    .pos-right .form-control, .pos-right .form-select, .pos-right .input-group-text { min-height: 36px !important; height: 36px; padding: .3rem .6rem; font-size: .85rem; border-radius: 8px; }
+    .pos-right .input-group > * { border-radius: 0; } .pos-right .input-group > :first-child { border-radius: 8px 0 0 8px; } .pos-right .input-group > :last-child { border-radius: 0 8px 8px 0; }
+    .pos-right .input-group .form-select { max-width: 58px; padding-right: 1.4rem; background-position: right .3rem center; }
+    .pos-right label.small { font-size: .72rem; margin-bottom: 2px; }
+    .pos-head { padding: 10px 12px; } .pos-totals { padding: 10px 12px; }
+    .tot-line { font-size: .85rem; gap: 8px; flex-wrap: wrap; } .tot-line.small { font-size: .72rem; }
+    .grand { padding: 8px 12px; font-size: 1rem; margin: 6px 0 8px; } .grand b { font-size: 1.3rem; }
+    .pos-actions { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+    .pos-actions .btn { min-height: 38px; padding: .35rem .4rem; font-weight: 600; font-size: .8rem; white-space: nowrap; display: inline-flex; align-items: center; justify-content: center; gap: 4px; }
+    .pos-actions #btnHold, .pos-actions #btnHeld, .pos-actions #btnClear { grid-column: span 2; }
+    .pos-actions #btnCash, .pos-actions #btnPay { grid-column: span 3; min-height: 46px; font-size: .95rem; }
+    .pos-actions .badge { font-size: .65rem; }
+    .pos-cart .qty button { width: 24px; } .pos-cart .qty input { width: 44px; height: 28px; } .pos-cart .pz { width: 72px; }
     .pay-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 6px; } .pay-row .chq { grid-column: 1 / -1; display: none; } .pay-row.has-chq .chq { display: block; }
     .pay-sum div { display: flex; justify-content: space-between; padding: 10px 12px; border-radius: 10px; background: var(--app-hover); margin-bottom: 6px; } .pay-sum b { font-size: 1.2rem; }
     @media (max-width: 1100px) { .pos { grid-template-columns: 1fr; height: auto; } .pos-grid { max-height: 50vh; } }

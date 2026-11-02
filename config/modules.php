@@ -146,9 +146,14 @@ return [
             'requires' => ['sales', 'inventory'],
             'permissions' => [
                 'pos.sell' => 'Use POS (checkout)', 'pos.hold' => 'Hold & resume invoices', 'pos.edit' => 'Edit POS invoices', 'pos.discount' => 'Change price / discount in POS',
+                'pos.sales' => 'View POS sales', 'pos.void_logs' => 'View void log', 'pos.summary' => 'Daily POS summary',
             ],
             'features' => [
                 'terminal' => ['name' => 'POS Terminal', 'permission' => 'pos.sell', 'route' => 'pos'],
+                'sales' => ['name' => 'POS Sales', 'permission' => 'pos.sales', 'route' => 'pos.sales'],
+                'held' => ['name' => 'Held Invoices', 'permission' => 'pos.hold', 'route' => 'pos.held'],
+                'summary' => ['name' => 'Daily Summary', 'permission' => 'pos.summary', 'route' => 'pos.summary'],
+                'void_logs' => ['name' => 'Void Log', 'permission' => 'pos.void_logs', 'route' => 'pos.void-logs'],
             ],
         ],
         'ecommerce' => [

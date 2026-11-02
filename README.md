@@ -246,3 +246,8 @@ CI must pass `pint --test`, `phpstan`, and the test suite before merge.
 - **Responses:** always the JSON envelope `{status, code, message, data}`; errors put detail in `data.errors` (list of strings). Built via the `ApiResponse` facade.
 - **Dates:** all date/time output goes through the `format_datetime()` helper (format from `config('datetime.format')`) — never hardcode a format.
 - **Auth:** Passport `auth:api` guard; API requests are forced to JSON (`ForceJsonResponse` middleware).
+
+
+<!-- If permissions issue and tabs are not showing -->
+php artisan permission:cache-reset
+php artisan tenants:sync-access
