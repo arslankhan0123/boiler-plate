@@ -86,8 +86,9 @@ class StoreController extends Controller
      *
      * @return array{rows:array,subtotal:float,tax:float,shipping:float,discount:float,grand:float,coupon:?string}
      */
-    private function computeTotals(string $tenant, ?int $shippingMethodId = null): array
+    private function computeTotals(string $tenant, int|string|null $shippingMethodId = null): array
     {
+        $shippingMethodId = ($shippingMethodId === null || $shippingMethodId === '') ? null : (int) $shippingMethodId;
         $priced = OrderService::price($this->cartLines($tenant));
         $subtotal = $priced['subtotal'];
         $tax = $priced['tax'];
@@ -310,7 +311,7 @@ class StoreController extends Controller
     }
 
     /** Totals as plain numbers + formatted strings for AJAX responses. */
-    private function totalsPayload(string $tenant, ?int $shippingMethodId = null): array
+    private function totalsPayload(string $tenant, int|string|null $shippingMethodId = null): array
     {
         $t = $this->computeTotals($tenant, $shippingMethodId);
 

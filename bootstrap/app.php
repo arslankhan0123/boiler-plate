@@ -33,6 +33,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Behind a TLS-terminating proxy (ngrok, Cloudflare, a load balancer),
+        // honour the X-Forwarded-* headers so the app sees the original HTTPS
+        // scheme and host. Without this, asset()/route() generate http:// URLs
+        // on an https page — the browser then blocks the CSS/JS as mixed content.
+        $middleware->trustProxies(at: '*');
+
         // API-only: every API request is treated as JSON so errors/auth
         // failures return the JSON envelope instead of HTML or a login redirect.
         $middleware->api(prepend: [
