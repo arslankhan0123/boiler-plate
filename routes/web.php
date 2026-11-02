@@ -11,6 +11,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 // Public careers site per tenant (no login): /careers/{tenant}
 Route::prefix('careers/{tenant}')->name('careers.')->group(function () {
     Route::get('/', [\App\Http\Controllers\Hrm\CareersController::class, 'index'])->name('index');
