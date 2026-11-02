@@ -65,7 +65,6 @@
                                 <a href="{{ route('inventory.items.show', $i) }}" class="fw-semibold text-decoration-none">{{ $i->name }}</a>
                                 @if ($i->item_group === 'variant')<x-admin.badge tone="primary" icon="layers">{{ $i->children->count() }} variants</x-admin.badge>@endif
                                 @if ($i->is_service)<x-admin.badge tone="muted">Service</x-admin.badge>@endif
-                                <div class="small text-body-secondary">{{ $i->code }}@if ($i->barcode && $i->barcode !== $i->code) · {{ $i->barcode }}@endif @if ($i->sku) · SKU {{ $i->sku }}@endif</div>
                             </div>
                         </div>
                     </td>
