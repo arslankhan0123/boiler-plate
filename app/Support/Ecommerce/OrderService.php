@@ -39,6 +39,7 @@ class OrderService
             $lineTax = round($lineNet * $rate / 100, 2);
             $rows[] = [
                 'product_id' => $p->id, 'item_id' => $p->item_id, 'name' => $p->name,
+                'slug' => $p->slug, 'image_url' => $p->image_url,
                 'qty' => $qty, 'price' => $price, 'tax' => $lineTax, 'tax_id' => $p->item?->tax_id,
                 'line_total' => round($lineNet + $lineTax, 2),
             ];
