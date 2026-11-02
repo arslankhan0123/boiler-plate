@@ -63,6 +63,12 @@ return Application::configure(basePath: dirname(__DIR__))
         // No-op for guests and platform admins; idempotent where tenant.init also runs.
         $middleware->web(append: [InitializeTenancyFromUser::class]);
 
+        // The Stripe webhook is a server-to-server POST with no session/CSRF token;
+        // it is authenticated by its signed Stripe-Signature header instead.
+        $middleware->validateCsrfTokens(except: [
+            'store/*/webhook/stripe',
+        ]);
+
         // Switch to the tenant DB BEFORE route-model binding, so {employee},
         // {role}, {payslip}… are loaded from the tenant's own database.
         // (Auth already runs earlier in Laravel's priority list.)

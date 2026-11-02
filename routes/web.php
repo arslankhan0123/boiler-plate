@@ -28,6 +28,16 @@ Route::prefix('store/{tenant}')->name('store.')->group(function () {
     Route::delete('cart/{product}', [$s, 'removeFromCart'])->whereNumber('product')->name('cart.remove');
     Route::get('checkout', [$s, 'checkout'])->name('checkout');
     Route::post('checkout', [$s, 'placeOrder'])->middleware('throttle:10,1')->name('place');
+    Route::post('checkout/coupon', [$s, 'applyCoupon'])->middleware('throttle:20,1')->name('coupon');
+    // Online payments: Stripe
+    Route::post('checkout/stripe/intent', [$s, 'stripeIntent'])->middleware('throttle:30,1')->name('stripe.intent');
+    Route::get('checkout/stripe/return/{orderNo}', [$s, 'stripeReturn'])->name('stripe.return');
+    // Online payments: PayPal
+    Route::post('checkout/paypal/capture', [$s, 'paypalCapture'])->middleware('throttle:30,1')->name('paypal.capture');
+    Route::get('checkout/paypal/return/{orderNo}', [$s, 'paypalReturn'])->name('paypal.return');
+    Route::get('checkout/paypal/cancel/{orderNo}', [$s, 'paypalCancel'])->name('paypal.cancel');
+    // Stripe webhook (CSRF-exempt via bootstrap/app.php; signature-verified)
+    Route::post('webhook/stripe', [\App\Http\Controllers\Ecommerce\StripeWebhookController::class, 'handle'])->name('webhook.stripe');
     Route::get('order/{orderNo}', [$s, 'confirm'])->name('confirm');
     Route::get('p/{slug}', [$s, 'product'])->name('product');
     Route::post('p/{product}/review', [$s, 'submitReview'])->whereNumber('product')->middleware('throttle:5,1')->name('review');

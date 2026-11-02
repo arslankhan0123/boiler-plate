@@ -22,13 +22,13 @@ class Order extends Model
     public const PAY_TONES = ['unpaid' => 'danger', 'paid' => 'success', 'refunded' => 'muted'];
 
     protected $fillable = ['order_no', 'customer_id', 'customer_name', 'customer_email', 'customer_phone', 'shipping_address',
-        'status', 'payment_status', 'payment_method', 'shipping_method_id', 'subtotal', 'shipping_cost', 'discount', 'tax',
-        'grand_total', 'coupon_code', 'notes', 'sale_document_id', 'placed_at', 'created_by'];
+        'status', 'payment_status', 'payment_method', 'payment_intent_id', 'shipping_method_id', 'subtotal', 'shipping_cost', 'discount', 'tax',
+        'grand_total', 'coupon_code', 'notes', 'sale_document_id', 'placed_at', 'paid_at', 'created_by'];
 
     protected function casts(): array
     {
         return ['subtotal' => 'float', 'shipping_cost' => 'float', 'discount' => 'float', 'tax' => 'float',
-            'grand_total' => 'float', 'placed_at' => 'datetime'];
+            'grand_total' => 'float', 'placed_at' => 'datetime', 'paid_at' => 'datetime'];
     }
 
     public function items(): HasMany { return $this->hasMany(OrderItem::class, 'order_id'); }
