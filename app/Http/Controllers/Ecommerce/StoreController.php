@@ -21,9 +21,15 @@ class StoreController extends Controller
     private function boot(string $tenantId): Tenant
     {
         $tenant = Tenant::query()->find($tenantId);
-        abort_unless($tenant && $tenant->is_active && $tenant->hasModule('ecommerce'), 404);
+        abort_unless($tenant && $tenant->is_active, 404);
+        // E-commerce module must be enabled for this tenant — 403 (consistent with the
+        // admin e-commerce pages) rather than a bare 404.
+        abort_unless($tenant->hasModule('ecommerce'), 403, 'The online store is not enabled for this organization.');
+        // The URL's tenant is authoritative for the public store — drop any tenant
+        // context the logged-in user's middleware may have set, then switch to it.
+        tenancy()->end();
         tenancy()->initialize($tenant);
-        abort_unless(Settings::get('store_enabled', '1') === '1', 404, 'This store is currently closed.');
+        abort_unless(Settings::get('store_enabled', '1') === '1', 403, 'This store is currently closed.');
 
         return $tenant;
     }

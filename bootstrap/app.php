@@ -56,6 +56,13 @@ return Application::configure(basePath: dirname(__DIR__))
             'module' => \App\Http\Middleware\EnsureModuleEnabled::class,
         ]);
 
+        // Resolve the tenant on every web request (not just the admin group),
+        // so error pages (404/500) and public routes rendered for an authenticated
+        // tenant user still have the tenant DB active — otherwise the sidebar and
+        // permission checks fall back to the central DB and lose all tenant modules.
+        // No-op for guests and platform admins; idempotent where tenant.init also runs.
+        $middleware->web(append: [InitializeTenancyFromUser::class]);
+
         // Switch to the tenant DB BEFORE route-model binding, so {employee},
         // {role}, {payslip}… are loaded from the tenant's own database.
         // (Auth already runs earlier in Laravel's priority list.)

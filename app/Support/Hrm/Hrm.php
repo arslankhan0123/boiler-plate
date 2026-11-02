@@ -27,7 +27,14 @@ class Hrm
             return null;
         }
 
-        return self::$me[$id] ??= Employee::query()->where('user_id', $id)->first();
+        // Never throw: the employees table lives in the tenant DB, so this can be
+        // called (e.g. from the sidebar while rendering an error page) when tenancy
+        // isn't active. Degrade to null instead of crashing the page on top of an error.
+        try {
+            return self::$me[$id] ??= Employee::query()->where('user_id', $id)->first();
+        } catch (\Throwable) {
+            return null;
+        }
     }
 
     private static array $team = [];
