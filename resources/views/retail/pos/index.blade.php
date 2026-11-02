@@ -143,6 +143,11 @@
     .pos-actions #btnHold, .pos-actions #btnHeld, .pos-actions #btnClear { grid-column: span 2; }
     .pos-actions #btnCash, .pos-actions #btnPay { grid-column: span 3; min-height: 46px; font-size: .95rem; }
     .pos-actions .badge { font-size: .65rem; }
+    .pos-cart td, .pos-cart th { padding: .35rem .4rem; } .pos-cart td { font-size: .78rem; }
+    .pos-cart .ci-name { font-weight: 600; font-size: .8rem; line-height: 1.25; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .pos-cart .qty button { height: 26px; font-size: .8rem; line-height: 1; padding: 0; } .pos-cart .qty input { font-size: .78rem; height: 26px !important; }
+    .pos-cart .pz { font-size: .78rem; height: 26px; } .pos-cart td.fw-semibold { font-size: .8rem; }
+    .pos-cart .qty input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
     .pos-cart .qty button { width: 24px; } .pos-cart .qty input { width: 44px; height: 28px; } .pos-cart .pz { width: 72px; }
     .pay-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 6px; } .pay-row .chq { grid-column: 1 / -1; display: none; } .pay-row.has-chq .chq { display: block; }
     .pay-sum div { display: flex; justify-content: space-between; padding: 10px 12px; border-radius: 10px; background: var(--app-hover); margin-bottom: 6px; } .pay-sum b { font-size: 1.2rem; }
@@ -189,7 +194,7 @@
         cart.forEach((l, i) => {
             const c = lineCalc(l), warn = !l.is_service && l.qty > l.stock;
             tb.insertAdjacentHTML('beforeend', `<tr>
-                <td><div class="fw-semibold">${esc(l.name)}</div><div class="small ${warn ? 'text-danger' : 'text-body-secondary'}">${esc(l.code)}${l.is_service ? '' : ' · stock ' + (+l.stock)}${+l.discount_input ? ' · disc ' + (+l.discount_input) + (l.discount_type === 'percentage' ? '%' : '') : ''}</div></td>
+                <td><div class="ci-name ${warn ? 'text-danger' : ''}" title="${esc(l.name)} · ${esc(l.code)}${l.is_service ? '' : ' · stock ' + (+l.stock)}">${esc(l.name)}</div></td>
                 <td><div class="qty"><button type="button" data-a="dec" data-i="${i}">−</button><input type="number" step="any" min="0" value="${l.qty}" data-a="qty" data-i="${i}"><button type="button" data-a="inc" data-i="${i}">+</button></div></td>
                 <td class="text-end"><input type="number" step="any" min="0" class="pz" value="${l.unit_price}" data-a="price" data-i="${i}" ${CAN_DISC ? '' : 'readonly'}></td>
                 <td class="text-end fw-semibold">${fx(c.total)}</td>
