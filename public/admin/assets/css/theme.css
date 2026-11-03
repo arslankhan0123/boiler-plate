@@ -542,3 +542,17 @@ textarea.form-control { min-height: 120px; padding-top: .85rem; }
 .app-rail-tip.is-on { opacity: 1; transform: translate(0, -50%); }
 .app-rail-tip::before { content: ''; position: absolute; left: -5px; top: 50%; transform: translateY(-50%); border: 5px solid transparent; border-left: 0; border-right-color: #0f172a; }
 .app-rail { overflow-y: auto; overflow-x: hidden; }
+
+/* ───────── Compact dashboards & cards (global) — smaller stat values, tighter cards ───────── */
+.app-stat { padding: 1.05rem 1.2rem; gap: .8rem; }
+.app-stat__icon { width: 44px; height: 44px; font-size: 1.1rem; border-radius: 12px; }
+.app-stat__value { font-size: 1.35rem; font-weight: 700; margin-top: .1rem; line-height: 1.15; letter-spacing: -.01em; }
+.app-stat__label { font-size: .78rem; font-weight: 500; }
+@media (min-width: 1200px) { .app-stat__value { font-size: 1.45rem; } }
+.app-card__body { padding: 1.15rem 1.25rem; }
+.app-card__header { padding: .85rem 1.25rem; }
+.app-card__title { font-size: .95rem; font-weight: 700; }
+.app-page-header__title { font-size: 1.25rem; font-weight: 700; }
+.app-page-header__subtitle { font-size: .82rem; }
+a.app-card:hover { transform: translateY(-2px); }
+/* End compact overrides */
