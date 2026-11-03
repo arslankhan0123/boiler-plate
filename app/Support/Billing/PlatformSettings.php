@@ -41,6 +41,25 @@ class PlatformSettings
     /** Keys whose values are stored encrypted. */
     public const SECRET_KEYS = ['stripe_secret_key', 'stripe_webhook_secret', 'paypal_secret'];
 
+    /** Currencies Stripe can charge in (uppercased ISO codes). Used to validate plan/billing currency. */
+    public const SUPPORTED_CURRENCIES = [
+        'USD', 'AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN', 'BAM', 'BBD', 'BDT', 'BGN',
+        'BHD', 'BIF', 'BMD', 'BND', 'BOB', 'BRL', 'BSD', 'BWP', 'BYN', 'BZD', 'CAD', 'CDF', 'CHF', 'CLP', 'CNY',
+        'COP', 'CRC', 'CVE', 'CZK', 'DJF', 'DKK', 'DOP', 'DZD', 'EGP', 'ETB', 'EUR', 'FJD', 'FKP', 'GBP', 'GEL',
+        'GIP', 'GMD', 'GNF', 'GTQ', 'GYD', 'HKD', 'HNL', 'HRK', 'HTG', 'HUF', 'IDR', 'ILS', 'INR', 'ISK', 'JMD',
+        'JOD', 'JPY', 'KES', 'KGS', 'KHR', 'KMF', 'KRW', 'KWD', 'KYD', 'KZT', 'LAK', 'LBP', 'LKR', 'LRD', 'LSL',
+        'MAD', 'MDL', 'MGA', 'MKD', 'MMK', 'MNT', 'MOP', 'MUR', 'MVR', 'MWK', 'MXN', 'MYR', 'MZN', 'NAD', 'NGN',
+        'NIO', 'NOK', 'NPR', 'NZD', 'OMR', 'PAB', 'PEN', 'PGK', 'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RSD',
+        'RUB', 'RWF', 'SAR', 'SBD', 'SCR', 'SEK', 'SGD', 'SHP', 'SLE', 'SOS', 'SRD', 'STD', 'SZL', 'THB', 'TJS',
+        'TND', 'TOP', 'TRY', 'TTD', 'TWD', 'TZS', 'UAH', 'UGX', 'UYU', 'UZS', 'VND', 'VUV', 'WST', 'XAF', 'XCD',
+        'XOF', 'XPF', 'YER', 'ZAR', 'ZMW', 'BTN', 'GHS',
+    ];
+
+    public static function isSupportedCurrency(?string $code): bool
+    {
+        return in_array(strtoupper(trim((string) $code)), self::SUPPORTED_CURRENCIES, true);
+    }
+
     private static ?array $cache = null;
 
     public static function all(): array
@@ -48,9 +67,13 @@ class PlatformSettings
         if (self::$cache === null) {
             $stored = [];
             try {
-                if (Schema::hasTable('platform_settings')) {
-                    $stored = PlatformSetting::query()->pluck('value', 'key')->all();
-                }
+                // platform_settings lives in the CENTRAL database. The PlatformSetting
+                // model forces the central connection, so this reads the right table
+                // even under an active tenant (whose default connection is the tenant
+                // DB). We query directly and let a missing table (pre-migration) fall
+                // through to the catch — never gate on Schema::hasTable, which checks
+                // the DEFAULT connection and would wrongly read "missing" for tenants.
+                $stored = PlatformSetting::query()->pluck('value', 'key')->all();
             } catch (Throwable) {
                 $stored = [];
             }

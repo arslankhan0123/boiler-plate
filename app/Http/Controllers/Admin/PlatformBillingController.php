@@ -33,7 +33,11 @@ class PlatformBillingController extends Controller
     public function update(Request $request)
     {
         $data = $request->validate([
-            'platform_currency' => ['required', 'string', 'size:3'],
+            'platform_currency' => ['required', 'string', 'size:3', function ($attr, $value, $fail) {
+                if (! PlatformSettings::isSupportedCurrency($value)) {
+                    $fail('Unsupported currency. Use a valid 3-letter code supported by Stripe, e.g. USD, EUR, GBP, PKR, AED.');
+                }
+            }],
             'pay_stripe_enabled' => ['required', 'boolean'],
             'stripe_publishable_key' => ['nullable', 'string', 'max:255'],
             'stripe_secret_key' => ['nullable', 'string', 'max:255'],

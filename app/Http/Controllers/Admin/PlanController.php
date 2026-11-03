@@ -123,7 +123,11 @@ class PlanController extends Controller
             'modules.*' => [Rule::in(array_keys(ModuleRegistry::assignable()))],
             'price_monthly' => ['required', 'numeric', 'min:0', 'max:9999999'],
             'price_yearly' => ['required', 'numeric', 'min:0', 'max:9999999'],
-            'currency' => ['required', 'string', 'size:3'],
+            'currency' => ['required', 'string', 'size:3', function ($attr, $value, $fail) {
+                if (! \App\Support\Billing\PlatformSettings::isSupportedCurrency($value)) {
+                    $fail('Unsupported currency. Use a valid 3-letter code supported by Stripe, e.g. USD, EUR, GBP, PKR, AED.');
+                }
+            }],
             'is_active' => ['required', 'boolean'],
             'is_public' => ['required', 'boolean'],
             'sort_order' => ['nullable', 'integer', 'min:0', 'max:9999'],
