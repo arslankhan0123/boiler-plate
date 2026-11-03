@@ -29,12 +29,15 @@
 
             <div class="form-section-title mt-5">Regional & finance</div>
             <div class="row g-4">
-                <div class="col-md-4"><x-admin.select name="fiscal_year_start" label="Fiscal year starts" :value="$s['fiscal_year_start']" required
+                <div class="col-md-3"><x-admin.select name="fiscal_year_start" label="Fiscal year starts" :value="$s['fiscal_year_start']" required
                     :options="collect(range(1, 12))->mapWithKeys(fn ($m) => [$m => \Illuminate\Support\Carbon::create(null, $m, 1)->format('F')])" /></div>
-                <div class="col-md-4"><x-admin.select name="date_format" label="Date format" :value="$s['date_format']" required
+                <div class="col-md-3"><x-admin.select name="date_format" label="Date format" :value="$s['date_format']" required
                     :options="collect(['d M Y', 'd/m/Y', 'm/d/Y', 'Y-m-d'])->mapWithKeys(fn ($f) => [$f => now()->format($f)])" /></div>
-                <div class="col-md-4"><x-admin.select name="default_currency" label="Default currency" :value="$s['default_currency']" :options="$currencies" placeholder="—"
+                <div class="col-md-3"><x-admin.select name="default_currency" label="Default currency" :value="$s['default_currency']" :options="$currencies" placeholder="—"
                     hint="Manage in Taxes & Currencies." /></div>
+                <div class="col-md-3"><x-admin.select name="timezone" label="Timezone" :value="$s['timezone'] ?? ''" placeholder="Default (UTC)"
+                    :options="collect($timezones)->mapWithKeys(fn ($t) => [$t => $t])"
+                    hint="Dates, reports & attendance use this." /></div>
             </div>
 
             @if ($canEdit)

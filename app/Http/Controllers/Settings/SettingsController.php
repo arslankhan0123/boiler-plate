@@ -44,6 +44,7 @@ class SettingsController extends Controller
         return view('settings.company', [
             's' => Settings::all(),
             'currencies' => Currency::query()->where('is_active', true)->orderBy('code')->pluck('code', 'code'),
+            'timezones' => timezone_identifiers_list(),
             'canEdit' => auth()->user()->can('settings.update'),
         ]);
     }
@@ -65,6 +66,7 @@ class SettingsController extends Controller
             'fiscal_year_start' => ['required', 'integer', 'between:1,12'],
             'date_format' => ['required', Rule::in(['d M Y', 'd/m/Y', 'm/d/Y', 'Y-m-d'])],
             'default_currency' => ['nullable', 'string', 'max:3'],
+            'timezone' => ['nullable', 'timezone'],
             'logo' => ['nullable', 'image', 'max:2048'],
             'remove_logo' => ['nullable', 'boolean'],
         ]);

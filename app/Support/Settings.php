@@ -24,7 +24,7 @@ class Settings
     public const DEFAULTS = [
         'company_name' => null, 'legal_name' => null, 'email' => null, 'phone' => null, 'website' => null,
         'address' => null, 'city' => null, 'country' => 'Pakistan', 'ntn' => null, 'strn' => null, 'logo' => null,
-        'fiscal_year_start' => '7', 'date_format' => 'd M Y', 'default_currency' => 'PKR',
+        'fiscal_year_start' => '7', 'date_format' => 'd M Y', 'default_currency' => 'PKR', 'timezone' => null,
         // Notifications (email)
         'notify_leave_request' => '1', 'notify_leave_decision' => '1', 'notify_payslip' => '1',
         'notify_task_assigned' => '1', 'notify_interview_assigned' => '1', 'notify_announcement' => '0',

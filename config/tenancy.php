@@ -41,6 +41,7 @@ return [
         DatabaseTenancyBootstrapper::class,
         // Isolates Spatie's permission cache per tenant (the cache store is central).
         PermissionCacheBootstrapper::class,
+        \App\Tenancy\TimezoneBootstrapper::class,
         // Stancl\Tenancy\Bootstrappers\CacheTenancyBootstrapper::class,
         // Stancl\Tenancy\Bootstrappers\FilesystemTenancyBootstrapper::class,
         // Stancl\Tenancy\Bootstrappers\QueueTenancyBootstrapper::class,
