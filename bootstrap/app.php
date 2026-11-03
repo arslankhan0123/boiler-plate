@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 use App\Facades\ApiResponse;
 use App\Http\Middleware\CaptureRequestContext;
+use App\Http\Middleware\CustomStoreDomain;
 use App\Http\Middleware\EnsurePlatformAdmin;
 use App\Http\Middleware\EnsureTenantInitialized;
 use App\Http\Middleware\ForceJsonResponse;
 use App\Http\Middleware\InitializeTenancyFromUser;
 use App\Http\Middleware\LogApiActivity;
+use App\Http\Middleware\RequireCustomStore;
 use Carbon\CarbonInterface;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
@@ -60,6 +62,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'tenant.required' => EnsureTenantInitialized::class,
             'platform.admin' => EnsurePlatformAdmin::class,
             'module' => \App\Http\Middleware\EnsureModuleEnabled::class,
+            'custom.store' => RequireCustomStore::class,
         ]);
 
         // Resolve the tenant on every web request (not just the admin group),
@@ -68,6 +71,10 @@ return Application::configure(basePath: dirname(__DIR__))
         // permission checks fall back to the central DB and lose all tenant modules.
         // No-op for guests and platform admins; idempotent where tenant.init also runs.
         $middleware->web(append: [InitializeTenancyFromUser::class]);
+
+        // Serve a tenant's storefront on its own verified custom domain (no-op on
+        // the platform's own host). Runs on every web request before the controller.
+        $middleware->web(append: [CustomStoreDomain::class]);
 
         // The Stripe webhook is a server-to-server POST with no session/CSRF token;
         // it is authenticated by its signed Stripe-Signature header instead.

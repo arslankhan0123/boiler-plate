@@ -54,8 +54,8 @@
 @section('content')
 @include('ecommerce.store.partials.hero', [
   'crumbs' => array_values(array_filter([
-    ['Home', route('store.index', $tenant)],
-    $selectedCategory ? ['Shop', route('store.index', $tenant)] : ['Shop', null],
+    ['Home', $surl('store.index', $tenant)],
+    $selectedCategory ? ['Shop', $surl('store.index', $tenant)] : ['Shop', null],
     $selectedCategory ? [$selectedCategory->name, null] : null,
   ])),
   'title' => $selectedCategory ? e($selectedCategory->name) : (request('q') ? 'Search: <span>'.e(request('q')).'</span>' : 'All <span>Products</span>'),
@@ -67,18 +67,18 @@
 <section class="shop wrap">
   <div class="shop-grid">
     <aside class="side" id="side">
-      <form method="GET" action="{{ route('store.index', $tenant) }}" id="filterForm">
+      <form method="GET" action="{{ $surl('store.index', $tenant) }}" id="filterForm">
         @if(request('q'))<input type="hidden" name="q" value="{{ request('q') }}">@endif
         @if(request('sort'))<input type="hidden" name="sort" value="{{ request('sort') }}">@endif
         <input type="hidden" name="category" id="catInput" value="{{ request('category') }}">
         <div class="fcard">
           <h5>Categories <i class="fa-solid fa-layer-group"></i></h5>
           <div class="fcat">
-            <a href="{{ route('store.index', $tenant) }}" class="{{ !request('category')?'on':'' }}"><i class="fa-solid fa-border-all"></i> All products</a>
+            <a href="{{ $surl('store.index', $tenant) }}" class="{{ !request('category')?'on':'' }}"><i class="fa-solid fa-border-all"></i> All products</a>
             @foreach($categories as $c)
-              <a href="{{ route('store.index', ['tenant'=>$tenant,'category'=>$c->slug]) }}" class="{{ request('category')===$c->slug?'on':'' }}"><i class="fa-solid fa-tag"></i> {{ $c->name }}</a>
+              <a href="{{ $surl('store.index', ['tenant'=>$tenant,'category'=>$c->slug]) }}" class="{{ request('category')===$c->slug?'on':'' }}"><i class="fa-solid fa-tag"></i> {{ $c->name }}</a>
               @foreach($c->children as $sub)
-                <div class="sub"><a href="{{ route('store.index', ['tenant'=>$tenant,'category'=>$sub->slug]) }}" class="{{ request('category')===$sub->slug?'on':'' }}"><i class="fa-solid fa-angle-right"></i> {{ $sub->name }}</a></div>
+                <div class="sub"><a href="{{ $surl('store.index', ['tenant'=>$tenant,'category'=>$sub->slug]) }}" class="{{ request('category')===$sub->slug?'on':'' }}"><i class="fa-solid fa-angle-right"></i> {{ $sub->name }}</a></div>
               @endforeach
             @endforeach
           </div>
@@ -94,18 +94,18 @@
           <button type="submit" class="btn-g" style="width:100%;margin-top:10px;padding:11px">Apply filters</button>
         </div>
       </form>
-      <div class="side-promo"><span>Special offers</span><b>Grab the deals</b><span>on selected items</span><br><a href="{{ route('store.index', ['tenant'=>$tenant,'on_sale'=>1]) }}" style="display:inline-block;margin-top:12px;background:#fff;color:var(--p);padding:8px 14px;border-radius:9px;font-size:13px;font-weight:700">Shop deals</a><span class="e">⚡</span></div>
+      <div class="side-promo"><span>Special offers</span><b>Grab the deals</b><span>on selected items</span><br><a href="{{ $surl('store.index', ['tenant'=>$tenant,'on_sale'=>1]) }}" style="display:inline-block;margin-top:12px;background:#fff;color:var(--p);padding:8px 14px;border-radius:9px;font-size:13px;font-weight:700">Shop deals</a><span class="e">⚡</span></div>
     </aside>
 
     <div>
       @php $hasFilters = request()->hasAny(['category','min_price','max_price','q','on_sale']); @endphp
       @if($hasFilters)
       <div class="chips">
-        @if(request('q'))<a href="{{ route('store.index', ['tenant'=>$tenant] + request()->except(['q','page'])) }}">Search: "{{ request('q') }}" <i class="fa-solid fa-xmark"></i></a>@endif
-        @if($selectedCategory)<a href="{{ route('store.index', ['tenant'=>$tenant] + request()->except(['category','page'])) }}">{{ $selectedCategory->name }} <i class="fa-solid fa-xmark"></i></a>@endif
-        @if(request('min_price')||request('max_price'))<a href="{{ route('store.index', ['tenant'=>$tenant] + request()->except(['min_price','max_price','page'])) }}">{{ $curSymbol }}{{ request('min_price',0) }} – {{ request('max_price','∞') }} <i class="fa-solid fa-xmark"></i></a>@endif
-        @if(request('on_sale'))<a href="{{ route('store.index', ['tenant'=>$tenant] + request()->except(['on_sale','page'])) }}">On sale <i class="fa-solid fa-xmark"></i></a>@endif
-        <a href="{{ route('store.index', $tenant) }}" class="clear">Clear all</a>
+        @if(request('q'))<a href="{{ $surl('store.index', ['tenant'=>$tenant] + request()->except(['q','page'])) }}">Search: "{{ request('q') }}" <i class="fa-solid fa-xmark"></i></a>@endif
+        @if($selectedCategory)<a href="{{ $surl('store.index', ['tenant'=>$tenant] + request()->except(['category','page'])) }}">{{ $selectedCategory->name }} <i class="fa-solid fa-xmark"></i></a>@endif
+        @if(request('min_price')||request('max_price'))<a href="{{ $surl('store.index', ['tenant'=>$tenant] + request()->except(['min_price','max_price','page'])) }}">{{ $curSymbol }}{{ request('min_price',0) }} – {{ request('max_price','∞') }} <i class="fa-solid fa-xmark"></i></a>@endif
+        @if(request('on_sale'))<a href="{{ $surl('store.index', ['tenant'=>$tenant] + request()->except(['on_sale','page'])) }}">On sale <i class="fa-solid fa-xmark"></i></a>@endif
+        <a href="{{ $surl('store.index', $tenant) }}" class="clear">Clear all</a>
       </div>
       @endif
 
@@ -113,7 +113,7 @@
         <div class="cnt">Showing <b>{{ $products->firstItem() ?? 0 }}–{{ $products->lastItem() ?? 0 }}</b> of <b>{{ $products->total() }}</b> products</div>
         <div style="display:flex;gap:10px;align-items:center">
           <button type="button" class="btn-o filter-toggle" style="padding:8px 12px" onclick="document.getElementById('side').classList.toggle('open')"><i class="fa-solid fa-filter"></i> Filters</button>
-          <form method="GET" action="{{ route('store.index', $tenant) }}">
+          <form method="GET" action="{{ $surl('store.index', $tenant) }}">
             @foreach(request()->except(['sort','page']) as $k=>$v)<input type="hidden" name="{{ $k }}" value="{{ $v }}">@endforeach
             <select name="sort" onchange="this.form.submit()">
               <option value="">Sort: Newest</option>
@@ -146,7 +146,7 @@
           <span class="e">🔍</span>
           <h3>No products match these filters</h3>
           <p>Try a different category, widen the price range, or clear the search.</p>
-          <a href="{{ route('store.index', $tenant) }}" class="btn-g">Show all products</a>
+          <a href="{{ $surl('store.index', $tenant) }}" class="btn-g">Show all products</a>
         </div>
       @endif
     </div>

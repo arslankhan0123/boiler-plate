@@ -4,16 +4,19 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Ecommerce;
 
+use App\Models\Domain;
 use App\Support\Settings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Str;
 
-/** Storefront & payment settings. */
+/** Storefront, payment and custom-domain settings. */
 class StorefrontController extends EcommerceController
 {
     public function index()
     {
         $this->need('ecommerce.settings');
+        $tid = auth()->user()->tenant_id;
 
         return view('ecommerce.storefront.index', [
             'store' => [
@@ -21,22 +24,21 @@ class StorefrontController extends EcommerceController
                 'store_name' => Settings::get('store_name', Settings::get('company_name', 'My Store')),
                 'store_tagline' => Settings::get('store_tagline', ''),
                 'store_free_shipping_over' => Settings::get('store_free_shipping_over', ''),
-                // Payment methods
                 'store_cod' => Settings::get('store_cod', '1'),
                 'store_bank_transfer' => Settings::get('store_bank_transfer', '0'),
                 'store_bank_details' => Settings::get('store_bank_details', ''),
-                // Stripe
                 'pay_stripe_enabled' => Settings::get('pay_stripe_enabled', '0'),
                 'stripe_publishable_key' => Settings::get('stripe_publishable_key', ''),
                 'stripe_secret_set' => (bool) Settings::get('stripe_secret_key'),
                 'stripe_webhook_set' => (bool) Settings::get('stripe_webhook_secret'),
-                // PayPal
                 'pay_paypal_enabled' => Settings::get('pay_paypal_enabled', '0'),
                 'paypal_client_id' => Settings::get('paypal_client_id', ''),
                 'paypal_secret_set' => (bool) Settings::get('paypal_secret'),
                 'paypal_mode' => Settings::get('paypal_mode', 'sandbox'),
             ],
-            'tenantId' => auth()->user()->tenant_id,
+            'tenantId' => $tid,
+            'domains' => Domain::query()->where('tenant_id', $tid)->orderBy('created_at')->get(),
+            'platformHost' => parse_url((string) config('app.url'), PHP_URL_HOST) ?: request()->getHost(),
         ]);
     }
 
@@ -72,8 +74,6 @@ class StorefrontController extends EcommerceController
             'paypal_mode' => $data['paypal_mode'] ?? 'sandbox',
         ];
 
-        // Secrets: encrypt, and only overwrite when a new value was typed
-        // (the form submits these blank unless the admin changes them).
         foreach (['stripe_secret_key', 'stripe_webhook_secret', 'paypal_secret'] as $secret) {
             $val = trim((string) ($data[$secret] ?? ''));
             if ($val !== '') {
@@ -84,5 +84,67 @@ class StorefrontController extends EcommerceController
         Settings::set($set);
 
         return back()->with('success', 'Store & payment settings saved.');
+    }
+
+    // ───────────────────────── Custom domains ─────────────────────────
+
+    public function addDomain(Request $request)
+    {
+        $this->need('ecommerce.settings');
+        $raw = strtolower(trim((string) $request->input('domain')));
+        // Strip scheme, path, port and a trailing dot.
+        $raw = preg_replace('#^https?://#', '', $raw);
+        $raw = explode('/', $raw)[0];
+        $raw = explode(':', $raw)[0];
+        $raw = rtrim($raw, '.');
+
+        $request->merge(['domain' => $raw])->validate([
+            'domain' => ['required', 'string', 'max:253', 'regex:/^(?=.{1,253}$)([a-z0-9](-?[a-z0-9])*\.)+[a-z]{2,}$/'],
+        ], [], ['domain' => 'domain']);
+
+        // Not a platform/central host, and not already taken.
+        $central = array_map('strtolower', (array) config('tenancy.central_domains', []));
+        $central[] = strtolower((string) parse_url((string) config('app.url'), PHP_URL_HOST));
+        if (in_array($raw, $central, true)) {
+            return back()->with('error', 'That domain is reserved by the platform.');
+        }
+        if (Domain::query()->where('domain', $raw)->exists()) {
+            return back()->with('error', 'That domain is already connected to a store.');
+        }
+
+        Domain::query()->create([
+            'domain' => $raw,
+            'tenant_id' => auth()->user()->tenant_id,
+            'token' => Str::random(40),
+            'verified_at' => null,
+        ]);
+
+        return back()->with('success', 'Domain added. Add the DNS records below, then click Verify.');
+    }
+
+    public function verifyDomain(Request $request, Domain $domain)
+    {
+        $this->need('ecommerce.settings');
+        abort_unless((string) $domain->tenant_id === (string) auth()->user()->tenant_id, 403);
+
+        $records = @dns_get_record('_store-verify.'.$domain->domain, DNS_TXT) ?: [];
+        $ok = collect($records)->contains(fn ($r) => trim((string) ($r['txt'] ?? '')) === $domain->token);
+
+        if (! $ok) {
+            return back()->with('error', 'We could not find the verification TXT record yet. DNS changes can take a few minutes to propagate — please try again shortly.');
+        }
+
+        $domain->forceFill(['verified_at' => now()])->save();
+
+        return back()->with('success', 'Domain verified! Your store is now served on '.$domain->domain.' (once DNS + SSL point to the platform).');
+    }
+
+    public function removeDomain(Request $request, Domain $domain)
+    {
+        $this->need('ecommerce.settings');
+        abort_unless((string) $domain->tenant_id === (string) auth()->user()->tenant_id, 403);
+        $domain->delete();
+
+        return back()->with('success', 'Domain removed.');
     }
 }

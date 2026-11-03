@@ -52,7 +52,7 @@
 @endphp
 
 <div class="pcard" data-tilt="6">
-  <a href="{{ route('store.product', ['tenant'=>$tenant,'slug'=>$product->slug]) }}" class="pc-img">
+  <a href="{{ $surl('store.product', ['tenant'=>$tenant,'slug'=>$product->slug]) }}" class="pc-img">
     @if($product->image_url)<img src="{{ $product->image_url }}" alt="{{ $product->name }}" loading="lazy">
     @else<span class="pc-ph"><i class="fa-solid fa-box-open"></i></span>@endif
     @if(! $inStock)<span class="pc-oos"></span>@endif
@@ -61,11 +61,11 @@
     @elseif($badge === 'new')<span class="pc-badge new">NEW</span>@endif
   </a>
   <div class="pc-quick">
-    <a href="{{ route('store.product', ['tenant'=>$tenant,'slug'=>$product->slug]) }}" title="View"><i class="fa-regular fa-eye"></i></a>
+    <a href="{{ $surl('store.product', ['tenant'=>$tenant,'slug'=>$product->slug]) }}" title="View"><i class="fa-regular fa-eye"></i></a>
   </div>
   <div class="pc-body">
-    @if($product->category)<a href="{{ route('store.index', ['tenant'=>$tenant,'category'=>$product->category->slug]) }}" class="pc-cat">{{ $product->category->name }}</a>@endif
-    <a href="{{ route('store.product', ['tenant'=>$tenant,'slug'=>$product->slug]) }}" class="pc-name">{{ $product->name }}</a>
+    @if($product->category)<a href="{{ $surl('store.index', ['tenant'=>$tenant,'category'=>$product->category->slug]) }}" class="pc-cat">{{ $product->category->name }}</a>@endif
+    <a href="{{ $surl('store.product', ['tenant'=>$tenant,'slug'=>$product->slug]) }}" class="pc-name">{{ $product->name }}</a>
     <div class="pc-rate">
       <span class="stars">@for($i=1;$i<=5;$i++)<i class="fa-solid fa-star {{ $i>$starsN?'off':'' }}"></i>@endfor</span>
       <small>({{ $reviews }})</small>
@@ -80,7 +80,7 @@
         <b>{{ Money::fmt($product->price) }}</b>
         @if($onSale)<s>{{ Money::fmt($compare) }}</s>@endif
       </div>
-      <form action="{{ route('store.cart.add', $tenant) }}" method="POST" class="js-atc">
+      <form action="{{ $surl('store.cart.add', $tenant) }}" method="POST" class="js-atc">
         @csrf
         <input type="hidden" name="product_id" value="{{ $product->id }}">
         <input type="hidden" name="qty" value="1">

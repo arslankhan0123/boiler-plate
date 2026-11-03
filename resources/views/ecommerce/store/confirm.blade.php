@@ -66,8 +66,8 @@
     </div>
 
     <div class="cf-actions">
-      <a href="{{ route('store.index', $tenant) }}" class="btn-g"><i class="fa-solid fa-bag-shopping"></i> Continue shopping</a>
-      <a href="{{ route('store.index', $tenant) }}" class="btn-o"><i class="fa-solid fa-house"></i> Back to store</a>
+      <a href="{{ $surl('store.index', $tenant) }}" class="btn-g"><i class="fa-solid fa-bag-shopping"></i> Continue shopping</a>
+      <a href="{{ $surl('store.index', $tenant) }}" class="btn-o"><i class="fa-solid fa-house"></i> Back to store</a>
     </div>
   </div>
 </section>

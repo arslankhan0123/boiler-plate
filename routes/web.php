@@ -4,10 +4,18 @@ use App\Http\Controllers\Admin\ModuleController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\TenantsController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Ecommerce\StoreController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+// Home: the platform welcome page, OR a tenant's storefront when the request
+// arrived on that tenant's verified custom domain (flagged by CustomStoreDomain).
+Route::get('/', function (Request $request) {
+    if ($request->attributes->get('isCustomStore')) {
+        return app(StoreController::class)->index(null, $request);
+    }
+
     return view('welcome');
 });
 
@@ -18,10 +26,15 @@ Route::prefix('careers/{tenant}')->name('careers.')->group(function () {
     Route::post('{slug}/apply', [\App\Http\Controllers\Hrm\CareersController::class, 'apply'])->middleware('throttle:5,1')->name('apply');
 });
 
-// Public storefront per tenant (no login): /store/{tenant}
-Route::prefix('store/{tenant}')->name('store.')->group(function () {
+/*
+ * Public storefront routes — shared between two access modes:
+ *   platform:      /store/{tenant}/...   (names store.*)
+ *   custom domain: brand.com/...         (names shop.*, served at the root)
+ * The StoreController resolves the tenant from the {tenant} param on the platform
+ * and from the active (host-resolved) tenancy on a custom domain.
+ */
+$storeRoutes = function () {
     $s = \App\Http\Controllers\Ecommerce\StoreController::class;
-    Route::get('/', [$s, 'index'])->name('index');
     Route::get('cart', [$s, 'cart'])->name('cart');
     Route::post('cart/add', [$s, 'addToCart'])->name('cart.add');
     Route::post('cart/update', [$s, 'updateCart'])->name('cart.update');
@@ -29,18 +42,27 @@ Route::prefix('store/{tenant}')->name('store.')->group(function () {
     Route::get('checkout', [$s, 'checkout'])->name('checkout');
     Route::post('checkout', [$s, 'placeOrder'])->middleware('throttle:10,1')->name('place');
     Route::post('checkout/coupon', [$s, 'applyCoupon'])->middleware('throttle:20,1')->name('coupon');
-    // Online payments: Stripe
     Route::post('checkout/stripe/intent', [$s, 'stripeIntent'])->middleware('throttle:30,1')->name('stripe.intent');
     Route::get('checkout/stripe/return/{orderNo}', [$s, 'stripeReturn'])->name('stripe.return');
-    // Online payments: PayPal
     Route::post('checkout/paypal/capture', [$s, 'paypalCapture'])->middleware('throttle:30,1')->name('paypal.capture');
     Route::get('checkout/paypal/return/{orderNo}', [$s, 'paypalReturn'])->name('paypal.return');
     Route::get('checkout/paypal/cancel/{orderNo}', [$s, 'paypalCancel'])->name('paypal.cancel');
-    // Stripe webhook (CSRF-exempt via bootstrap/app.php; signature-verified)
-    Route::post('webhook/stripe', [\App\Http\Controllers\Ecommerce\StripeWebhookController::class, 'handle'])->name('webhook.stripe');
     Route::get('order/{orderNo}', [$s, 'confirm'])->name('confirm');
     Route::get('p/{slug}', [$s, 'product'])->name('product');
     Route::post('p/{product}/review', [$s, 'submitReview'])->whereNumber('product')->middleware('throttle:5,1')->name('review');
+};
+
+// Platform access: /store/{tenant}/...
+Route::prefix('store/{tenant}')->name('store.')->group(function () use ($storeRoutes) {
+    Route::get('/', [StoreController::class, 'index'])->name('index');
+    // Stripe webhook (CSRF-exempt via bootstrap/app.php; signature-verified) — platform URL.
+    Route::post('webhook/stripe', [\App\Http\Controllers\Ecommerce\StripeWebhookController::class, 'handle'])->name('webhook.stripe');
+    $storeRoutes();
+});
+
+// Custom-domain access: store served at the root (index is handled by '/').
+Route::middleware('custom.store')->name('shop.')->group(function () use ($storeRoutes) {
+    $storeRoutes();
 });
 
 // `tenant.init` switches to the tenant's own database for tenant users.

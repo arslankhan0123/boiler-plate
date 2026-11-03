@@ -7,7 +7,7 @@ use App\Tenancy\PermissionCacheBootstrapper;
 use App\Tenancy\SequentialTenantIdGenerator;
 use Database\Seeders\TenantDatabaseSeeder;
 use Stancl\Tenancy\Bootstrappers\DatabaseTenancyBootstrapper;
-use Stancl\Tenancy\Database\Models\Domain;
+use App\Models\Domain;
 use Stancl\Tenancy\TenantDatabaseManagers\MySQLDatabaseManager;
 use Stancl\Tenancy\TenantDatabaseManagers\PostgreSQLDatabaseManager;
 use Stancl\Tenancy\TenantDatabaseManagers\SQLiteDatabaseManager;

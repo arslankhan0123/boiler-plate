@@ -19,40 +19,75 @@ use App\Support\Ecommerce\Payments;
 use App\Support\Settings;
 use Illuminate\Http\Request;
 
-/** Public storefront per tenant: /store/{tenant}. No login. */
+/**
+ * Public storefront. Served two ways with identical behaviour:
+ *   • platform:  /store/{tenant}/...        (route names store.*)
+ *   • custom domain: brand.com/...          (route names shop.*; tenant from the host)
+ * All in-page links go through sroute()/surl so they stay correct in both modes.
+ */
 class StoreController extends Controller
 {
-    private function boot(string $tenantId): Tenant
+    private ?string $tid = null;
+
+    private function boot(?string $tenant): Tenant
     {
-        $tenant = Tenant::query()->find($tenantId);
-        abort_unless($tenant && $tenant->is_active, 404);
-        abort_unless($tenant->hasModule('ecommerce'), 403, 'The online store is not enabled for this organization.');
+        // Platform passes the {tenant} id; on a custom domain the middleware has
+        // already initialized tenancy, so fall back to the active tenant.
+        $tenantId = $tenant ?: (tenant() ? tenant()->getTenantKey() : null);
+        abort_unless($tenantId, 404);
+
+        $t = Tenant::query()->find($tenantId);
+        abort_unless($t && $t->is_active, 404);
+        abort_unless($t->hasModule('ecommerce'), 403, 'The online store is not enabled for this organization.');
         tenancy()->end();
-        tenancy()->initialize($tenant);
+        tenancy()->initialize($t);
         abort_unless(Settings::get('store_enabled', '1') === '1', 403, 'This store is currently closed.');
 
-        return $tenant;
+        $this->tid = $t->getTenantKey();
+
+        return $t;
     }
 
-    private function cartKey(string $t): string { return "store_cart_$t"; }
-
-    private function couponKey(string $t): string { return "store_coupon_$t"; }
-
-    private function intentKey(string $t): string { return "store_stripe_intent_$t"; }
-
-    private function lastOrderKey(string $t): string { return "store_last_order_$t"; }
-
-    private function cartLines(string $tenantId): array
+    private function onDomain(): bool
     {
-        $cart = session($this->cartKey($tenantId), []);
+        return (bool) request()->attributes->get('isCustomStore');
+    }
+
+    /** Build a store URL correct for the current mode (platform vs custom domain). */
+    private function sroute(string $name, array $params = []): string
+    {
+        unset($params['tenant']);
+        if ($this->onDomain()) {
+            $short = substr($name, strlen('store.'));
+            if ($short === 'index') {
+                return url('/').($params ? '?'.http_build_query($params) : '');
+            }
+
+            return route('shop.'.$short, $params);
+        }
+
+        return route($name, ['tenant' => $this->tid] + $params);
+    }
+
+    private function cartKey(): string { return "store_cart_{$this->tid}"; }
+
+    private function couponKey(): string { return "store_coupon_{$this->tid}"; }
+
+    private function intentKey(): string { return "store_stripe_intent_{$this->tid}"; }
+
+    private function lastOrderKey(): string { return "store_last_order_{$this->tid}"; }
+
+    private function cartLines(): array
+    {
+        $cart = session($this->cartKey(), []);
 
         return collect($cart)->map(fn ($qty, $pid) => ['product_id' => (int) $pid, 'qty' => (float) $qty])->values()->all();
     }
 
-    private function cartTotals(string $tenantId): array
+    private function cartTotals(): array
     {
-        $count = (int) collect(session($this->cartKey($tenantId), []))->sum();
-        $priced = OrderService::price($this->cartLines($tenantId));
+        $count = (int) collect(session($this->cartKey(), []))->sum();
+        $priced = OrderService::price($this->cartLines());
 
         return ['count' => $count, 'total' => round($priced['subtotal'] + $priced['tax'], 2)];
     }
@@ -69,10 +104,9 @@ class StoreController extends Controller
         return $sm ? (float) $sm->costFor($subtotal) : 0.0;
     }
 
-    /** Validated coupon currently stored in the session (or null). */
-    private function sessionCoupon(string $tenant, float $subtotal): ?Coupon
+    private function sessionCoupon(float $subtotal): ?Coupon
     {
-        $code = session($this->couponKey($tenant));
+        $code = session($this->couponKey());
         if (! $code) {
             return null;
         }
@@ -81,15 +115,10 @@ class StoreController extends Controller
         return $c && $c->isValid($subtotal) ? $c : null;
     }
 
-    /**
-     * Single source of truth for order totals.
-     *
-     * @return array{rows:array,subtotal:float,tax:float,shipping:float,discount:float,grand:float,coupon:?string}
-     */
-    private function computeTotals(string $tenant, int|string|null $shippingMethodId = null): array
+    private function computeTotals(int|string|null $shippingMethodId = null): array
     {
         $shippingMethodId = ($shippingMethodId === null || $shippingMethodId === '') ? null : (int) $shippingMethodId;
-        $priced = OrderService::price($this->cartLines($tenant));
+        $priced = OrderService::price($this->cartLines());
         $subtotal = $priced['subtotal'];
         $tax = $priced['tax'];
 
@@ -98,7 +127,7 @@ class StoreController extends Controller
             : ShippingMethod::where('is_active', true)->orderBy('sort')->first();
         $shipping = $sm ? (float) $sm->costFor($subtotal) : 0.0;
 
-        $coupon = $this->sessionCoupon($tenant, $subtotal);
+        $coupon = $this->sessionCoupon($subtotal);
         $discount = $coupon ? $coupon->discountFor($subtotal) : 0.0;
 
         $grand = round(max(0, $subtotal + $tax + $shipping - $discount), 2);
@@ -113,10 +142,12 @@ class StoreController extends Controller
     private function storeMeta(Tenant $t): array
     {
         $cur = strtoupper((string) Settings::get('default_currency', 'PKR'));
-        $totals = $this->cartTotals($t->id);
+        $totals = $this->cartTotals();
 
         return [
             'tenant' => $t,
+            'surl' => fn (string $name, $params = []) => $this->sroute($name, is_array($params) ? $params : []),
+            'onDomain' => $this->onDomain(),
             'storeName' => Settings::get('store_name', Settings::get('company_name', 'Store')),
             'tagline' => Settings::get('store_tagline', ''),
             'storePhone' => Settings::get('store_phone', Settings::get('company_phone', '')),
@@ -138,9 +169,10 @@ class StoreController extends Controller
         ];
     }
 
-    public function index(string $tenant, Request $request)
+    public function index(?string $tenant = null, ?Request $request = null)
     {
         $t = $this->boot($tenant);
+        $request ??= request();
 
         $selectedCategory = $request->category ? Category::where('slug', $request->category)->first() : null;
 
@@ -177,7 +209,7 @@ class StoreController extends Controller
         ]);
     }
 
-    public function product(string $tenant, string $slug)
+    public function product(?string $tenant = null, ?string $slug = null)
     {
         $t = $this->boot($tenant);
         $product = Product::query()->with(['item', 'category'])->where('slug', $slug)->where('is_published', true)->firstOrFail();
@@ -197,19 +229,19 @@ class StoreController extends Controller
         ]);
     }
 
-    public function addToCart(string $tenant, Request $request)
+    public function addToCart(?string $tenant, Request $request)
     {
         $this->boot($tenant);
         $data = $request->validate(['product_id' => ['required', 'integer'], 'qty' => ['nullable', 'integer', 'min:1'], 'quantity' => ['nullable', 'integer', 'min:1']]);
         $product = Product::where('id', $data['product_id'])->where('is_published', true)->first();
         abort_unless((bool) $product, 404);
-        $key = $this->cartKey($tenant);
+        $key = $this->cartKey();
         $cart = session($key, []);
         $add = (int) ($data['qty'] ?? $data['quantity'] ?? 1);
         $cart[$data['product_id']] = ($cart[$data['product_id']] ?? 0) + $add;
         session([$key => $cart]);
 
-        $totals = $this->cartTotals($tenant);
+        $totals = $this->cartTotals();
         if ($request->wantsJson() || $request->ajax()) {
             return response()->json(['ok' => true, 'name' => $product->name] + $totals);
         }
@@ -217,10 +249,10 @@ class StoreController extends Controller
         return back()->with('success', 'Added to cart.');
     }
 
-    public function updateCart(string $tenant, Request $request)
+    public function updateCart(?string $tenant, Request $request)
     {
         $this->boot($tenant);
-        $key = $this->cartKey($tenant);
+        $key = $this->cartKey();
 
         if ($request->filled('product_id')) {
             $pid = (int) $request->input('product_id');
@@ -233,7 +265,7 @@ class StoreController extends Controller
             }
             session([$key => $cart]);
 
-            $totals = $this->cartTotals($tenant);
+            $totals = $this->cartTotals();
             $line = OrderService::price([['product_id' => $pid, 'qty' => $qty]]);
             $lineTotal = $line['rows'][0]['line_total'] ?? 0;
 
@@ -255,15 +287,15 @@ class StoreController extends Controller
         return back()->with('success', 'Cart updated.');
     }
 
-    public function removeFromCart(string $tenant, int $product, Request $request)
+    public function removeFromCart(?string $tenant, int $product, Request $request)
     {
         $this->boot($tenant);
-        $key = $this->cartKey($tenant);
+        $key = $this->cartKey();
         $cart = session($key, []);
         unset($cart[$product]);
         session([$key => $cart]);
 
-        $totals = $this->cartTotals($tenant);
+        $totals = $this->cartTotals();
         if ($request->wantsJson() || $request->ajax()) {
             return response()->json(['ok' => true, 'empty' => empty($cart)] + $totals);
         }
@@ -271,10 +303,10 @@ class StoreController extends Controller
         return back()->with('success', 'Item removed.');
     }
 
-    public function cart(string $tenant)
+    public function cart(?string $tenant = null)
     {
         $t = $this->boot($tenant);
-        $priced = OrderService::price($this->cartLines($tenant));
+        $priced = OrderService::price($this->cartLines());
 
         return view('ecommerce.store.cart', $this->storeMeta($t) + [
             'priced' => $priced,
@@ -282,18 +314,17 @@ class StoreController extends Controller
         ]);
     }
 
-    /** POST /checkout/coupon — validate a coupon against the cart and store it in the session. */
-    public function applyCoupon(string $tenant, Request $request)
+    public function applyCoupon(?string $tenant, Request $request)
     {
         $this->boot($tenant);
         $code = trim((string) $request->input('coupon_code', ''));
-        $priced = OrderService::price($this->cartLines($tenant));
+        $priced = OrderService::price($this->cartLines());
         $subtotal = $priced['subtotal'];
 
         if ($code === '') {
-            session()->forget($this->couponKey($tenant));
+            session()->forget($this->couponKey());
 
-            return response()->json(['ok' => true, 'removed' => true] + $this->totalsPayload($tenant));
+            return response()->json(['ok' => true, 'removed' => true] + $this->totalsPayload());
         }
 
         $coupon = Coupon::where('code', $code)->first();
@@ -305,15 +336,14 @@ class StoreController extends Controller
             return response()->json(['ok' => false, 'message' => $msg], 422);
         }
 
-        session([$this->couponKey($tenant) => $coupon->code]);
+        session([$this->couponKey() => $coupon->code]);
 
-        return response()->json(['ok' => true, 'code' => $coupon->code] + $this->totalsPayload($tenant));
+        return response()->json(['ok' => true, 'code' => $coupon->code] + $this->totalsPayload());
     }
 
-    /** Totals as plain numbers + formatted strings for AJAX responses. */
-    private function totalsPayload(string $tenant, int|string|null $shippingMethodId = null): array
+    private function totalsPayload(int|string|null $shippingMethodId = null): array
     {
-        $t = $this->computeTotals($tenant, $shippingMethodId);
+        $t = $this->computeTotals($shippingMethodId);
 
         return [
             'subtotal' => $t['subtotal'], 'tax' => $t['tax'], 'shipping' => $t['shipping'],
@@ -326,15 +356,13 @@ class StoreController extends Controller
         ];
     }
 
-    public function checkout(string $tenant)
+    public function checkout(?string $tenant = null)
     {
         $t = $this->boot($tenant);
-        $totals = $this->computeTotals($tenant);
+        $totals = $this->computeTotals();
         if (! $totals['rows']) {
-            return redirect()->route('store.index', $tenant)->with('error', 'Your cart is empty.');
+            return redirect()->to($this->sroute('store.index'))->with('error', 'Your cart is empty.');
         }
-
-        $paypalCurrency = PayPal::enabled() ? PayPal::currency() : null;
 
         return view('ecommerce.store.checkout', $this->storeMeta($t) + [
             'totals' => $totals,
@@ -344,18 +372,17 @@ class StoreController extends Controller
             'stripeKey' => Payments::stripeReady() ? Payments::stripePublishableKey() : null,
             'stripeTest' => Payments::stripeReady() && Payments::stripeTestMode(),
             'paypalClient' => PayPal::enabled() ? PayPal::clientId() : null,
-            'paypalCurrency' => $paypalCurrency,
+            'paypalCurrency' => PayPal::enabled() ? PayPal::currency() : null,
         ]);
     }
 
-    /** POST /checkout/stripe/intent — prepare a PaymentIntent so the card form can render. */
-    public function stripeIntent(string $tenant, Request $request)
+    public function stripeIntent(?string $tenant, Request $request)
     {
         $this->boot($tenant);
         if (! Payments::stripeReady()) {
             return response()->json(['message' => 'Card payments are not available.'], 422);
         }
-        $totals = $this->computeTotals($tenant);
+        $totals = $this->computeTotals();
         if (! $totals['rows']) {
             return response()->json(['message' => 'Your cart is empty.'], 422);
         }
@@ -366,7 +393,7 @@ class StoreController extends Controller
         }
 
         try {
-            $existing = session($this->intentKey($tenant));
+            $existing = session($this->intentKey());
             if ($existing && ($existing['currency'] ?? '') === $currency) {
                 $pi = Payments::updateIntent($existing['id'], ['amount' => $amount]);
             } else {
@@ -376,12 +403,12 @@ class StoreController extends Controller
             return response()->json(['message' => $e->getMessage()], 422);
         }
 
-        session([$this->intentKey($tenant) => ['id' => $pi['id'], 'currency' => $currency, 'amount' => $amount]]);
+        session([$this->intentKey() => ['id' => $pi['id'], 'currency' => $currency, 'amount' => $amount]]);
 
         return response()->json(['clientSecret' => $pi['client_secret'], 'amount' => $amount, 'currency' => $currency]);
     }
 
-    public function placeOrder(string $tenant, Request $request)
+    public function placeOrder(?string $tenant, Request $request)
     {
         $this->boot($tenant);
         $data = $request->validate([
@@ -400,14 +427,14 @@ class StoreController extends Controller
         $isCard = $method === Payments::STRIPE;
         $isPayPal = $method === Payments::PAYPAL;
 
-        $totals = $this->computeTotals($tenant, $data['shipping_method_id'] ?? null);
+        $totals = $this->computeTotals($data['shipping_method_id'] ?? null);
         if (! $totals['rows']) {
             return $wantsJson
                 ? response()->json(['message' => 'Your cart is empty.'], 422)
-                : redirect()->route('store.index', $tenant)->with('error', 'Your cart is empty.');
+                : redirect()->to($this->sroute('store.index'))->with('error', 'Your cart is empty.');
         }
 
-        $intent = session($this->intentKey($tenant));
+        $intent = session($this->intentKey());
         if ($isCard && (! Payments::stripeReady() || empty($intent['id']))) {
             $msg = 'Card payment could not be started. Please reload the page and try again.';
 
@@ -426,14 +453,14 @@ class StoreController extends Controller
         ];
 
         try {
-            $order = OrderService::createOrder($this->cartLines($tenant), $checkout);
+            $order = OrderService::createOrder($this->cartLines(), $checkout);
         } catch (\Throwable $e) {
             return $wantsJson ? response()->json(['message' => $e->getMessage()], 422) : back()->withInput()->with('error', $e->getMessage());
         }
 
         if ($isCard) {
             $order->forceFill(['payment_intent_id' => $intent['id']])->save();
-            session([$this->lastOrderKey($tenant) => $order->id]);
+            session([$this->lastOrderKey() => $order->id]);
             $currency = strtoupper((string) Settings::get('default_currency', 'USD'));
             $amount = Payments::minorUnits((float) $order->grand_total, $currency);
             try {
@@ -448,7 +475,7 @@ class StoreController extends Controller
 
                 return $wantsJson ? response()->json(['message' => $e->getMessage()], 422) : back()->with('error', $e->getMessage());
             }
-            $return = route('store.stripe.return', [$tenant, $order->order_no]);
+            $return = $this->sroute('store.stripe.return', ['orderNo' => $order->order_no]);
 
             return $wantsJson
                 ? response()->json(['ok' => true, 'confirm' => true, 'return_url' => $return, 'order' => $order->order_no])
@@ -456,12 +483,12 @@ class StoreController extends Controller
         }
 
         if ($isPayPal) {
-            session([$this->lastOrderKey($tenant) => $order->id]);
+            session([$this->lastOrderKey() => $order->id]);
             try {
                 $ppId = PayPal::createOrder(
                     $order,
-                    route('store.paypal.return', [$tenant, $order->order_no]),
-                    route('store.paypal.cancel', [$tenant, $order->order_no]),
+                    $this->sroute('store.paypal.return', ['orderNo' => $order->order_no]),
+                    $this->sroute('store.paypal.cancel', ['orderNo' => $order->order_no]),
                 );
                 if ($ppId === '') {
                     throw new \RuntimeException('PayPal did not return an order id.');
@@ -475,111 +502,106 @@ class StoreController extends Controller
 
             return $wantsJson
                 ? response()->json(['ok' => true, 'paypal' => true, 'paypal_order_id' => $ppId, 'order' => $order->order_no])
-                : redirect()->route('store.checkout', $tenant)->with('error', 'Please enable JavaScript to pay with PayPal.');
+                : redirect()->to($this->sroute('store.checkout'))->with('error', 'Please enable JavaScript to pay with PayPal.');
         }
 
-        // COD / Bank transfer — order is placed as-is.
-        $this->clearCart($tenant);
+        $this->clearCart();
 
         return $wantsJson
-            ? response()->json(['ok' => true, 'redirect' => route('store.confirm', [$tenant, $order->order_no])])
-            : redirect()->route('store.confirm', [$tenant, $order->order_no]);
+            ? response()->json(['ok' => true, 'redirect' => $this->sroute('store.confirm', ['orderNo' => $order->order_no])])
+            : redirect()->to($this->sroute('store.confirm', ['orderNo' => $order->order_no]));
     }
 
-    /** GET /checkout/stripe/return/{orderNo} — verify the card payment with Stripe. */
-    public function stripeReturn(string $tenant, string $orderNo)
+    public function stripeReturn(?string $tenant, string $orderNo)
     {
         $this->boot($tenant);
         $order = Order::where('order_no', $orderNo)->firstOrFail();
-        abort_unless((int) session($this->lastOrderKey($tenant)) === (int) $order->id, 403);
+        abort_unless((int) session($this->lastOrderKey()) === (int) $order->id, 403);
 
         if ($order->payment_status === 'paid') {
-            $this->clearCart($tenant);
+            $this->clearCart();
 
-            return redirect()->route('store.confirm', [$tenant, $order->order_no]);
+            return redirect()->to($this->sroute('store.confirm', ['orderNo' => $order->order_no]));
         }
         if (! $order->payment_intent_id) {
-            return redirect()->route('store.checkout', $tenant)->with('error', 'No card payment was started for this order.');
+            return redirect()->to($this->sroute('store.checkout'))->with('error', 'No card payment was started for this order.');
         }
 
         try {
             $pi = Payments::retrieveIntent($order->payment_intent_id);
         } catch (\RuntimeException $e) {
-            return redirect()->route('store.checkout', $tenant)->with('error', 'We could not verify your payment yet. If your card was charged, we will confirm the order shortly.');
+            return redirect()->to($this->sroute('store.checkout'))->with('error', 'We could not verify your payment yet. If your card was charged, we will confirm the order shortly.');
         }
 
         $status = $pi['status'] ?? 'unknown';
         if ($status === 'succeeded') {
             Payments::markPaid($order, $pi['id']);
-            $this->clearCart($tenant);
+            $this->clearCart();
 
-            return redirect()->route('store.confirm', [$tenant, $order->order_no]);
+            return redirect()->to($this->sroute('store.confirm', ['orderNo' => $order->order_no]));
         }
         if ($status === 'processing') {
-            $this->clearCart($tenant);
+            $this->clearCart();
 
-            return redirect()->route('store.confirm', [$tenant, $order->order_no])->with('info', 'Your payment is processing. We will confirm shortly.');
+            return redirect()->to($this->sroute('store.confirm', ['orderNo' => $order->order_no]))->with('info', 'Your payment is processing. We will confirm shortly.');
         }
 
         Payments::cancelAndRelease($order);
-        session()->forget($this->intentKey($tenant));
+        session()->forget($this->intentKey());
         $reason = $pi['last_payment_error']['message'] ?? 'Your card was not charged.';
 
-        return redirect()->route('store.checkout', $tenant)->with('error', 'Payment was not completed — '.$reason.' Please try again or choose another method.');
+        return redirect()->to($this->sroute('store.checkout'))->with('error', 'Payment was not completed — '.$reason.' Please try again or choose another method.');
     }
 
-    /** POST /checkout/paypal/capture — the buttons' onApprove. */
-    public function paypalCapture(string $tenant, Request $request)
+    public function paypalCapture(?string $tenant, Request $request)
     {
         $this->boot($tenant);
         $request->validate(['order' => 'required|string', 'paypal_order_id' => 'required|string']);
         $order = Order::where('order_no', $request->order)->firstOrFail();
-        if ((int) session($this->lastOrderKey($tenant)) !== (int) $order->id || $order->payment_intent_id !== $request->paypal_order_id) {
+        if ((int) session($this->lastOrderKey()) !== (int) $order->id || $order->payment_intent_id !== $request->paypal_order_id) {
             return response()->json(['message' => 'This payment does not belong to your session.'], 403);
         }
 
-        return $this->finishPayPal($tenant, $order, true);
+        return $this->finishPayPal($order, true);
     }
 
-    /** GET /checkout/paypal/return/{orderNo} — redirect fallback. */
-    public function paypalReturn(string $tenant, string $orderNo)
+    public function paypalReturn(?string $tenant, string $orderNo)
     {
         $this->boot($tenant);
         $order = Order::where('order_no', $orderNo)->firstOrFail();
-        abort_unless((int) session($this->lastOrderKey($tenant)) === (int) $order->id, 403);
+        abort_unless((int) session($this->lastOrderKey()) === (int) $order->id, 403);
 
-        return $this->finishPayPal($tenant, $order, false);
+        return $this->finishPayPal($order, false);
     }
 
-    /** GET /checkout/paypal/cancel/{orderNo}. */
-    public function paypalCancel(string $tenant, string $orderNo, Request $request)
+    public function paypalCancel(?string $tenant, string $orderNo, Request $request)
     {
         $this->boot($tenant);
         $order = Order::where('order_no', $orderNo)->firstOrFail();
-        if ((int) session($this->lastOrderKey($tenant)) === (int) $order->id && $order->payment_status !== 'paid') {
+        if ((int) session($this->lastOrderKey()) === (int) $order->id && $order->payment_status !== 'paid') {
             Payments::cancelAndRelease($order);
         }
 
         return $request->wantsJson()
             ? response()->json(['ok' => true])
-            : redirect()->route('store.checkout', $tenant)->with('info', 'PayPal payment was cancelled — your cart is still here if you want to try again.');
+            : redirect()->to($this->sroute('store.checkout'))->with('info', 'PayPal payment was cancelled — your cart is still here if you want to try again.');
     }
 
-    private function finishPayPal(string $tenant, Order $order, bool $json)
+    private function finishPayPal(Order $order, bool $json)
     {
         $done = fn () => $json
-            ? response()->json(['ok' => true, 'redirect' => route('store.confirm', [$tenant, $order->order_no])])
-            : redirect()->route('store.confirm', [$tenant, $order->order_no]);
+            ? response()->json(['ok' => true, 'redirect' => $this->sroute('store.confirm', ['orderNo' => $order->order_no])])
+            : redirect()->to($this->sroute('store.confirm', ['orderNo' => $order->order_no]));
 
         if ($order->payment_status === 'paid') {
-            $this->clearCart($tenant);
+            $this->clearCart();
 
             return $done();
         }
         if (! $order->payment_intent_id) {
             $msg = 'No PayPal payment was started for this order.';
 
-            return $json ? response()->json(['message' => $msg], 422) : redirect()->route('store.checkout', $tenant)->with('error', $msg);
+            return $json ? response()->json(['message' => $msg], 422) : redirect()->to($this->sroute('store.checkout'))->with('error', $msg);
         }
 
         try {
@@ -593,19 +615,19 @@ class StoreController extends Controller
                 $po = PayPal::getOrder($order->payment_intent_id);
             } else {
                 return $json ? response()->json(['message' => 'PayPal could not complete the payment: '.$msg], 422)
-                    : redirect()->route('store.checkout', $tenant)->with('error', 'PayPal could not complete the payment: '.$msg);
+                    : redirect()->to($this->sroute('store.checkout'))->with('error', 'PayPal could not complete the payment: '.$msg);
             }
         }
 
         $sum = PayPal::summarize($po);
         if ($sum['status'] === 'COMPLETED') {
             Payments::markPaid($order, $order->payment_intent_id);
-            $this->clearCart($tenant);
+            $this->clearCart();
 
             return $done();
         }
         if ($sum['status'] === 'PENDING') {
-            $this->clearCart($tenant);
+            $this->clearCart();
 
             return $done();
         }
@@ -614,25 +636,24 @@ class StoreController extends Controller
         $reason = $sum['reason'] ?: ('PayPal status: '.$sum['status']);
         $msg = 'PayPal payment was not completed ('.$reason.'). Please try again or choose another method.';
 
-        return $json ? response()->json(['message' => $msg], 422) : redirect()->route('store.checkout', $tenant)->with('error', $msg);
+        return $json ? response()->json(['message' => $msg], 422) : redirect()->to($this->sroute('store.checkout'))->with('error', $msg);
     }
 
-    public function confirm(string $tenant, string $orderNo)
+    public function confirm(?string $tenant, string $orderNo)
     {
         $t = $this->boot($tenant);
         $order = Order::where('order_no', $orderNo)->with('items')->firstOrFail();
 
-        // An online order that isn't paid yet isn't confirmed — re-verify with the provider first.
         if (in_array($order->payment_method, ['Credit / Debit Card', 'PayPal'], true) && $order->payment_status !== 'paid' && $order->status !== 'cancelled' && ! session('info')) {
             return $order->payment_method === 'PayPal'
-                ? redirect()->route('store.paypal.return', [$tenant, $order->order_no])
-                : redirect()->route('store.stripe.return', [$tenant, $order->order_no]);
+                ? redirect()->to($this->sroute('store.paypal.return', ['orderNo' => $order->order_no]))
+                : redirect()->to($this->sroute('store.stripe.return', ['orderNo' => $order->order_no]));
         }
 
         return view('ecommerce.store.confirm', $this->storeMeta($t) + ['order' => $order]);
     }
 
-    public function submitReview(string $tenant, Request $request, int $product)
+    public function submitReview(?string $tenant, Request $request, int $product)
     {
         $this->boot($tenant);
         abort_unless(Product::where('id', $product)->where('is_published', true)->exists(), 404);
@@ -647,8 +668,8 @@ class StoreController extends Controller
         return back()->with('success', 'Thanks! Your review will appear once approved.');
     }
 
-    private function clearCart(string $tenant): void
+    private function clearCart(): void
     {
-        session()->forget([$this->cartKey($tenant), $this->couponKey($tenant), $this->intentKey($tenant)]);
+        session()->forget([$this->cartKey(), $this->couponKey(), $this->intentKey()]);
     }
 }

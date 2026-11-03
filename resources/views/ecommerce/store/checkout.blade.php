@@ -93,7 +93,7 @@
     @if(session('error'))<div class="alert-z"><i class="fa-solid fa-circle-exclamation"></i><div>{{ session('error') }}</div></div>@endif
     @if($errors->any())<div class="alert-z"><i class="fa-solid fa-circle-exclamation"></i><div><b>Please fix the following:</b><ul style="margin:6px 0 0;padding-left:18px">@foreach($errors->all() as $e)<li>{{ $e }}</li>@endforeach</ul></div></div>@endif
 
-    <form action="{{ route('store.place', $tenant) }}" method="POST" id="coForm">
+    <form action="{{ $surl('store.place', $tenant) }}" method="POST" id="coForm">
       @csrf
       <input type="text" name="website" value="" style="position:absolute;left:-9999px" tabindex="-1" autocomplete="off" aria-hidden="true">
       <div class="co-grid">
@@ -186,7 +186,7 @@
           <div id="ppNote" style="display:none;margin-top:14px;padding:12px 14px;border-radius:12px;background:#fff7e6;border:1px solid #ffe3a3;color:#7a5200;font-size:13px;font-weight:600;text-align:center"><i class="fa-brands fa-paypal"></i> Complete your order with the PayPal button above.</div>
           <div class="secure"><i class="fa-solid fa-shield-halved"></i> Prices &amp; stock are re-verified on our server</div>
           <div style="display:flex;justify-content:center;margin-top:12px">@include('ecommerce.store.partials.payment-icons', ['size'=>'sm'])</div>
-          <a href="{{ route('store.cart', $tenant) }}" style="display:block;text-align:center;margin-top:14px;font-size:13px;font-weight:700;color:var(--muted)"><i class="fa-solid fa-arrow-left"></i> Back to cart</a>
+          <a href="{{ $surl('store.cart', $tenant) }}" style="display:block;text-align:center;margin-top:14px;font-size:13px;font-weight:700;color:var(--muted)"><i class="fa-solid fa-arrow-left"></i> Back to cart</a>
         </aside>
       </div>
     </form>
@@ -204,10 +204,10 @@
   const token=document.querySelector('meta[name=csrf-token]').content;
   const STRIPE_KEY=@json($stripeKey);
   const PAYPAL_ON=@json((bool) $paypalClient);
-  const INTENT_URL=@json(route('store.stripe.intent', $tenant));
-  const COUPON_URL=@json(route('store.coupon', $tenant));
-  const CAPTURE_URL=@json(route('store.paypal.capture', $tenant));
-  const CANCEL_BASE=@json(url('store/'.$tenant->id.'/checkout/paypal/cancel'));
+  const INTENT_URL=@json($surl('store.stripe.intent', $tenant));
+  const COUPON_URL=@json($surl('store.coupon', $tenant));
+  const CAPTURE_URL=@json($surl('store.paypal.capture', $tenant));
+  const CANCEL_BASE=@json($onDomain ? url('checkout/paypal/cancel') : url('store/'.$tenant->id.'/checkout/paypal/cancel'));
   const totalEl=document.getElementById('sumTotal');
   const sub=parseFloat(totalEl.dataset.sub)||0, tax=parseFloat(totalEl.dataset.tax)||0;
   let discount=parseFloat(totalEl.dataset.disc)||0;

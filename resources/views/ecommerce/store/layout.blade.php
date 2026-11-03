@@ -221,18 +221,18 @@ body.drawer-open .drawer{transform:none}
   <div class="wrap">
     <div class="hdr-main">
       <button class="burger" id="burger" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
-      <a href="{{ route('store.index', $tenant) }}" class="logo" aria-label="{{ $storeName }} home">
+      <a href="{{ $surl('store.index', $tenant) }}" class="logo" aria-label="{{ $storeName }} home">
         @if($logo)<img src="{{ $logo }}" alt="{{ $storeName }}">@else<span class="mk"><i class="fa-solid fa-bag-shopping"></i></span>{{ $storeName }}@endif
       </a>
       <div class="search">
-        <form action="{{ route('store.index', $tenant) }}" method="GET">
+        <form action="{{ $surl('store.index', $tenant) }}" method="GET">
           <input type="text" name="q" value="{{ request('q') }}" placeholder="Search for products…" autocomplete="off">
           <button type="submit" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
       </div>
       <div class="hdr-actions">
         @if($storePhone)<a href="tel:{{ preg_replace('/[^0-9+]/','',$storePhone) }}" class="hdr-call"><i class="fa-solid fa-phone"></i><div><small>Hotline</small><strong>{{ $storePhone }}</strong></div></a>@endif
-        <a href="{{ route('store.cart', $tenant) }}" class="hdr-cart" id="hdrCart">
+        <a href="{{ $surl('store.cart', $tenant) }}" class="hdr-cart" id="hdrCart">
           <span class="icon-btn" id="cartIcon"><i class="fa-solid fa-cart-shopping"></i><b class="cnt" id="cartCount">{{ $cartCount }}</b></span>
           <span><small>My cart</small><em id="cartTotalTxt">{{ Money::fmt($cartTotal) }}</em></span>
         </a>
@@ -244,21 +244,21 @@ body.drawer-open .drawer{transform:none}
       <div class="allcat" id="allcat">
         <button class="allcat-btn" type="button"><i class="fa-solid fa-table-cells-large"></i> All Categories <i class="fa-solid fa-chevron-down"></i></button>
         <div class="dd">
-          <a href="{{ route('store.index', $tenant) }}"><i class="fa-solid fa-border-all"></i> All products</a>
+          <a href="{{ $surl('store.index', $tenant) }}"><i class="fa-solid fa-border-all"></i> All products</a>
           @foreach($navCategories as $c)
-            <a href="{{ route('store.index', ['tenant'=>$tenant,'category'=>$c->slug]) }}"><i class="fa-solid fa-tag"></i> {{ $c->name }}</a>
+            <a href="{{ $surl('store.index', ['tenant'=>$tenant,'category'=>$c->slug]) }}"><i class="fa-solid fa-tag"></i> {{ $c->name }}</a>
             @foreach($c->children as $sub)
-              <a href="{{ route('store.index', ['tenant'=>$tenant,'category'=>$sub->slug]) }}" class="sub"><i class="fa-solid fa-angle-right"></i> {{ $sub->name }}</a>
+              <a href="{{ $surl('store.index', ['tenant'=>$tenant,'category'=>$sub->slug]) }}" class="sub"><i class="fa-solid fa-angle-right"></i> {{ $sub->name }}</a>
             @endforeach
           @endforeach
         </div>
       </div>
       <ul class="nav-main">
-        <li><a href="{{ route('store.index', $tenant) }}" class="{{ request()->routeIs('store.index') && !request('category') && !request('on_sale') ? 'active' : '' }}">Home</a></li>
-        <li><a href="{{ route('store.index', $tenant) }}" class="{{ request('category') ? 'active' : '' }}">Shop</a></li>
-        <li><a href="{{ route('store.cart', $tenant) }}" class="{{ request()->routeIs('store.cart') ? 'active' : '' }}">Cart</a></li>
+        <li><a href="{{ $surl('store.index', $tenant) }}" class="{{ request()->routeIs('store.index') && !request('category') && !request('on_sale') ? 'active' : '' }}">Home</a></li>
+        <li><a href="{{ $surl('store.index', $tenant) }}" class="{{ request('category') ? 'active' : '' }}">Shop</a></li>
+        <li><a href="{{ $surl('store.cart', $tenant) }}" class="{{ request()->routeIs('store.cart') ? 'active' : '' }}">Cart</a></li>
       </ul>
-      <a href="{{ route('store.index', ['tenant'=>$tenant,'on_sale'=>1]) }}" class="deal-btn"><i class="fa-solid fa-bolt"></i> Deals</a>
+      <a href="{{ $surl('store.index', ['tenant'=>$tenant,'on_sale'=>1]) }}" class="deal-btn"><i class="fa-solid fa-bolt"></i> Deals</a>
     </div>
   </div></div>
 </header>
@@ -266,23 +266,23 @@ body.drawer-open .drawer{transform:none}
 <div class="drawer-bg" id="drawerBg"></div>
 <aside class="drawer" id="drawer">
   <div class="drawer-head">
-    <a href="{{ route('store.index', $tenant) }}" class="logo" style="font-size:18px">@if($logo)<img src="{{ $logo }}" alt="" style="height:34px">@else<span class="mk" style="width:32px;height:32px;font-size:15px"><i class="fa-solid fa-bag-shopping"></i></span>{{ $storeName }}@endif</a>
+    <a href="{{ $surl('store.index', $tenant) }}" class="logo" style="font-size:18px">@if($logo)<img src="{{ $logo }}" alt="" style="height:34px">@else<span class="mk" style="width:32px;height:32px;font-size:15px"><i class="fa-solid fa-bag-shopping"></i></span>{{ $storeName }}@endif</a>
     <button class="icon-btn" id="drawerClose" style="width:40px;height:40px"><i class="fa-solid fa-xmark"></i></button>
   </div>
-  <form action="{{ route('store.index', $tenant) }}" method="GET"><input type="text" name="q" placeholder="Search products…"><button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button></form>
+  <form action="{{ $surl('store.index', $tenant) }}" method="GET"><input type="text" name="q" placeholder="Search products…"><button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button></form>
   <nav>
-    <a href="{{ route('store.index', $tenant) }}"><i class="fa-solid fa-house"></i> Home</a>
-    <a href="{{ route('store.index', $tenant) }}"><i class="fa-solid fa-bag-shopping"></i> Shop</a>
-    <a href="{{ route('store.index', ['tenant'=>$tenant,'on_sale'=>1]) }}"><i class="fa-solid fa-bolt"></i> Deals</a>
-    <a href="{{ route('store.cart', $tenant) }}"><i class="fa-solid fa-cart-shopping"></i> Cart ({{ $cartCount }})</a>
+    <a href="{{ $surl('store.index', $tenant) }}"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="{{ $surl('store.index', $tenant) }}"><i class="fa-solid fa-bag-shopping"></i> Shop</a>
+    <a href="{{ $surl('store.index', ['tenant'=>$tenant,'on_sale'=>1]) }}"><i class="fa-solid fa-bolt"></i> Deals</a>
+    <a href="{{ $surl('store.cart', $tenant) }}"><i class="fa-solid fa-cart-shopping"></i> Cart ({{ $cartCount }})</a>
     @foreach($navCategories as $c)
-      <a href="{{ route('store.index', ['tenant'=>$tenant,'category'=>$c->slug]) }}"><i class="fa-solid fa-tag"></i> {{ $c->name }}</a>
+      <a href="{{ $surl('store.index', ['tenant'=>$tenant,'category'=>$c->slug]) }}"><i class="fa-solid fa-tag"></i> {{ $c->name }}</a>
     @endforeach
   </nav>
 </aside>
 
 <div class="toasts" id="toasts">
-  @if(session('success'))<div class="toast-z"><i class="ic fa-solid fa-circle-check"></i><div>{{ session('success') }} <a href="{{ route('store.cart', $tenant) }}">View cart</a></div><button class="x" onclick="this.parentElement.remove()"><i class="fa-solid fa-xmark"></i></button></div>@endif
+  @if(session('success'))<div class="toast-z"><i class="ic fa-solid fa-circle-check"></i><div>{{ session('success') }} <a href="{{ $surl('store.cart', $tenant) }}">View cart</a></div><button class="x" onclick="this.parentElement.remove()"><i class="fa-solid fa-xmark"></i></button></div>@endif
   @if(session('error'))<div class="toast-z err"><i class="ic fa-solid fa-circle-exclamation"></i><div>{{ session('error') }}</div><button class="x" onclick="this.parentElement.remove()"><i class="fa-solid fa-xmark"></i></button></div>@endif
   @if(session('info'))<div class="toast-z info"><i class="ic fa-solid fa-circle-info"></i><div>{{ session('info') }}</div><button class="x" onclick="this.parentElement.remove()"><i class="fa-solid fa-xmark"></i></button></div>@endif
 </div>
@@ -301,7 +301,7 @@ body.drawer-open .drawer{transform:none}
     </div>
     <div class="f-main">
       <div class="f-brand">
-        <a href="{{ route('store.index', $tenant) }}" class="logo">@if($logo)<img src="{{ $logo }}" alt="" style="height:40px">@else<span class="mk"><i class="fa-solid fa-bag-shopping"></i></span>{{ $storeName }}@endif</a>
+        <a href="{{ $surl('store.index', $tenant) }}" class="logo">@if($logo)<img src="{{ $logo }}" alt="" style="height:40px">@else<span class="mk"><i class="fa-solid fa-bag-shopping"></i></span>{{ $storeName }}@endif</a>
         <p>{{ $tagline ? $tagline.'. ' : '' }}We curate quality products, keep prices honest, and deliver fast — with cash on delivery available.</p>
         @if($storeAddress)<div class="fl"><i class="fa-solid fa-location-dot"></i> {{ $storeAddress }}</div>@endif
         @if($storeEmail)<div class="fl"><i class="fa-solid fa-envelope"></i> {{ $storeEmail }}</div>@endif
@@ -309,14 +309,14 @@ body.drawer-open .drawer{transform:none}
       </div>
       <div class="f-col">
         <h5>Categories</h5>
-        @forelse($navCategories->take(6) as $c)<a href="{{ route('store.index', ['tenant'=>$tenant,'category'=>$c->slug]) }}">{{ $c->name }}</a>@empty<a href="{{ route('store.index', $tenant) }}">All products</a>@endforelse
+        @forelse($navCategories->take(6) as $c)<a href="{{ $surl('store.index', ['tenant'=>$tenant,'category'=>$c->slug]) }}">{{ $c->name }}</a>@empty<a href="{{ $surl('store.index', $tenant) }}">All products</a>@endforelse
       </div>
       <div class="f-col">
         <h5>Useful Links</h5>
-        <a href="{{ route('store.index', $tenant) }}">Shop</a>
-        <a href="{{ route('store.index', ['tenant'=>$tenant,'on_sale'=>1]) }}">Deals</a>
-        <a href="{{ route('store.cart', $tenant) }}">Cart</a>
-        <a href="{{ route('store.checkout', $tenant) }}">Checkout</a>
+        <a href="{{ $surl('store.index', $tenant) }}">Shop</a>
+        <a href="{{ $surl('store.index', ['tenant'=>$tenant,'on_sale'=>1]) }}">Deals</a>
+        <a href="{{ $surl('store.cart', $tenant) }}">Cart</a>
+        <a href="{{ $surl('store.checkout', $tenant) }}">Checkout</a>
       </div>
       <div class="f-col">
         <h5>We Accept</h5>
@@ -340,10 +340,10 @@ body.drawer-open .drawer{transform:none}
 </footer>
 
 <nav class="mnav">
-  <a href="{{ route('store.index', $tenant) }}" class="{{ request()->routeIs('store.index') && !request('category') ? 'active' : '' }}"><i class="fa-solid fa-house"></i>Home</a>
-  <a href="{{ route('store.index', ['tenant'=>$tenant,'category'=>'all']) }}" class="{{ request('category') ? 'active' : '' }}"><i class="fa-solid fa-bag-shopping"></i>Shop</a>
-  <a href="{{ route('store.cart', $tenant) }}" class="{{ request()->routeIs('store.cart') ? 'active' : '' }}"><i class="fa-solid fa-cart-shopping"></i>Cart<b class="cnt js-cart-count">{{ $cartCount }}</b></a>
-  <a href="{{ route('store.checkout', $tenant) }}" class="{{ request()->routeIs('store.checkout') ? 'active' : '' }}"><i class="fa-solid fa-credit-card"></i>Pay</a>
+  <a href="{{ $surl('store.index', $tenant) }}" class="{{ request()->routeIs('store.index') && !request('category') ? 'active' : '' }}"><i class="fa-solid fa-house"></i>Home</a>
+  <a href="{{ $surl('store.index', ['tenant'=>$tenant,'category'=>'all']) }}" class="{{ request('category') ? 'active' : '' }}"><i class="fa-solid fa-bag-shopping"></i>Shop</a>
+  <a href="{{ $surl('store.cart', $tenant) }}" class="{{ request()->routeIs('store.cart') ? 'active' : '' }}"><i class="fa-solid fa-cart-shopping"></i>Cart<b class="cnt js-cart-count">{{ $cartCount }}</b></a>
+  <a href="{{ $surl('store.checkout', $tenant) }}" class="{{ request()->routeIs('store.checkout') ? 'active' : '' }}"><i class="fa-solid fa-credit-card"></i>Pay</a>
 </nav>
 
 <button class="totop" id="toTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
@@ -390,7 +390,7 @@ body.drawer-open .drawer{transform:none}
     requestAnimationFrame(()=>{ d.style.left=(b.left+b.width/2-6)+'px'; d.style.top=(b.top+b.height/2-6)+'px'; d.style.width='12px'; d.style.height='12px'; d.style.opacity='.2'; });
     setTimeout(()=>{ d.remove(); to.classList.add('bump'); setTimeout(()=>to.classList.remove('bump'),500); },800);
   }
-  const CART_URL=@json(route('store.cart', $tenant));
+  const CART_URL=@json($surl('store.cart', $tenant));
   function showGoToCart(btn){
     if(!btn) return;
     const a=document.createElement('a'); a.href=CART_URL; a.className=btn.className+' go-cart'; a.innerHTML='<i class="fa-solid fa-cart-shopping"></i> Go to Cart';

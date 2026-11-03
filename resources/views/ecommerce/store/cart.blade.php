@@ -73,7 +73,7 @@
 @endpush
 
 @section('content')
-@include('ecommerce.store.partials.hero', ['crumbs'=>[['Home',route('store.index',$tenant)],['Cart',null]],'title'=>'Your <span>Shopping Cart</span>','text'=>'Review your picks, adjust quantities, and check out in under a minute.'])
+@include('ecommerce.store.partials.hero', ['crumbs'=>[['Home',$surl('store.index',$tenant)],['Cart',null]],'title'=>'Your <span>Shopping Cart</span>','text'=>'Review your picks, adjust quantities, and check out in under a minute.'])
 
 <section class="cartp wrap">
   <div class="steps">
@@ -90,15 +90,15 @@
         @foreach($rows as $r)
         <div class="citem" data-pid="{{ $r['product_id'] }}">
           <div class="cprod">
-            <a href="{{ route('store.product', ['tenant'=>$tenant,'slug'=>$r['slug']]) }}" class="cimg">@if($r['image_url'])<img src="{{ $r['image_url'] }}" alt="">@else<i class="fa-solid fa-box-open"></i>@endif</a>
+            <a href="{{ $surl('store.product', ['tenant'=>$tenant,'slug'=>$r['slug']]) }}" class="cimg">@if($r['image_url'])<img src="{{ $r['image_url'] }}" alt="">@else<i class="fa-solid fa-box-open"></i>@endif</a>
             <div style="min-width:0">
-              <a href="{{ route('store.product', ['tenant'=>$tenant,'slug'=>$r['slug']]) }}" class="cname">{{ $r['name'] }}</a>
+              <a href="{{ $surl('store.product', ['tenant'=>$tenant,'slug'=>$r['slug']]) }}" class="cname">{{ $r['name'] }}</a>
               <div class="cunit">{{ Money::fmt($r['price']) }} each</div>
             </div>
           </div>
           <div><span class="mob-lbl">Price</span><span class="cprice">{{ Money::fmt($r['price']) }}</span></div>
           <div><span class="mob-lbl">Quantity</span>
-            <form action="{{ route('store.cart.update', $tenant) }}" method="POST" class="qty js-qty">
+            <form action="{{ $surl('store.cart.update', $tenant) }}" method="POST" class="qty js-qty">
               @csrf<input type="hidden" name="product_id" value="{{ $r['product_id'] }}">
               <button type="button" class="dec" aria-label="Decrease">−</button>
               <input type="number" name="quantity" value="{{ (int) $r['qty'] }}" min="0" max="99" inputmode="numeric">
@@ -111,7 +111,7 @@
         @endforeach
         <div class="cfoot">
           <form class="coupon" onsubmit="event.preventDefault();zToast('Coupon will be applied at checkout','info')"><input placeholder="Coupon code"><button>Apply</button></form>
-          <a href="{{ route('store.index', $tenant) }}" class="btn-o"><i class="fa-solid fa-arrow-left"></i> Continue shopping</a>
+          <a href="{{ $surl('store.index', $tenant) }}" class="btn-o"><i class="fa-solid fa-arrow-left"></i> Continue shopping</a>
         </div>
       </div>
     </div>
@@ -128,7 +128,7 @@
         <div class="bar"><i style="width:{{ min(100,round($itemsTotal/max(1,$free)*100)) }}%"></i></div>
       </div>
       @endif
-      <a href="{{ route('store.checkout', $tenant) }}" class="btn-g"><i class="fa-solid fa-lock"></i> Proceed to Checkout</a>
+      <a href="{{ $surl('store.checkout', $tenant) }}" class="btn-g"><i class="fa-solid fa-lock"></i> Proceed to Checkout</a>
       <div class="secure"><i class="fa-solid fa-shield-halved"></i> Secure, server-verified checkout</div>
       <div style="display:flex;justify-content:center;margin-top:12px">@include('ecommerce.store.partials.payment-icons', ['size'=>'sm'])</div>
     </aside>
@@ -138,7 +138,7 @@
     <span class="e">🛒</span>
     <h2>Your cart is empty</h2>
     <p>Looks like you haven't added anything yet. Let's fix that.</p>
-    <a href="{{ route('store.index', $tenant) }}" class="btn-g" style="padding:14px 28px;font-size:15px"><i class="fa-solid fa-bag-shopping"></i> Start Shopping</a>
+    <a href="{{ $surl('store.index', $tenant) }}" class="btn-g" style="padding:14px 28px;font-size:15px"><i class="fa-solid fa-bag-shopping"></i> Start Shopping</a>
   </div>
   @endif
 </section>
@@ -149,7 +149,7 @@
 (function(){
   const token=document.querySelector('meta[name=csrf-token]').content;
   const fmt=n=>window.zmoney(n);
-  const REMOVE_BASE=@json(url('store/'.$tenant->id.'/cart'));
+  const REMOVE_BASE=@json($onDomain ? url('cart') : url('store/'.$tenant->id.'/cart'));
   const free=(()=>{ const b=document.getElementById('shipBar'); return b?+b.dataset.free:0; })();
   const fee=(()=>{ const b=document.getElementById('shipBar'); return b?(+b.dataset.fee||0):0; })();
   const bump=el=>{ if(!el) return; el.classList.remove('bump-num'); void el.offsetWidth; el.classList.add('bump-num'); };

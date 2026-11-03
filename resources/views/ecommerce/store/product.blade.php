@@ -62,9 +62,9 @@
 @section('content')
 @include('ecommerce.store.partials.hero', [
   'crumbs' => array_values(array_filter([
-    ['Home', route('store.index', $tenant)],
-    ['Shop', route('store.index', $tenant)],
-    $product->category ? [$product->category->name, route('store.index', ['tenant'=>$tenant,'category'=>$product->category->slug])] : null,
+    ['Home', $surl('store.index', $tenant)],
+    ['Shop', $surl('store.index', $tenant)],
+    $product->category ? [$product->category->name, $surl('store.index', ['tenant'=>$tenant,'category'=>$product->category->slug])] : null,
     [$product->name, null],
   ])),
   'title' => e($product->name),
@@ -96,7 +96,7 @@
       @if($product->description)<div class="pd-desc">{{ $product->description }}</div>@endif
 
       <div class="pd-buy">
-        <form action="{{ route('store.cart.add', $tenant) }}" method="POST" class="js-atc" style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+        <form action="{{ $surl('store.cart.add', $tenant) }}" method="POST" class="js-atc" style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
           @csrf
           <input type="hidden" name="product_id" value="{{ $product->id }}">
           <div class="qty">
@@ -142,7 +142,7 @@
     <div class="rv-form">
       <h3>Write a review</h3>
       @if($errors->any())<div style="color:var(--sale);font-size:13px;margin-bottom:12px">{{ $errors->first() }}</div>@endif
-      <form action="{{ route('store.review', ['tenant'=>$tenant,'product'=>$product->id]) }}" method="POST">
+      <form action="{{ $surl('store.review', ['tenant'=>$tenant,'product'=>$product->id]) }}" method="POST">
         @csrf
         <div class="row g-3">
           <div class="col-sm-6 fld"><label>Your name <b>*</b></label><input class="inp" name="customer_name" required value="{{ old('customer_name') }}"></div>

@@ -83,6 +83,9 @@ Route::prefix('ecommerce')->name('ecommerce.')->group(function () {
     Route::prefix('storefront')->name('storefront.')->middleware('module:ecommerce,storefront')->group(function () {
         Route::get('/', [StorefrontController::class, 'index'])->name('index');
         Route::put('/', [StorefrontController::class, 'update'])->name('update');
+        Route::post('domains', [StorefrontController::class, 'addDomain'])->name('domains.store');
+        Route::post('domains/{domain}/verify', [StorefrontController::class, 'verifyDomain'])->name('domains.verify');
+        Route::delete('domains/{domain}', [StorefrontController::class, 'removeDomain'])->name('domains.destroy');
     });
 
     // Analytics
