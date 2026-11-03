@@ -7,7 +7,7 @@
     <form method="POST" action="{{ $campaign->exists ? route('crm.campaigns.update', $campaign) : route('crm.campaigns.store') }}">
         @csrf @if ($campaign->exists)@method('PUT')@endif
         <div class="row g-4">
-            <div class="col-lg-8"><x-admin.card title="Campaign">
+            <div class="col-lg-12"><x-admin.card title="Campaign">
                 <div class="row g-3">
                     <div class="col-12"><x-admin.input name="name" label="Name" :value="$campaign->name" required /></div>
                     <div class="col-md-6"><x-admin.select name="channel" label="Channel" :options="\App\Models\Crm\Campaign::CHANNELS" :value="$campaign->channel" required /></div>

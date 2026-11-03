@@ -56,6 +56,8 @@
     <script src="{{asset('admin/assets/js/sidebar.js')}}" defer></script>
     <script src="{{asset('admin/assets/js/charts.js')}}" defer></script>
     <script src="{{asset('admin/assets/js/orchid.js')}}" defer></script>
+    {{-- Global searchable-select enhancer: upgrades every native <select> into the combobox UI --}}
+    <script src="{{ asset('admin/assets/js/ss-select.js') }}?v={{ @filemtime(public_path('admin/assets/js/ss-select.js')) }}" defer></script>
     @stack('modals')
     @stack('scripts')
     <x-toast />
