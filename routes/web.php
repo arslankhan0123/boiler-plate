@@ -80,6 +80,9 @@ Route::middleware(['auth', 'tenant.init'])->group(function () {
     // E-commerce (catalog, orders, promotions, shipping, reviews, storefront).
     require __DIR__.'/ecommerce.php';
 
+    // Reports & Analytics (cross-module dashboards).
+    require __DIR__.'/reports.php';
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
