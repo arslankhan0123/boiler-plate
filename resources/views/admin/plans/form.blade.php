@@ -7,6 +7,7 @@
     $active = (string) old('is_active', $plan->is_active ? '1' : '0');
     $public = (string) old('is_public', $plan->is_public ?? true ? '1' : '0');
     $gatewaysReady = \App\Support\Billing\PlatformSettings::anyGatewayReady();
+    $currencyOptions = collect(\App\Support\Billing\PlatformSettings::SUPPORTED_CURRENCIES)->mapWithKeys(fn ($c) => [$c => $c])->all();
 @endphp
 @section('title', $editing ? 'Edit Plan' : 'Create Plan')
 @section('subtitle', 'Subscription plan')
@@ -35,7 +36,7 @@
             <div class="row g-4">
                 <div class="col-md-4"><x-admin.input name="price_monthly" type="number" step="0.01" min="0" label="Monthly Price" :value="old('price_monthly', $plan->price_monthly)" required /></div>
                 <div class="col-md-4"><x-admin.input name="price_yearly" type="number" step="0.01" min="0" label="Yearly Price" :value="old('price_yearly', $plan->price_yearly)" required /></div>
-                <div class="col-md-4"><x-admin.input name="currency" label="Currency" :value="old('currency', $plan->currency ?: 'USD')" maxlength="3" required hint="3-letter code, e.g. USD, EUR, PKR" /></div>
+                <div class="col-md-4"><x-admin.select name="currency" label="Currency" :options="$currencyOptions" :value="old('currency', $plan->currency ?: 'USD')" required hint="Charge currency for this plan." /></div>
             </div>
 
             <div class="app-field">

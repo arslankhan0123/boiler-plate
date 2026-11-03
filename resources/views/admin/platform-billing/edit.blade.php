@@ -14,9 +14,11 @@
         @csrf
         @method('PUT')
 
+        @php $currencyOptions = collect(\App\Support\Billing\PlatformSettings::SUPPORTED_CURRENCIES)->mapWithKeys(fn ($c) => [$c => $c])->all(); @endphp
         <div class="app-card app-form-card">
-            <x-admin.input name="platform_currency" label="Billing currency" :value="old('platform_currency', $s['platform_currency'] ?? 'USD')" maxlength="3" required
-                hint="The currency tenant subscriptions are charged in (3-letter code)." />
+            <x-admin.select name="platform_currency" label="Billing currency" :options="$currencyOptions"
+                :value="old('platform_currency', $s['platform_currency'] ?? 'USD')" required
+                hint="The currency tenant subscriptions are charged in." />
 
             {{-- ── Payment gateways (accordion) ── --}}
             <div class="pm">

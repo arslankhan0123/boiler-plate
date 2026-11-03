@@ -29,7 +29,7 @@
             <a href="{{ route('dashboard') }}" class="app-rail__item {{ request()->routeIs('dashboard') ? 'is-active' : '' }}" data-label="Dashboard" aria-label="Dashboard">
                 <i class="bi bi-speedometer2"></i><span class="visually-hidden">Dashboard</span>
             </a>
-            @if (auth()->check() && ! auth()->user()->is_platform_admin)
+            @if (auth()->check() && auth()->user()->tenant_id !== null)
                 <a href="{{ route('billing.index') }}" class="app-rail__item {{ request()->routeIs('billing.*') ? 'is-active' : '' }}" data-label="Billing & Plans" aria-label="Billing & Plans">
                     <i class="bi bi-credit-card-2-front"></i><span class="visually-hidden">Billing & Plans</span>
                 </a>
@@ -60,7 +60,7 @@
                 <p class="app-panel__hint">Choose a module on the left to see its screens.</p>
                 <ul class="app-panel__list">
                     <li><a href="{{ route('dashboard') }}" class="app-panel__link {{ request()->routeIs('dashboard') ? 'active' : '' }}"><i class="bi bi-speedometer2"></i>Dashboard</a></li>
-                    @if (auth()->check() && ! auth()->user()->is_platform_admin)
+                    @if (auth()->check() && auth()->user()->tenant_id !== null)
                         <li><a href="{{ route('billing.index') }}" class="app-panel__link {{ request()->routeIs('billing.*') ? 'active' : '' }}"><i class="bi bi-credit-card-2-front"></i>Billing & Plans</a></li>
                     @endif
                     @foreach ($mods as $code => $m)
