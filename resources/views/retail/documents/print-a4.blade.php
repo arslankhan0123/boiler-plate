@@ -9,7 +9,7 @@
     $title = $doc->type === 'invoice' ? ($S::get('invoice_title') ?: ($doc->tax_total > 0 ? 'Tax Invoice' : 'Invoice')) : $meta['one'];
     $showTax = $S::get('show_tax_column', '1') === '1';
     $words = class_exists(\NumberFormatter::class) ? ucfirst((new \NumberFormatter('en', \NumberFormatter::SPELLOUT))->format(round($doc->grand_total))) : null;
-    $logo = $S::logoUrl();
+    $logo = $S::brandLogoUrl();
 @endphp
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><title>{{ $title }} {{ $doc->number }}</title>

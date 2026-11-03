@@ -1,6 +1,6 @@
 @use('App\Support\Ecommerce\Money')
 @use('App\Support\Settings')
-@php $logo = Settings::get('store_logo'); @endphp
+@php $logo = Settings::brandLogoUrl(); @endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -222,7 +222,7 @@ body.drawer-open .drawer{transform:none}
     <div class="hdr-main">
       <button class="burger" id="burger" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
       <a href="{{ route('store.index', $tenant) }}" class="logo" aria-label="{{ $storeName }} home">
-        @if($logo)<img src="{{ asset($logo) }}" alt="{{ $storeName }}">@else<span class="mk"><i class="fa-solid fa-bag-shopping"></i></span>{{ $storeName }}@endif
+        @if($logo)<img src="{{ $logo }}" alt="{{ $storeName }}">@else<span class="mk"><i class="fa-solid fa-bag-shopping"></i></span>{{ $storeName }}@endif
       </a>
       <div class="search">
         <form action="{{ route('store.index', $tenant) }}" method="GET">
@@ -266,7 +266,7 @@ body.drawer-open .drawer{transform:none}
 <div class="drawer-bg" id="drawerBg"></div>
 <aside class="drawer" id="drawer">
   <div class="drawer-head">
-    <a href="{{ route('store.index', $tenant) }}" class="logo" style="font-size:18px">@if($logo)<img src="{{ asset($logo) }}" alt="" style="height:34px">@else<span class="mk" style="width:32px;height:32px;font-size:15px"><i class="fa-solid fa-bag-shopping"></i></span>{{ $storeName }}@endif</a>
+    <a href="{{ route('store.index', $tenant) }}" class="logo" style="font-size:18px">@if($logo)<img src="{{ $logo }}" alt="" style="height:34px">@else<span class="mk" style="width:32px;height:32px;font-size:15px"><i class="fa-solid fa-bag-shopping"></i></span>{{ $storeName }}@endif</a>
     <button class="icon-btn" id="drawerClose" style="width:40px;height:40px"><i class="fa-solid fa-xmark"></i></button>
   </div>
   <form action="{{ route('store.index', $tenant) }}" method="GET"><input type="text" name="q" placeholder="Search products…"><button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button></form>
@@ -301,7 +301,7 @@ body.drawer-open .drawer{transform:none}
     </div>
     <div class="f-main">
       <div class="f-brand">
-        <a href="{{ route('store.index', $tenant) }}" class="logo">@if($logo)<img src="{{ asset($logo) }}" alt="" style="height:40px">@else<span class="mk"><i class="fa-solid fa-bag-shopping"></i></span>{{ $storeName }}@endif</a>
+        <a href="{{ route('store.index', $tenant) }}" class="logo">@if($logo)<img src="{{ $logo }}" alt="" style="height:40px">@else<span class="mk"><i class="fa-solid fa-bag-shopping"></i></span>{{ $storeName }}@endif</a>
         <p>{{ $tagline ? $tagline.'. ' : '' }}We curate quality products, keep prices honest, and deliver fast — with cash on delivery available.</p>
         @if($storeAddress)<div class="fl"><i class="fa-solid fa-location-dot"></i> {{ $storeAddress }}</div>@endif
         @if($storeEmail)<div class="fl"><i class="fa-solid fa-envelope"></i> {{ $storeEmail }}</div>@endif

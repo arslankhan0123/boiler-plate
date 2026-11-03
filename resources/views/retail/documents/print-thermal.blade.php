@@ -23,7 +23,7 @@
 <div class="toolbar"><button onclick="window.print()">Print</button><a href="?format=a4">A4</a>@if ($doc->is_pos && auth()->user()->can('pos.sell'))<a href="{{ route('pos') }}">New sale</a>@endif</div>
 <div class="rc">
     <div class="c">
-        @if ($S::logoUrl())<img src="{{ $S::logoUrl() }}" alt=""><br>@endif
+        @if ($S::brandLogoUrl())<img src="{{ $S::brandLogoUrl() }}" alt=""><br>@endif
         <h2>{{ $S::companyName() }}</h2>
         {{ $s['address'] ?? '' }} {{ $s['city'] ?? '' }}<br>
         @if ($s['phone'] ?? null)Ph: {{ $s['phone'] }}<br>@endif

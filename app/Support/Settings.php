@@ -17,6 +17,9 @@ use Throwable;
  */
 class Settings
 {
+    /** Default brand logo shown when a tenant has not uploaded its own. */
+    public const DEFAULT_LOGO = 'logo/logo-0d940195.png';
+
     /** Defaults used until the tenant saves its own values. */
     public const DEFAULTS = [
         'company_name' => null, 'legal_name' => null, 'email' => null, 'phone' => null, 'website' => null,
@@ -128,10 +131,21 @@ class Settings
         return (string) (self::get('company_name') ?: (function_exists('tenant') && tenant() ? tenant('name') : config('app.name')));
     }
 
+    /** The tenant's uploaded logo URL, or null when none has been uploaded. */
     public static function logoUrl(): ?string
     {
         $logo = self::get('logo');
 
         return $logo ? asset('storage/'.$logo) : null;
+    }
+
+    /**
+     * Logo for every display surface (sidebar, storefront, invoices, receipts):
+     * the tenant's own uploaded logo, or the shared app default when none is set.
+     * Always returns a usable URL.
+     */
+    public static function brandLogoUrl(): string
+    {
+        return self::logoUrl() ?? asset(self::DEFAULT_LOGO);
     }
 }

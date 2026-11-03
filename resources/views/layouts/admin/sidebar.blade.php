@@ -1,20 +1,10 @@
 <aside class="orchid-sidebar" id="orchidSidebar" aria-label="Primary navigation">
     <div class="orchid-sidebar__brand">
-        <a href="{{ route('dashboard') }}" class="orchid-brand" aria-label="Orchid dashboard home">
+        <a href="{{ route('dashboard') }}" class="orchid-brand" aria-label="{{ \App\Support\Settings::companyName() }} dashboard home">
             <span class="orchid-brand__logo" aria-hidden="true">
-                <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orchid logo">
-                    <defs>
-                        <linearGradient id="orchidGrad" x1="0" y1="0" x2="1" y2="1">
-                            <stop offset="0%" stop-color="#6366f1" />
-                            <stop offset="100%" stop-color="#22d3ee" />
-                        </linearGradient>
-                    </defs>
-                    <circle cx="16" cy="16" r="6" fill="url(#orchidGrad)" />
-                    <ellipse cx="16" cy="16" rx="14" ry="6" fill="none" stroke="url(#orchidGrad)" stroke-width="2"
-                        transform="rotate(-30 16 16)" />
-                </svg>
+                <img src="{{ \App\Support\Settings::brandLogoUrl() }}" alt="{{ \App\Support\Settings::companyName() }}" style="width:100%;height:100%;object-fit:contain;border-radius:8px">
             </span>
-            <span class="orchid-brand__text">{{ config('app.name') }}</span>
+            <span class="orchid-brand__text">{{ \App\Support\Settings::companyName() }}</span>
         </a>
         <button class="btn btn-sm btn-icon orchid-sidebar__close d-lg-none" type="button" data-orchid-sidebar-close
             aria-label="Close sidebar">
