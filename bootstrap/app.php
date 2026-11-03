@@ -6,6 +6,8 @@ use App\Facades\ApiResponse;
 use App\Http\Middleware\CaptureRequestContext;
 use App\Http\Middleware\CustomStoreDomain;
 use App\Http\Middleware\EnsurePlatformAdmin;
+use App\Http\Middleware\EnsurePlatformUser;
+use App\Http\Middleware\EnsureSubscribed;
 use App\Http\Middleware\EnsureTenantInitialized;
 use App\Http\Middleware\ForceJsonResponse;
 use App\Http\Middleware\InitializeTenancyFromUser;
@@ -61,6 +63,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'tenant.init' => InitializeTenancyFromUser::class,
             'tenant.required' => EnsureTenantInitialized::class,
             'platform.admin' => EnsurePlatformAdmin::class,
+            'platform.user' => EnsurePlatformUser::class,
+            'subscribed' => EnsureSubscribed::class,
             'module' => \App\Http\Middleware\EnsureModuleEnabled::class,
             'custom.store' => RequireCustomStore::class,
         ]);
@@ -80,6 +84,8 @@ return Application::configure(basePath: dirname(__DIR__))
         // it is authenticated by its signed Stripe-Signature header instead.
         $middleware->validateCsrfTokens(except: [
             'store/*/webhook/stripe',
+            'billing/webhook/stripe',
+            'billing/webhook/paypal',
         ]);
 
         // Switch to the tenant DB BEFORE route-model binding, so {employee},

@@ -47,6 +47,27 @@ return [
             'permissions' => ['modules.view' => 'View module registry'],
             'features' => [],
         ],
+        'plans' => [
+            'route' => 'plans.index',
+            'name' => 'Plans', 'icon' => 'bi-box-seam', 'scope' => 'platform', 'group' => 'platform',
+            'description' => 'Subscription plans sold to tenants.',
+            'permissions' => ['plans.view' => 'View plans', 'plans.manage' => 'Create & edit plans'],
+            'features' => [],
+        ],
+        'subscriptions' => [
+            'route' => 'subscriptions.index',
+            'name' => 'Subscriptions', 'icon' => 'bi-arrow-repeat', 'scope' => 'platform', 'group' => 'platform',
+            'description' => 'Tenant trials, subscriptions and payment links.',
+            'permissions' => ['subscriptions.view' => 'View subscriptions', 'subscriptions.manage' => 'Grant trials & manage subscriptions'],
+            'features' => [],
+        ],
+        'platform-billing' => [
+            'route' => 'platformbilling.edit',
+            'name' => 'Billing Settings', 'icon' => 'bi-credit-card-2-front', 'scope' => 'platform', 'group' => 'platform',
+            'description' => 'Your Stripe & PayPal for charging tenants.',
+            'permissions' => ['platform-billing.view' => 'View billing settings', 'platform-billing.manage' => 'Change billing settings'],
+            'features' => [],
+        ],
 
         /* ───────────── Core (every tenant) ───────────── */
         'users' => [
