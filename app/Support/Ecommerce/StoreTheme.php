@@ -31,9 +31,9 @@ class StoreTheme
 
     /** Layout variants (structural + density changes applied via a body class). */
     public const LAYOUTS = [
-        'classic' => ['label' => 'Classic', 'desc' => 'Full-featured with top bar, gradients and depth.'],
-        'minimal' => ['label' => 'Minimal', 'desc' => 'Clean and flat — no top bar, solid buttons, lighter.'],
-        'rounded' => ['label' => 'Soft & Rounded', 'desc' => 'Pill buttons and extra-rounded cards, friendly feel.'],
+        'classic' => ['label' => 'Classic', 'desc' => 'Hero slider with sidebar filters (categories & price) beside the product grid.'],
+        'minimal' => ['label' => 'Minimal', 'desc' => 'No hero or top bar. Category chips + inline filters above a wide, clean grid.'],
+        'showcase' => ['label' => 'Showcase', 'desc' => 'Home-page style: category tiles, deals strip and featured picks, then all products.'],
     ];
 
     public const DEFAULT_THEME = 'emerald';
@@ -141,13 +141,11 @@ class StoreTheme
                 ."body.tl-minimal .allcat-btn,body.tl-minimal .deal-btn{box-shadow:none}"
                 ."body.tl-minimal .header{box-shadow:0 1px 0 var(--line)}"
                 ."body.tl-minimal .icon-btn,body.tl-minimal .search form{border-width:1px}",
-            'rounded' =>
-                "body.tl-rounded{--r:20px;--r-lg:30px}"
-                ."body.tl-rounded .btn-g,body.tl-rounded .btn-o,body.tl-rounded .allcat-btn,body.tl-rounded .deal-btn{border-radius:999px}"
-                ."body.tl-rounded .icon-btn,body.tl-rounded .burger{border-radius:16px}"
-                ."body.tl-rounded .search form,body.tl-rounded .inp,body.tl-rounded .search input{border-radius:999px}"
-                ."body.tl-rounded .search button{border-radius:0 999px 999px 0}"
-                ."body.tl-rounded .allcat .dd,body.tl-rounded .drawer{border-radius:22px}",
+            'showcase' =>
+                "body.tl-showcase{--r:18px;--r-lg:26px}"
+                ."body.tl-showcase .btn-g,body.tl-showcase .btn-o,body.tl-showcase .allcat-btn,body.tl-showcase .deal-btn{border-radius:999px}"
+                ."body.tl-showcase .search form,body.tl-showcase .search input{border-radius:999px}"
+                ."body.tl-showcase .search button{border-radius:0 999px 999px 0}",
             default => '',
         };
     }

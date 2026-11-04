@@ -168,6 +168,7 @@ class StoreController extends Controller
             'cartTotal' => $totals['total'],
             'themeCss' => \App\Support\Ecommerce\StoreTheme::css(),
             'themeBodyClass' => \App\Support\Ecommerce\StoreTheme::bodyClass(),
+            'themeLayout' => \App\Support\Ecommerce\StoreTheme::currentLayout(),
         ];
     }
 
@@ -202,12 +203,25 @@ class StoreController extends Controller
         $products = $q->paginate(12)->withQueryString();
         $bounds = Product::where('is_published', true)->selectRaw('MIN(price) as min_p, MAX(price) as max_p')->first();
 
+        // Extra sections used by the "showcase" layout (cheap, limited queries).
+        $withRatings = fn ($qq) => $qq->with(['item', 'category'])
+            ->withCount(['reviews as reviews_count' => fn ($r) => $r->where('is_approved', true)])
+            ->withAvg(['reviews as reviews_avg' => fn ($r) => $r->where('is_approved', true)], 'rating')
+            ->where('is_published', true);
+        $featured = $withRatings(Product::query())->where('is_featured', true)->orderBy('sort')->latest()->limit(8)->get();
+        $deals = $withRatings(Product::query())->whereNotNull('compare_at_price')->whereColumn('compare_at_price', '>', 'price')
+            ->orderByRaw('(compare_at_price - price) / compare_at_price DESC')->limit(10)->get();
+        $catCounts = Product::where('is_published', true)->selectRaw('category_id, COUNT(*) as c')->groupBy('category_id')->pluck('c', 'category_id');
+
         return view('ecommerce.store.index', $this->storeMeta($t) + [
             'products' => $products,
             'categories' => Category::where('is_active', true)->whereNull('parent_id')->orderBy('sort')
                 ->with(['children' => fn ($c) => $c->where('is_active', true)->orderBy('sort')])->get(),
             'selectedCategory' => $selectedCategory,
             'priceBounds' => $bounds,
+            'featured' => $featured,
+            'deals' => $deals,
+            'catCounts' => $catCounts,
         ]);
     }
 
