@@ -6,6 +6,8 @@ namespace App\Http\Controllers\Ecommerce;
 
 use App\Models\Domain;
 use App\Support\Settings;
+use App\Support\Ecommerce\StoreTheme;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
@@ -35,10 +37,15 @@ class StorefrontController extends EcommerceController
                 'paypal_client_id' => Settings::get('paypal_client_id', ''),
                 'paypal_secret_set' => (bool) Settings::get('paypal_secret'),
                 'paypal_mode' => Settings::get('paypal_mode', 'sandbox'),
+                'store_theme' => StoreTheme::currentTheme(),
+                'store_layout' => StoreTheme::currentLayout(),
+                'store_primary' => Settings::get('store_primary', ''),
             ],
             'tenantId' => $tid,
             'domains' => Domain::query()->where('tenant_id', $tid)->orderBy('created_at')->get(),
             'platformHost' => parse_url((string) config('app.url'), PHP_URL_HOST) ?: request()->getHost(),
+            'themes' => StoreTheme::THEMES,
+            'layouts' => StoreTheme::LAYOUTS,
         ]);
     }
 
@@ -57,6 +64,9 @@ class StorefrontController extends EcommerceController
             'paypal_client_id' => ['nullable', 'string', 'max:255'],
             'paypal_secret' => ['nullable', 'string', 'max:255'],
             'paypal_mode' => ['nullable', 'in:sandbox,live'],
+            'store_theme' => ['nullable', Rule::in(array_keys(StoreTheme::THEMES))],
+            'store_layout' => ['nullable', Rule::in(array_keys(StoreTheme::LAYOUTS))],
+            'store_primary' => ['nullable', 'string', 'max:7'],
         ]);
 
         $set = [
@@ -72,6 +82,9 @@ class StorefrontController extends EcommerceController
             'pay_paypal_enabled' => $request->boolean('pay_paypal_enabled') ? '1' : '0',
             'paypal_client_id' => trim((string) ($data['paypal_client_id'] ?? '')),
             'paypal_mode' => $data['paypal_mode'] ?? 'sandbox',
+            'store_theme' => in_array($data['store_theme'] ?? '', array_keys(StoreTheme::THEMES), true) ? $data['store_theme'] : StoreTheme::DEFAULT_THEME,
+            'store_layout' => in_array($data['store_layout'] ?? '', array_keys(StoreTheme::LAYOUTS), true) ? $data['store_layout'] : StoreTheme::DEFAULT_LAYOUT,
+            'store_primary' => StoreTheme::isHex((string) ($data['store_primary'] ?? '')) ? StoreTheme::normalizeHex((string) $data['store_primary']) : '',
         ];
 
         foreach (['stripe_secret_key', 'stripe_webhook_secret', 'paypal_secret'] as $secret) {

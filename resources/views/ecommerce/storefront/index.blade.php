@@ -16,6 +16,52 @@
                 <label class="form-check mt-3"><input type="checkbox" name="store_enabled" value="1" class="form-check-input" @checked($store['store_enabled'] === '1')> <span class="form-check-label">Store is open (publicly accessible)</span></label>
             </x-admin.card>
 
+            <x-admin.card title="Store appearance" subtitle="Pick a colour theme and layout for your public store." class="mt-4">
+                @php
+                    $curTheme = old('store_theme', $store['store_theme'] ?? 'emerald');
+                    $curLayout = old('store_layout', $store['store_layout'] ?? 'classic');
+                    $curPrimary = old('store_primary', $store['store_primary'] ?? '');
+                @endphp
+                <label class="form-label">Theme colour</label>
+                <div class="theme-grid mb-4">
+                    @foreach ($themes as $key => $t)
+                        <label class="theme-opt">
+                            <input type="radio" name="store_theme" value="{{ $key }}" @checked($curTheme === $key)>
+                            <span class="theme-card">
+                                <span class="theme-swatch" style="background:linear-gradient(135deg,{{ $t['brand'] }} 0%,{{ $t['brand'] }} 60%,{{ $t['accent'] }} 100%)"></span>
+                                <span class="theme-name">{{ $t['label'] }}</span>
+                            </span>
+                        </label>
+                    @endforeach
+                </div>
+
+                <div class="app-field mb-4">
+                    <label class="form-label">Custom brand colour <span class="opt">(optional — overrides the theme colour)</span></label>
+                    <div class="d-flex gap-2 align-items-center flex-wrap">
+                        <input type="color" id="primaryPick" value="{{ $curPrimary ?: '#0f766e' }}" class="form-control form-control-color" style="width:56px;height:42px;padding:4px">
+                        <input type="text" name="store_primary" id="primaryHex" class="form-control" placeholder="#0f766e" value="{{ $curPrimary }}" maxlength="7" style="max-width:160px">
+                        <button type="button" class="btn btn-light btn-sm" id="primaryClear">Use theme colour</button>
+                    </div>
+                    <div class="form-text">Leave blank to use the selected theme's own colour. Shades and gradients are generated automatically.</div>
+                </div>
+
+                <label class="form-label">Layout style</label>
+                <div class="row g-2">
+                    @foreach ($layouts as $key => $l)
+                        <div class="col-md-4">
+                            <label class="layout-opt">
+                                <input type="radio" name="store_layout" value="{{ $key }}" @checked($curLayout === $key)>
+                                <span class="layout-card">
+                                    <span class="layout-name">{{ $l['label'] }}</span>
+                                    <span class="layout-desc">{{ $l['desc'] }}</span>
+                                </span>
+                            </label>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="form-text mt-2"><i class="bi bi-eye me-1"></i>Save, then open your store link to preview the new look.</div>
+            </x-admin.card>
+
             <x-admin.card title="Payment methods" class="mt-4">
                 <label class="form-check"><input type="checkbox" name="store_cod" value="1" class="form-check-input" @checked($store['store_cod'] === '1')> <span class="form-check-label">Cash on Delivery</span></label>
                 <label class="form-check"><input type="checkbox" name="store_bank_transfer" value="1" class="form-check-input" @checked($store['store_bank_transfer'] === '1')> <span class="form-check-label">Bank Transfer</span></label>
@@ -155,3 +201,31 @@
     </div>
 </div>
 @endsection
+
+@push('styles')
+<style>
+    .theme-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:.6rem; }
+    .theme-opt input, .layout-opt input { position:absolute; opacity:0; width:0; height:0; }
+    .theme-card { display:flex; flex-direction:column; align-items:center; gap:.45rem; padding:.6rem .5rem .55rem; border:1.5px solid var(--app-border); border-radius:12px; cursor:pointer; transition:all .15s; background:var(--app-surface); }
+    .theme-swatch { width:100%; height:44px; border-radius:9px; box-shadow:inset 0 0 0 1px rgba(0,0,0,.06); }
+    .theme-name { font-size:.8rem; font-weight:600; color:var(--app-text); }
+    .theme-opt input:checked + .theme-card { border-color:var(--app-primary,#4f46e5); box-shadow:0 0 0 3px rgba(99,102,241,.18); }
+    .theme-opt:hover .theme-card { border-color:#a5b4fc; }
+    .layout-card { display:block; padding:.75rem .9rem; border:1.5px solid var(--app-border); border-radius:12px; cursor:pointer; transition:all .15s; background:var(--app-surface); height:100%; }
+    .layout-name { display:block; font-weight:700; color:var(--app-text); font-size:.9rem; }
+    .layout-desc { display:block; font-size:.78rem; color:var(--app-text-muted); margin-top:.15rem; }
+    .layout-opt input:checked + .layout-card { border-color:var(--app-primary,#4f46e5); background:rgba(99,102,241,.05); box-shadow:0 0 0 3px rgba(99,102,241,.15); }
+</style>
+@endpush
+
+@push('scripts')
+<script>
+(() => {
+    const pick = document.getElementById('primaryPick'), hex = document.getElementById('primaryHex'), clear = document.getElementById('primaryClear');
+    if (!pick || !hex) return;
+    pick.addEventListener('input', () => { hex.value = pick.value; });
+    hex.addEventListener('input', () => { if (/^#[0-9a-fA-F]{6}$/.test(hex.value)) pick.value = hex.value; });
+    clear?.addEventListener('click', () => { hex.value = ''; pick.value = '#0f766e'; });
+})();
+</script>
+@endpush

@@ -204,8 +204,9 @@ body.drawer-open .drawer{transform:none}
 @media(max-width:860px){.totop{bottom:76px}}
 </style>
 @stack('styles')
+<style id="store-theme-vars">{!! $themeCss ?? '' !!}</style>
 </head>
-<body>
+<body class="{{ $themeBodyClass ?? 'tl-classic' }}">
 
 <div class="topbar">
   <div class="wrap">

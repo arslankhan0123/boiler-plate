@@ -166,6 +166,8 @@ class StoreController extends Controller
             'navCategories' => Category::where('is_active', true)->whereNull('parent_id')->orderBy('sort')->with(['children' => fn ($q) => $q->where('is_active', true)->orderBy('sort')])->get(),
             'cartCount' => $totals['count'],
             'cartTotal' => $totals['total'],
+            'themeCss' => \App\Support\Ecommerce\StoreTheme::css(),
+            'themeBodyClass' => \App\Support\Ecommerce\StoreTheme::bodyClass(),
         ];
     }
 
