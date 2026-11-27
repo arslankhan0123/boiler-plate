@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 use App\Facades\ApiResponse;
 use App\Http\Middleware\CaptureRequestContext;
+use App\Http\Middleware\CustomStoreDomain;
 use App\Http\Middleware\EnsurePlatformAdmin;
+use App\Http\Middleware\EnsurePlatformUser;
+use App\Http\Middleware\EnsureSubscribed;
 use App\Http\Middleware\EnsureTenantInitialized;
 use App\Http\Middleware\ForceJsonResponse;
 use App\Http\Middleware\InitializeTenancyFromUser;
 use App\Http\Middleware\LogApiActivity;
+use App\Http\Middleware\RequireCustomStore;
 use Carbon\CarbonInterface;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
@@ -33,6 +37,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Behind a TLS-terminating proxy (ngrok, Cloudflare, a load balancer),
+        // honour the X-Forwarded-* headers so the app sees the original HTTPS
+        // scheme and host. Without this, asset()/route() generate http:// URLs
+        // on an https page — the browser then blocks the CSS/JS as mixed content.
+        $middleware->trustProxies(at: '*');
+
         // API-only: every API request is treated as JSON so errors/auth
         // failures return the JSON envelope instead of HTML or a login redirect.
         $middleware->api(prepend: [
@@ -53,7 +63,38 @@ return Application::configure(basePath: dirname(__DIR__))
             'tenant.init' => InitializeTenancyFromUser::class,
             'tenant.required' => EnsureTenantInitialized::class,
             'platform.admin' => EnsurePlatformAdmin::class,
+            'platform.user' => EnsurePlatformUser::class,
+            'subscribed' => EnsureSubscribed::class,
+            'module' => \App\Http\Middleware\EnsureModuleEnabled::class,
+            'custom.store' => RequireCustomStore::class,
         ]);
+
+        // Resolve the tenant on every web request (not just the admin group),
+        // so error pages (404/500) and public routes rendered for an authenticated
+        // tenant user still have the tenant DB active — otherwise the sidebar and
+        // permission checks fall back to the central DB and lose all tenant modules.
+        // No-op for guests and platform admins; idempotent where tenant.init also runs.
+        $middleware->web(append: [InitializeTenancyFromUser::class]);
+
+        // Serve a tenant's storefront on its own verified custom domain (no-op on
+        // the platform's own host). Runs on every web request before the controller.
+        $middleware->web(append: [CustomStoreDomain::class]);
+
+        // The Stripe webhook is a server-to-server POST with no session/CSRF token;
+        // it is authenticated by its signed Stripe-Signature header instead.
+        $middleware->validateCsrfTokens(except: [
+            'store/*/webhook/stripe',
+            'billing/webhook/stripe',
+            'billing/webhook/paypal',
+        ]);
+
+        // Switch to the tenant DB BEFORE route-model binding, so {employee},
+        // {role}, {payslip}… are loaded from the tenant's own database.
+        // (Auth already runs earlier in Laravel's priority list.)
+        $middleware->prependToPriorityList(
+            before: \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            prepend: InitializeTenancyFromUser::class,
+        );
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         // Map exceptions onto the single response envelope for API requests.

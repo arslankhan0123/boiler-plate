@@ -10,6 +10,7 @@ use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;
@@ -45,6 +46,31 @@ class AppServiceProvider extends ServiceProvider
         Passport::personalAccessTokensExpireIn(Date::now()->addMonths(6));
 
         $this->configureRateLimiters();
+
+        // Sessions + DB cache must stay on the CENTRAL database even after
+        // tenancy switches the default connection to a tenant DB.
+        $central = Config::string('tenancy.database.central_connection');
+        Config::set('session.connection', Config::get('session.connection') ?: $central);
+        Config::set('cache.stores.database.connection', Config::get('cache.stores.database.connection') ?: $central);
+        Config::set('cache.stores.database.lock_connection', Config::get('cache.stores.database.lock_connection') ?: $central);
+
+        Gate::before(function ($user, string $ability) {
+            if (! $user instanceof \App\Models\User) {
+                return null;
+            }
+
+            // 1) Module not enabled for this tenant => deny, whatever the role says.
+            if (\App\Support\ModuleAccess::moduleEnabledFor($user, $ability) === false) {
+                return false;
+            }
+
+            // 2) Central Master Admin passes everything else.
+            if ($user->tenant_id === null && $user->hasRole(config('modules.master_role'))) {
+                return true;
+            }
+
+            return null;
+        });
     }
 
     /**

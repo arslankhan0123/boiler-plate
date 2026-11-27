@@ -1,0 +1,196 @@
+/* =====================================================
+   Orchid — Advanced table (page-specific styles)
+   ===================================================== */
+
+.tables-adv__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  align-items: center;
+  padding: .75rem;
+  border-bottom: 1px solid var(--orchid-border, #e5e7eb);
+  background: var(--orchid-surface, #fff);
+}
+
+.tables-adv__wrap {
+  overflow: auto;
+  max-height: 640px;
+  position: relative;
+}
+
+.tables-adv table {
+  margin-bottom: 0;
+  width: 100%;
+  min-width: 900px;
+}
+
+.tables-adv thead th {
+  position: sticky;
+  top: 0;
+  background: var(--orchid-surface, #fff);
+  z-index: 2;
+  user-select: none;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--orchid-border, #e5e7eb);
+}
+
+.tables-adv thead th .tables-adv__resize {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  cursor: col-resize;
+}
+
+.tables-adv thead th .tables-adv__resize:hover,
+.tables-adv thead th .tables-adv__resize.is-active {
+  background: rgba(79, 70, 229, .4);
+}
+
+.tables-adv thead th[draggable="true"] {
+  cursor: grab;
+}
+
+.tables-adv thead th.is-dragging {
+  opacity: .5;
+}
+
+.tables-adv thead th.pin-left,
+.tables-adv td.pin-left {
+  position: sticky;
+  left: 0;
+  background: var(--orchid-surface, #fff);
+  z-index: 3;
+  box-shadow: 2px 0 4px -2px rgba(0,0,0,.1);
+}
+
+.tables-adv thead th.pin-right,
+.tables-adv td.pin-right {
+  position: sticky;
+  right: 0;
+  background: var(--orchid-surface, #fff);
+  z-index: 3;
+  box-shadow: -2px 0 4px -2px rgba(0,0,0,.1);
+}
+
+.tables-adv tfoot td {
+  position: sticky;
+  bottom: 0;
+  background: var(--orchid-surface-elev, #f8fafc);
+  font-weight: 600;
+  border-top: 2px solid var(--orchid-border, #e5e7eb);
+}
+
+.tables-adv__group-header {
+  background: rgba(79, 70, 229, .06) !important;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tables-adv__group-header.is-collapsed .tables-adv__group-caret {
+  transform: rotate(-90deg);
+}
+
+.tables-adv__group-caret {
+  display: inline-block;
+  transition: transform .15s;
+  margin-right: .35rem;
+}
+
+.tables-adv__pivot-zones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: .75rem;
+  padding: .75rem;
+  border: 1px dashed var(--orchid-border, #e5e7eb);
+  border-radius: 8px;
+  margin-bottom: .75rem;
+  background: rgba(79, 70, 229, .03);
+}
+
+.tables-adv__zone {
+  min-height: 60px;
+  padding: .5rem;
+  background: var(--orchid-surface, #fff);
+  border: 1px solid var(--orchid-border, #e5e7eb);
+  border-radius: 6px;
+}
+
+.tables-adv__zone-label {
+  font-size: .7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--orchid-text-muted, #6b7280);
+  letter-spacing: .05em;
+  margin-bottom: .35rem;
+}
+
+.tables-adv__zone.is-dragover {
+  border-color: var(--orchid-primary, #4f46e5);
+  background: rgba(79, 70, 229, .06);
+}
+
+.tables-adv__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .2rem .5rem;
+  margin: .15rem;
+  background: rgba(79, 70, 229, .12);
+  color: var(--orchid-primary, #4f46e5);
+  border-radius: 4px;
+  font-size: .8rem;
+  cursor: grab;
+}
+
+.tables-adv__chip .btn-close {
+  font-size: .55rem;
+  padding: .15rem;
+}
+
+.tables-adv__col-menu {
+  position: absolute;
+  z-index: 10;
+  background: var(--orchid-surface, #fff);
+  border: 1px solid var(--orchid-border, #e5e7eb);
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  min-width: 180px;
+  padding: .35rem 0;
+  display: none;
+}
+
+.tables-adv__col-menu.is-open {
+  display: block;
+}
+
+.tables-adv__col-menu button {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  width: 100%;
+  padding: .4rem .75rem;
+  background: none;
+  border: 0;
+  text-align: left;
+  font-size: .87rem;
+  color: var(--orchid-text, #111827);
+}
+
+.tables-adv__col-menu button:hover {
+  background: var(--orchid-hover, #f3f4f6);
+}
+
+[data-bs-theme="dark"] .tables-adv thead th,
+[data-bs-theme="dark"] .tables-adv thead th.pin-left,
+[data-bs-theme="dark"] .tables-adv thead th.pin-right,
+[data-bs-theme="dark"] .tables-adv td.pin-left,
+[data-bs-theme="dark"] .tables-adv td.pin-right,
+[data-bs-theme="dark"] .tables-adv tfoot td,
+[data-bs-theme="dark"] .tables-adv__toolbar,
+[data-bs-theme="dark"] .tables-adv__col-menu,
+[data-bs-theme="dark"] .tables-adv__zone {
+  background: #1e293b;
+  color: #e5e7eb;
+}

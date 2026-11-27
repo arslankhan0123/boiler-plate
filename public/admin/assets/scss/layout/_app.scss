@@ -1,0 +1,34 @@
+// App-level layout wrapper
+.orchid-app {
+  min-height: 100vh;
+  margin-left: $orchid-sidebar-w;
+  transition: margin-left $orchid-transition;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 991.98px) {
+    margin-left: 0;
+  }
+}
+
+.orchid-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 18, 32, .5);
+  backdrop-filter: blur(2px);
+  z-index: $z-backdrop;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity $orchid-transition, visibility $orchid-transition;
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+body.orchid-sidebar-collapsed .orchid-app {
+  @media (min-width: 992px) {
+    margin-left: $orchid-sidebar-w-collapsed;
+  }
+}

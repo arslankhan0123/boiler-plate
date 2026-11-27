@@ -1,0 +1,702 @@
+/* =====================================================
+   Orchid — Projects Dashboard
+   Page-specific styles (namespaced .projects-*)
+   ===================================================== */
+
+:root {
+  --projects-violet: #8b5cf6;
+  --projects-purple: #a855f7;
+  --projects-teal: #14b8a6;
+  --projects-amber: #f59e0b;
+  --projects-green: #10b981;
+  --projects-red: #ef4444;
+  --projects-slate: #64748b;
+  --projects-ok: #10b981;
+  --projects-warn: #f59e0b;
+  --projects-over: #ef4444;
+  --projects-neutral: #94a3b8;
+}
+
+/* ---------- Hero ---------- */
+.projects-hero {
+  position: relative;
+  border-radius: 18px;
+  padding: 1.75rem 1.75rem;
+  color: #fff;
+  background:
+    radial-gradient(circle at 12% 20%, rgba(255,255,255,.14), transparent 55%),
+    radial-gradient(circle at 88% 90%, rgba(34,211,238,.35), transparent 60%),
+    linear-gradient(135deg, #6d28d9 0%, #8b5cf6 45%, #a855f7 100%);
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(139, 92, 246, .28);
+}
+.projects-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60'><path d='M0 30h60M30 0v60' stroke='%23ffffff' stroke-opacity='.05' stroke-width='1'/></svg>");
+  pointer-events: none;
+}
+.projects-hero__inner {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+.projects-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .3rem .65rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .18);
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  margin-bottom: .625rem;
+}
+.projects-hero__eyebrow i { font-size: .8rem; }
+.projects-hero__subtitle { opacity: .88; font-size: .9rem; }
+.projects-hero__btn {
+  background: rgba(255,255,255,.14);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.25);
+}
+.projects-hero__btn:hover,
+.projects-hero__btn:focus {
+  background: rgba(255,255,255,.24);
+  color: #fff;
+}
+.projects-hero__cta {
+  background: #fff;
+  color: #6d28d9;
+  border: 0;
+}
+.projects-hero__cta:hover,
+.projects-hero__cta:focus {
+  background: #f5f3ff;
+  color: #6d28d9;
+}
+
+/* ---------- KPI Cards with radial rings ---------- */
+.projects-kpi {
+  border: 1px solid var(--orchid-border);
+  border-radius: 16px;
+  background-color: var(--orchid-surface);
+  box-shadow: 0 1px 2px rgba(15, 18, 32, .05);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  overflow: hidden;
+  position: relative;
+}
+.projects-kpi:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(15, 18, 32, .08);
+}
+.projects-kpi::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: currentColor;
+  opacity: .8;
+}
+.projects-kpi--violet { color: var(--projects-violet); }
+.projects-kpi--purple { color: var(--projects-purple); }
+.projects-kpi--teal   { color: var(--projects-teal); }
+.projects-kpi--amber  { color: var(--projects-amber); }
+
+.projects-kpi .card-body {
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .85rem;
+}
+
+.projects-kpi__ring {
+  position: relative;
+  width: 118px;
+  height: 118px;
+}
+.projects-kpi__ring canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+.projects-kpi__center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  pointer-events: none;
+}
+.projects-kpi__value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--orchid-text);
+  letter-spacing: -.02em;
+  line-height: 1;
+}
+.projects-kpi__value small {
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--orchid-text-muted);
+}
+.projects-kpi__pct {
+  font-size: .7rem;
+  font-weight: 600;
+  color: var(--orchid-text-muted);
+  letter-spacing: .02em;
+}
+
+.projects-kpi__meta {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+}
+.projects-kpi__label {
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--orchid-text);
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+}
+.projects-kpi__label i {
+  color: currentColor;
+  font-size: .95rem;
+}
+.projects-kpi .projects-kpi__label i { color: inherit; }
+.projects-kpi--violet .projects-kpi__label i { color: var(--projects-violet); }
+.projects-kpi--purple .projects-kpi__label i { color: var(--projects-purple); }
+.projects-kpi--teal   .projects-kpi__label i { color: var(--projects-teal); }
+.projects-kpi--amber  .projects-kpi__label i { color: var(--projects-amber); }
+
+.projects-kpi__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .2rem;
+  font-size: .7rem;
+  font-weight: 600;
+  padding: .2rem .5rem;
+  border-radius: 999px;
+}
+.projects-kpi__chip--up { background: rgba(16,185,129,.12); color: #059669; }
+.projects-kpi__chip--down { background: rgba(239,68,68,.12); color: #dc2626; }
+.projects-kpi__chip--neutral { background: rgba(100,116,139,.12); color: #475569; }
+
+/* ---------- Shared panel style ---------- */
+.projects-panel { border-radius: 14px; }
+.projects-panel .card-body { padding: 1.35rem; }
+.projects-link { color: var(--projects-violet); text-decoration: none; font-weight: 500; }
+.projects-link:hover { text-decoration: underline; }
+.projects-badge-violet {
+  background: rgba(139, 92, 246, .12);
+  color: var(--projects-violet);
+  font-weight: 600;
+  border-radius: 999px;
+  padding: .3em .65em;
+}
+
+.projects-legend {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  font-size: .75rem;
+  color: var(--orchid-text-muted);
+  font-weight: 500;
+}
+.projects-legend__swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  display: inline-block;
+}
+.projects-legend__swatch--violet { background: var(--projects-violet); }
+.projects-legend__swatch--purple { background: var(--projects-purple); }
+.projects-legend__swatch--ok     { background: var(--projects-ok); }
+.projects-legend__swatch--warn   { background: var(--projects-warn); }
+.projects-legend__swatch--over   { background: var(--projects-over); }
+
+.projects-chart { position: relative; width: 100%; }
+.projects-chart--lg { height: 260px; }
+
+/* ---------- Project Status stacked bar ---------- */
+.projects-status__bar {
+  display: flex;
+  width: 100%;
+  height: 34px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--orchid-hover);
+  margin-bottom: 1.15rem;
+  box-shadow: inset 0 0 0 1px var(--orchid-border);
+}
+.projects-status__seg {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: .78rem;
+  transition: filter 160ms ease;
+  min-width: 32px;
+}
+.projects-status__seg:hover { filter: brightness(1.06); }
+.projects-status__label {
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 1px 2px rgba(0,0,0,.15);
+}
+.projects-status__seg--ontrack { background: linear-gradient(135deg, #10b981, #059669); }
+.projects-status__seg--risk    { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.projects-status__seg--delayed { background: linear-gradient(135deg, #ef4444, #dc2626); }
+.projects-status__seg--done    { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+.projects-status__seg--pending { background: linear-gradient(135deg, #64748b, #475569); }
+.projects-status__seg--hold    { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+
+.projects-status__legend {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .75rem;
+  margin-bottom: 1rem;
+}
+.projects-status__legend li {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .55rem .65rem;
+  border: 1px solid var(--orchid-border);
+  border-radius: 10px;
+  background: var(--orchid-hover);
+}
+.projects-status__name {
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--orchid-text);
+}
+.projects-status__count {
+  font-size: .72rem;
+}
+.projects-status__count strong { color: var(--orchid-text); font-size: .9rem; }
+
+.projects-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.projects-dot--ontrack { background: #10b981; }
+.projects-dot--risk    { background: #f59e0b; }
+.projects-dot--delayed { background: #ef4444; }
+.projects-dot--done    { background: #8b5cf6; }
+.projects-dot--pending { background: #64748b; }
+.projects-dot--hold    { background: #06b6d4; }
+
+.projects-status__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  padding-top: .85rem;
+  border-top: 1px dashed var(--orchid-border);
+}
+.projects-status__spark {
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+}
+
+/* ---------- Task completion velocity strip ---------- */
+.projects-velocity {
+  margin-top: .85rem;
+  padding-top: .85rem;
+  border-top: 1px dashed var(--orchid-border);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: .75rem;
+}
+
+/* ---------- Kanban ---------- */
+.projects-kanban {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .875rem;
+}
+@media (max-width: 991.98px) {
+  .projects-kanban { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 575.98px) {
+  .projects-kanban { grid-template-columns: 1fr; }
+}
+
+.projects-kanban__col {
+  background: var(--orchid-hover);
+  border-radius: 12px;
+  padding: .85rem;
+  display: flex;
+  flex-direction: column;
+  gap: .65rem;
+  border: 1px solid var(--orchid-border);
+  position: relative;
+}
+.projects-kanban__col::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 12px; right: 12px;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+}
+.projects-kanban__col--backlog::before { background: var(--projects-slate); }
+.projects-kanban__col--progress::before { background: var(--projects-violet); }
+.projects-kanban__col--review::before { background: var(--projects-amber); }
+.projects-kanban__col--done::before { background: var(--projects-green); }
+
+.projects-kanban__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  margin-bottom: .1rem;
+}
+.projects-kanban__title {
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+  color: var(--orchid-text);
+}
+.projects-kanban__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.projects-kanban__dot--backlog { background: var(--projects-slate); }
+.projects-kanban__dot--progress { background: var(--projects-violet); }
+.projects-kanban__dot--review { background: var(--projects-amber); }
+.projects-kanban__dot--done { background: var(--projects-green); }
+
+.projects-kanban__count {
+  font-size: .68rem;
+  font-weight: 700;
+  padding: .18rem .5rem;
+  border-radius: 999px;
+}
+.projects-kanban__count--backlog { background: rgba(100,116,139,.18); color: #475569; }
+.projects-kanban__count--progress { background: rgba(139,92,246,.15); color: #7c3aed; }
+.projects-kanban__count--review { background: rgba(245,158,11,.18); color: #b45309; }
+.projects-kanban__count--done { background: rgba(16,185,129,.15); color: #047857; }
+
+.projects-kanban__card {
+  background: var(--orchid-surface);
+  border: 1px solid var(--orchid-border);
+  border-radius: 10px;
+  padding: .7rem .8rem;
+  cursor: grab;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.projects-kanban__card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(15, 18, 32, .06);
+}
+.projects-kanban__card--done { opacity: .78; }
+.projects-kanban__project {
+  font-size: .68rem;
+  font-weight: 600;
+  color: var(--orchid-text-muted);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.projects-kanban__task {
+  font-size: .82rem;
+  font-weight: 500;
+  color: var(--orchid-text);
+  margin: 0 0 .55rem;
+  line-height: 1.35;
+}
+.projects-kanban__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+}
+.projects-kanban__meta {
+  font-size: .7rem;
+  color: var(--orchid-text-muted);
+  font-weight: 500;
+}
+.projects-kanban__meta i { margin-right: .1rem; }
+.projects-kanban__more {
+  display: block;
+  text-align: center;
+  padding: .45rem;
+  font-size: .72rem;
+  font-weight: 600;
+  color: var(--orchid-text-muted);
+  text-decoration: none;
+  border: 1px dashed var(--orchid-border);
+  border-radius: 8px;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+.projects-kanban__more:hover {
+  color: var(--projects-violet);
+  border-color: var(--projects-violet);
+}
+
+/* Priority pills */
+.projects-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: .15rem .45rem;
+  border-radius: 6px;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+.projects-pill--p0 { background: rgba(239,68,68,.14); color: #dc2626; }
+.projects-pill--p1 { background: rgba(245,158,11,.16); color: #b45309; }
+.projects-pill--p2 { background: rgba(100,116,139,.16); color: #475569; }
+
+/* ---------- Deadlines ---------- */
+.projects-deadlines {
+  display: flex;
+  flex-direction: column;
+  gap: .1rem;
+}
+.projects-deadlines__item {
+  display: flex;
+  align-items: center;
+  gap: .875rem;
+  padding: .75rem 0;
+  border-bottom: 1px dashed var(--orchid-border);
+}
+.projects-deadlines__item:last-child { border-bottom: 0; }
+
+.projects-deadline-date {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+  position: relative;
+}
+.projects-deadline-date__day {
+  font-size: 1.1rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.projects-deadline-date__month {
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  margin-top: 3px;
+  opacity: .95;
+}
+.projects-deadline-date--overdue { background: linear-gradient(135deg, #ef4444, #dc2626); }
+.projects-deadline-date--soon    { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.projects-deadline-date--ok      { background: linear-gradient(135deg, #10b981, #059669); }
+
+.projects-deadlines__project {
+  font-size: .875rem;
+  font-weight: 600;
+  margin: 0 0 .1rem;
+  color: var(--orchid-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.projects-deadlines__milestone {
+  font-size: .72rem;
+  margin: 0;
+  color: var(--orchid-text-muted);
+}
+.projects-deadlines__milestone i {
+  color: var(--projects-violet);
+  margin-right: .2rem;
+  font-size: .7rem;
+}
+.projects-deadlines__owner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: .3rem;
+  flex-shrink: 0;
+}
+.projects-deadlines__status {
+  font-size: .68rem;
+  font-weight: 700;
+  padding: .18rem .45rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.projects-deadlines__status--overdue { background: rgba(239,68,68,.14); color: #dc2626; }
+.projects-deadlines__status--soon    { background: rgba(245,158,11,.16); color: #b45309; }
+.projects-deadlines__status--ok      { background: rgba(16,185,129,.14); color: #047857; }
+
+/* ---------- Team Workload ---------- */
+.projects-workload {
+  display: flex;
+  flex-direction: column;
+  gap: .1rem;
+}
+.projects-workload__item {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .625rem 0;
+  border-bottom: 1px dashed var(--orchid-border);
+}
+.projects-workload__item:last-child { border-bottom: 0; }
+.projects-workload__info { flex: 1; min-width: 0; }
+.projects-workload__name {
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--orchid-text);
+  margin-right: .35rem;
+}
+.projects-workload__role {
+  font-size: .7rem;
+  color: var(--orchid-text-muted);
+}
+.projects-workload__pct {
+  font-size: .78rem;
+  font-weight: 700;
+}
+.projects-workload__pct--ok   { color: var(--projects-ok); }
+.projects-workload__pct--warn { color: #b45309; }
+.projects-workload__pct--over { color: var(--projects-over); }
+.projects-workload__meta {
+  font-size: .68rem;
+  color: var(--orchid-text-muted);
+  margin-top: .2rem;
+}
+
+.projects-capacity {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--orchid-hover);
+  overflow: hidden;
+  margin-top: .35rem;
+  box-shadow: inset 0 0 0 1px var(--orchid-border);
+}
+.projects-capacity__fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  width: 0;
+  transition: width 900ms cubic-bezier(.4,0,.2,1);
+}
+.projects-capacity__fill--ok   { background: linear-gradient(90deg, #34d399, #10b981); }
+.projects-capacity__fill--warn { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
+.projects-capacity__fill--over { background: linear-gradient(90deg, #f87171, #ef4444); }
+
+/* ---------- Activity Feed ---------- */
+.projects-activity {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: .1rem;
+}
+.projects-activity__item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: .75rem;
+  padding: .875rem 0;
+  border-bottom: 1px dashed var(--orchid-border);
+}
+.projects-activity__item:last-child { border-bottom: 0; }
+
+.projects-activity__avatar { flex-shrink: 0; margin-top: 2px; }
+
+.projects-activity__icon {
+  position: absolute;
+  left: 20px;
+  top: 26px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .58rem;
+  color: #fff;
+  border: 2px solid var(--orchid-surface);
+}
+.projects-activity__icon--complete  { background: var(--projects-green); }
+.projects-activity__icon--comment   { background: var(--projects-violet); }
+.projects-activity__icon--status    { background: var(--projects-amber); }
+.projects-activity__icon--attach    { background: #06b6d4; }
+.projects-activity__icon--milestone { background: var(--projects-purple); }
+.projects-activity__icon--create    { background: var(--projects-teal); }
+
+.projects-activity__body { flex: 1; min-width: 0; }
+.projects-activity__text {
+  font-size: .82rem;
+  margin: 0;
+  color: var(--orchid-text);
+  line-height: 1.5;
+}
+.projects-activity__text em {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--projects-violet);
+}
+.projects-activity__project {
+  font-weight: 600;
+  color: var(--orchid-text);
+  padding: .05rem .35rem;
+  border-radius: 4px;
+  background: rgba(139, 92, 246, .1);
+  font-size: .76rem;
+}
+.projects-activity__time {
+  display: inline-flex;
+  align-items: center;
+  gap: .25rem;
+  font-size: .7rem;
+  color: var(--orchid-text-muted);
+  margin-top: .25rem;
+}
+
+/* ---------- Utility: min-w-0 for flex text truncation ---------- */
+.min-w-0 { min-width: 0; }
+
+/* ---------- Dark mode tuning ---------- */
+[data-bs-theme="dark"] .projects-hero {
+  box-shadow: 0 15px 35px rgba(139, 92, 246, .18);
+}
+[data-bs-theme="dark"] .projects-kanban__col {
+  background: rgba(255,255,255,.02);
+}
+[data-bs-theme="dark"] .projects-status__legend li {
+  background: rgba(255,255,255,.02);
+}
+[data-bs-theme="dark"] .projects-activity__project {
+  background: rgba(139, 92, 246, .18);
+}
+[data-bs-theme="dark"] .projects-kpi__chip--up { background: rgba(16,185,129,.18); color: #34d399; }
+[data-bs-theme="dark"] .projects-kpi__chip--neutral { background: rgba(148,163,184,.18); color: #cbd5e1; }
+[data-bs-theme="dark"] .projects-workload__pct--warn { color: #fbbf24; }
+[data-bs-theme="dark"] .projects-deadlines__status--overdue { background: rgba(239,68,68,.2); color: #fca5a5; }
+[data-bs-theme="dark"] .projects-deadlines__status--soon { background: rgba(245,158,11,.2); color: #fcd34d; }
+[data-bs-theme="dark"] .projects-deadlines__status--ok { background: rgba(16,185,129,.2); color: #6ee7b7; }
+[data-bs-theme="dark"] .projects-pill--p0 { background: rgba(239,68,68,.2); color: #fca5a5; }
+[data-bs-theme="dark"] .projects-pill--p1 { background: rgba(245,158,11,.2); color: #fcd34d; }
+[data-bs-theme="dark"] .projects-pill--p2 { background: rgba(148,163,184,.2); color: #cbd5e1; }
+[data-bs-theme="dark"] .projects-kanban__count--backlog { background: rgba(148,163,184,.2); color: #cbd5e1; }
+[data-bs-theme="dark"] .projects-kanban__count--progress { background: rgba(139,92,246,.22); color: #c4b5fd; }
+[data-bs-theme="dark"] .projects-kanban__count--review { background: rgba(245,158,11,.22); color: #fcd34d; }
+[data-bs-theme="dark"] .projects-kanban__count--done { background: rgba(16,185,129,.22); color: #6ee7b7; }

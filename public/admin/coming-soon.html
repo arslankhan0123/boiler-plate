@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Orchid - Something big is coming">
+  <meta name="theme-color" content="#0b0f24">
+  <title>Orchid - Coming Soon</title>
+
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="assets/css/orchid.css" rel="stylesheet">
+  <link href="assets/css/pages/status.css" rel="stylesheet">
+</head>
+<body class="orchid-body status-body status-body--soon">
+
+  <div class="status-soon-bg" aria-hidden="true"></div>
+
+  <div class="status-shell">
+    <header class="status-topbar">
+      <a href="index.html" class="status-brand" aria-label="Orchid home">
+        <span class="status-brand__logo" aria-hidden="true">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orchid logo">
+            <defs>
+              <linearGradient id="statusBrandSoon" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#a5b4fc"/>
+                <stop offset="100%" stop-color="#67e8f9"/>
+              </linearGradient>
+            </defs>
+            <circle cx="16" cy="16" r="6" fill="url(#statusBrandSoon)"/>
+            <ellipse cx="16" cy="16" rx="14" ry="6" fill="none" stroke="url(#statusBrandSoon)" stroke-width="2" transform="rotate(-30 16 16)"/>
+          </svg>
+        </span>
+        <span class="status-brand__text">Orchid</span>
+      </a>
+      <div class="status-topbar__actions">
+        <button type="button" class="status-theme-toggle" data-orchid-theme-toggle aria-label="Toggle theme">
+          <i class="bi bi-moon-stars-fill"></i>
+          <i class="bi bi-sun-fill"></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="status-soon">
+      <span class="status-soon__eyebrow"><i class="bi bi-stars"></i> Launching soon</span>
+      <h1 class="status-soon__title">Something big is coming</h1>
+      <p class="status-soon__subtitle">
+        We're putting the finishing touches on the next version of Orchid —
+        a faster, smarter, more beautiful admin experience. Be the first to try it.
+      </p>
+
+      <div class="status-countdown" data-status-countdown data-status-target="2026-08-22T09:00:00Z" aria-live="polite">
+        <div class="status-countdown__cell">
+          <div class="status-countdown__value" data-status-days>30</div>
+          <div class="status-countdown__label">Days</div>
+        </div>
+        <div class="status-countdown__cell">
+          <div class="status-countdown__value" data-status-hours>00</div>
+          <div class="status-countdown__label">Hours</div>
+        </div>
+        <div class="status-countdown__cell">
+          <div class="status-countdown__value" data-status-minutes>00</div>
+          <div class="status-countdown__label">Minutes</div>
+        </div>
+        <div class="status-countdown__cell">
+          <div class="status-countdown__value" data-status-seconds>00</div>
+          <div class="status-countdown__label">Seconds</div>
+        </div>
+      </div>
+
+      <form class="status-subscribe" data-status-subscribe novalidate>
+        <label class="status-visually-hidden" for="soonEmail">Email address</label>
+        <div class="status-subscribe__inner">
+          <input type="email" id="soonEmail" class="status-subscribe__input" placeholder="you@company.com" autocomplete="email" data-status-subscribe-input>
+          <button type="submit" class="status-subscribe__btn">Notify me</button>
+        </div>
+        <div class="status-subscribe__feedback" data-status-subscribe-feedback aria-live="polite"></div>
+      </form>
+
+      <div class="status-socials" aria-label="Follow us">
+        <a href="#" class="status-socials__btn" data-status-social="Twitter" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+        <a href="#" class="status-socials__btn" data-status-social="LinkedIn" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+        <a href="#" class="status-socials__btn" data-status-social="GitHub" aria-label="GitHub"><i class="bi bi-github"></i></a>
+        <a href="#" class="status-socials__btn" data-status-social="Dribbble" aria-label="Dribbble"><i class="bi bi-dribbble"></i></a>
+        <a href="#" class="status-socials__btn" data-status-social="Instagram" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+      </div>
+    </main>
+
+    <footer class="status-footer">
+      &copy; 2026 Orchid. Made with care in orchid.
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/theme.js" defer></script>
+  <script src="assets/js/pages/status.js" defer></script>
+</body>
+</html>

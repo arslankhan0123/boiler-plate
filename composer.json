@@ -12,8 +12,8 @@
         "laravel/framework": "^12.0",
         "laravel/passport": "^13.7",
         "laravel/tinker": "^2.10.1",
-        "nwidart/laravel-modules": "^13.0",
-        "spatie/laravel-permission": "^8.0",
+        "nwidart/laravel-modules": "~12.0",
+        "spatie/laravel-permission": "~6.0",
         "stancl/tenancy": "^3.10"
     },
     "require-dev": {
@@ -96,6 +96,9 @@
             "pestphp/pest-plugin": true,
             "php-http/discovery": true,
             "wikimedia/composer-merge-plugin": true
+        },
+        "platform": {
+            "php": "8.2.0"
         }
     },
     "minimum-stability": "stable",

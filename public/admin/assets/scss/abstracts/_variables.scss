@@ -1,0 +1,46 @@
+// =====================================================
+// Design Tokens
+// =====================================================
+
+// Brand palette
+$orchid-primary:      #4f46e5;
+$orchid-primary-600:  #4338ca;
+$orchid-accent:       #22d3ee;
+$orchid-purple:       #a855f7;
+
+// Neutral surfaces (light)
+$orchid-bg:           #f5f6fa;
+$orchid-surface:      #ffffff;
+$orchid-border:       #e9ecf3;
+$orchid-text:         #1e2436;
+$orchid-text-muted:   #6b7385;
+
+// Dark theme surfaces
+$orchid-bg-dark:      #0f1220;
+$orchid-surface-dark: #171a2b;
+$orchid-border-dark:  #232842;
+$orchid-text-dark:    #e6e8f2;
+$orchid-text-muted-dark:#8891a8;
+
+// Layout
+$orchid-sidebar-w:    260px;
+$orchid-sidebar-w-collapsed: 84px;
+$orchid-header-h:     68px;
+$orchid-radius:       12px;
+$orchid-radius-lg:    18px;
+
+// Elevation
+$orchid-shadow-sm: 0 1px 2px rgba(15, 18, 32, .06);
+$orchid-shadow-md: 0 8px 24px rgba(15, 18, 32, .06);
+$orchid-shadow-lg: 0 20px 40px rgba(15, 18, 32, .10);
+
+// Transitions
+$orchid-transition: 220ms cubic-bezier(.4,0,.2,1);
+
+// Font
+$orchid-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+// Z-index
+$z-sidebar: 1040;
+$z-header:  1030;
+$z-backdrop:1039;

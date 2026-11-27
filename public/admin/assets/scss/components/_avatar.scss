@@ -1,0 +1,29 @@
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: .875rem;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.avatar-xs { width: 26px; height: 26px; font-size: .625rem; }
+.avatar-sm { width: 32px; height: 32px; font-size: .75rem; }
+.avatar-lg { width: 56px; height: 56px; font-size: 1.15rem; }
+
+.avatar-group {
+  display: inline-flex;
+  align-items: center;
+
+  .avatar {
+    margin-left: -8px;
+    border: 2px solid var(--orchid-surface);
+    box-sizing: content-box;
+
+    &:first-child { margin-left: 0; }
+  }
+}

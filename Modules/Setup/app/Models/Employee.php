@@ -88,8 +88,11 @@ class Employee extends Model
     protected $fillable = [
         'name',
         'code',
+        'user_id',
         'department_id',
         'designation_id',
+        'manager_id',
+        'shift_id',
         'email',
         'phone',
         'dob',
@@ -130,6 +133,28 @@ class Employee extends Model
         'sort_order',
         'created_by',
     ];
+
+    /** The person this employee reports to. */
+    public function manager(): BelongsTo
+    {
+        return $this->belongsTo(self::class, 'manager_id');
+    }
+
+    public function directReports(): HasMany
+    {
+        return $this->hasMany(self::class, 'manager_id');
+    }
+
+    public function shift(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Hrm\Shift::class);
+    }
+
+    /** Central login account (users.id) — null when the employee cannot sign in. */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\User::class);
+    }
 
     /**
      * @return BelongsTo<Department, $this>

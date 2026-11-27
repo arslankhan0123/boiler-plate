@@ -1,0 +1,1164 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Orchid — Global system settings">
+  <meta name="theme-color" content="#4f46e5">
+  <title>Orchid — Settings</title>
+
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="assets/css/orchid.css" rel="stylesheet">
+  <link href="assets/css/pages/system.css" rel="stylesheet">
+</head>
+<body class="orchid-body" data-sys-page="settings">
+
+  <a class="visually-hidden-focusable position-absolute top-0 start-0 p-2 bg-primary text-white" href="#orchid-main">Skip to main content</a>
+
+  <!-- ================== SIDEBAR ================== -->
+  <aside class="orchid-sidebar" id="orchidSidebar" aria-label="Primary navigation">
+    <div class="orchid-sidebar__brand">
+      <a href="index.html" class="orchid-brand" aria-label="Orchid dashboard home">
+        <span class="orchid-brand__logo" aria-hidden="true">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orchid logo">
+            <defs>
+              <linearGradient id="orchidGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#6366f1"/>
+                <stop offset="100%" stop-color="#22d3ee"/>
+              </linearGradient>
+            </defs>
+            <circle cx="16" cy="16" r="6" fill="url(#orchidGrad)"/>
+            <ellipse cx="16" cy="16" rx="14" ry="6" fill="none" stroke="url(#orchidGrad)" stroke-width="2" transform="rotate(-30 16 16)"/>
+          </svg>
+        </span>
+        <span class="orchid-brand__text">Orchid</span>
+      </a>
+      <button class="btn btn-sm btn-icon orchid-sidebar__close d-lg-none" type="button" data-orchid-sidebar-close aria-label="Close sidebar">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+
+    <nav class="orchid-sidebar__nav" aria-label="Main">
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Main</span>
+        <ul class="orchid-nav">
+          <li>
+            <a href="#navDashboard" class="orchid-nav__link orchid-nav__link--has-sub collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="navDashboard">
+              <i class="bi bi-speedometer2"></i><span>Dashboard</span>
+              <span class="badge bg-primary-subtle text-primary ms-auto">8</span>
+              <i class="bi bi-chevron-down orchid-nav__chevron"></i>
+            </a>
+            <ul class="collapse orchid-nav__sub list-unstyled" id="navDashboard">
+              <li><a href="index.html" class="orchid-nav__sublink">Default</a></li>
+              <li><a href="analytics.html" class="orchid-nav__sublink">Analytics</a></li>
+              <li><a href="crm.html" class="orchid-nav__sublink">CRM</a></li>
+              <li><a href="sales.html" class="orchid-nav__sublink">Sales</a></li>
+              <li><a href="finance.html" class="orchid-nav__sublink">Finance</a></li>
+              <li><a href="projects.html" class="orchid-nav__sublink">Projects</a></li>
+              <li><a href="ecommerce.html" class="orchid-nav__sublink">E-Commerce</a></li>
+              <li><a href="hr.html" class="orchid-nav__sublink">HR</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Business</span>
+        <ul class="orchid-nav">
+          <li>
+            <a href="#navCrm" class="orchid-nav__link orchid-nav__link--has-sub collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="navCrm">
+              <i class="bi bi-people"></i><span>CRM</span>
+              <i class="bi bi-chevron-down orchid-nav__chevron"></i>
+            </a>
+            <ul class="collapse orchid-nav__sub list-unstyled" id="navCrm">
+              <li><a href="leads.html" class="orchid-nav__sublink">Leads</a></li>
+              <li><a href="contacts.html" class="orchid-nav__sublink">Contacts</a></li>
+              <li><a href="companies.html" class="orchid-nav__sublink">Companies</a></li>
+              <li><a href="opportunities.html" class="orchid-nav__sublink">Opportunities</a></li>
+              <li><a href="deals.html" class="orchid-nav__sublink">Deals</a></li>
+              <li><a href="sales-pipeline.html" class="orchid-nav__sublink">Sales Pipeline</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#navCustomers" class="orchid-nav__link orchid-nav__link--has-sub collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="navCustomers">
+              <i class="bi bi-person-heart"></i><span>Customers</span>
+              <i class="bi bi-chevron-down orchid-nav__chevron"></i>
+            </a>
+            <ul class="collapse orchid-nav__sub list-unstyled" id="navCustomers">
+              <li><a href="customer-list.html" class="orchid-nav__sublink">Customer List</a></li>
+              <li><a href="customer-details.html" class="orchid-nav__sublink">Details</a></li>
+              <li><a href="customer-groups.html" class="orchid-nav__sublink">Groups</a></li>
+              <li><a href="customer-feedback.html" class="orchid-nav__sublink">Feedback</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#navSales" class="orchid-nav__link orchid-nav__link--has-sub collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="navSales">
+              <i class="bi bi-cart3"></i><span>Sales</span>
+              <i class="bi bi-chevron-down orchid-nav__chevron"></i>
+            </a>
+            <ul class="collapse orchid-nav__sub list-unstyled" id="navSales">
+              <li><a href="quotations.html" class="orchid-nav__sublink">Quotations</a></li>
+              <li><a href="orders.html" class="orchid-nav__sublink">Orders</a></li>
+              <li><a href="invoice.html" class="orchid-nav__sublink">Invoices</a></li>
+              <li><a href="payments.html" class="orchid-nav__sublink">Payments</a></li>
+              <li><a href="refunds.html" class="orchid-nav__sublink">Refunds</a></li>
+              <li><a href="revenue-analytics.html" class="orchid-nav__sublink">Revenue</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#navProducts" class="orchid-nav__link orchid-nav__link--has-sub collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="navProducts">
+              <i class="bi bi-box-seam"></i><span>Products</span>
+              <i class="bi bi-chevron-down orchid-nav__chevron"></i>
+            </a>
+            <ul class="collapse orchid-nav__sub list-unstyled" id="navProducts">
+              <li><a href="product-list.html" class="orchid-nav__sublink">Product List</a></li>
+              <li><a href="product-categories.html" class="orchid-nav__sublink">Categories</a></li>
+              <li><a href="product-brands.html" class="orchid-nav__sublink">Brands</a></li>
+              <li><a href="inventory.html" class="orchid-nav__sublink">Inventory</a></li>
+              <li><a href="stock-transfer.html" class="orchid-nav__sublink">Stock Transfer</a></li>
+              <li><a href="price-management.html" class="orchid-nav__sublink">Price Management</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Project Management</span>
+        <ul class="orchid-nav">
+          <li><a href="projects.html" class="orchid-nav__link"><i class="bi bi-kanban"></i><span>Projects</span></a></li>
+          <li><a href="tasks.html" class="orchid-nav__link"><i class="bi bi-check2-square"></i><span>Tasks</span><span class="badge bg-danger ms-auto">8</span></a></li>
+          <li><a href="teams.html" class="orchid-nav__link"><i class="bi bi-people-fill"></i><span>Teams</span></a></li>
+          <li><a href="calendar.html" class="orchid-nav__link"><i class="bi bi-calendar3"></i><span>Calendar</span></a></li>
+          <li><a href="meetings.html" class="orchid-nav__link"><i class="bi bi-camera-video"></i><span>Meetings</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Human Resources</span>
+        <ul class="orchid-nav">
+          <li><a href="employees.html" class="orchid-nav__link"><i class="bi bi-person-badge"></i><span>Employees</span></a></li>
+          <li><a href="attendance.html" class="orchid-nav__link"><i class="bi bi-calendar-check"></i><span>Attendance</span></a></li>
+          <li><a href="leave-management.html" class="orchid-nav__link"><i class="bi bi-calendar-x"></i><span>Leave Management</span></a></li>
+          <li><a href="payroll.html" class="orchid-nav__link"><i class="bi bi-cash-stack"></i><span>Payroll</span></a></li>
+          <li><a href="recruitment.html" class="orchid-nav__link"><i class="bi bi-person-plus"></i><span>Recruitment</span></a></li>
+          <li><a href="performance.html" class="orchid-nav__link"><i class="bi bi-graph-up"></i><span>Performance</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Finance</span>
+        <ul class="orchid-nav">
+          <li><a href="accounting.html" class="orchid-nav__link"><i class="bi bi-calculator"></i><span>Accounting</span></a></li>
+          <li><a href="expenses.html" class="orchid-nav__link"><i class="bi bi-cash-coin"></i><span>Expenses</span></a></li>
+          <li><a href="income.html" class="orchid-nav__link"><i class="bi bi-arrow-down-circle"></i><span>Income</span></a></li>
+          <li><a href="transactions.html" class="orchid-nav__link"><i class="bi bi-arrow-left-right"></i><span>Transactions</span></a></li>
+          <li><a href="budgets.html" class="orchid-nav__link"><i class="bi bi-piggy-bank"></i><span>Budgets</span></a></li>
+          <li><a href="financial-reports.html" class="orchid-nav__link"><i class="bi bi-file-earmark-bar-graph"></i><span>Financial Reports</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Communication</span>
+        <ul class="orchid-nav">
+          <li><a href="messages.html" class="orchid-nav__link"><i class="bi bi-chat-dots"></i><span>Messages</span><span class="badge bg-success ms-auto">3</span></a></li>
+          <li><a href="chat.html" class="orchid-nav__link"><i class="bi bi-chat-left-text"></i><span>Chat</span></a></li>
+          <li><a href="email.html" class="orchid-nav__link"><i class="bi bi-envelope"></i><span>Email</span></a></li>
+          <li><a href="notifications.html" class="orchid-nav__link"><i class="bi bi-bell"></i><span>Notifications</span></a></li>
+          <li><a href="support-tickets.html" class="orchid-nav__link"><i class="bi bi-life-preserver"></i><span>Support Tickets</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Analytics</span>
+        <ul class="orchid-nav">
+          <li><a href="reports.html" class="orchid-nav__link"><i class="bi bi-file-earmark-text"></i><span>Reports</span></a></li>
+          <li><a href="sales-analytics.html" class="orchid-nav__link"><i class="bi bi-graph-up-arrow"></i><span>Sales Analytics</span></a></li>
+          <li><a href="customer-analytics.html" class="orchid-nav__link"><i class="bi bi-people"></i><span>Customer Analytics</span></a></li>
+          <li><a href="revenue-analytics.html" class="orchid-nav__link"><i class="bi bi-currency-dollar"></i><span>Revenue Analytics</span></a></li>
+          <li><a href="marketing-analytics.html" class="orchid-nav__link"><i class="bi bi-megaphone"></i><span>Marketing Analytics</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">User Management</span>
+        <ul class="orchid-nav">
+          <li><a href="users.html" class="orchid-nav__link"><i class="bi bi-person"></i><span>Users</span></a></li>
+          <li><a href="roles.html" class="orchid-nav__link"><i class="bi bi-shield-lock"></i><span>Roles</span></a></li>
+          <li><a href="permissions.html" class="orchid-nav__link"><i class="bi bi-key"></i><span>Permissions</span></a></li>
+          <li><a href="user-activity.html" class="orchid-nav__link"><i class="bi bi-activity"></i><span>User Activity</span></a></li>
+          <li><a href="login-history.html" class="orchid-nav__link"><i class="bi bi-clock-history"></i><span>Login History</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Applications</span>
+        <ul class="orchid-nav">
+          <li><a href="file-manager.html" class="orchid-nav__link"><i class="bi bi-folder"></i><span>File Manager</span></a></li>
+          <li><a href="notes.html" class="orchid-nav__link"><i class="bi bi-sticky"></i><span>Notes</span></a></li>
+          <li><a href="documents.html" class="orchid-nav__link"><i class="bi bi-file-earmark"></i><span>Documents</span></a></li>
+          <li><a href="knowledge-base.html" class="orchid-nav__link"><i class="bi bi-book"></i><span>Knowledge Base</span></a></li>
+          <li><a href="todo.html" class="orchid-nav__link"><i class="bi bi-list-check"></i><span>To-Do</span></a></li>
+          <li><a href="bookmarks.html" class="orchid-nav__link"><i class="bi bi-bookmark"></i><span>Bookmarks</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">E-Commerce</span>
+        <ul class="orchid-nav">
+          <li><a href="shop-products.html" class="orchid-nav__link"><i class="bi bi-tag"></i><span>Products</span></a></li>
+          <li><a href="orders.html" class="orchid-nav__link"><i class="bi bi-bag"></i><span>Orders</span></a></li>
+          <li><a href="shop-customers.html" class="orchid-nav__link"><i class="bi bi-person-check"></i><span>Customers</span></a></li>
+          <li><a href="shop-coupons.html" class="orchid-nav__link"><i class="bi bi-ticket-perforated"></i><span>Coupons</span></a></li>
+          <li><a href="shop-reviews.html" class="orchid-nav__link"><i class="bi bi-star"></i><span>Reviews</span></a></li>
+          <li><a href="shop-shipping.html" class="orchid-nav__link"><i class="bi bi-truck"></i><span>Shipping</span></a></li>
+          <li><a href="shop-taxes.html" class="orchid-nav__link"><i class="bi bi-percent"></i><span>Taxes</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Content Management</span>
+        <ul class="orchid-nav">
+          <li><a href="cms-pages.html" class="orchid-nav__link"><i class="bi bi-file-earmark-richtext"></i><span>Pages</span></a></li>
+          <li><a href="cms-blog.html" class="orchid-nav__link"><i class="bi bi-journal-text"></i><span>Blog</span></a></li>
+          <li><a href="cms-media.html" class="orchid-nav__link"><i class="bi bi-images"></i><span>Media Library</span></a></li>
+          <li><a href="product-categories.html" class="orchid-nav__link"><i class="bi bi-tags"></i><span>Categories</span></a></li>
+          <li><a href="cms-comments.html" class="orchid-nav__link"><i class="bi bi-chat-square-text"></i><span>Comments</span></a></li>
+          <li><a href="cms-menus.html" class="orchid-nav__link"><i class="bi bi-menu-app"></i><span>Menus</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">System</span>
+        <ul class="orchid-nav">
+          <li><a href="settings.html" class="orchid-nav__link active" aria-current="page"><i class="bi bi-gear"></i><span>Settings</span></a></li>
+          <li><a href="integrations.html" class="orchid-nav__link"><i class="bi bi-puzzle"></i><span>Integrations</span></a></li>
+          <li><a href="audit-logs.html" class="orchid-nav__link"><i class="bi bi-shield-check"></i><span>Audit Logs</span></a></li>
+          <li><a href="system-logs.html" class="orchid-nav__link"><i class="bi bi-file-earmark-code"></i><span>System Logs</span></a></li>
+          <li><a href="maintenance-mode.html" class="orchid-nav__link"><i class="bi bi-tools"></i><span>Maintenance Mode</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">UI Components</span>
+        <ul class="orchid-nav">
+          <li><a href="ui-alerts.html" class="orchid-nav__link"><i class="bi bi-exclamation-triangle"></i><span>Alerts</span></a></li>
+          <li><a href="ui-badges.html" class="orchid-nav__link"><i class="bi bi-award"></i><span>Badges</span></a></li>
+          <li><a href="ui-buttons.html" class="orchid-nav__link"><i class="bi bi-app"></i><span>Buttons</span></a></li>
+          <li><a href="ui-cards.html" class="orchid-nav__link"><i class="bi bi-card-heading"></i><span>Cards</span></a></li>
+          <li><a href="ui-dropdowns.html" class="orchid-nav__link"><i class="bi bi-menu-down"></i><span>Dropdowns</span></a></li>
+          <li><a href="ui-modals.html" class="orchid-nav__link"><i class="bi bi-window"></i><span>Modals</span></a></li>
+          <li><a href="ui-tabs.html" class="orchid-nav__link"><i class="bi bi-window-stack"></i><span>Tabs</span></a></li>
+          <li><a href="ui-pagination.html" class="orchid-nav__link"><i class="bi bi-three-dots"></i><span>Pagination</span></a></li>
+          <li><a href="ui-progress.html" class="orchid-nav__link"><i class="bi bi-bar-chart-steps"></i><span>Progress</span></a></li>
+          <li><a href="ui-toasts.html" class="orchid-nav__link"><i class="bi bi-chat-square-dots"></i><span>Toasts</span></a></li>
+          <li><a href="ui-tooltips.html" class="orchid-nav__link"><i class="bi bi-info-circle"></i><span>Tooltips</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Forms</span>
+        <ul class="orchid-nav">
+          <li><a href="forms-basic.html" class="orchid-nav__link"><i class="bi bi-input-cursor"></i><span>Basic Forms</span></a></li>
+          <li><a href="forms-validation.html" class="orchid-nav__link"><i class="bi bi-check-circle"></i><span>Validation</span></a></li>
+          <li><a href="forms-wizard.html" class="orchid-nav__link"><i class="bi bi-magic"></i><span>Wizard</span></a></li>
+          <li><a href="forms-file-upload.html" class="orchid-nav__link"><i class="bi bi-cloud-upload"></i><span>File Upload</span></a></li>
+          <li><a href="forms-editor.html" class="orchid-nav__link"><i class="bi bi-textarea-t"></i><span>Rich Text Editor</span></a></li>
+          <li><a href="forms-datepicker.html" class="orchid-nav__link"><i class="bi bi-calendar-date"></i><span>Date Picker</span></a></li>
+          <li><a href="forms-timepicker.html" class="orchid-nav__link"><i class="bi bi-clock"></i><span>Time Picker</span></a></li>
+          <li><a href="forms-colorpicker.html" class="orchid-nav__link"><i class="bi bi-palette"></i><span>Color Picker</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Tables</span>
+        <ul class="orchid-nav">
+          <li><a href="tables-basic.html" class="orchid-nav__link"><i class="bi bi-table"></i><span>Basic Table</span></a></li>
+          <li><a href="tables-data.html" class="orchid-nav__link"><i class="bi bi-grid"></i><span>Data Table</span></a></li>
+          <li><a href="tables-responsive.html" class="orchid-nav__link"><i class="bi bi-phone"></i><span>Responsive Table</span></a></li>
+          <li><a href="tables-editable.html" class="orchid-nav__link"><i class="bi bi-pencil-square"></i><span>Editable Table</span></a></li>
+          <li><a href="tables-advanced.html" class="orchid-nav__link"><i class="bi bi-grid-3x3"></i><span>Advanced Table</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Charts</span>
+        <ul class="orchid-nav">
+          <li><a href="charts-line.html" class="orchid-nav__link"><i class="bi bi-graph-up"></i><span>Line</span></a></li>
+          <li><a href="charts-bar.html" class="orchid-nav__link"><i class="bi bi-bar-chart"></i><span>Bar</span></a></li>
+          <li><a href="charts-area.html" class="orchid-nav__link"><i class="bi bi-graph-up-arrow"></i><span>Area</span></a></li>
+          <li><a href="charts-pie.html" class="orchid-nav__link"><i class="bi bi-pie-chart"></i><span>Pie</span></a></li>
+          <li><a href="charts-donut.html" class="orchid-nav__link"><i class="bi bi-circle"></i><span>Donut</span></a></li>
+          <li><a href="charts-radar.html" class="orchid-nav__link"><i class="bi bi-broadcast"></i><span>Radar</span></a></li>
+          <li><a href="charts-polar.html" class="orchid-nav__link"><i class="bi bi-record-circle"></i><span>Polar</span></a></li>
+          <li><a href="charts-mixed.html" class="orchid-nav__link"><i class="bi bi-bar-chart-line"></i><span>Mixed</span></a></li>
+          <li><a href="charts-chartjs.html" class="orchid-nav__link"><i class="bi bi-bar-chart-fill"></i><span>Chart.js</span></a></li>
+          <li><a href="charts-apex.html" class="orchid-nav__link"><i class="bi bi-graph-up"></i><span>ApexCharts</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Icons</span>
+        <ul class="orchid-nav">
+          <li><a href="icons-bootstrap.html" class="orchid-nav__link"><i class="bi bi-bootstrap"></i><span>Bootstrap Icons</span></a></li>
+          <li><a href="icons-fontawesome.html" class="orchid-nav__link"><i class="bi bi-star-fill"></i><span>Font Awesome</span></a></li>
+          <li><a href="icons-lucide.html" class="orchid-nav__link"><i class="bi bi-emoji-smile"></i><span>Lucide</span></a></li>
+          <li><a href="icons-remix.html" class="orchid-nav__link"><i class="bi bi-square"></i><span>Remix Icons</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Maps</span>
+        <ul class="orchid-nav">
+          <li><a href="maps-google.html" class="orchid-nav__link"><i class="bi bi-map"></i><span>Google Maps</span></a></li>
+          <li><a href="maps-vector.html" class="orchid-nav__link"><i class="bi bi-geo-alt"></i><span>Vector Maps</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Authentication</span>
+        <ul class="orchid-nav">
+          <li><a href="login.html" class="orchid-nav__link"><i class="bi bi-box-arrow-in-right"></i><span>Login</span></a></li>
+          <li><a href="register.html" class="orchid-nav__link"><i class="bi bi-person-plus"></i><span>Register</span></a></li>
+          <li><a href="forgot-password.html" class="orchid-nav__link"><i class="bi bi-question-circle"></i><span>Forgot Password</span></a></li>
+          <li><a href="reset-password.html" class="orchid-nav__link"><i class="bi bi-arrow-clockwise"></i><span>Reset Password</span></a></li>
+          <li><a href="lock-screen.html" class="orchid-nav__link"><i class="bi bi-lock"></i><span>Lock Screen</span></a></li>
+          <li><a href="two-factor.html" class="orchid-nav__link"><i class="bi bi-shield-check"></i><span>Two-Factor Auth</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Extra Pages</span>
+        <ul class="orchid-nav">
+          <li><a href="profile.html" class="orchid-nav__link"><i class="bi bi-person-circle"></i><span>Profile</span></a></li>
+          <li><a href="account-settings.html" class="orchid-nav__link"><i class="bi bi-gear-fill"></i><span>Account Settings</span></a></li>
+          <li><a href="pricing.html" class="orchid-nav__link"><i class="bi bi-currency-dollar"></i><span>Pricing</span></a></li>
+          <li><a href="faq.html" class="orchid-nav__link"><i class="bi bi-question-square"></i><span>FAQ</span></a></li>
+          <li><a href="help-center.html" class="orchid-nav__link"><i class="bi bi-headset"></i><span>Help Center</span></a></li>
+          <li><a href="timeline.html" class="orchid-nav__link"><i class="bi bi-clock"></i><span>Timeline</span></a></li>
+          <li><a href="invoice.html" class="orchid-nav__link"><i class="bi bi-receipt"></i><span>Invoice</span></a></li>
+          <li><a href="coming-soon.html" class="orchid-nav__link"><i class="bi bi-hourglass-split"></i><span>Coming Soon</span></a></li>
+          <li><a href="maintenance.html" class="orchid-nav__link"><i class="bi bi-cone-striped"></i><span>Maintenance</span></a></li>
+          <li><a href="error-404.html" class="orchid-nav__link"><i class="bi bi-bug"></i><span>Error Pages</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-upgrade-card">
+        <div class="orchid-upgrade-card__glow" aria-hidden="true"></div>
+        <div class="orchid-upgrade-card__body">
+          <i class="bi bi-rocket-takeoff orchid-upgrade-card__icon" aria-hidden="true"></i>
+          <h6 class="orchid-upgrade-card__title">Upgrade to Pro</h6>
+          <p class="orchid-upgrade-card__text">Unlock premium widgets, charts and priority support.</p>
+          <a href="#" class="btn btn-light btn-sm w-100 fw-semibold">Upgrade Now</a>
+        </div>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="orchid-backdrop" data-orchid-sidebar-close aria-hidden="true"></div>
+
+  <!-- ================== APP WRAPPER ================== -->
+  <div class="orchid-app">
+
+    <!-- ================== HEADER ================== -->
+    <header class="orchid-header" role="banner">
+      <div class="orchid-header__left">
+        <button class="btn btn-icon orchid-header__toggle" type="button" data-orchid-sidebar-toggle aria-label="Toggle sidebar" aria-controls="orchidSidebar" aria-expanded="false">
+          <i class="bi bi-list"></i>
+        </button>
+        <nav aria-label="breadcrumb" class="orchid-header__breadcrumb d-none d-md-block">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i></a></li>
+            <li class="breadcrumb-item"><a href="#">System</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Settings</li>
+          </ol>
+        </nav>
+      </div>
+
+      <div class="orchid-header__right">
+        <form class="orchid-search d-none d-md-flex" role="search" data-orchid-search-form>
+          <label for="orchidSearch" class="visually-hidden">Search</label>
+          <i class="bi bi-search orchid-search__icon" aria-hidden="true"></i>
+          <input type="search" id="orchidSearch" class="form-control" placeholder="Search anything…" autocomplete="off">
+          <kbd class="orchid-search__kbd">⌘K</kbd>
+        </form>
+
+        <button class="btn btn-icon d-md-none" type="button" data-orchid-search-open aria-label="Open search">
+          <i class="bi bi-search"></i>
+        </button>
+
+        <button class="btn btn-icon orchid-theme-toggle" type="button" data-orchid-theme-toggle aria-label="Toggle color theme">
+          <i class="bi bi-sun-fill orchid-theme-toggle__sun"></i>
+          <i class="bi bi-moon-stars-fill orchid-theme-toggle__moon"></i>
+        </button>
+
+        <div class="dropdown">
+          <button class="btn btn-icon position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Notifications">
+            <i class="bi bi-bell"></i>
+            <span class="orchid-badge-dot bg-danger"></span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end orchid-dropdown">
+            <div class="orchid-dropdown__header">
+              <h6 class="mb-0">Notifications</h6>
+              <span class="badge bg-primary-subtle text-primary">5 New</span>
+            </div>
+            <ul class="orchid-dropdown__list list-unstyled mb-0">
+              <li>
+                <a href="#" class="orchid-dropdown__item">
+                  <span class="avatar avatar-sm bg-primary-subtle text-primary"><i class="bi bi-person-plus"></i></span>
+                  <div>
+                    <p class="mb-0">New user registration</p>
+                    <small class="text-body-secondary">2 minutes ago</small>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="orchid-dropdown__item">
+                  <span class="avatar avatar-sm bg-success-subtle text-success"><i class="bi bi-cash-coin"></i></span>
+                  <div>
+                    <p class="mb-0">Payment received — $2,400</p>
+                    <small class="text-body-secondary">14 minutes ago</small>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="orchid-dropdown__item">
+                  <span class="avatar avatar-sm bg-warning-subtle text-warning"><i class="bi bi-exclamation-triangle"></i></span>
+                  <div>
+                    <p class="mb-0">Server load reached 78%</p>
+                    <small class="text-body-secondary">1 hour ago</small>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="orchid-dropdown__item">
+                  <span class="avatar avatar-sm bg-info-subtle text-info"><i class="bi bi-chat-left-text"></i></span>
+                  <div>
+                    <p class="mb-0">New comment on report</p>
+                    <small class="text-body-secondary">3 hours ago</small>
+                  </div>
+                </a>
+              </li>
+            </ul>
+            <div class="orchid-dropdown__footer">
+              <a href="#">View all notifications</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="dropdown d-none d-sm-block">
+          <button class="btn btn-icon position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Messages">
+            <i class="bi bi-chat-dots"></i>
+            <span class="orchid-badge-count bg-success">3</span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end orchid-dropdown">
+            <div class="orchid-dropdown__header">
+              <h6 class="mb-0">Messages</h6>
+              <a href="#" class="small">Mark all read</a>
+            </div>
+            <ul class="orchid-dropdown__list list-unstyled mb-0">
+              <li>
+                <a href="#" class="orchid-dropdown__item">
+                  <span class="avatar avatar-sm bg-primary text-white">SM</span>
+                  <div>
+                    <p class="mb-0"><strong>Sarah Miller</strong></p>
+                    <small class="text-body-secondary">Loved your latest design mock…</small>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="orchid-dropdown__item">
+                  <span class="avatar avatar-sm bg-info text-white">JD</span>
+                  <div>
+                    <p class="mb-0"><strong>James Doe</strong></p>
+                    <small class="text-body-secondary">The report is ready to review.</small>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="orchid-dropdown__item">
+                  <span class="avatar avatar-sm bg-warning text-white">AL</span>
+                  <div>
+                    <p class="mb-0"><strong>Ava Lee</strong></p>
+                    <small class="text-body-secondary">Meeting rescheduled to Friday.</small>
+                  </div>
+                </a>
+              </li>
+            </ul>
+            <div class="orchid-dropdown__footer"><a href="#">Open inbox</a></div>
+          </div>
+        </div>
+
+        <div class="dropdown d-none d-sm-block">
+          <button class="btn btn-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Apps">
+            <i class="bi bi-grid-3x3-gap"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end orchid-dropdown orchid-dropdown--apps">
+            <div class="orchid-dropdown__header"><h6 class="mb-0">Apps</h6></div>
+            <div class="orchid-apps-grid">
+              <a href="#" class="orchid-apps-grid__item"><i class="bi bi-envelope text-primary"></i><span>Mail</span></a>
+              <a href="#" class="orchid-apps-grid__item"><i class="bi bi-calendar3 text-danger"></i><span>Calendar</span></a>
+              <a href="#" class="orchid-apps-grid__item"><i class="bi bi-file-earmark-text text-warning"></i><span>Docs</span></a>
+              <a href="#" class="orchid-apps-grid__item"><i class="bi bi-image text-info"></i><span>Photos</span></a>
+              <a href="#" class="orchid-apps-grid__item"><i class="bi bi-cloud text-success"></i><span>Drive</span></a>
+              <a href="#" class="orchid-apps-grid__item"><i class="bi bi-camera-video text-primary"></i><span>Meet</span></a>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-icon d-none d-lg-inline-flex" type="button" aria-label="Calendar">
+          <i class="bi bi-calendar3"></i>
+        </button>
+
+        <div class="dropdown">
+          <button class="btn orchid-profile-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="User profile">
+            <span class="avatar avatar-sm bg-primary-subtle text-primary fw-semibold">AK</span>
+            <span class="orchid-profile-btn__meta d-none d-lg-flex">
+              <span class="orchid-profile-btn__name">Alex Kim</span>
+              <span class="orchid-profile-btn__role">Administrator</span>
+            </span>
+            <i class="bi bi-chevron-down d-none d-lg-inline"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end orchid-dropdown orchid-dropdown--profile">
+            <li class="orchid-dropdown__header">
+              <div class="d-flex align-items-center gap-2">
+                <span class="avatar bg-primary-subtle text-primary fw-semibold">AK</span>
+                <div>
+                  <p class="mb-0 fw-semibold">Alex Kim</p>
+                  <small class="text-body-secondary">alex@orchid.io</small>
+                </div>
+              </div>
+            </li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i>Profile</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i>Settings</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-wallet2"></i>Billing</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-life-preserver"></i>Help Center</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right"></i>Sign out</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <!-- ================== MAIN ================== -->
+    <main class="orchid-main" id="orchid-main" tabindex="-1">
+      <div class="container-fluid px-3 px-lg-4 py-4">
+
+        <div class="sys-page-head">
+          <div>
+            <h1>System Settings</h1>
+            <p>Configure global preferences, branding, security, integrations and backups.</p>
+          </div>
+          <div class="d-flex gap-2">
+            <button class="btn btn-outline-secondary btn-sm" type="button"><i class="bi bi-arrow-counterclockwise me-1"></i>Reset defaults</button>
+            <button class="btn btn-primary btn-sm" type="button" data-set-save><i class="bi bi-check2 me-1"></i>Save all</button>
+          </div>
+        </div>
+
+        <div class="set-shell">
+          <!-- LEFT NAV -->
+          <aside class="set-nav-card" aria-label="Settings sections">
+            <div class="set-nav-search">
+              <input type="search" class="form-control" placeholder="Search settings…" data-set-search aria-label="Search settings">
+            </div>
+            <div class="set-nav-results" data-set-results aria-live="polite"></div>
+            <ul class="set-nav">
+              <li class="set-nav__item"><a class="set-nav__link is-active" data-panel="general" href="#panel-general"><i class="bi bi-sliders"></i>General</a></li>
+              <li class="set-nav__item"><a class="set-nav__link" data-panel="company" href="#panel-company"><i class="bi bi-building"></i>Company</a></li>
+              <li class="set-nav__item"><a class="set-nav__link" data-panel="localization" href="#panel-localization"><i class="bi bi-globe2"></i>Localization<span class="set-nav__badge badge bg-info-subtle text-info">Beta</span></a></li>
+              <li class="set-nav__item"><a class="set-nav__link" data-panel="branding" href="#panel-branding"><i class="bi bi-palette"></i>Branding</a></li>
+              <li class="set-nav__item"><a class="set-nav__link" data-panel="email" href="#panel-email"><i class="bi bi-envelope-at"></i>Email &amp; Domains</a></li>
+              <li class="set-nav__item"><a class="set-nav__link" data-panel="security" href="#panel-security"><i class="bi bi-shield-lock"></i>Security</a></li>
+              <li class="set-nav__item"><a class="set-nav__link" data-panel="api" href="#panel-api"><i class="bi bi-key"></i>API Keys<span class="set-nav__badge badge bg-primary-subtle text-primary">4</span></a></li>
+              <li class="set-nav__item"><a class="set-nav__link" data-panel="webhooks" href="#panel-webhooks"><i class="bi bi-broadcast"></i>Webhooks</a></li>
+              <li class="set-nav__item"><a class="set-nav__link" data-panel="data" href="#panel-data"><i class="bi bi-hdd"></i>Data &amp; Storage</a></li>
+              <li class="set-nav__item"><a class="set-nav__link" data-panel="backup" href="#panel-backup"><i class="bi bi-cloud-arrow-up"></i>Backup</a></li>
+              <li class="set-nav__item"><a class="set-nav__link" data-panel="advanced" href="#panel-advanced"><i class="bi bi-terminal"></i>Advanced<span class="set-nav__badge badge bg-warning-subtle text-warning">New</span></a></li>
+            </ul>
+          </aside>
+
+          <!-- RIGHT PANELS -->
+          <div>
+            <!-- GENERAL -->
+            <section class="set-panel is-active" id="panel-general" aria-label="General settings">
+              <div class="set-panel__head">
+                <h2>General</h2>
+                <p>Basic details that identify your workspace across the product.</p>
+              </div>
+              <div class="set-section">
+                <h6>Workspace identity</h6>
+                <p class="hint">Public names displayed in the header, invoices and emails.</p>
+                <div class="set-field-grid">
+                  <div><label>Site name</label><input type="text" class="form-control" value="Orchid Cloud"></div>
+                  <div><label>Tagline</label><input type="text" class="form-control" value="Run your business, orchid the details."></div>
+                  <div><label>Support email</label><input type="email" class="form-control" value="support@orchid.io"></div>
+                  <div><label>Contact phone</label><input type="tel" class="form-control" value="+1 (415) 555-0142"></div>
+                </div>
+              </div>
+              <div class="set-section">
+                <h6>Regional defaults</h6>
+                <p class="hint">Applies to date pickers, invoices, and reports.</p>
+                <div class="set-field-grid">
+                  <div>
+                    <label>Timezone</label>
+                    <select class="form-select">
+                      <option>UTC</option>
+                      <option selected>America/New_York (EST)</option>
+                      <option>Europe/London (GMT)</option>
+                      <option>Asia/Tokyo (JST)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label>Date format</label>
+                    <select class="form-select">
+                      <option>YYYY-MM-DD</option>
+                      <option selected>MM/DD/YYYY</option>
+                      <option>DD MMM YYYY</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label>Number format</label>
+                    <select class="form-select">
+                      <option selected>1,234.56 (en-US)</option>
+                      <option>1.234,56 (de-DE)</option>
+                      <option>1 234,56 (fr-FR)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label>Default currency</label>
+                    <select class="form-select">
+                      <option selected>USD — US Dollar</option>
+                      <option>EUR — Euro</option>
+                      <option>GBP — British Pound</option>
+                      <option>JPY — Japanese Yen</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="set-actions">
+                <button type="button" class="btn btn-outline-secondary btn-sm">Cancel</button>
+                <button type="button" class="btn btn-primary btn-sm" data-set-save><i class="bi bi-check2 me-1"></i>Save changes</button>
+              </div>
+            </section>
+
+            <!-- COMPANY -->
+            <section class="set-panel" id="panel-company" aria-label="Company details">
+              <div class="set-panel__head">
+                <h2>Company</h2>
+                <p>Legal information used on invoices, contracts and tax documents.</p>
+              </div>
+              <div class="set-section">
+                <h6>Company details</h6>
+                <div class="set-field-grid">
+                  <div><label>Legal name</label><input type="text" class="form-control" value="Orchid Systems Inc."></div>
+                  <div><label>Trade name</label><input type="text" class="form-control" value="Orchid"></div>
+                  <div><label>Registration number</label><input type="text" class="form-control" value="US-4820-8291"></div>
+                  <div><label>VAT / Tax ID</label><input type="text" class="form-control" value="US-VAT-982108"></div>
+                  <div><label>Industry</label>
+                    <select class="form-select"><option selected>Software &amp; SaaS</option><option>Retail</option><option>Consulting</option></select>
+                  </div>
+                  <div><label>Company size</label>
+                    <select class="form-select"><option>1-10</option><option selected>11-50</option><option>51-200</option><option>201-1000</option></select>
+                  </div>
+                </div>
+              </div>
+              <div class="set-section">
+                <h6>Registered address</h6>
+                <div class="set-field-grid">
+                  <div><label>Street</label><input type="text" class="form-control" value="482 Market Street, Suite 900"></div>
+                  <div><label>City</label><input type="text" class="form-control" value="San Francisco"></div>
+                  <div><label>State / Province</label><input type="text" class="form-control" value="California"></div>
+                  <div><label>Postal code</label><input type="text" class="form-control" value="94103"></div>
+                  <div><label>Country</label><select class="form-select"><option selected>United States</option><option>Canada</option><option>United Kingdom</option></select></div>
+                </div>
+              </div>
+              <div class="set-actions">
+                <button type="button" class="btn btn-primary btn-sm" data-set-save><i class="bi bi-check2 me-1"></i>Save changes</button>
+              </div>
+            </section>
+
+            <!-- LOCALIZATION -->
+            <section class="set-panel" id="panel-localization" aria-label="Localization">
+              <div class="set-panel__head">
+                <h2>Localization</h2>
+                <p>Manage supported languages and translation completeness.</p>
+              </div>
+              <div class="set-section">
+                <h6>Default language</h6>
+                <div class="set-field-grid">
+                  <div><label>Interface language</label>
+                    <select class="form-select"><option selected>English (US)</option><option>English (UK)</option><option>Deutsch</option><option>Français</option><option>日本語</option></select>
+                  </div>
+                  <div><label>Fallback language</label>
+                    <select class="form-select"><option selected>English (US)</option></select>
+                  </div>
+                </div>
+              </div>
+              <div class="set-section">
+                <h6>Supported languages</h6>
+                <p class="hint">Only enabled languages are shown in the user-language picker.</p>
+                <div>
+                  <div class="set-lang-item">
+                    <span class="set-lang-item__flag" data-swatch="us">EN</span>
+                    <span class="set-lang-item__name">English (US)</span>
+                    <span class="set-lang-item__bar"><span data-w="100"></span></span>
+                    <span class="set-lang-item__pct">100%</span>
+                    <div class="form-check form-switch ms-2"><input class="form-check-input" type="checkbox" id="lg1" checked></div>
+                  </div>
+                  <div class="set-lang-item">
+                    <span class="set-lang-item__flag" data-swatch="de">DE</span>
+                    <span class="set-lang-item__name">Deutsch</span>
+                    <span class="set-lang-item__bar"><span data-w="94"></span></span>
+                    <span class="set-lang-item__pct">94%</span>
+                    <div class="form-check form-switch ms-2"><input class="form-check-input" type="checkbox" id="lg2" checked></div>
+                  </div>
+                  <div class="set-lang-item">
+                    <span class="set-lang-item__flag" data-swatch="fr">FR</span>
+                    <span class="set-lang-item__name">Français</span>
+                    <span class="set-lang-item__bar"><span data-w="88"></span></span>
+                    <span class="set-lang-item__pct">88%</span>
+                    <div class="form-check form-switch ms-2"><input class="form-check-input" type="checkbox" id="lg3" checked></div>
+                  </div>
+                  <div class="set-lang-item">
+                    <span class="set-lang-item__flag" data-swatch="es">ES</span>
+                    <span class="set-lang-item__name">Español</span>
+                    <span class="set-lang-item__bar"><span data-w="72"></span></span>
+                    <span class="set-lang-item__pct">72%</span>
+                    <div class="form-check form-switch ms-2"><input class="form-check-input" type="checkbox" id="lg4"></div>
+                  </div>
+                  <div class="set-lang-item">
+                    <span class="set-lang-item__flag" data-swatch="jp">JP</span>
+                    <span class="set-lang-item__name">日本語</span>
+                    <span class="set-lang-item__bar"><span data-w="48"></span></span>
+                    <span class="set-lang-item__pct">48%</span>
+                    <div class="form-check form-switch ms-2"><input class="form-check-input" type="checkbox" id="lg5"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="set-actions">
+                <button type="button" class="btn btn-primary btn-sm" data-set-save><i class="bi bi-check2 me-1"></i>Save changes</button>
+              </div>
+            </section>
+
+            <!-- BRANDING -->
+            <section class="set-panel" id="panel-branding" aria-label="Branding">
+              <div class="set-panel__head">
+                <h2>Branding</h2>
+                <p>Customize your workspace look and feel across the app.</p>
+              </div>
+              <div class="set-section">
+                <h6>Logo</h6>
+                <p class="hint">Upload a square SVG or PNG (min 200x200px, 2MB).</p>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="set-logo-drop" for="logoUpload">
+                      <div class="set-logo-drop__preview" data-set-brand-logo>O</div>
+                      <div class="fw-semibold">Drop logo here or click to browse</div>
+                      <small>SVG · PNG · JPG — up to 2MB</small>
+                      <input type="file" id="logoUpload" class="d-none" accept=".svg,.png,.jpg">
+                    </label>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="set-logo-drop" for="favUpload">
+                      <div class="set-logo-drop__preview">F</div>
+                      <div class="fw-semibold">Favicon</div>
+                      <small>ICO · SVG — 32x32px</small>
+                      <input type="file" id="favUpload" class="d-none" accept=".svg,.ico,.png">
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="set-section">
+                <h6>Primary color</h6>
+                <p class="hint">Applied to buttons, links and progress bars across the app.</p>
+                <div class="set-color-picker mb-3">
+                  <span class="set-color-swatch is-active" data-color="#4f46e5" title="Indigo"></span>
+                  <span class="set-color-swatch" data-color="#0ea5e9" title="Sky"></span>
+                  <span class="set-color-swatch" data-color="#10b981" title="Emerald"></span>
+                  <span class="set-color-swatch" data-color="#f59e0b" title="Amber"></span>
+                  <span class="set-color-swatch" data-color="#ef4444" title="Rose"></span>
+                  <span class="set-color-swatch" data-color="#a855f7" title="Violet"></span>
+                  <span class="set-color-swatch" data-color="#ec4899" title="Pink"></span>
+                  <span class="set-color-swatch" data-color="#0f172a" title="Slate"></span>
+                </div>
+                <div class="set-theme-preview" data-set-brand-preview>
+                  <span class="set-theme-preview__logo" data-set-brand-logo>O</span>
+                  <div class="flex-grow-1">
+                    <div class="fw-semibold">Live theme preview</div>
+                    <small class="text-body-secondary">This is how your primary color appears.</small>
+                  </div>
+                  <button type="button" class="set-theme-preview__btn" data-set-brand-btn>Sample button</button>
+                </div>
+              </div>
+              <div class="set-actions">
+                <button type="button" class="btn btn-primary btn-sm" data-set-save><i class="bi bi-check2 me-1"></i>Apply branding</button>
+              </div>
+            </section>
+
+            <!-- EMAIL & DOMAINS -->
+            <section class="set-panel" id="panel-email" aria-label="Email and domains">
+              <div class="set-panel__head">
+                <h2>Email &amp; Domains</h2>
+                <p>Configure your custom sending domain and email templates.</p>
+              </div>
+              <div class="set-section">
+                <h6>Sending domain</h6>
+                <div class="set-field-grid">
+                  <div><label>From name</label><input type="text" class="form-control" value="Orchid"></div>
+                  <div><label>From email</label><input type="email" class="form-control" value="hello@mail.orchid.io"></div>
+                  <div><label>Reply-to</label><input type="email" class="form-control" value="support@orchid.io"></div>
+                  <div><label>SPF status</label>
+                    <div class="d-flex align-items-center gap-2 pt-1"><span class="badge bg-success-subtle text-success"><i class="bi bi-check-circle me-1"></i>Verified</span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="set-section">
+                <h6>DKIM records</h6>
+                <div class="set-webhook-item">
+                  <div class="set-webhook-item__head">
+                    <strong>mail.orchid.io</strong>
+                    <span class="badge bg-success-subtle text-success"><i class="bi bi-check-circle me-1"></i>DKIM active</span>
+                  </div>
+                  <div class="set-webhook-item__url">v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDf…</div>
+                </div>
+              </div>
+              <div class="set-actions">
+                <button type="button" class="btn btn-primary btn-sm" data-set-save><i class="bi bi-check2 me-1"></i>Save changes</button>
+              </div>
+            </section>
+
+            <!-- SECURITY -->
+            <section class="set-panel" id="panel-security" aria-label="Security">
+              <div class="set-panel__head">
+                <h2>Security</h2>
+                <p>Enforce authentication and access-control policies across the workspace.</p>
+              </div>
+              <div class="set-section">
+                <h6>Multi-factor authentication</h6>
+                <div class="set-toggle-row">
+                  <div><h6>Require 2FA for all users</h6><p>Every user must enroll a second factor before signing in.</p></div>
+                  <div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="mfaAll" checked></div>
+                </div>
+                <div class="set-toggle-row">
+                  <div><h6>Require 2FA for administrators</h6><p>Applies to Owner and Admin roles only.</p></div>
+                  <div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="mfaAdmin" checked></div>
+                </div>
+                <div class="set-toggle-row">
+                  <div><h6>Allow WebAuthn / hardware keys</h6><p>YubiKey, Passkeys and platform authenticators.</p></div>
+                  <div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="wa" checked></div>
+                </div>
+              </div>
+              <div class="set-section">
+                <h6>Session policy</h6>
+                <div class="set-field-grid">
+                  <div><label>Idle timeout</label>
+                    <select class="form-select"><option>15 minutes</option><option selected>30 minutes</option><option>2 hours</option><option>Never</option></select>
+                  </div>
+                  <div><label>Max concurrent sessions</label>
+                    <input type="number" class="form-control" value="4">
+                  </div>
+                </div>
+              </div>
+              <div class="set-section">
+                <h6>IP allowlist</h6>
+                <p class="hint">Only requests from listed CIDRs may access the admin panel.</p>
+                <textarea class="form-control" rows="3">192.168.4.0/24
+10.0.0.0/16
+203.0.113.42/32</textarea>
+              </div>
+              <div class="set-section">
+                <h6>Password policy</h6>
+                <div class="set-toggle-row"><div><h6>Minimum 12 characters</h6></div><div class="form-check form-switch"><input class="form-check-input" type="checkbox" checked></div></div>
+                <div class="set-toggle-row"><div><h6>Require symbols &amp; numbers</h6></div><div class="form-check form-switch"><input class="form-check-input" type="checkbox" checked></div></div>
+                <div class="set-toggle-row"><div><h6>Block breached passwords (HIBP)</h6></div><div class="form-check form-switch"><input class="form-check-input" type="checkbox" checked></div></div>
+              </div>
+              <div class="set-actions">
+                <button type="button" class="btn btn-primary btn-sm" data-set-save><i class="bi bi-check2 me-1"></i>Save security policy</button>
+              </div>
+            </section>
+
+            <!-- API KEYS -->
+            <section class="set-panel" id="panel-api" aria-label="API Keys">
+              <div class="set-panel__head d-flex align-items-start justify-content-between gap-2">
+                <div>
+                  <h2>API Keys</h2>
+                  <p>Programmatic access tokens for the Orchid REST &amp; GraphQL APIs.</p>
+                </div>
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createKeyModal"><i class="bi bi-plus-lg me-1"></i>Create key</button>
+              </div>
+              <div class="table-responsive">
+                <table class="table set-keys-table align-middle">
+                  <thead>
+                    <tr>
+                      <th scope="col">Name</th>
+                      <th scope="col">Key</th>
+                      <th scope="col">Permissions</th>
+                      <th scope="col">Created</th>
+                      <th scope="col">Last used</th>
+                      <th scope="col" class="text-end">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>production-server</strong><br><small class="text-body-secondary">Backend service</small></td>
+                      <td><code>orb_live_sk_9821···4728</code></td>
+                      <td><span class="set-perm-pill">read</span><span class="set-perm-pill">write</span></td>
+                      <td>2026-05-14</td>
+                      <td>3m ago</td>
+                      <td class="text-end">
+                        <button class="btn btn-sm btn-outline-secondary" type="button" data-set-regen><i class="bi bi-arrow-clockwise"></i></button>
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-set-revoke><i class="bi bi-trash"></i></button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><strong>ci-deploy</strong><br><small class="text-body-secondary">GitHub Actions</small></td>
+                      <td><code>orb_live_sk_4820···1122</code></td>
+                      <td><span class="set-perm-pill">deploy</span></td>
+                      <td>2026-04-02</td>
+                      <td>2h ago</td>
+                      <td class="text-end">
+                        <button class="btn btn-sm btn-outline-secondary" type="button" data-set-regen><i class="bi bi-arrow-clockwise"></i></button>
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-set-revoke><i class="bi bi-trash"></i></button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><strong>analytics-etl</strong><br><small class="text-body-secondary">BigQuery worker</small></td>
+                      <td><code>orb_live_sk_7710···0084</code></td>
+                      <td><span class="set-perm-pill">read</span><span class="set-perm-pill">export</span></td>
+                      <td>2026-02-18</td>
+                      <td>Yesterday</td>
+                      <td class="text-end">
+                        <button class="btn btn-sm btn-outline-secondary" type="button" data-set-regen><i class="bi bi-arrow-clockwise"></i></button>
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-set-revoke><i class="bi bi-trash"></i></button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><strong>mobile-app-ios</strong><br><small class="text-body-secondary">iOS SDK</small></td>
+                      <td><code>orb_live_pk_3241···9910</code></td>
+                      <td><span class="set-perm-pill">read</span></td>
+                      <td>2025-11-30</td>
+                      <td>12s ago</td>
+                      <td class="text-end">
+                        <button class="btn btn-sm btn-outline-secondary" type="button" data-set-regen><i class="bi bi-arrow-clockwise"></i></button>
+                        <button class="btn btn-sm btn-outline-danger" type="button" data-set-revoke><i class="bi bi-trash"></i></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <!-- WEBHOOKS -->
+            <section class="set-panel" id="panel-webhooks" aria-label="Webhooks">
+              <div class="set-panel__head d-flex align-items-start justify-content-between gap-2">
+                <div>
+                  <h2>Webhooks</h2>
+                  <p>Deliver real-time events to your services via HTTPS.</p>
+                </div>
+                <button type="button" class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i>New endpoint</button>
+              </div>
+              <div>
+                <div class="set-webhook-item">
+                  <div class="set-webhook-item__head">
+                    <strong>Production billing</strong>
+                    <div class="d-flex gap-2">
+                      <span class="badge bg-success-subtle text-success"><i class="bi bi-broadcast me-1"></i>Enabled</span>
+                      <button class="btn btn-sm btn-outline-secondary" type="button" data-set-webhook-test><i class="bi bi-lightning me-1"></i>Test</button>
+                      <a href="#" class="btn btn-sm btn-outline-secondary">Delivery log</a>
+                    </div>
+                  </div>
+                  <div class="set-webhook-item__url mb-2">https://api.acme-billing.io/orchid/webhooks/prod</div>
+                  <div class="set-webhook-events">
+                    <label class="form-check"><input class="form-check-input" type="checkbox" checked> invoice.paid</label>
+                    <label class="form-check"><input class="form-check-input" type="checkbox" checked> invoice.failed</label>
+                    <label class="form-check"><input class="form-check-input" type="checkbox" checked> subscription.updated</label>
+                    <label class="form-check"><input class="form-check-input" type="checkbox"> subscription.cancelled</label>
+                  </div>
+                </div>
+                <div class="set-webhook-item">
+                  <div class="set-webhook-item__head">
+                    <strong>CRM sync (Salesforce)</strong>
+                    <div class="d-flex gap-2">
+                      <span class="badge bg-success-subtle text-success"><i class="bi bi-broadcast me-1"></i>Enabled</span>
+                      <button class="btn btn-sm btn-outline-secondary" type="button" data-set-webhook-test><i class="bi bi-lightning me-1"></i>Test</button>
+                      <a href="#" class="btn btn-sm btn-outline-secondary">Delivery log</a>
+                    </div>
+                  </div>
+                  <div class="set-webhook-item__url mb-2">https://hooks.salesforce.com/orchid/tnt_2938</div>
+                  <div class="set-webhook-events">
+                    <label class="form-check"><input class="form-check-input" type="checkbox" checked> deal.created</label>
+                    <label class="form-check"><input class="form-check-input" type="checkbox" checked> deal.stage_changed</label>
+                    <label class="form-check"><input class="form-check-input" type="checkbox"> contact.updated</label>
+                  </div>
+                </div>
+                <div class="set-webhook-item">
+                  <div class="set-webhook-item__head">
+                    <strong>Slack notifier</strong>
+                    <div class="d-flex gap-2">
+                      <span class="badge bg-warning-subtle text-warning">Paused</span>
+                      <button class="btn btn-sm btn-outline-secondary" type="button" data-set-webhook-test><i class="bi bi-lightning me-1"></i>Test</button>
+                      <a href="#" class="btn btn-sm btn-outline-secondary">Delivery log</a>
+                    </div>
+                  </div>
+                  <div class="set-webhook-item__url mb-2">https://hooks.slack.com/services/T09/B0182/wSj···</div>
+                  <div class="set-webhook-events">
+                    <label class="form-check"><input class="form-check-input" type="checkbox" checked> incident.opened</label>
+                    <label class="form-check"><input class="form-check-input" type="checkbox" checked> incident.resolved</label>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- DATA & STORAGE -->
+            <section class="set-panel" id="panel-data" aria-label="Data and storage">
+              <div class="set-panel__head">
+                <h2>Data &amp; Storage</h2>
+                <p>Retention policies and where your data lives.</p>
+              </div>
+              <div class="set-section">
+                <h6>Storage location</h6>
+                <div class="set-field-grid">
+                  <div><label>Primary region</label>
+                    <select class="form-select"><option selected>us-east-1 (N. Virginia)</option><option>eu-west-1 (Ireland)</option><option>ap-southeast-2 (Sydney)</option></select>
+                  </div>
+                  <div><label>Provider</label>
+                    <select class="form-select"><option selected>Amazon S3</option><option>Google Cloud Storage</option><option>Cloudflare R2</option></select>
+                  </div>
+                </div>
+              </div>
+              <div class="set-section">
+                <h6>Retention</h6>
+                <div class="set-field-grid">
+                  <div><label>Deleted files</label>
+                    <select class="form-select"><option>7 days</option><option selected>30 days</option><option>90 days</option></select>
+                  </div>
+                  <div><label>Audit logs</label>
+                    <select class="form-select"><option>90 days</option><option selected>1 year</option><option>7 years</option></select>
+                  </div>
+                </div>
+              </div>
+              <div class="set-actions">
+                <button type="button" class="btn btn-primary btn-sm" data-set-save><i class="bi bi-check2 me-1"></i>Save changes</button>
+              </div>
+            </section>
+
+            <!-- BACKUP -->
+            <section class="set-panel" id="panel-backup" aria-label="Backup">
+              <div class="set-panel__head d-flex align-items-start justify-content-between gap-2">
+                <div>
+                  <h2>Backup</h2>
+                  <p>Automated daily backups plus on-demand snapshots.</p>
+                </div>
+                <button class="btn btn-primary btn-sm" type="button" data-set-backup-now><i class="bi bi-cloud-arrow-up me-1"></i>Backup now</button>
+              </div>
+              <div class="set-section">
+                <h6>Last successful backup</h6>
+                <div class="set-backup-item">
+                  <span class="set-backup-item__icon"><i class="bi bi-shield-check"></i></span>
+                  <div class="set-backup-item__meta">
+                    <strong>1.42 GB</strong>
+                    <small>Completed 2h ago · stored to s3://orchid-backups/2026-07-22</small>
+                  </div>
+                  <span class="badge bg-success-subtle text-success"><i class="bi bi-check-circle me-1"></i>Healthy</span>
+                </div>
+              </div>
+              <div class="set-section">
+                <h6>Scheduled backups</h6>
+                <div class="table-responsive">
+                  <table class="table set-keys-table align-middle mb-0">
+                    <thead><tr><th>When</th><th>Size</th><th>Status</th><th class="text-end">Actions</th></tr></thead>
+                    <tbody>
+                      <tr><td>2026-07-22 02:00 UTC</td><td>1.42 GB</td><td><span class="badge bg-success-subtle text-success">Complete</span></td><td class="text-end"><button class="btn btn-sm btn-outline-secondary"><i class="bi bi-download"></i></button> <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-counterclockwise"></i></button></td></tr>
+                      <tr><td>2026-07-21 02:00 UTC</td><td>1.40 GB</td><td><span class="badge bg-success-subtle text-success">Complete</span></td><td class="text-end"><button class="btn btn-sm btn-outline-secondary"><i class="bi bi-download"></i></button> <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-counterclockwise"></i></button></td></tr>
+                      <tr><td>2026-07-20 02:00 UTC</td><td>1.38 GB</td><td><span class="badge bg-success-subtle text-success">Complete</span></td><td class="text-end"><button class="btn btn-sm btn-outline-secondary"><i class="bi bi-download"></i></button> <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-counterclockwise"></i></button></td></tr>
+                      <tr><td>2026-07-19 02:00 UTC</td><td>1.37 GB</td><td><span class="badge bg-warning-subtle text-warning">Partial</span></td><td class="text-end"><button class="btn btn-sm btn-outline-secondary"><i class="bi bi-download"></i></button> <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-counterclockwise"></i></button></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <!-- ADVANCED -->
+            <section class="set-panel" id="panel-advanced" aria-label="Advanced">
+              <div class="set-panel__head">
+                <h2>Advanced</h2>
+                <p>Danger zone. These settings can break production. Proceed with care.</p>
+              </div>
+              <div class="set-section">
+                <h6>Feature flags</h6>
+                <div class="set-toggle-row"><div><h6>Enable new pipeline UI</h6><p>Reveals redesigned deal board for admins.</p></div><div class="form-check form-switch"><input class="form-check-input" type="checkbox" checked></div></div>
+                <div class="set-toggle-row"><div><h6>Enable AI assistant (beta)</h6><p>Adds “Ask Orchid” to the header search.</p></div><div class="form-check form-switch"><input class="form-check-input" type="checkbox"></div></div>
+                <div class="set-toggle-row"><div><h6>Enable GraphQL subscriptions</h6><p>Streams live data to connected clients.</p></div><div class="form-check form-switch"><input class="form-check-input" type="checkbox"></div></div>
+              </div>
+              <div class="set-section">
+                <h6>Danger zone</h6>
+                <div class="d-flex gap-2 flex-wrap">
+                  <button class="btn btn-outline-danger btn-sm"><i class="bi bi-arrow-clockwise me-1"></i>Purge cache</button>
+                  <button class="btn btn-outline-danger btn-sm"><i class="bi bi-database-x me-1"></i>Rebuild search index</button>
+                  <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash me-1"></i>Reset workspace</button>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================== FOOTER ================== -->
+      <footer class="orchid-footer" role="contentinfo">
+        <div class="container-fluid px-3 px-lg-4">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <p class="mb-0 small text-body-secondary">© <span data-orchid-year></span> Orchid. Crafted with <i class="bi bi-heart-fill text-danger"></i> for modern teams.</p>
+            <ul class="list-inline mb-0 small">
+              <li class="list-inline-item"><a class="text-body-secondary" href="#">Privacy</a></li>
+              <li class="list-inline-item"><a class="text-body-secondary" href="#">Terms</a></li>
+              <li class="list-inline-item"><a class="text-body-secondary" href="#">Support</a></li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Create API Key modal -->
+  <div class="modal fade" id="createKeyModal" tabindex="-1" aria-hidden="true" aria-labelledby="createKeyModalTitle">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createKeyModalTitle">Create API key</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <label class="form-label small fw-semibold">Key name</label>
+          <input type="text" class="form-control mb-3" placeholder="e.g. mobile-app-android">
+          <label class="form-label small fw-semibold">Environment</label>
+          <select class="form-select mb-3"><option>Production</option><option>Staging</option><option>Development</option></select>
+          <label class="form-label small fw-semibold">Permissions</label>
+          <div class="d-flex gap-3 flex-wrap">
+            <label class="form-check"><input class="form-check-input" type="checkbox" checked> read</label>
+            <label class="form-check"><input class="form-check-input" type="checkbox"> write</label>
+            <label class="form-check"><input class="form-check-input" type="checkbox"> delete</label>
+            <label class="form-check"><input class="form-check-input" type="checkbox"> admin</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal" data-set-save><i class="bi bi-key me-1"></i>Create key</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="assets/js/theme.js" defer></script>
+  <script src="assets/js/sidebar.js" defer></script>
+  <script src="assets/js/orchid.js" defer></script>
+  <script src="assets/js/pages/system.js" defer></script>
+</body>
+</html>

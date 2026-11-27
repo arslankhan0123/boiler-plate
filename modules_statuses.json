@@ -6,5 +6,6 @@
     "Purchase": true,
     "Sale": true,
     "RolesAndPermissions": true,
-    "Setup": true
+    "Setup": true,
+    "Ecommerce": true
 }

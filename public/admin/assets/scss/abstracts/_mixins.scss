@@ -1,0 +1,25 @@
+// =====================================================
+// Mixins
+// =====================================================
+
+@mixin orchid-scrollbar($track: transparent, $thumb: rgba(0,0,0,.18)) {
+  &::-webkit-scrollbar { width: 6px; height: 6px; }
+  &::-webkit-scrollbar-track { background: $track; }
+  &::-webkit-scrollbar-thumb { background: $thumb; border-radius: 6px; }
+}
+
+@mixin orchid-focus-ring($color: rgba(79, 70, 229, .35)) {
+  outline: 0;
+  box-shadow: 0 0 0 3px $color;
+}
+
+@mixin orchid-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin orchid-surface($bg, $border) {
+  background-color: $bg;
+  border: 1px solid $border;
+}

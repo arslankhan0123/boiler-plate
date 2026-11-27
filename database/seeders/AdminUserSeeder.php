@@ -18,8 +18,8 @@ class AdminUserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::query()->updateOrCreate(
-            ['email' => 'superadmin@boilerplate.test'],
+        $user = User::query()->updateOrCreate(
+            ['email' => 'super@boilerplate.com'],
             [
                 'name' => 'Super Administrator',
                 'phone' => '+10000000000',
@@ -29,5 +29,8 @@ class AdminUserSeeder extends Seeder
                 'is_platform_admin' => true,
             ],
         );
+
+        $role = \App\Models\Role::firstOrCreate(['name' => 'SuperAdmin', 'guard_name' => 'api']);
+        $user->assignRole($role);
     }
 }

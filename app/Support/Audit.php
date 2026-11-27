@@ -34,7 +34,7 @@ class Audit
         $tenant = app(Tenancy::class)->tenant;
         $tenantId = $tenant instanceof Tenant ? (string) $tenant->getTenantKey() : null;
 
-        $userId = Auth::guard('api')->id();
+        $userId = Auth::guard('api')->id() ?? Auth::id() ?? Auth::guard('web')->id();
 
         RecordAudit::dispatch(
             event: $event,

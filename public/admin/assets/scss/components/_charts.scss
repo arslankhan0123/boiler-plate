@@ -1,0 +1,16 @@
+.orchid-chart-wrap {
+  position: relative;
+  width: 100%;
+
+  &--sm { height: 120px; }
+  &--md { height: 180px; }
+  &--lg { height: 280px; }
+  &--radial { height: 160px; display: flex; align-items: center; justify-content: center; }
+
+  canvas { max-width: 100%; }
+}
+
+.orchid-sparkline {
+  max-width: 100px;
+  height: 36px !important;
+}

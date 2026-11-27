@@ -7,7 +7,7 @@ use App\Tenancy\PermissionCacheBootstrapper;
 use App\Tenancy\SequentialTenantIdGenerator;
 use Database\Seeders\TenantDatabaseSeeder;
 use Stancl\Tenancy\Bootstrappers\DatabaseTenancyBootstrapper;
-use Stancl\Tenancy\Database\Models\Domain;
+use App\Models\Domain;
 use Stancl\Tenancy\TenantDatabaseManagers\MySQLDatabaseManager;
 use Stancl\Tenancy\TenantDatabaseManagers\PostgreSQLDatabaseManager;
 use Stancl\Tenancy\TenantDatabaseManagers\SQLiteDatabaseManager;
@@ -41,6 +41,7 @@ return [
         DatabaseTenancyBootstrapper::class,
         // Isolates Spatie's permission cache per tenant (the cache store is central).
         PermissionCacheBootstrapper::class,
+        \App\Tenancy\TimezoneBootstrapper::class,
         // Stancl\Tenancy\Bootstrappers\CacheTenancyBootstrapper::class,
         // Stancl\Tenancy\Bootstrappers\FilesystemTenancyBootstrapper::class,
         // Stancl\Tenancy\Bootstrappers\QueueTenancyBootstrapper::class,
@@ -61,10 +62,12 @@ return [
 
         /**
          * Tenant database names are created like this:
-         * prefix + tenant_id + suffix  ->  tenant_001_database, tenant_002_database, …
+         * prefix + tenant_id + suffix. With DB_PREFIX=boilerplate:
+         *   main DB   -> boilerplate_main        (DB_DATABASE in .env)
+         *   tenants   -> boilerplate_tenant_001, boilerplate_tenant_002, …
          */
-        'prefix' => 'tenant_',
-        'suffix' => '_database',
+        'prefix' => env('DB_PREFIX', 'app').'_tenant_',
+        'suffix' => '',
 
         /**
          * TenantDatabaseManagers are classes that handle the creation & deletion of tenant databases.

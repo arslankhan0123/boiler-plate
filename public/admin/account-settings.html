@@ -1,0 +1,1253 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Orchid - Premium Bootstrap 5.3 Admin Dashboard Template">
+  <meta name="theme-color" content="#4f46e5">
+  <title>Orchid — Account Settings</title>
+
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="assets/css/orchid.css" rel="stylesheet">
+  <link href="assets/css/pages/profile.css" rel="stylesheet">
+</head>
+<body class="orchid-body">
+
+  <a class="visually-hidden-focusable position-absolute top-0 start-0 p-2 bg-primary text-white" href="#orchid-main">Skip to main content</a>
+
+  <!-- ================== SIDEBAR ================== -->
+  <aside class="orchid-sidebar" id="orchidSidebar" aria-label="Primary navigation">
+    <div class="orchid-sidebar__brand">
+      <a href="#" class="orchid-brand" aria-label="Orchid dashboard home">
+        <span class="orchid-brand__logo" aria-hidden="true">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orchid logo">
+            <defs>
+              <linearGradient id="orchidGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#6366f1"/>
+                <stop offset="100%" stop-color="#22d3ee"/>
+              </linearGradient>
+            </defs>
+            <circle cx="16" cy="16" r="6" fill="url(#orchidGrad)"/>
+            <ellipse cx="16" cy="16" rx="14" ry="6" fill="none" stroke="url(#orchidGrad)" stroke-width="2" transform="rotate(-30 16 16)"/>
+          </svg>
+        </span>
+        <span class="orchid-brand__text">Orchid</span>
+      </a>
+      <button class="btn btn-sm btn-icon orchid-sidebar__close d-lg-none" type="button" data-orchid-sidebar-close aria-label="Close sidebar">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+
+    <nav class="orchid-sidebar__nav" aria-label="Main">
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Main</span>
+        <ul class="orchid-nav">
+          <li>
+            <a href="#navDashboard" class="orchid-nav__link orchid-nav__link--has-sub collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="navDashboard">
+              <i class="bi bi-speedometer2"></i><span>Dashboard</span>
+              <span class="badge bg-primary-subtle text-primary ms-auto">8</span>
+              <i class="bi bi-chevron-down orchid-nav__chevron"></i>
+            </a>
+            <ul class="collapse orchid-nav__sub list-unstyled" id="navDashboard">
+              <li><a href="index.html" class="orchid-nav__sublink">Default</a></li>
+              <li><a href="analytics.html" class="orchid-nav__sublink">Analytics</a></li>
+              <li><a href="crm.html" class="orchid-nav__sublink">CRM</a></li>
+              <li><a href="sales.html" class="orchid-nav__sublink">Sales</a></li>
+              <li><a href="finance.html" class="orchid-nav__sublink">Finance</a></li>
+              <li><a href="projects.html" class="orchid-nav__sublink">Projects</a></li>
+              <li><a href="ecommerce.html" class="orchid-nav__sublink">E-Commerce</a></li>
+              <li><a href="hr.html" class="orchid-nav__sublink">HR</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Business</span>
+        <ul class="orchid-nav">
+          <li>
+            <a href="#navCrm" class="orchid-nav__link orchid-nav__link--has-sub collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="navCrm">
+              <i class="bi bi-people"></i><span>CRM</span>
+              <i class="bi bi-chevron-down orchid-nav__chevron"></i>
+            </a>
+            <ul class="collapse orchid-nav__sub list-unstyled" id="navCrm">
+              <li><a href="leads.html" class="orchid-nav__sublink">Leads</a></li>
+              <li><a href="contacts.html" class="orchid-nav__sublink">Contacts</a></li>
+              <li><a href="companies.html" class="orchid-nav__sublink">Companies</a></li>
+              <li><a href="opportunities.html" class="orchid-nav__sublink">Opportunities</a></li>
+              <li><a href="deals.html" class="orchid-nav__sublink">Deals</a></li>
+              <li><a href="sales-pipeline.html" class="orchid-nav__sublink">Sales Pipeline</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#navCustomers" class="orchid-nav__link orchid-nav__link--has-sub collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="navCustomers">
+              <i class="bi bi-person-heart"></i><span>Customers</span>
+              <i class="bi bi-chevron-down orchid-nav__chevron"></i>
+            </a>
+            <ul class="collapse orchid-nav__sub list-unstyled" id="navCustomers">
+              <li><a href="customer-list.html" class="orchid-nav__sublink">Customer List</a></li>
+              <li><a href="customer-details.html" class="orchid-nav__sublink">Details</a></li>
+              <li><a href="customer-groups.html" class="orchid-nav__sublink">Groups</a></li>
+              <li><a href="customer-feedback.html" class="orchid-nav__sublink">Feedback</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#navSales" class="orchid-nav__link orchid-nav__link--has-sub collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="navSales">
+              <i class="bi bi-cart3"></i><span>Sales</span>
+              <i class="bi bi-chevron-down orchid-nav__chevron"></i>
+            </a>
+            <ul class="collapse orchid-nav__sub list-unstyled" id="navSales">
+              <li><a href="quotations.html" class="orchid-nav__sublink">Quotations</a></li>
+              <li><a href="orders.html" class="orchid-nav__sublink">Orders</a></li>
+              <li><a href="invoice.html" class="orchid-nav__sublink">Invoices</a></li>
+              <li><a href="payments.html" class="orchid-nav__sublink">Payments</a></li>
+              <li><a href="refunds.html" class="orchid-nav__sublink">Refunds</a></li>
+              <li><a href="revenue-analytics.html" class="orchid-nav__sublink">Revenue</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#navProducts" class="orchid-nav__link orchid-nav__link--has-sub collapsed" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="navProducts">
+              <i class="bi bi-box-seam"></i><span>Products</span>
+              <i class="bi bi-chevron-down orchid-nav__chevron"></i>
+            </a>
+            <ul class="collapse orchid-nav__sub list-unstyled" id="navProducts">
+              <li><a href="product-list.html" class="orchid-nav__sublink">Product List</a></li>
+              <li><a href="product-categories.html" class="orchid-nav__sublink">Categories</a></li>
+              <li><a href="product-brands.html" class="orchid-nav__sublink">Brands</a></li>
+              <li><a href="inventory.html" class="orchid-nav__sublink">Inventory</a></li>
+              <li><a href="stock-transfer.html" class="orchid-nav__sublink">Stock Transfer</a></li>
+              <li><a href="price-management.html" class="orchid-nav__sublink">Price Management</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Project Management</span>
+        <ul class="orchid-nav">
+          <li><a href="projects.html" class="orchid-nav__link"><i class="bi bi-kanban"></i><span>Projects</span></a></li>
+          <li><a href="tasks.html" class="orchid-nav__link"><i class="bi bi-check2-square"></i><span>Tasks</span><span class="badge bg-danger ms-auto">8</span></a></li>
+          <li><a href="teams.html" class="orchid-nav__link"><i class="bi bi-people-fill"></i><span>Teams</span></a></li>
+          <li><a href="calendar.html" class="orchid-nav__link"><i class="bi bi-calendar3"></i><span>Calendar</span></a></li>
+          <li><a href="meetings.html" class="orchid-nav__link"><i class="bi bi-camera-video"></i><span>Meetings</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Human Resources</span>
+        <ul class="orchid-nav">
+          <li><a href="employees.html" class="orchid-nav__link"><i class="bi bi-person-badge"></i><span>Employees</span></a></li>
+          <li><a href="attendance.html" class="orchid-nav__link"><i class="bi bi-calendar-check"></i><span>Attendance</span></a></li>
+          <li><a href="leave-management.html" class="orchid-nav__link"><i class="bi bi-calendar-x"></i><span>Leave Management</span></a></li>
+          <li><a href="payroll.html" class="orchid-nav__link"><i class="bi bi-cash-stack"></i><span>Payroll</span></a></li>
+          <li><a href="recruitment.html" class="orchid-nav__link"><i class="bi bi-person-plus"></i><span>Recruitment</span></a></li>
+          <li><a href="performance.html" class="orchid-nav__link"><i class="bi bi-graph-up"></i><span>Performance</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Finance</span>
+        <ul class="orchid-nav">
+          <li><a href="accounting.html" class="orchid-nav__link"><i class="bi bi-calculator"></i><span>Accounting</span></a></li>
+          <li><a href="expenses.html" class="orchid-nav__link"><i class="bi bi-cash-coin"></i><span>Expenses</span></a></li>
+          <li><a href="income.html" class="orchid-nav__link"><i class="bi bi-arrow-down-circle"></i><span>Income</span></a></li>
+          <li><a href="transactions.html" class="orchid-nav__link"><i class="bi bi-arrow-left-right"></i><span>Transactions</span></a></li>
+          <li><a href="budgets.html" class="orchid-nav__link"><i class="bi bi-piggy-bank"></i><span>Budgets</span></a></li>
+          <li><a href="financial-reports.html" class="orchid-nav__link"><i class="bi bi-file-earmark-bar-graph"></i><span>Financial Reports</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Communication</span>
+        <ul class="orchid-nav">
+          <li><a href="messages.html" class="orchid-nav__link"><i class="bi bi-chat-dots"></i><span>Messages</span><span class="badge bg-success ms-auto">3</span></a></li>
+          <li><a href="chat.html" class="orchid-nav__link"><i class="bi bi-chat-left-text"></i><span>Chat</span></a></li>
+          <li><a href="email.html" class="orchid-nav__link"><i class="bi bi-envelope"></i><span>Email</span></a></li>
+          <li><a href="notifications.html" class="orchid-nav__link"><i class="bi bi-bell"></i><span>Notifications</span></a></li>
+          <li><a href="support-tickets.html" class="orchid-nav__link"><i class="bi bi-life-preserver"></i><span>Support Tickets</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Analytics</span>
+        <ul class="orchid-nav">
+          <li><a href="reports.html" class="orchid-nav__link"><i class="bi bi-file-earmark-text"></i><span>Reports</span></a></li>
+          <li><a href="sales-analytics.html" class="orchid-nav__link"><i class="bi bi-graph-up-arrow"></i><span>Sales Analytics</span></a></li>
+          <li><a href="customer-analytics.html" class="orchid-nav__link"><i class="bi bi-people"></i><span>Customer Analytics</span></a></li>
+          <li><a href="revenue-analytics.html" class="orchid-nav__link"><i class="bi bi-currency-dollar"></i><span>Revenue Analytics</span></a></li>
+          <li><a href="marketing-analytics.html" class="orchid-nav__link"><i class="bi bi-megaphone"></i><span>Marketing Analytics</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">User Management</span>
+        <ul class="orchid-nav">
+          <li><a href="users.html" class="orchid-nav__link"><i class="bi bi-person"></i><span>Users</span></a></li>
+          <li><a href="roles.html" class="orchid-nav__link"><i class="bi bi-shield-lock"></i><span>Roles</span></a></li>
+          <li><a href="permissions.html" class="orchid-nav__link"><i class="bi bi-key"></i><span>Permissions</span></a></li>
+          <li><a href="user-activity.html" class="orchid-nav__link"><i class="bi bi-activity"></i><span>User Activity</span></a></li>
+          <li><a href="login-history.html" class="orchid-nav__link"><i class="bi bi-clock-history"></i><span>Login History</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Applications</span>
+        <ul class="orchid-nav">
+          <li><a href="file-manager.html" class="orchid-nav__link"><i class="bi bi-folder"></i><span>File Manager</span></a></li>
+          <li><a href="notes.html" class="orchid-nav__link"><i class="bi bi-sticky"></i><span>Notes</span></a></li>
+          <li><a href="documents.html" class="orchid-nav__link"><i class="bi bi-file-earmark"></i><span>Documents</span></a></li>
+          <li><a href="knowledge-base.html" class="orchid-nav__link"><i class="bi bi-book"></i><span>Knowledge Base</span></a></li>
+          <li><a href="todo.html" class="orchid-nav__link"><i class="bi bi-list-check"></i><span>To-Do</span></a></li>
+          <li><a href="bookmarks.html" class="orchid-nav__link"><i class="bi bi-bookmark"></i><span>Bookmarks</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">E-Commerce</span>
+        <ul class="orchid-nav">
+          <li><a href="shop-products.html" class="orchid-nav__link"><i class="bi bi-tag"></i><span>Products</span></a></li>
+          <li><a href="orders.html" class="orchid-nav__link"><i class="bi bi-bag"></i><span>Orders</span></a></li>
+          <li><a href="shop-customers.html" class="orchid-nav__link"><i class="bi bi-person-check"></i><span>Customers</span></a></li>
+          <li><a href="shop-coupons.html" class="orchid-nav__link"><i class="bi bi-ticket-perforated"></i><span>Coupons</span></a></li>
+          <li><a href="shop-reviews.html" class="orchid-nav__link"><i class="bi bi-star"></i><span>Reviews</span></a></li>
+          <li><a href="shop-shipping.html" class="orchid-nav__link"><i class="bi bi-truck"></i><span>Shipping</span></a></li>
+          <li><a href="shop-taxes.html" class="orchid-nav__link"><i class="bi bi-percent"></i><span>Taxes</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Content Management</span>
+        <ul class="orchid-nav">
+          <li><a href="cms-pages.html" class="orchid-nav__link"><i class="bi bi-file-earmark-richtext"></i><span>Pages</span></a></li>
+          <li><a href="cms-blog.html" class="orchid-nav__link"><i class="bi bi-journal-text"></i><span>Blog</span></a></li>
+          <li><a href="cms-media.html" class="orchid-nav__link"><i class="bi bi-images"></i><span>Media Library</span></a></li>
+          <li><a href="product-categories.html" class="orchid-nav__link"><i class="bi bi-tags"></i><span>Categories</span></a></li>
+          <li><a href="cms-comments.html" class="orchid-nav__link"><i class="bi bi-chat-square-text"></i><span>Comments</span></a></li>
+          <li><a href="cms-menus.html" class="orchid-nav__link"><i class="bi bi-menu-app"></i><span>Menus</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">System</span>
+        <ul class="orchid-nav">
+          <li><a href="settings.html" class="orchid-nav__link"><i class="bi bi-gear"></i><span>Settings</span></a></li>
+          <li><a href="integrations.html" class="orchid-nav__link"><i class="bi bi-puzzle"></i><span>Integrations</span></a></li>
+          <li><a href="audit-logs.html" class="orchid-nav__link"><i class="bi bi-shield-check"></i><span>Audit Logs</span></a></li>
+          <li><a href="system-logs.html" class="orchid-nav__link"><i class="bi bi-file-earmark-code"></i><span>System Logs</span></a></li>
+          <li><a href="maintenance-mode.html" class="orchid-nav__link"><i class="bi bi-tools"></i><span>Maintenance Mode</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">UI Components</span>
+        <ul class="orchid-nav">
+          <li><a href="ui-alerts.html" class="orchid-nav__link"><i class="bi bi-exclamation-triangle"></i><span>Alerts</span></a></li>
+          <li><a href="ui-badges.html" class="orchid-nav__link"><i class="bi bi-award"></i><span>Badges</span></a></li>
+          <li><a href="ui-buttons.html" class="orchid-nav__link"><i class="bi bi-app"></i><span>Buttons</span></a></li>
+          <li><a href="ui-cards.html" class="orchid-nav__link"><i class="bi bi-card-heading"></i><span>Cards</span></a></li>
+          <li><a href="ui-dropdowns.html" class="orchid-nav__link"><i class="bi bi-menu-down"></i><span>Dropdowns</span></a></li>
+          <li><a href="ui-modals.html" class="orchid-nav__link"><i class="bi bi-window"></i><span>Modals</span></a></li>
+          <li><a href="ui-tabs.html" class="orchid-nav__link"><i class="bi bi-window-stack"></i><span>Tabs</span></a></li>
+          <li><a href="ui-pagination.html" class="orchid-nav__link"><i class="bi bi-three-dots"></i><span>Pagination</span></a></li>
+          <li><a href="ui-progress.html" class="orchid-nav__link"><i class="bi bi-bar-chart-steps"></i><span>Progress</span></a></li>
+          <li><a href="ui-toasts.html" class="orchid-nav__link"><i class="bi bi-chat-square-dots"></i><span>Toasts</span></a></li>
+          <li><a href="ui-tooltips.html" class="orchid-nav__link"><i class="bi bi-info-circle"></i><span>Tooltips</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Forms</span>
+        <ul class="orchid-nav">
+          <li><a href="forms-basic.html" class="orchid-nav__link"><i class="bi bi-input-cursor"></i><span>Basic Forms</span></a></li>
+          <li><a href="forms-validation.html" class="orchid-nav__link"><i class="bi bi-check-circle"></i><span>Validation</span></a></li>
+          <li><a href="forms-wizard.html" class="orchid-nav__link"><i class="bi bi-magic"></i><span>Wizard</span></a></li>
+          <li><a href="forms-file-upload.html" class="orchid-nav__link"><i class="bi bi-cloud-upload"></i><span>File Upload</span></a></li>
+          <li><a href="forms-editor.html" class="orchid-nav__link"><i class="bi bi-textarea-t"></i><span>Rich Text Editor</span></a></li>
+          <li><a href="forms-datepicker.html" class="orchid-nav__link"><i class="bi bi-calendar-date"></i><span>Date Picker</span></a></li>
+          <li><a href="forms-timepicker.html" class="orchid-nav__link"><i class="bi bi-clock"></i><span>Time Picker</span></a></li>
+          <li><a href="forms-colorpicker.html" class="orchid-nav__link"><i class="bi bi-palette"></i><span>Color Picker</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Tables</span>
+        <ul class="orchid-nav">
+          <li><a href="tables-basic.html" class="orchid-nav__link"><i class="bi bi-table"></i><span>Basic Table</span></a></li>
+          <li><a href="tables-data.html" class="orchid-nav__link"><i class="bi bi-grid"></i><span>Data Table</span></a></li>
+          <li><a href="tables-responsive.html" class="orchid-nav__link"><i class="bi bi-phone"></i><span>Responsive Table</span></a></li>
+          <li><a href="tables-editable.html" class="orchid-nav__link"><i class="bi bi-pencil-square"></i><span>Editable Table</span></a></li>
+          <li><a href="tables-advanced.html" class="orchid-nav__link"><i class="bi bi-grid-3x3"></i><span>Advanced Table</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Charts</span>
+        <ul class="orchid-nav">
+          <li><a href="charts-line.html" class="orchid-nav__link"><i class="bi bi-graph-up"></i><span>Line</span></a></li>
+          <li><a href="charts-bar.html" class="orchid-nav__link"><i class="bi bi-bar-chart"></i><span>Bar</span></a></li>
+          <li><a href="charts-area.html" class="orchid-nav__link"><i class="bi bi-graph-up-arrow"></i><span>Area</span></a></li>
+          <li><a href="charts-pie.html" class="orchid-nav__link"><i class="bi bi-pie-chart"></i><span>Pie</span></a></li>
+          <li><a href="charts-donut.html" class="orchid-nav__link"><i class="bi bi-circle"></i><span>Donut</span></a></li>
+          <li><a href="charts-radar.html" class="orchid-nav__link"><i class="bi bi-broadcast"></i><span>Radar</span></a></li>
+          <li><a href="charts-polar.html" class="orchid-nav__link"><i class="bi bi-record-circle"></i><span>Polar</span></a></li>
+          <li><a href="charts-mixed.html" class="orchid-nav__link"><i class="bi bi-bar-chart-line"></i><span>Mixed</span></a></li>
+          <li><a href="charts-chartjs.html" class="orchid-nav__link"><i class="bi bi-bar-chart-fill"></i><span>Chart.js</span></a></li>
+          <li><a href="charts-apex.html" class="orchid-nav__link"><i class="bi bi-graph-up"></i><span>ApexCharts</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Icons</span>
+        <ul class="orchid-nav">
+          <li><a href="icons-bootstrap.html" class="orchid-nav__link"><i class="bi bi-bootstrap"></i><span>Bootstrap Icons</span></a></li>
+          <li><a href="icons-fontawesome.html" class="orchid-nav__link"><i class="bi bi-star-fill"></i><span>Font Awesome</span></a></li>
+          <li><a href="icons-lucide.html" class="orchid-nav__link"><i class="bi bi-emoji-smile"></i><span>Lucide</span></a></li>
+          <li><a href="icons-remix.html" class="orchid-nav__link"><i class="bi bi-square"></i><span>Remix Icons</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Maps</span>
+        <ul class="orchid-nav">
+          <li><a href="maps-google.html" class="orchid-nav__link"><i class="bi bi-map"></i><span>Google Maps</span></a></li>
+          <li><a href="maps-vector.html" class="orchid-nav__link"><i class="bi bi-geo-alt"></i><span>Vector Maps</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Authentication</span>
+        <ul class="orchid-nav">
+          <li><a href="login.html" class="orchid-nav__link"><i class="bi bi-box-arrow-in-right"></i><span>Login</span></a></li>
+          <li><a href="register.html" class="orchid-nav__link"><i class="bi bi-person-plus"></i><span>Register</span></a></li>
+          <li><a href="forgot-password.html" class="orchid-nav__link"><i class="bi bi-question-circle"></i><span>Forgot Password</span></a></li>
+          <li><a href="reset-password.html" class="orchid-nav__link"><i class="bi bi-arrow-clockwise"></i><span>Reset Password</span></a></li>
+          <li><a href="lock-screen.html" class="orchid-nav__link"><i class="bi bi-lock"></i><span>Lock Screen</span></a></li>
+          <li><a href="two-factor.html" class="orchid-nav__link"><i class="bi bi-shield-check"></i><span>Two-Factor Auth</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-nav-section">
+        <span class="orchid-nav-section__label">Extra Pages</span>
+        <ul class="orchid-nav">
+          <li><a href="profile.html" class="orchid-nav__link"><i class="bi bi-person-circle"></i><span>Profile</span></a></li>
+          <li><a href="account-settings.html" class="orchid-nav__link active" aria-current="page"><i class="bi bi-gear-fill"></i><span>Account Settings</span></a></li>
+          <li><a href="pricing.html" class="orchid-nav__link"><i class="bi bi-currency-dollar"></i><span>Pricing</span></a></li>
+          <li><a href="faq.html" class="orchid-nav__link"><i class="bi bi-question-square"></i><span>FAQ</span></a></li>
+          <li><a href="help-center.html" class="orchid-nav__link"><i class="bi bi-headset"></i><span>Help Center</span></a></li>
+          <li><a href="timeline.html" class="orchid-nav__link"><i class="bi bi-clock"></i><span>Timeline</span></a></li>
+          <li><a href="invoice.html" class="orchid-nav__link"><i class="bi bi-receipt"></i><span>Invoice</span></a></li>
+          <li><a href="coming-soon.html" class="orchid-nav__link"><i class="bi bi-hourglass-split"></i><span>Coming Soon</span></a></li>
+          <li><a href="maintenance.html" class="orchid-nav__link"><i class="bi bi-cone-striped"></i><span>Maintenance</span></a></li>
+          <li><a href="error-404.html" class="orchid-nav__link"><i class="bi bi-bug"></i><span>Error Pages</span></a></li>
+        </ul>
+      </div>
+
+      <div class="orchid-upgrade-card">
+        <div class="orchid-upgrade-card__glow" aria-hidden="true"></div>
+        <div class="orchid-upgrade-card__body">
+          <i class="bi bi-rocket-takeoff orchid-upgrade-card__icon" aria-hidden="true"></i>
+          <h6 class="orchid-upgrade-card__title">Upgrade to Pro</h6>
+          <p class="orchid-upgrade-card__text">Unlock premium widgets, charts and priority support.</p>
+          <a href="#" class="btn btn-light btn-sm w-100 fw-semibold">Upgrade Now</a>
+        </div>
+      </div>
+    </nav>
+  </aside>
+
+  <div class="orchid-backdrop" data-orchid-sidebar-close aria-hidden="true"></div>
+
+  <!-- ================== APP WRAPPER ================== -->
+  <div class="orchid-app">
+
+    <!-- ================== HEADER ================== -->
+    <header class="orchid-header" role="banner">
+      <div class="orchid-header__left">
+        <button class="btn btn-icon orchid-header__toggle" type="button" data-orchid-sidebar-toggle aria-label="Toggle sidebar" aria-controls="orchidSidebar" aria-expanded="false">
+          <i class="bi bi-list"></i>
+        </button>
+        <nav aria-label="breadcrumb" class="orchid-header__breadcrumb d-none d-md-block">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-door"></i></a></li>
+            <li class="breadcrumb-item"><a href="#">Extra Pages</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Account Settings</li>
+          </ol>
+        </nav>
+      </div>
+
+      <div class="orchid-header__right">
+        <form class="orchid-search d-none d-md-flex" role="search" data-orchid-search-form>
+          <label for="orchidSearch" class="visually-hidden">Search</label>
+          <i class="bi bi-search orchid-search__icon" aria-hidden="true"></i>
+          <input type="search" id="orchidSearch" class="form-control" placeholder="Search anything…" autocomplete="off">
+          <kbd class="orchid-search__kbd">⌘K</kbd>
+        </form>
+
+        <button class="btn btn-icon d-md-none" type="button" data-orchid-search-open aria-label="Open search">
+          <i class="bi bi-search"></i>
+        </button>
+
+        <button class="btn btn-icon orchid-theme-toggle" type="button" data-orchid-theme-toggle aria-label="Toggle color theme">
+          <i class="bi bi-sun-fill orchid-theme-toggle__sun"></i>
+          <i class="bi bi-moon-stars-fill orchid-theme-toggle__moon"></i>
+        </button>
+
+        <div class="dropdown">
+          <button class="btn btn-icon position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Notifications">
+            <i class="bi bi-bell"></i>
+            <span class="orchid-badge-dot bg-danger"></span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end orchid-dropdown">
+            <div class="orchid-dropdown__header">
+              <h6 class="mb-0">Notifications</h6>
+              <span class="badge bg-primary-subtle text-primary">5 New</span>
+            </div>
+            <ul class="orchid-dropdown__list list-unstyled mb-0">
+              <li>
+                <a href="#" class="orchid-dropdown__item">
+                  <span class="avatar avatar-sm bg-primary-subtle text-primary"><i class="bi bi-person-plus"></i></span>
+                  <div>
+                    <p class="mb-0">New user registration</p>
+                    <small class="text-body-secondary">2 minutes ago</small>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="orchid-dropdown__item">
+                  <span class="avatar avatar-sm bg-success-subtle text-success"><i class="bi bi-cash-coin"></i></span>
+                  <div>
+                    <p class="mb-0">Payment received — $2,400</p>
+                    <small class="text-body-secondary">14 minutes ago</small>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="orchid-dropdown__item">
+                  <span class="avatar avatar-sm bg-warning-subtle text-warning"><i class="bi bi-exclamation-triangle"></i></span>
+                  <div>
+                    <p class="mb-0">Server load reached 78%</p>
+                    <small class="text-body-secondary">1 hour ago</small>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="orchid-dropdown__item">
+                  <span class="avatar avatar-sm bg-info-subtle text-info"><i class="bi bi-chat-left-text"></i></span>
+                  <div>
+                    <p class="mb-0">New comment on report</p>
+                    <small class="text-body-secondary">3 hours ago</small>
+                  </div>
+                </a>
+              </li>
+            </ul>
+            <div class="orchid-dropdown__footer">
+              <a href="#">View all notifications</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="dropdown d-none d-sm-block">
+          <button class="btn btn-icon position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Messages">
+            <i class="bi bi-chat-dots"></i>
+            <span class="orchid-badge-count bg-success">3</span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end orchid-dropdown">
+            <div class="orchid-dropdown__header">
+              <h6 class="mb-0">Messages</h6>
+              <a href="#" class="small">Mark all read</a>
+            </div>
+            <ul class="orchid-dropdown__list list-unstyled mb-0">
+              <li>
+                <a href="#" class="orchid-dropdown__item">
+                  <span class="avatar avatar-sm bg-primary text-white">SM</span>
+                  <div>
+                    <p class="mb-0"><strong>Sarah Miller</strong></p>
+                    <small class="text-body-secondary">Loved your latest design mock…</small>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="orchid-dropdown__item">
+                  <span class="avatar avatar-sm bg-info text-white">JD</span>
+                  <div>
+                    <p class="mb-0"><strong>James Doe</strong></p>
+                    <small class="text-body-secondary">The report is ready to review.</small>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="orchid-dropdown__item">
+                  <span class="avatar avatar-sm bg-warning text-white">AL</span>
+                  <div>
+                    <p class="mb-0"><strong>Ava Lee</strong></p>
+                    <small class="text-body-secondary">Meeting rescheduled to Friday.</small>
+                  </div>
+                </a>
+              </li>
+            </ul>
+            <div class="orchid-dropdown__footer"><a href="#">Open inbox</a></div>
+          </div>
+        </div>
+
+        <div class="dropdown d-none d-sm-block">
+          <button class="btn btn-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Apps">
+            <i class="bi bi-grid-3x3-gap"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end orchid-dropdown orchid-dropdown--apps">
+            <div class="orchid-dropdown__header"><h6 class="mb-0">Apps</h6></div>
+            <div class="orchid-apps-grid">
+              <a href="#" class="orchid-apps-grid__item"><i class="bi bi-envelope text-primary"></i><span>Mail</span></a>
+              <a href="#" class="orchid-apps-grid__item"><i class="bi bi-calendar3 text-danger"></i><span>Calendar</span></a>
+              <a href="#" class="orchid-apps-grid__item"><i class="bi bi-file-earmark-text text-warning"></i><span>Docs</span></a>
+              <a href="#" class="orchid-apps-grid__item"><i class="bi bi-image text-info"></i><span>Photos</span></a>
+              <a href="#" class="orchid-apps-grid__item"><i class="bi bi-cloud text-success"></i><span>Drive</span></a>
+              <a href="#" class="orchid-apps-grid__item"><i class="bi bi-camera-video text-primary"></i><span>Meet</span></a>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-icon d-none d-lg-inline-flex" type="button" aria-label="Calendar">
+          <i class="bi bi-calendar3"></i>
+        </button>
+
+        <div class="dropdown">
+          <button class="btn orchid-profile-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="User profile">
+            <span class="avatar avatar-sm bg-primary-subtle text-primary fw-semibold">AK</span>
+            <span class="orchid-profile-btn__meta d-none d-lg-flex">
+              <span class="orchid-profile-btn__name">Alex Kim</span>
+              <span class="orchid-profile-btn__role">Administrator</span>
+            </span>
+            <i class="bi bi-chevron-down d-none d-lg-inline"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end orchid-dropdown orchid-dropdown--profile">
+            <li class="orchid-dropdown__header">
+              <div class="d-flex align-items-center gap-2">
+                <span class="avatar bg-primary-subtle text-primary fw-semibold">AK</span>
+                <div>
+                  <p class="mb-0 fw-semibold">Alex Kim</p>
+                  <small class="text-body-secondary">alex@orchid.io</small>
+                </div>
+              </div>
+            </li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i>Profile</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i>Settings</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-wallet2"></i>Billing</a></li>
+            <li><a class="dropdown-item" href="#"><i class="bi bi-life-preserver"></i>Help Center</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right"></i>Sign out</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <!-- ================== MAIN ================== -->
+    <main class="orchid-main" id="orchid-main" tabindex="-1">
+      <div class="container-fluid px-3 px-lg-4 py-4 settings-page">
+
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+          <div>
+            <h1 class="h3 mb-1">Account Settings</h1>
+            <p class="text-body-secondary mb-0">Manage your profile, security, notifications and workspace preferences.</p>
+          </div>
+        </div>
+
+        <div class="settings-shell">
+          <!-- Vertical nav -->
+          <nav class="nav nav-pills flex-column settings-nav" role="tablist" aria-label="Account sections">
+            <button class="nav-link active" id="tab-set-profile"       data-bs-toggle="pill" data-bs-target="#pane-set-profile"       type="button" role="tab" aria-controls="pane-set-profile"       aria-selected="true">
+              <i class="bi bi-person"></i><span>Profile</span>
+            </button>
+            <button class="nav-link" id="tab-set-password"      data-bs-toggle="pill" data-bs-target="#pane-set-password"      type="button" role="tab" aria-controls="pane-set-password"      aria-selected="false">
+              <i class="bi bi-shield-lock"></i><span>Password</span>
+            </button>
+            <button class="nav-link" id="tab-set-notifications" data-bs-toggle="pill" data-bs-target="#pane-set-notifications" type="button" role="tab" aria-controls="pane-set-notifications" aria-selected="false">
+              <i class="bi bi-bell"></i><span>Notifications</span>
+            </button>
+            <button class="nav-link" id="tab-set-billing"       data-bs-toggle="pill" data-bs-target="#pane-set-billing"       type="button" role="tab" aria-controls="pane-set-billing"       aria-selected="false">
+              <i class="bi bi-credit-card-2-front"></i><span>Billing</span>
+            </button>
+            <button class="nav-link" id="tab-set-team"          data-bs-toggle="pill" data-bs-target="#pane-set-team"          type="button" role="tab" aria-controls="pane-set-team"          aria-selected="false">
+              <i class="bi bi-people-fill"></i><span>Team</span>
+            </button>
+            <button class="nav-link is-danger" id="tab-set-danger" data-bs-toggle="pill" data-bs-target="#pane-set-danger"     type="button" role="tab" aria-controls="pane-set-danger"        aria-selected="false">
+              <i class="bi bi-exclamation-octagon"></i><span>Danger Zone</span>
+            </button>
+          </nav>
+
+          <div class="tab-content">
+            <!-- PROFILE -->
+            <div class="tab-pane fade show active" id="pane-set-profile" role="tabpanel" aria-labelledby="tab-set-profile">
+              <div class="settings-panel">
+                <div class="settings-panel__head">
+                  <h2 class="h5 settings-panel__title">Profile</h2>
+                  <p class="settings-panel__desc">Update your personal information and public profile.</p>
+                </div>
+
+                <form class="needs-validation" data-settings-form="Profile" novalidate>
+                  <div class="settings-section">
+                    <h3 class="settings-section__title">Photo</h3>
+                    <div class="d-flex align-items-center gap-3 flex-wrap">
+                      <div class="profile-avatar" data-profile-avatar>
+                        <span class="profile-avatar__initials">AK</span>
+                        <img class="profile-avatar__img" alt="">
+                        <button type="button" class="profile-avatar__chip" aria-label="Change avatar" data-profile-avatar-trigger>
+                          <i class="bi bi-camera"></i>
+                        </button>
+                        <input type="file" accept="image/*" class="d-none" aria-hidden="true" tabindex="-1">
+                      </div>
+                      <div>
+                        <p class="mb-1 fw-medium">Upload a new photo</p>
+                        <small class="text-body-secondary d-block">PNG or JPG. Recommended 400×400px, up to 2 MB.</small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="settings-section">
+                    <h3 class="settings-section__title">Personal information</h3>
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <label class="form-label" for="setFirstName">First name</label>
+                        <input type="text" class="form-control" id="setFirstName" value="Alex" required>
+                        <div class="invalid-feedback">First name is required.</div>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label" for="setLastName">Last name</label>
+                        <input type="text" class="form-control" id="setLastName" value="Kim" required>
+                        <div class="invalid-feedback">Last name is required.</div>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label" for="setEmail">Email address</label>
+                        <input type="email" class="form-control" id="setEmail" value="alex@orchid.io" required>
+                        <div class="invalid-feedback">Enter a valid email address.</div>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label" for="setTimezone">Timezone</label>
+                        <select class="form-select" id="setTimezone" required>
+                          <option value="America/Los_Angeles" selected>(UTC-08:00) Pacific Time — San Francisco</option>
+                          <option value="America/Denver">(UTC-07:00) Mountain Time — Denver</option>
+                          <option value="America/New_York">(UTC-05:00) Eastern Time — New York</option>
+                          <option value="Europe/London">(UTC+00:00) London</option>
+                          <option value="Europe/Berlin">(UTC+01:00) Berlin</option>
+                          <option value="Asia/Tokyo">(UTC+09:00) Tokyo</option>
+                          <option value="Australia/Sydney">(UTC+11:00) Sydney</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label" for="setLocation">Location</label>
+                        <input type="text" class="form-control" id="setLocation" value="San Francisco, CA">
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label" for="setRole">Role</label>
+                        <input type="text" class="form-control" id="setRole" value="Product Design Lead">
+                      </div>
+                      <div class="col-12">
+                        <label class="form-label" for="setBio">Bio</label>
+                        <textarea class="form-control" id="setBio" rows="4" maxlength="280">I lead product design at Vertex Robotics. Design systems, research and shipping calm, useful interfaces.</textarea>
+                        <small class="text-body-secondary">Brief description for your profile — max 280 characters.</small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="d-flex justify-content-end gap-2 mt-4">
+                    <button type="button" class="btn btn-outline-secondary" data-settings-reset>Cancel</button>
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-check2 me-1"></i>Save changes</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- PASSWORD -->
+            <div class="tab-pane fade" id="pane-set-password" role="tabpanel" aria-labelledby="tab-set-password">
+              <div class="settings-panel">
+                <div class="settings-panel__head">
+                  <h2 class="h5 settings-panel__title">Password &amp; security</h2>
+                  <p class="settings-panel__desc">Change your password and manage your security settings.</p>
+                </div>
+
+                <form class="needs-validation" data-settings-form="Password" novalidate>
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <label class="form-label" for="setPwCurrent">Current password</label>
+                      <input type="password" class="form-control" id="setPwCurrent" autocomplete="current-password" required minlength="8">
+                      <div class="invalid-feedback">Enter your current password.</div>
+                    </div>
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                      <label class="form-label" for="setPwNew">New password</label>
+                      <input type="password" class="form-control" id="setPwNew" autocomplete="new-password" required minlength="8" data-settings-password>
+                      <div class="invalid-feedback">Password must be at least 8 characters.</div>
+                      <div class="settings-strength" data-settings-strength aria-hidden="true">
+                        <span class="settings-strength__seg"></span>
+                        <span class="settings-strength__seg"></span>
+                        <span class="settings-strength__seg"></span>
+                        <span class="settings-strength__seg"></span>
+                      </div>
+                      <span class="settings-strength__label" data-settings-strength-label>Enter a new password</span>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label" for="setPwConfirm">Confirm new password</label>
+                      <input type="password" class="form-control" id="setPwConfirm" autocomplete="new-password" required minlength="8">
+                      <div class="invalid-feedback">Passwords must match.</div>
+                    </div>
+                  </div>
+
+                  <div class="settings-section">
+                    <h3 class="settings-section__title">Two-factor authentication</h3>
+                    <div class="settings-toggle-row">
+                      <div class="settings-toggle-row__meta">
+                        <p class="settings-toggle-row__title">Authenticator app</p>
+                        <p class="settings-toggle-row__desc">Use an app such as 1Password or Authy to generate 6-digit login codes.</p>
+                      </div>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="setSw2fa" data-settings-2fa checked>
+                        <label class="form-check-label visually-hidden" for="setSw2fa">Enable 2FA</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="settings-section">
+                    <h3 class="settings-section__title">Active sessions</h3>
+                    <div class="settings-session">
+                      <div class="settings-session__icon"><i class="bi bi-laptop"></i></div>
+                      <div class="settings-session__meta">
+                        <p class="settings-session__title">MacBook Pro · Chrome 128</p>
+                        <span class="settings-session__sub">San Francisco, CA · Signed in 12 min ago</span>
+                      </div>
+                      <span class="settings-session__badge">This device</span>
+                    </div>
+                    <div class="settings-session">
+                      <div class="settings-session__icon"><i class="bi bi-phone"></i></div>
+                      <div class="settings-session__meta">
+                        <p class="settings-session__title">iPhone 15 · Safari</p>
+                        <span class="settings-session__sub">San Francisco, CA · 2 hours ago</span>
+                      </div>
+                      <button type="button" class="btn btn-sm btn-outline-danger" data-settings-revoke>Revoke</button>
+                    </div>
+                    <div class="settings-session">
+                      <div class="settings-session__icon"><i class="bi bi-display"></i></div>
+                      <div class="settings-session__meta">
+                        <p class="settings-session__title">Windows PC · Firefox 122</p>
+                        <span class="settings-session__sub">Portland, OR · 3 days ago</span>
+                      </div>
+                      <button type="button" class="btn btn-sm btn-outline-danger" data-settings-revoke>Revoke</button>
+                    </div>
+                    <div class="settings-session">
+                      <div class="settings-session__icon"><i class="bi bi-tablet"></i></div>
+                      <div class="settings-session__meta">
+                        <p class="settings-session__title">iPad · Orchid App</p>
+                        <span class="settings-session__sub">Berlin, DE · 2 weeks ago</span>
+                      </div>
+                      <button type="button" class="btn btn-sm btn-outline-danger" data-settings-revoke>Revoke</button>
+                    </div>
+                  </div>
+
+                  <div class="d-flex justify-content-end gap-2 mt-4">
+                    <button type="button" class="btn btn-outline-secondary" data-settings-reset>Cancel</button>
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-shield-check me-1"></i>Update password</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- NOTIFICATIONS -->
+            <div class="tab-pane fade" id="pane-set-notifications" role="tabpanel" aria-labelledby="tab-set-notifications">
+              <div class="settings-panel">
+                <div class="settings-panel__head">
+                  <h2 class="h5 settings-panel__title">Notifications</h2>
+                  <p class="settings-panel__desc">Choose which notifications you want to receive and how.</p>
+                </div>
+
+                <form class="needs-validation" data-settings-form="Notification preferences" novalidate>
+                  <div class="settings-section">
+                    <h3 class="settings-section__title"><i class="bi bi-envelope me-1"></i>Email</h3>
+                    <div class="settings-toggle-row">
+                      <div class="settings-toggle-row__meta">
+                        <p class="settings-toggle-row__title">Product announcements</p>
+                        <p class="settings-toggle-row__desc">Occasional emails about new features and roadmap updates.</p>
+                      </div>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="nEmail1" data-settings-notify="Product announcements" checked>
+                        <label class="form-check-label visually-hidden" for="nEmail1">Toggle</label>
+                      </div>
+                    </div>
+                    <div class="settings-toggle-row">
+                      <div class="settings-toggle-row__meta">
+                        <p class="settings-toggle-row__title">Weekly digest</p>
+                        <p class="settings-toggle-row__desc">A Friday summary of team activity, mentions and deadlines.</p>
+                      </div>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="nEmail2" data-settings-notify="Weekly digest" checked>
+                        <label class="form-check-label visually-hidden" for="nEmail2">Toggle</label>
+                      </div>
+                    </div>
+                    <div class="settings-toggle-row">
+                      <div class="settings-toggle-row__meta">
+                        <p class="settings-toggle-row__title">Marketing &amp; tips</p>
+                        <p class="settings-toggle-row__desc">Occasional tips, guides and offers to help you get more from Orchid.</p>
+                      </div>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="nEmail3" data-settings-notify="Marketing emails">
+                        <label class="form-check-label visually-hidden" for="nEmail3">Toggle</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="settings-section">
+                    <h3 class="settings-section__title"><i class="bi bi-phone me-1"></i>Push</h3>
+                    <div class="settings-toggle-row">
+                      <div class="settings-toggle-row__meta">
+                        <p class="settings-toggle-row__title">Mentions</p>
+                        <p class="settings-toggle-row__desc">When teammates @mention you in comments or documents.</p>
+                      </div>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="nPush1" data-settings-notify="Mentions push" checked>
+                        <label class="form-check-label visually-hidden" for="nPush1">Toggle</label>
+                      </div>
+                    </div>
+                    <div class="settings-toggle-row">
+                      <div class="settings-toggle-row__meta">
+                        <p class="settings-toggle-row__title">Direct messages</p>
+                        <p class="settings-toggle-row__desc">Real-time push when you receive a private message.</p>
+                      </div>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="nPush2" data-settings-notify="DM push" checked>
+                        <label class="form-check-label visually-hidden" for="nPush2">Toggle</label>
+                      </div>
+                    </div>
+                    <div class="settings-toggle-row">
+                      <div class="settings-toggle-row__meta">
+                        <p class="settings-toggle-row__title">Task assignments</p>
+                        <p class="settings-toggle-row__desc">When a task is assigned to you or its deadline changes.</p>
+                      </div>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="nPush3" data-settings-notify="Task push">
+                        <label class="form-check-label visually-hidden" for="nPush3">Toggle</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="settings-section">
+                    <h3 class="settings-section__title"><i class="bi bi-chat-square-text me-1"></i>SMS</h3>
+                    <div class="settings-toggle-row">
+                      <div class="settings-toggle-row__meta">
+                        <p class="settings-toggle-row__title">Security alerts</p>
+                        <p class="settings-toggle-row__desc">Text you when we detect a new sign-in from an unrecognized device.</p>
+                      </div>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="nSms1" data-settings-notify="SMS security" checked>
+                        <label class="form-check-label visually-hidden" for="nSms1">Toggle</label>
+                      </div>
+                    </div>
+                    <div class="settings-toggle-row">
+                      <div class="settings-toggle-row__meta">
+                        <p class="settings-toggle-row__title">Urgent tasks</p>
+                        <p class="settings-toggle-row__desc">Text you when a task marked urgent is due within 1 hour.</p>
+                      </div>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="nSms2" data-settings-notify="SMS urgent">
+                        <label class="form-check-label visually-hidden" for="nSms2">Toggle</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="d-flex justify-content-end gap-2 mt-4">
+                    <button type="button" class="btn btn-outline-secondary" data-settings-reset>Cancel</button>
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-check2 me-1"></i>Save preferences</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- BILLING -->
+            <div class="tab-pane fade" id="pane-set-billing" role="tabpanel" aria-labelledby="tab-set-billing">
+              <div class="settings-panel">
+                <div class="settings-panel__head">
+                  <h2 class="h5 settings-panel__title">Billing &amp; plan</h2>
+                  <p class="settings-panel__desc">Manage your subscription, payment method and invoices.</p>
+                </div>
+
+                <div class="row g-3 g-lg-4">
+                  <div class="col-12 col-lg-7">
+                    <div class="settings-plan">
+                      <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                        <div>
+                          <span class="settings-plan__badge">Current plan</span>
+                          <h3 class="mt-2 mb-0">Pro</h3>
+                          <p class="mb-3 opacity-75">Best for growing teams up to 25 people.</p>
+                          <div class="settings-plan__price">$49<small>/seat / month</small></div>
+                        </div>
+                        <button type="button" class="btn btn-light" data-settings-upgrade>
+                          <i class="bi bi-arrow-up-circle me-1"></i>Upgrade to Business
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-lg-5">
+                    <div class="settings-card">
+                      <div>
+                        <div class="settings-card__brand">VISA</div>
+                      </div>
+                      <div>
+                        <div class="settings-card__number">•••• •••• •••• 4242</div>
+                        <div class="settings-card__foot mt-2">
+                          <span>Alex Kim</span>
+                          <span>Exp 09/28</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-end mt-2">
+                      <button type="button" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil me-1"></i>Update payment method</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="settings-section">
+                  <h3 class="settings-section__title">Usage this billing period</h3>
+                  <div class="settings-usage">
+                    <div class="settings-usage__head">
+                      <span>Seats</span><span>14 of 25</span>
+                    </div>
+                    <div class="progress" role="progressbar" aria-label="Seats" aria-valuenow="56" aria-valuemin="0" aria-valuemax="100">
+                      <div class="progress-bar bg-primary" data-orchid-progress="56"></div>
+                    </div>
+                  </div>
+                  <div class="settings-usage">
+                    <div class="settings-usage__head">
+                      <span>Storage</span><span>142 GB of 250 GB</span>
+                    </div>
+                    <div class="progress" role="progressbar" aria-label="Storage" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100">
+                      <div class="progress-bar bg-info" data-orchid-progress="57"></div>
+                    </div>
+                  </div>
+                  <div class="settings-usage">
+                    <div class="settings-usage__head">
+                      <span>API calls</span><span>820k of 1,000k</span>
+                    </div>
+                    <div class="progress" role="progressbar" aria-label="API calls" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100">
+                      <div class="progress-bar bg-warning" data-orchid-progress="82"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="settings-section">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h3 class="settings-section__title mb-0">Invoices</h3>
+                    <button type="button" class="btn btn-sm btn-outline-secondary"><i class="bi bi-download me-1"></i>Download all</button>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table orchid-table align-middle mb-0">
+                      <thead>
+                        <tr>
+                          <th scope="col">Invoice</th>
+                          <th scope="col">Date</th>
+                          <th scope="col">Amount</th>
+                          <th scope="col">Status</th>
+                          <th scope="col" class="text-end">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="fw-medium">INV-2026-0712</td>
+                          <td class="text-body-secondary">Jul 12, 2026</td>
+                          <td class="fw-semibold">$686.00</td>
+                          <td><span class="badge bg-success-subtle text-success">Paid</span></td>
+                          <td class="text-end">
+                            <button type="button" class="btn btn-sm btn-outline-secondary" data-settings-invoice="INV-2026-0712"><i class="bi bi-download"></i></button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="fw-medium">INV-2026-0612</td>
+                          <td class="text-body-secondary">Jun 12, 2026</td>
+                          <td class="fw-semibold">$637.00</td>
+                          <td><span class="badge bg-success-subtle text-success">Paid</span></td>
+                          <td class="text-end">
+                            <button type="button" class="btn btn-sm btn-outline-secondary" data-settings-invoice="INV-2026-0612"><i class="bi bi-download"></i></button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="fw-medium">INV-2026-0512</td>
+                          <td class="text-body-secondary">May 12, 2026</td>
+                          <td class="fw-semibold">$588.00</td>
+                          <td><span class="badge bg-success-subtle text-success">Paid</span></td>
+                          <td class="text-end">
+                            <button type="button" class="btn btn-sm btn-outline-secondary" data-settings-invoice="INV-2026-0512"><i class="bi bi-download"></i></button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="fw-medium">INV-2026-0412</td>
+                          <td class="text-body-secondary">Apr 12, 2026</td>
+                          <td class="fw-semibold">$539.00</td>
+                          <td><span class="badge bg-success-subtle text-success">Paid</span></td>
+                          <td class="text-end">
+                            <button type="button" class="btn btn-sm btn-outline-secondary" data-settings-invoice="INV-2026-0412"><i class="bi bi-download"></i></button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- TEAM -->
+            <div class="tab-pane fade" id="pane-set-team" role="tabpanel" aria-labelledby="tab-set-team">
+              <div class="settings-panel">
+                <div class="settings-panel__head">
+                  <h2 class="h5 settings-panel__title">Team</h2>
+                  <p class="settings-panel__desc">Invite teammates and manage their roles.</p>
+                </div>
+
+                <form class="settings-invite-form needs-validation" data-settings-invite-form novalidate>
+                  <input type="email" class="form-control" placeholder="teammate@company.com" aria-label="Email" required>
+                  <select class="form-select" aria-label="Role">
+                    <option>Owner</option>
+                    <option>Admin</option>
+                    <option selected>Editor</option>
+                    <option>Member</option>
+                    <option>Viewer</option>
+                  </select>
+                  <button type="submit" class="btn btn-primary"><i class="bi bi-person-plus me-1"></i>Send invite</button>
+                  <div class="invalid-feedback">Please enter a valid email.</div>
+                </form>
+
+                <div class="settings-section">
+                  <h3 class="settings-section__title">Members (5)</h3>
+                  <div class="table-responsive">
+                    <table class="table orchid-table align-middle mb-0">
+                      <thead>
+                        <tr>
+                          <th scope="col">Member</th>
+                          <th scope="col">Role</th>
+                          <th scope="col">Status</th>
+                          <th scope="col" class="text-end">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody data-settings-team-body>
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center gap-2">
+                              <span class="avatar avatar-sm bg-primary text-white fw-semibold">AK</span>
+                              <div>
+                                <p class="mb-0 fw-medium">Alex Kim</p>
+                                <small class="text-body-secondary">alex@orchid.io</small>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <select class="form-select form-select-sm settings-role-select">
+                              <option selected>Owner</option>
+                              <option>Admin</option>
+                              <option>Editor</option>
+                              <option>Member</option>
+                              <option>Viewer</option>
+                            </select>
+                          </td>
+                          <td><span class="badge bg-success-subtle text-success">Active</span></td>
+                          <td class="text-end">
+                            <button type="button" class="btn btn-sm btn-outline-secondary me-1" disabled>Resend</button>
+                            <button type="button" class="btn btn-sm btn-outline-danger" disabled>Remove</button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center gap-2">
+                              <span class="avatar avatar-sm bg-success text-white fw-semibold">SM</span>
+                              <div>
+                                <p class="mb-0 fw-medium">Sarah Miller</p>
+                                <small class="text-body-secondary">sarah@orchid.io</small>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <select class="form-select form-select-sm settings-role-select">
+                              <option>Owner</option>
+                              <option selected>Admin</option>
+                              <option>Editor</option>
+                              <option>Member</option>
+                              <option>Viewer</option>
+                            </select>
+                          </td>
+                          <td><span class="badge bg-success-subtle text-success">Active</span></td>
+                          <td class="text-end">
+                            <button type="button" class="btn btn-sm btn-outline-secondary me-1" data-settings-resend>Resend</button>
+                            <button type="button" class="btn btn-sm btn-outline-danger" data-settings-remove>Remove</button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center gap-2">
+                              <span class="avatar avatar-sm bg-info text-white fw-semibold">JD</span>
+                              <div>
+                                <p class="mb-0 fw-medium">James Doe</p>
+                                <small class="text-body-secondary">james@orchid.io</small>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <select class="form-select form-select-sm settings-role-select">
+                              <option>Owner</option>
+                              <option>Admin</option>
+                              <option selected>Editor</option>
+                              <option>Member</option>
+                              <option>Viewer</option>
+                            </select>
+                          </td>
+                          <td><span class="badge bg-success-subtle text-success">Active</span></td>
+                          <td class="text-end">
+                            <button type="button" class="btn btn-sm btn-outline-secondary me-1" data-settings-resend>Resend</button>
+                            <button type="button" class="btn btn-sm btn-outline-danger" data-settings-remove>Remove</button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center gap-2">
+                              <span class="avatar avatar-sm bg-warning text-white fw-semibold">AL</span>
+                              <div>
+                                <p class="mb-0 fw-medium">Ava Lee</p>
+                                <small class="text-body-secondary">ava@orchid.io</small>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <select class="form-select form-select-sm settings-role-select">
+                              <option>Owner</option>
+                              <option>Admin</option>
+                              <option>Editor</option>
+                              <option selected>Member</option>
+                              <option>Viewer</option>
+                            </select>
+                          </td>
+                          <td><span class="badge bg-warning-subtle text-warning">Invited</span></td>
+                          <td class="text-end">
+                            <button type="button" class="btn btn-sm btn-outline-secondary me-1" data-settings-resend>Resend</button>
+                            <button type="button" class="btn btn-sm btn-outline-danger" data-settings-remove>Remove</button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="d-flex align-items-center gap-2">
+                              <span class="avatar avatar-sm bg-danger text-white fw-semibold">RG</span>
+                              <div>
+                                <p class="mb-0 fw-medium">Ryan Green</p>
+                                <small class="text-body-secondary">ryan@orchid.io</small>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <select class="form-select form-select-sm settings-role-select">
+                              <option>Owner</option>
+                              <option>Admin</option>
+                              <option>Editor</option>
+                              <option>Member</option>
+                              <option selected>Viewer</option>
+                            </select>
+                          </td>
+                          <td><span class="badge bg-success-subtle text-success">Active</span></td>
+                          <td class="text-end">
+                            <button type="button" class="btn btn-sm btn-outline-secondary me-1" data-settings-resend>Resend</button>
+                            <button type="button" class="btn btn-sm btn-outline-danger" data-settings-remove>Remove</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- DANGER ZONE -->
+            <div class="tab-pane fade" id="pane-set-danger" role="tabpanel" aria-labelledby="tab-set-danger">
+              <div class="settings-panel">
+                <div class="settings-panel__head">
+                  <h2 class="h5 settings-panel__title">Danger Zone</h2>
+                  <p class="settings-panel__desc">Destructive actions that affect your account and data.</p>
+                </div>
+
+                <div class="settings-danger">
+                  <h3 class="settings-danger__title"><i class="bi bi-exclamation-triangle-fill"></i>Proceed with caution</h3>
+                  <p class="text-body-secondary mb-0">These actions can’t be undone. Please take a moment to make sure this is what you want.</p>
+
+                  <div class="settings-danger__row">
+                    <div>
+                      <h6>Export account data</h6>
+                      <p>Download a copy of your workspaces, projects and messages as a ZIP archive.</p>
+                    </div>
+                    <button type="button" class="btn btn-outline-danger" data-settings-danger="export"><i class="bi bi-download me-1"></i>Export data</button>
+                  </div>
+
+                  <div class="settings-danger__row">
+                    <div>
+                      <h6>Deactivate account</h6>
+                      <p>Temporarily disable your account. Sign back in anytime to reactivate.</p>
+                    </div>
+                    <button type="button" class="btn btn-outline-danger" data-settings-danger="deactivate"><i class="bi bi-pause-circle me-1"></i>Deactivate</button>
+                  </div>
+
+                  <div class="settings-danger__row">
+                    <div>
+                      <h6>Delete account permanently</h6>
+                      <p>All workspaces, data and files will be permanently removed after 30 days.</p>
+                    </div>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccountModal"><i class="bi bi-trash me-1"></i>Delete account</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================== FOOTER ================== -->
+      <footer class="orchid-footer" role="contentinfo">
+        <div class="container-fluid px-3 px-lg-4">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <p class="mb-0 small text-body-secondary">© <span data-orchid-year></span> Orchid. Crafted with <i class="bi bi-heart-fill text-danger"></i> for modern teams.</p>
+            <ul class="list-inline mb-0 small">
+              <li class="list-inline-item"><a class="text-body-secondary" href="#">Privacy</a></li>
+              <li class="list-inline-item"><a class="text-body-secondary" href="#">Terms</a></li>
+              <li class="list-inline-item"><a class="text-body-secondary" href="#">Support</a></li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Delete account modal -->
+  <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true" data-settings-expected="alex-kim">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteAccountModalLabel"><i class="bi bi-exclamation-triangle-fill text-danger me-2"></i>Delete account</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="mb-2">This will permanently delete your account and all associated data after a 30-day grace period. This action cannot be undone.</p>
+          <p class="mb-2 small text-body-secondary">To confirm, type <code>alex-kim</code> in the box below.</p>
+          <label class="form-label" for="deleteConfirmInput">Confirmation</label>
+          <input type="text" class="form-control" id="deleteConfirmInput" placeholder="alex-kim" autocomplete="off" data-settings-delete-input>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" data-settings-delete-confirm disabled><i class="bi bi-trash me-1"></i>Delete my account</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="assets/js/theme.js" defer></script>
+  <script src="assets/js/sidebar.js" defer></script>
+  <script src="assets/js/charts.js" defer></script>
+  <script src="assets/js/orchid.js" defer></script>
+  <script src="assets/js/pages/profile.js" defer></script>
+</body>
+</html>

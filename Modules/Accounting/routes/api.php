@@ -11,7 +11,7 @@ use Modules\Accounting\Http\Controllers\AccountingController;
 |--------------------------------------------------------------------------
 */
 
-Route::prefix('v1')->middleware('auth:api')->group(function (): void {
+Route::prefix('v1')->middleware(['auth:api', 'tenant.init', 'module:accounting'])->group(function (): void {
     Route::prefix('accounting')->name('accounting.')->group(function (): void {
         Route::get('/', [AccountingController::class, 'index'])->name('index');
     });

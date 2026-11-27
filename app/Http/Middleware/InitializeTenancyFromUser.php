@@ -29,7 +29,24 @@ class InitializeTenancyFromUser
         if ($user instanceof User && ! $user->is_platform_admin && $user->tenant_id !== null) {
             $tenant = Tenant::query()->find($user->tenant_id);
 
-            abort_if($tenant === null || ! $tenant->is_active, 403, 'Your tenant is unavailable.');
+            if ($tenant === null || ! $tenant->is_active) {
+                // Web panel: sign out and send back to login with a toast.
+                if (! $request->expectsJson() && ! $request->is('api/*') && $request->hasSession()) {
+                    auth()->guard('web')->logout();
+                    $request->session()->invalidate();
+                    $request->session()->regenerateToken();
+
+                    return redirect()->route('login')->with('toast', [
+                        'type' => 'error',
+                        'title' => $tenant ? 'Account inactive' : 'Organization not found',
+                        'message' => $tenant
+                            ? "Your organization ({$tenant->name}) has been deactivated. Please contact the administrator."
+                            : 'Your organization no longer exists. Please contact the administrator.',
+                    ]);
+                }
+
+                abort(403, 'Your tenant is unavailable.');
+            }
 
             $this->tenancy->initialize($tenant);
         }

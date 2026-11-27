@@ -1,0 +1,4 @@
+{
+  "name": "nwidart/ecommerce",
+  "autoload": {"psr-4": {"Modules\\Ecommerce\\": "app/"}}
+}

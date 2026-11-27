@@ -1,0 +1,6 @@
+.orchid-main {
+  flex: 1;
+  min-height: calc(100vh - #{$orchid-header-h});
+
+  &:focus { outline: none; }
+}

@@ -1,0 +1,29 @@
+.orchid-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .625rem;
+  text-decoration: none;
+  color: var(--orchid-text);
+
+  &__logo {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(79,70,229,.12), rgba(34,211,238,.12));
+
+    svg { width: 26px; height: 26px; }
+  }
+
+  &__text {
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -.02em;
+    background: linear-gradient(90deg, $orchid-primary, $orchid-accent);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}

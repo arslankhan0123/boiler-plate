@@ -44,6 +44,8 @@ class TenantDatabaseSeeder extends Seeder
             $this->grantColumns($role, DefaultRoles::columnGrantsFor($name));
         }
 
+        $this->call(RoleSeeder::class);
+
         app(PermissionRegistrar::class)->forgetCachedPermissions();
     }
 

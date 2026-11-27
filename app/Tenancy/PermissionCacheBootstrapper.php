@@ -32,10 +32,13 @@ class PermissionCacheBootstrapper implements TenancyBootstrapper
     public function bootstrap(Tenant $tenant): void
     {
         $this->registrar->cacheKey = $this->centralCacheKey.'.tenant.'.(string) $tenant->getTenantKey();
+        // Drop the permissions already loaded in memory (they belong to the previous DB).
+        $this->registrar->clearPermissionsCollection();
     }
 
     public function revert(): void
     {
         $this->registrar->cacheKey = $this->centralCacheKey;
+        $this->registrar->clearPermissionsCollection();
     }
 }

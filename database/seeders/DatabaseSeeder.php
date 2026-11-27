@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            AdminUserSeeder::class,
+            // AdminUserSeeder::class,
+            MasterAdminSeeder::class,
             // Central master reference data (shared by all tenants). Order matters:
             // states link to countries and cities link to states via parent_id, so
             // parents must be seeded first.

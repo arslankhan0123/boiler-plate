@@ -1,0 +1,11 @@
+.orchid-theme-toggle {
+  position: relative;
+
+  &__sun, &__moon { transition: opacity 200ms ease, transform 300ms ease; }
+  &__moon { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transform: rotate(-90deg); }
+}
+
+[data-bs-theme="dark"] .orchid-theme-toggle {
+  &__sun  { opacity: 0; transform: rotate(90deg); }
+  &__moon { opacity: 1; transform: rotate(0deg); }
+}

@@ -75,6 +75,11 @@ class User extends Authenticatable implements OAuthenticatable
      */
     public function checkPermissionTo($permission, ?string $guardName = null): bool
     {
+        // A module that is not enabled for the user's tenant is never allowed.
+        if (is_string($permission) && \App\Support\ModuleAccess::moduleEnabledFor($this, $permission) === false) {
+            return false;
+        }
+
         if ($this->is_platform_admin) {
             return true;
         }
@@ -87,6 +92,11 @@ class User extends Authenticatable implements OAuthenticatable
      *
      * @var list<string>
      */
+    public function tenant(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Tenant::class);
+    }
+
     protected $fillable = [
         'name',
         'email',

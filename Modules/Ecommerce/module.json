@@ -1,0 +1,9 @@
+{
+  "name": "Ecommerce",
+  "alias": "ecommerce",
+  "description": "Tenant-aware catalogue, orders, fulfilment tracking and invoicing.",
+  "keywords": ["ecommerce", "catalogue", "orders"],
+  "priority": 0,
+  "providers": ["Modules\\Ecommerce\\Providers\\EcommerceServiceProvider"],
+  "files": []
+}
